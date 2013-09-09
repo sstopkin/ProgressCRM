@@ -1,0 +1,3 @@
+function submitCall() {
+    $("#submitCallId").val();
+}
