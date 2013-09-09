@@ -50,17 +50,28 @@ $(document).ready(function() {
         e.preventDefault();
         getAboutPage("about");
     });
+
+    $("#callsLink").click(function(e) {
+        e.preventDefault();
+        getCallsPage();
+    });
 });
+
 function getMainPage() {
     $.get("main.html", function(data) {
         $("#mainContainer").html(data);
     });
 //    getNews();
-//    getAllStat();
 }
 
 function getAboutPage() {
     $.get("about.html", function(data) {
+        $("#mainContainer").html(data);
+    });
+}
+
+function getCallsPage() {
+    $.get("calls.html", function(data) {
         $("#mainContainer").html(data);
     });
 }
