@@ -10,23 +10,22 @@ function getApartamentViewPage(apartamentId) {
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
-                ymaps.ready(function() {
-                    if (map_created)
-                        return;
-                    map_created = true;
-
-                    map = new ymaps.Map('mapApartamentsView', {
-                        center: [73.378, 54.983],
-                        zoom: 12
-                    });
-                    map.controls.add('smallZoomControl', {top: 5, left: 5});
-                });
-                MapUpdateView(array.apartaments.cityName,
-                        array.apartaments.streetName,
-                        array.apartaments.houseNumber,
-                        array.apartaments.buildingNumber);
+//                ymaps.ready(function() {
+//                    if (map_created)
+//                        return;
+//                    map_created = true;
+//
+//                    map = new ymaps.Map('mapApartamentsView', {
+//                        center: [73.378, 54.983],
+//                        zoom: 12
+//                    });
+//                    map.controls.add('smallZoomControl', {top: 5, left: 5});
+//                });
+//                MapUpdateView(array.apartaments.cityName,
+//                        array.apartaments.streetName,
+//                        array.apartaments.houseNumber,
+//                        array.apartaments.buildingNumber);
                 var content = "";
-
 
                 console.log(array.apartamentsPhotosList);
 
@@ -123,6 +122,33 @@ function getApartamentViewPage(apartamentId) {
                 console.log(array.apartaments.сreationDate);
 
                 $("#apartamentsFeatures").html(content);
+            },
+            error: function(data) {
+                showDanger(data.responseText);
+                return false;
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "api/calls/getcalls?id=" + apartamentId,
+            success: function(data) {
+                $("#errorBlock").css("display", "none");
+                var array = JSON.parse(data);
+                var str = "";
+                str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
+                str += "<thead class='t-header'>Звонки<tr>";
+                str += "<th>Дата</th>";
+                str += "<th>Комментарий</th>";
+                str += "</tr></thead>";
+                str += "<tbody>";
+                for (var j = 0; j < array.length; ++j) {
+                    str += "<tr><td>";
+                    str += array[j].date;
+                    str += "</td><td>";
+                    str += array[j].description;
+                }
+                str += "\n</tbody>\n</table>\n";
+                $("#customersCalls").html(str);
             },
             error: function(data) {
                 showDanger(data.responseText);

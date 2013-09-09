@@ -58,6 +58,7 @@ $(document).ready(function() {
 });
 
 function getMainPage() {
+    $("#addApartaments").css("display", "none");
     $.get("main.html", function(data) {
         $("#mainContainer").html(data);
     });
@@ -65,18 +66,21 @@ function getMainPage() {
 }
 
 function getAboutPage() {
+    $("#addApartaments").css("display", "none");
     $.get("about.html", function(data) {
         $("#mainContainer").html(data);
     });
 }
 
 function getCallsPage() {
+    $("#addApartaments").css("display", "none");
     $.get("calls.html", function(data) {
         $("#mainContainer").html(data);
     });
 }
 
 function getAdminPage() {
+    $("#addApartaments").css("display", "none");
     $.get("api/auth/validate", function(data) {
         if (data == "3") {
             $.get("admin.html", function(data) {
@@ -91,6 +95,7 @@ function getAdminPage() {
 }
 
 function getNews() {
+    $("#addApartaments").css("display", "none");
     $.get("api/news", function(data) {
         var str = "<table class=\"table\"><tbody>\n";
         var ids = [];

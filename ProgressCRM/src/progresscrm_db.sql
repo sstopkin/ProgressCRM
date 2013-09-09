@@ -110,4 +110,4 @@ PRIMARY KEY (`id`) ,
 INDEX `ApartamentsIdIndex` (`ApartamentsId` ASC));
 
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
-	VALUES ('Aлександр', 'Бабило','Бабило', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'ababilo@issart.com', false);
+	VALUES ('fName', 'sName','lName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'ababilo@issart.com', false);

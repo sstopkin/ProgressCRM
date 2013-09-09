@@ -1,5 +1,5 @@
 function addApartament() {
-    alert("asd");
+    $("#mainContainer").html("");//FIXME
     $("#addApartaments").css("display", "block");
     $("#errorBlock").css("display", "none");
     $("#apartamentAddReadyLink").css("display", "inline");
