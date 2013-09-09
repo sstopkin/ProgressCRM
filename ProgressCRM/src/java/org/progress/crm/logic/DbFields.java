@@ -19,4 +19,10 @@ public class DbFields {
 
         public final static String APARTAMENTS_ID = "ApartamentsId";
     }
+
+    public class CALLS {
+
+        public final static String ID = "apartamentId";
+        public final static String DATE = "date";
+    }
 }
