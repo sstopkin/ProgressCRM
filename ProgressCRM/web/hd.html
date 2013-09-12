@@ -1,2 +1,63 @@
-<div>hd
-</div>
+<!-- Button trigger modal -->
+<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Launch demo modal</a>
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form method='post' action='#' class="register" id="register" name="registerForm">
+                    <div class="row">
+                        <div class="form-group" id="emailDiv">
+                            <label class="control-label col-md-4" for="email">Email адрес<span class="req">*</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control input-block-level required" id="email" name="email" placeholder="" value=''/>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="form-group" id="nameDiv">
+                            <label class="control-label col-md-4" for="name">Имя<span class="req">*</span>
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control input-block-level required" id="name" name="name" placeholder="" value='' />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="form-group" id="lnameDiv">
+                            <label class="control-label col-md-4" for="lname">Фамилия<span class="req">*</span>
+
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control input-block-level required" id="lname" name="lname" placeholder="" value='' />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">   
+                        <div class="form-group" id="passwordDiv">
+                            <label class="control-label col-md-4" for="password">Пароль<span class="req">*</span>
+
+                            </label>
+                            <div class="col-md-8">
+                                <input type="password" class="form-control input-block-level required" id="password" name="password" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="addHelpDeskRequestModalBtn" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
