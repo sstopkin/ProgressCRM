@@ -34,7 +34,10 @@ $(document).ready(function() {
         e.preventDefault();
         getapartamentsListPage();
     });
-
+    $("#helpDeskLink").click(function(e) {
+        e.preventDefault();
+        getHelpDeskPage();
+    });
 
     $("#tasksLink").click(function(e) {
         e.preventDefault();
@@ -78,6 +81,14 @@ function getCallsPage() {
         $("#mainContainer").html(data);
     });
 }
+
+function getHelpDeskPage() {
+    $("#addApartaments").css("display", "none");
+    $.get("hd.html", function(data) {
+        $("#mainContainer").html(data);
+    });
+}
+
 
 function getAdminPage() {
     $("#addApartaments").css("display", "none");
