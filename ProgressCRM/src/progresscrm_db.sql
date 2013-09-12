@@ -28,17 +28,6 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Customers` (
 PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
--- Table `progresscrm`.`ApartamentsPhoto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `progresscrm`.`ApartamentsPhoto` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`Description` VARCHAR(50) CHARACTER SET utf8,
-`ApartamentsId` INT NOT NULL ,
-PRIMARY KEY (`id`) ,
-UNIQUE INDEX `FilenameIndex` (`Filename` ASC) );
-
--- -----------------------------------------------------
 -- Table `progresscrm`.`Apartaments`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
@@ -78,9 +67,21 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
 `IsApproved` TINYINT(1) NOT NULL DEFAULT false ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 
-
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`) ,
 INDEX `idCustomerIndex` (`idWorker` ASC));
+
+-- -----------------------------------------------------
+-- Table `progresscrm`.`ApartamentsPhoto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `progresscrm`.`ApartamentsPhoto` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Description` VARCHAR(50) CHARACTER SET utf8,
+`ApartamentsId` INT NOT NULL ,
+FOREIGN KEY (ApartamentsId) REFERENCES Apartaments(id),
+PRIMARY KEY (`id`) ,
+UNIQUE INDEX `FilenameIndex` (`Filename` ASC) );
 
 -- -----------------------------------------------------
 -- Table `progresscrm`.`HelpDesk`
@@ -94,6 +95,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`HelpDesk` (
 `CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `LastModify` TIMESTAMP NOT NULL,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`) ,
 INDEX `idWorkerIndex` (`idWorker` ASC));
 
@@ -106,6 +108,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Calls` (
 `ApartamentsId` INT NOT NULL ,
 `Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+FOREIGN KEY (ApartamentsId) REFERENCES Apartaments(id),
 PRIMARY KEY (`id`) ,
 INDEX `ApartamentsIdIndex` (`ApartamentsId` ASC));
 
