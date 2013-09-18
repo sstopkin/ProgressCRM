@@ -84,9 +84,6 @@ function getCallsPage() {
     });
 }
 
-
-
-
 function getAdminPage() {
     $("#addApartaments").css("display", "none");
     $.get("api/auth/validate", function(data) {
