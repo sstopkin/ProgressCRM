@@ -2,6 +2,8 @@ package org.progress.crm.controllers;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
@@ -12,6 +14,9 @@ import org.progress.crm.exceptions.IsNotAuthenticatedException;
 @Singleton
 public class CallsController {
 
+    @EJB
+    AuthenticationManager authManager;
+
     public List getCallsByApartsId(Session session, String apartamentsId) throws CustomException, SQLException {
         if (apartamentsId == null) {
             throw new BadRequestException();
@@ -19,11 +24,17 @@ public class CallsController {
         return DaoFactory.getCallsDao().getCustomerCallsByApartamentsId(session, Integer.valueOf(apartamentsId));
     }
 
-    public boolean addCallsByApartsId(Session session, String token, String apartamentId, String description) throws CustomException, SQLException {
+    public boolean addCallsByApartsId(Session session, String token, String apartamentsId, String description) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        DaoFactory.getCallsDao().addCustomerCall(session, Integer.valueOf(apartamentId), description);
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authManager.getUserIdByToken(uuid);
+
+        if (apartamentsId == null) {
+            throw new BadRequestException();
+        }
+        DaoFactory.getCallsDao().addCustomerCall(session, Integer.valueOf(apartamentsId), description, idWorker);
         return true;
     }
 //

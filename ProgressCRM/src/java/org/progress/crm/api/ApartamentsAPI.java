@@ -78,6 +78,7 @@ public class ApartamentsAPI {
             @FormParam("houseNumber") final String houseNumber,
             @FormParam("buildingNumber") final String buildingNumber,
             @FormParam("kladrId") final String kladrId,
+            @FormParam("shortAddress") final String shortAddress,
             @FormParam("price") final String price,
             @FormParam("citydistrict") final String cityDistrict,
             @FormParam("floor") final String floor,
@@ -100,14 +101,13 @@ public class ApartamentsAPI {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                String idWorker = "666";
                 boolean result = apartamentsController.addApartament(session, token,
-                        typeOfSales, cityName, streetName, houseNumber, buildingNumber, 
-                        kladrId, price, cityDistrict, floor, floors,
+                        typeOfSales, cityName, streetName, houseNumber, buildingNumber,
+                        kladrId, shortAddress, price, cityDistrict, floor, floors,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
                         pureSale, mortgage, exchange, rent, rePlanning,
-                        clientPhone, clientDescription, idWorker);
+                        clientPhone, clientDescription);
                 return ApiHelper.getResponse(result);
             }
         });
@@ -140,13 +140,12 @@ public class ApartamentsAPI {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                String idWorker = "666";
                 boolean result = apartamentsController.editApartament(session, token, id,
                         typeOfSales, price, cityDistrict, floor, floors,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
                         pureSale, mortgage, exchange, rent, rePlanning,
-                        clientPhone, clientDescription, idWorker);
+                        clientPhone, clientDescription);
                 return ApiHelper.getResponse(false);
             }
         });

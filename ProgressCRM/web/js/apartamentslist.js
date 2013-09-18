@@ -22,10 +22,8 @@ function getapartamentsListPage() {
                     str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
-                            + entry.apartaments.streetName + " "
-                            + entry.apartaments.houseNumber + " "
-                            + entry.apartaments.buildingNumber + " - "
-                            + entry.apartaments.price;
+                            + entry.apartaments.shortAddress
+                            + "<p>Цена: " + entry.apartaments.price + "</p>";
                     str += "</h4>";
                     str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";
                     str += "</div>";

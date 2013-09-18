@@ -1,3 +1,10 @@
+function getHelpDeskPage() {
+    $("#addApartaments").css("display", "none");
+    $.get("hd.html", function(data) {
+        $("#mainContainer").html(data);
+    });
+}
+
 $("#addHelpDeskRequestModalBtn").click(function() {
     alert("asd");
 //    $("#regErr").css("display", "none");
