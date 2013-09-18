@@ -8,6 +8,8 @@ $(document).ready(function() {
         $("#helpInfoBlock").css("display", "none");
         $('#taskContentHelp').addClass("hiddenHelp");
     });
+    getMainPage();
+    $("#addApartaments").css("display", "none");
     $.ajax({
         type: "GET",
         url: "api/auth",
@@ -82,12 +84,7 @@ function getCallsPage() {
     });
 }
 
-function getHelpDeskPage() {
-    $("#addApartaments").css("display", "none");
-    $.get("hd.html", function(data) {
-        $("#mainContainer").html(data);
-    });
-}
+
 
 
 function getAdminPage() {

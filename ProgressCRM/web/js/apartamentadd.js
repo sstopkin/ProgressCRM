@@ -75,6 +75,7 @@ function addApartament() {
                 houseNumber: $('#apartamentBuilding').text(),
                 buildingNumber: $('#apartamentBuildingAdd').text(),
                 kladrId: $('#Price').val(),
+                shortAddress: $('#address').text(),
                 price: $('#Price').val(),
                 citydistrict: $('#CityDistrict').val(),
                 floor: $('#Floor').val(),
@@ -104,5 +105,6 @@ function addApartament() {
                 showDanger(data.responseText);
             }
         });
+        $("#addApartaments").css("display", "none");
     });
 }

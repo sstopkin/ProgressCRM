@@ -21,6 +21,7 @@ public class Apartaments implements Serializable {
     private String houseNumber;
     private String buildingNumber;
     private String kladrId;
+    private String shortAddress;
     private int typeOfSales;
     private int price;
     private int cityDistrict;
@@ -50,7 +51,7 @@ public class Apartaments implements Serializable {
     public Apartaments() {
     }
 
-    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId, int price, int cityDistrict, int floor, int floors, int material, int sizeApartament, int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction, String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage, boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning, String clientPhone, String clientDescription, int idWorker, boolean IsApproved) {
+    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress, int price, int cityDistrict, int floor, int floors, int material, int sizeApartament, int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction, String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage, boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning, String clientPhone, String clientDescription, int idWorker, boolean IsApproved) {
         this.typeOfSales = typeOfSales;
         this.price = price;
         this.cityDistrict = cityDistrict;
@@ -81,6 +82,7 @@ public class Apartaments implements Serializable {
         this.houseNumber = houseNumber;
         this.buildingNumber = buildingNumber;
         this.kladrId = kladrId;
+        this.shortAddress = shortAddress;
     }
 
     @Id
@@ -92,6 +94,15 @@ public class Apartaments implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Column(name = "ShortAddress")
+    public String getShortAddress() {
+        return shortAddress;
+    }
+
+    public void setShortAddress(String shortAddress) {
+        this.shortAddress = shortAddress;
     }
 
     @Column(name = "CityName")

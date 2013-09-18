@@ -38,6 +38,8 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
 `HouseNumber` VARCHAR(50) CHARACTER SET utf8,
 `BuildingNumber` VARCHAR(50) CHARACTER SET utf8,
 `KladrId` VARCHAR(50) CHARACTER SET utf8,
+`ShortAddress` VARCHAR(100) CHARACTER SET utf8,
+
 
 `TypeOfSales` TINYINT(1) NOT NULL DEFAULT 0,
 `Price` INT NOT NULL ,
@@ -108,6 +110,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Calls` (
 `ApartamentsId` INT NOT NULL ,
 `Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`idWorker` INT NOT NULL ,
 FOREIGN KEY (ApartamentsId) REFERENCES Apartaments(id),
 PRIMARY KEY (`id`) ,
 INDEX `ApartamentsIdIndex` (`ApartamentsId` ASC));

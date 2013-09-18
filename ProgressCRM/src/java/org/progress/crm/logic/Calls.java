@@ -19,14 +19,16 @@ public class Calls implements Serializable {
     private int apartamentId;
     private Date date;
     private String description;
+    private int idWorker;
 
     public Calls() {
     }
 
-    public Calls(int apartamentId, Date date, String description) {
+    public Calls(int apartamentId, Date date, String description, int idWorker) {
         this.apartamentId = apartamentId;
         this.date = date;
         this.description = description;
+        this.idWorker = idWorker;
     }
 
     @Id
@@ -38,6 +40,15 @@ public class Calls implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Column(name = "idWorker")
+    public int getIdWorker() {
+        return idWorker;
+    }
+
+    public void setIdWorker(int idWorker) {
+        this.idWorker = idWorker;
     }
 
     @Column(name = "Description")

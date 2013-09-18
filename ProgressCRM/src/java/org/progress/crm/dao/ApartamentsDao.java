@@ -9,7 +9,7 @@ import org.progress.crm.logic.Apartaments;
 public class ApartamentsDao {
 
     public int addApartament(final Session session, int typeOfSales, String cityName,
-            String streetName, String houseNumber, String buildingNumber, String kladrId,
+            String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress,
             int price, int cityDistrict, int floor, int floors, int material,
             int sizeApartament, int sizeLiving, int sizeKitchen, int balcony,
             int loggia, int yearOfConstruction, String description,
@@ -18,7 +18,7 @@ public class ApartamentsDao {
             boolean rePplanning, String clientPhone, String clientDescription,
             int idWorker, boolean IsApproved) throws CustomException {
         return (int) session.save(new Apartaments(typeOfSales, cityName, streetName,
-                houseNumber, buildingNumber, kladrId, price, cityDistrict, floor,
+                houseNumber, buildingNumber, kladrId, shortAddress, price, cityDistrict, floor,
                 floors, material, sizeApartament, sizeLiving, sizeKitchen, balcony,
                 loggia, yearOfConstruction, description, MethodOfPurchase_PureSale,
                 MethodOfPurchase_Mortgage, MethodOfPurchase_Exchange, MethodOfPurchase_Rent,

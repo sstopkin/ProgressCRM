@@ -35,6 +35,25 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "ID = " + array.apartaments.id;
                 content += "</p>";
+
+
+                content += "<p>";
+                switch (array.apartaments.typeOfSales) {
+                    case 1:
+                        content += "Эксклюзивная продажа";
+                        break;
+                    case 2:
+                        content += "Общая продажа";
+                        break;
+                    default:
+                        content += "";
+                }
+                content += "</p>";
+
+                content += "<p>";
+                content += "Цена = " + array.apartaments.price;
+                content += "</p>";
+
                 if (array.apartaments.MethodOfPurchase_Mortgage) {
                     content += "<p>";
                     content += "Ипотека";
@@ -55,6 +74,16 @@ function getApartamentViewPage(apartamentId) {
                     content += "Аренда";
                     content += "</p>";
                 }
+
+                content += "<p>";
+                content += "Перепланировки: ";
+                if (array.apartaments.rePplanning) {
+                    content += "Да";
+                }
+                else {
+                    content += "Нет";
+                }
+                content += "</p>";
 
                 content += "<p>";
                 switch (array.apartaments.cityDistrict) {
@@ -88,19 +117,25 @@ function getApartamentViewPage(apartamentId) {
                     content += "Лоджия " + array.apartaments.loggia;
                     content += "</p>";
                 }
+                content += "<p>";
+                content += "Этажность " + array.apartaments.floors;
+                content += "</p>";
+                content += "<p>";
+                content += "Этаж " + array.apartaments.floor;
+                content += "</p>";
+
+                content += "<p>";
+                content += "Описание " + array.apartaments.description;
+                content += "</p>";
 
                 console.log(array.apartaments.clientDescription);
                 console.log(array.apartaments.clientPhone);
-                console.log(array.apartaments.description);
-                console.log(array.apartaments.floor);
-                console.log(array.apartaments.floors);
+
                 console.log(array.apartaments.idWorker);
                 console.log(array.apartaments.kladrId);
                 console.log(array.apartaments.lastModify);
 
                 console.log(array.apartaments.material);
-                console.log(array.apartaments.price);
-                console.log(array.apartaments.rePplanning);
                 console.log(array.apartaments.sizeApartament);
                 console.log(array.apartaments.sizeKitchen);
                 console.log(array.apartaments.idWorker);
@@ -108,8 +143,6 @@ function getApartamentViewPage(apartamentId) {
                 console.log(array.apartaments.lastModify);
                 console.log(array.apartaments.loggia);
                 console.log(array.apartaments.material);
-                console.log(array.apartaments.price);
-                console.log(array.apartaments.rePplanning);
                 console.log(array.apartaments.sizeApartament);
                 console.log(array.apartaments.sizeKitchen);
                 console.log(array.apartaments.sizeLiving);
