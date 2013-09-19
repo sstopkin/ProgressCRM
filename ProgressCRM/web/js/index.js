@@ -133,3 +133,26 @@ function showWarning(message) {
     $("#errorMessage").html(message);
     $("#errorBlock").css("display", "block");
 }
+
+function checkStatus() {
+    $.ajax({
+        type: "GET",
+        url: "api/auth",
+        success: function(data) {
+            $("#profileLink").html(data);
+            $("#logged").css("display", "block");
+            $("#loginForm").css("display", "none");
+//            $.get("api/auth/validate", function(data3) {
+//                var permissions = data3;
+//                if (permissions == "3") {
+//                    $('#adminTabLink').css("display", "block");
+//                }
+//            });
+        },
+        error: function(data) {
+            $("#loginForm").css("display", "block");
+            $("#logged").css("display", "none");
+//            $('#adminTabLink').css("display", "none");
+        }
+    });
+}
