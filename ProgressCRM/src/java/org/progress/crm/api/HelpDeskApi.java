@@ -41,11 +41,11 @@ public class HelpDeskApi {
     @Path("addrequest")
     public Response addCustomer(@CookieParam("token") final String token,
             @FormParam("request") final String request,
-            @FormParam("description") final String description) throws SQLException, CustomException {
+            @FormParam("text") final String text) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = helpDeskController.addHelpDeskRequest(session, token, request, description);
+                boolean result = helpDeskController.addHelpDeskRequest(session, token, request, text);
                 return ApiHelper.getResponse(result);
             }
         });

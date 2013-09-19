@@ -8,10 +8,21 @@ function getHelpDeskPage() {
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
-                var content = "";
-//
-//                console.log(array.apartamentsPhotosList);
-//
+                var str = "";
+                array.forEach(function(entry) {
+                    str += "<div class = \"media\">";
+                    str += "<a class = \"pull-left\" href = \"#\">";
+                    str += "<img class=\"media-object\" src=\"js/lib/highslide/images/thumbstrip24.thumb.png\" alt=\"...\">";
+                    str += "</a>";
+                    str += "<div class=\"media-body\">";
+                    str += "<h4 class=\"media-heading\">"
+                            + entry.request
+                            + "<p>Цена: " + entry.creationDate + "</p>";
+                    str += "</h4>";
+                    str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.id + " \')\">ссылка</a>";
+                    str += "</div>";
+                    str += "</div>";
+                });
 //                console.log(array.apartaments.IsApproved);
 //                console.log(array.apartaments.deleted);
 //
@@ -21,7 +32,7 @@ function getHelpDeskPage() {
 //                content += "</p>";
 
 
-                $("#mainHelpDeskContainer").html(content);
+                $("#mainHelpDeskContainer").html(str);
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -32,5 +43,21 @@ function getHelpDeskPage() {
 }
 
 function addHelpDeskRequest() {
-
+//    alert($('#hdRequest').val());
+//    alert($('#hdText').val());
+    $.ajax({
+        type: "POST",
+        url: "api/helpdesk/addrequest",
+        data: ({
+            request: $('#hdRequest').val(),
+            text: $('#hdText').val(),
+        }),
+        success: function(data) {
+            $("#errorBlock").css("display", "none");
+            getHelpDeskPage();
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+        }
+    });
 }
