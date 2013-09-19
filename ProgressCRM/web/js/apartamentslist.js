@@ -8,6 +8,17 @@ function getapartamentsListPage() {
             }
         });
         $("#mainContainer").html(data);
+        var permissions;
+        var userId;
+        $.get("api/auth/validate", function(data3) {
+            permissions = data3;
+            if (permissions == "3") {
+                $("#approvingTagsForTasks").css("display", "block");
+            }
+        });
+        $.get("api/auth/author", function(data2) {
+            userId = data2;
+        });
         $.ajax({
             type: "GET",
             url: "api/apartament/getallapartament",
@@ -17,8 +28,18 @@ function getapartamentsListPage() {
                 var str = "";
                 array.forEach(function(entry) {
                     str += "<div class = \"media\">";
+                    if (permissions == "3") {
+                        str += "<div class=\"btn-toolbar\">";
+                        str += "<div class=\"btn-group\">";
+
+                        str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+
+                        str += "</div>";
+                        str += "</div>";
+                    }
+                    str += "</div>";
                     str += "<a class = \"pull-left\" href = \"#\">";
-                    str += "<img class=\"media-object\" src=\"js/lib/highslide/images/thumbstrip24.thumb.png\" alt=\"...\">";
+                    str += "<img class=\"media-object\" src=\"images/home.png\" alt=\"...\">";
                     str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
@@ -38,4 +59,24 @@ function getapartamentsListPage() {
             }
         });
     });
+}
+
+function apartamentsDeleteById(apartamentsId) {
+    console.log("apartamentsDeleteById " + apartamentsId);
+    $.ajax({
+        type: "POST",
+        url: "api/apartament/remove",
+        data: ({id: apartamentsId}),
+        success: function(data) {
+            getapartamentsListPage();
+        },
+        error: function(data) {
+            $("#errorBlock").addClass("alert-danger");
+            $("#errorMessage").html(data.responseText);
+            $("#errorBlock").css("display", "block");
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
 }
