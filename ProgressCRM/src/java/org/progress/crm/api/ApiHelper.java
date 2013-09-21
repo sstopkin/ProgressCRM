@@ -1,5 +1,6 @@
 package org.progress.crm.api;
 
+import java.io.File;
 import javax.ws.rs.core.Response;
 
 class ApiHelper {
@@ -17,5 +18,12 @@ class ApiHelper {
             return getResponse(false);
         }
         return Response.ok(text).build();
+    }
+
+    public static Response getResponse(File f) {
+        Response.ResponseBuilder response = Response.ok((Object) f);
+        response.header("Content-Disposition",
+                "attachment; filename=report.pdf");
+        return response.build();
     }
 }
