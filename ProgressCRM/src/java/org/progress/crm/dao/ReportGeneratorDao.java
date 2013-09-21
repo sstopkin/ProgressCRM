@@ -6,7 +6,7 @@ import org.progress.crm.util.PDF;
 
 public class ReportGeneratorDao {
 
-    public File reportGen(Date curDate) {
+    public File reportGen() {
         return PDF.Gen();
     }
 }
