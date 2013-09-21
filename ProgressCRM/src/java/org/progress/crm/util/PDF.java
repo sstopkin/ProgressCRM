@@ -21,11 +21,12 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
 import java.io.IOException;
 
 public class PDF {
 
-    private static String FILE = "/tmp/FirstPdf.pdf";
+    private static String FILE = "/tmp/report.pdf";
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -37,10 +38,9 @@ public class PDF {
     private static BaseFont times;
     private static Font times14;
 
-    public static void Gen() {
+    public static File Gen() {
         try {
-
-            times = BaseFont.createFont("/home/best/NetBeansProjects/ProgressCRM/lib/iTextPDF/tahoma.ttf", "cp1251", BaseFont.EMBEDDED);
+            times = BaseFont.createFont("/var/progresscrm/tahoma.ttf", "cp1251", BaseFont.EMBEDDED);
             times14 = new Font(times, 14);
             Document document = new Document(PageSize.LETTER.rotate());//Page landscape orientation
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
@@ -49,8 +49,11 @@ public class PDF {
             addTitlePage(document);
             addContent(document);
             document.close();
+            File output = new File(FILE);
+            return output;
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
