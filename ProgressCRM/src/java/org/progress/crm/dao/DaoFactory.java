@@ -27,8 +27,12 @@ public class DaoFactory {
     public static HelpDeskDao getHelpDeskDao() {
         return new HelpDeskDao();
     }
-    
-    public static CallsDao getCallsDao(){
+
+    public static CallsDao getCallsDao() {
         return new CallsDao();
+    }
+
+    public static ReportGeneratorDao getReportGeneratorDao() {
+        return new ReportGeneratorDao();
     }
 }
