@@ -17,7 +17,7 @@ function getHelpDeskPage() {
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
                             + entry.request
-                            + "<p>Цена: " + entry.creationDate + "</p>";
+                            + entry.creationDate + "</p>";
                     str += "</h4>";
                     str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.id + " \')\">ссылка</a>";
                     str += "</div>";
