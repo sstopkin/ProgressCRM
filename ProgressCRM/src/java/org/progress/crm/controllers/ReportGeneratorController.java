@@ -22,8 +22,7 @@ public class ReportGeneratorController {
 //        }
 //        UUID uuid = UUID.fromString(token);
 //        int idWorker = authManager.getUserIdByToken(uuid);
-        Date curDate = new Date();
-        File result = DaoFactory.getReportGeneratorDao().reportGen(curDate);
+        File result = DaoFactory.getReportGeneratorDao().reportGen();
         return result;
     }
 }
