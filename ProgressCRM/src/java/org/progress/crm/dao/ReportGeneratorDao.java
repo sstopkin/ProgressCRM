@@ -1,7 +1,6 @@
 package org.progress.crm.dao;
 
 import java.io.File;
-import java.util.Date;
 import org.progress.crm.util.PDF;
 
 public class ReportGeneratorDao {
