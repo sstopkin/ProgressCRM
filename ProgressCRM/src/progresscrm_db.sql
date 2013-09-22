@@ -100,8 +100,6 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`HelpDesk` (
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`) ,
 INDEX `idWorkerIndex` (`idWorker` ASC));
-
-
 -- -----------------------------------------------------
 -- Table `progresscrm`.`Calls`
 -- -----------------------------------------------------
@@ -114,6 +112,21 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Calls` (
 FOREIGN KEY (ApartamentsId) REFERENCES Apartaments(id),
 PRIMARY KEY (`id`) ,
 INDEX `ApartamentsIdIndex` (`ApartamentsId` ASC));
+
+-- -----------------------------------------------------
+-- Table `progresscrm`.`News`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`News` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`idWorker` INT NOT NULL ,
+`Header` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`Text` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`LastModify` TIMESTAMP NOT NULL,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+PRIMARY KEY (`id`) ,
+INDEX `idWorkerIndex` (`idWorker` ASC));
 
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('fName', 'sName','lName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'user@progress55.com', false);

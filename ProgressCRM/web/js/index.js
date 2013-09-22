@@ -67,7 +67,7 @@ function getMainPage() {
     $.get("main.html", function(data) {
         $("#mainContainer").html(data);
     });
-//    getNews();
+    getNews();
 }
 
 function getAboutPage() {
@@ -108,11 +108,14 @@ function getNews() {
         var list = JSON.parse(data);
         for (var i = 0; i < list.length; ++i) {
             ids[i] = list[i].id;
-            str += "<tr><td style='border-bottom-style:dashed; border-color:#fff; border-width:1px; border-top-style:none'>";
-            str += "\n\<h3><a href=\"#\" onclick=\"return getContent(\'" + content +
-                    "\', " + list[i].id + ", " + i + ", \'" + content + "/view\')\">" + list[i].title + "</a>\n</h3>\n";
-            str += "<div class=\"row\">\n<div class=\"col-md-7 col-md-offset-1\">\n<p>";
-            str += list[i].description + "</p>\n</div>\n</div>";
+            str += "<tr><td>";
+            str += "<h3>" + list[i].header + "</h3>";
+            str += "<div class=\"row\">";
+            str += "<div class=\"col-md-7 col-md-offset-1\">";
+            str += "<p>" + list[i].text + "</p>"
+            str += "</div>";
+            str += "<p>" + list[i].lastModify + "</p>"
+            str += "</div>";
             str += "</tr></td>";
         }
         str += "\n</tbody>\n</table>\n";

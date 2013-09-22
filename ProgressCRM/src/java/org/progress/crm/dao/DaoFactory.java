@@ -12,10 +12,6 @@ public class DaoFactory {
         return new ApartamentsDao();
     }
 
-    public static StreetsDao getStreetsDao() {
-        return new StreetsDao();
-    }
-
     public static CustomersDao getCustomersDao() {
         return new CustomersDao();
     }
@@ -34,5 +30,9 @@ public class DaoFactory {
 
     public static ReportGeneratorDao getReportGeneratorDao() {
         return new ReportGeneratorDao();
+    }
+
+    public static NewsDao getNewsDao() {
+        return new NewsDao();
     }
 }
