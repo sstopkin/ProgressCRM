@@ -12,14 +12,14 @@ function getHelpDeskPage() {
                 array.forEach(function(entry) {
                     str += "<div class = \"media\">";
                     str += "<a class = \"pull-left\" href = \"#\">";
-                    str += "<img class=\"media-object\" src=\"js/lib/highslide/images/thumbstrip24.thumb.png\" alt=\"...\">";
+                    str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
                     str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
                             + entry.request
                             + entry.creationDate + "</p>";
                     str += "</h4>";
-                    str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.id + " \')\">ссылка</a>";
+                    str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
                     str += "</div>";
                     str += "</div>";
                 });
@@ -45,6 +45,7 @@ function getHelpDeskPage() {
 function addHelpDeskRequest() {
 //    alert($('#hdRequest').val());
 //    alert($('#hdText').val());
+    $('#myModal').modal('toggle');
     $.ajax({
         type: "POST",
         url: "api/helpdesk/addrequest",
