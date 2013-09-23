@@ -22,7 +22,15 @@ public class ReportGeneratorController {
 //        }
 //        UUID uuid = UUID.fromString(token);
 //        int idWorker = authManager.getUserIdByToken(uuid);
-        File result = DaoFactory.getReportGeneratorDao().reportGen();
-        return result;
+        return DaoFactory.getReportGeneratorDao().priceGen(session);
+    }
+
+    public File getPriceByApartamentsId(Session session, String token, String apartamentId) {
+        //        if (token == null) {
+//            throw new IsNotAuthenticatedException();
+//        }
+//        UUID uuid = UUID.fromString(token);
+//        int idWorker = authManager.getUserIdByToken(uuid);
+        return DaoFactory.getReportGeneratorDao().apartamentsPageGen(session, Integer.valueOf(apartamentId));
     }
 }
