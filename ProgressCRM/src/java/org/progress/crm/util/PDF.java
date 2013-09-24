@@ -19,7 +19,10 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
+import org.progress.crm.logic.Apartaments;
 
 public class PDF {
 
@@ -27,19 +30,27 @@ public class PDF {
     private static BaseFont times;
     private static Font times14;
 
-    public static File Gen() {
+    public static File GeneratePrice(List aparts) {
         try {
-            times = BaseFont.createFont("/var/progresscrm/tahoma.ttf", "cp1251", BaseFont.EMBEDDED);
-            times14 = new Font(times, 14);
-            Document document = new Document(PageSize.LETTER.rotate());//Page landscape orientation
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
-            document.open();
+            Document document = prepareGen();
             addMetaData(document);
-            addTitlePage(document);
+            addPricePage(document, aparts);
 //            addContent(document);
-            document.close();
-            File output = new File(FILE);
-            return output;
+            return finalyGen(document);
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static File GenerateApartamentsPage(Apartaments apart) {
+        try {
+            Document document = prepareGen();
+            addMetaData(document);
+//            addPricePage(document);
+
+//            addContent(document);
+            return finalyGen(document);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
             return null;
@@ -57,7 +68,7 @@ public class PDF {
         document.addCreator("Lars Vogel");
     }
 
-    private static void addTitlePage(Document document)
+    private static void addPricePage(Document document, List<Apartaments> aparts)
             throws DocumentException, BadElementException, IOException {
         Paragraph subPara = new Paragraph();
         Chapter mainChapter = new Chapter(subPara, 1);
@@ -69,7 +80,7 @@ public class PDF {
         Section subCatPart = mainChapter.addSection(subPara);
 
         // Add a table
-        createTable(subCatPart);
+        createTable(subCatPart, aparts);
 
 //        // Now add all this to the document
         document.add(mainChapter);
@@ -78,173 +89,70 @@ public class PDF {
 //        document.newPage();
     }
 
-    private static void createTable(Section subCatPart)
+    private static void createTable(Section subCatPart, List<Apartaments> aparts)
             throws BadElementException, DocumentException, IOException {
-        PdfPTable table = new PdfPTable(3);
+        PdfPTable table = new PdfPTable(6);//3
 
 //        table.setBorderColor(BaseColor.GRAY);
 //        table.setPadding(4);
 //        table.setSpacing(4);
 //        table.setBorderWidth(1);
-
-        PdfPCell c1 = new PdfPCell(new Phrase("Table Header 1"));
+        PdfPCell c1 = new PdfPCell(new Phrase("Город", new Font(times, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Table Header 2"));
+        c1 = new PdfPCell(new Phrase("Улица", new Font(times, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c1.setBorderColor(BaseColor.GRAY);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Номер дома", new Font(times, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Table Header 3"));
+        c1 = new PdfPCell(new Phrase("Описание", new Font(times, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
         table.setHeaderRows(1);
 
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
+        c1 = new PdfPCell(new Phrase("Цена", new Font(times, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        table.setHeaderRows(1);
 
+        c1 = new PdfPCell(new Phrase("Телефон клиента", new Font(times, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        table.setHeaderRows(1);
 
+        for (int i = 0; i < aparts.size(); i++) {
+            table.addCell(aparts.get(i).getCityName());
+            table.addCell(aparts.get(i).getStreetName());
+            table.addCell(aparts.get(i).getHouseNumber());
+            table.addCell(aparts.get(i).getDescription());
+            table.addCell(String.valueOf(aparts.get(i).getPrice()));
+            table.addCell(aparts.get(i).getClientPhone());
+        }
 
-        Paragraph p = new Paragraph("asdasdasdaчета там", new Font(times, 14));
+        Paragraph p = new Paragraph("asdasdasdтекст текст текст", new Font(times, 14));
 
         subCatPart.add(table);
         subCatPart.add(p);
+    }
+
+    private static Document prepareGen() throws FileNotFoundException, IOException, DocumentException {
+        times = BaseFont.createFont("/var/progresscrm/tahoma.ttf", "cp1251", BaseFont.EMBEDDED);
+        times14 = new Font(times, 14);
+        Document document = new Document(PageSize.LETTER.rotate());//Page landscape orientation
+        PdfWriter.getInstance(document, new FileOutputStream(FILE));
+        document.open();
+        return document;
+    }
+
+    private static File finalyGen(Document document) {
+        document.close();
+        File output = new File(FILE);
+        return output;
     }
 }
