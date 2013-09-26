@@ -1,6 +1,7 @@
 package org.progress.crm.controllers;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -15,7 +16,7 @@ public class ReportGeneratorController {
     @EJB
     AuthenticationManager authManager;
 
-    public File getPrice(Session session, String token) throws IsNotAuthenticatedException, CustomException {
+    public File getPrice(Session session, String token) throws IsNotAuthenticatedException, CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -24,7 +25,7 @@ public class ReportGeneratorController {
         return DaoFactory.getReportGeneratorDao().priceGen(session, idWorker);
     }
 
-    public File getPriceByApartamentsId(Session session, String token, String apartamentId) throws CustomException {
+    public File getPriceByApartamentsId(Session session, String token, String apartamentId) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
