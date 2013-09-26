@@ -1,9 +1,7 @@
 package org.progress.crm.controllers;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
@@ -18,20 +16,20 @@ public class ReportGeneratorController {
     AuthenticationManager authManager;
 
     public File getPrice(Session session, String token) throws IsNotAuthenticatedException, CustomException {
-//        if (token == null) {
-//            throw new IsNotAuthenticatedException();
-//        }
-//        UUID uuid = UUID.fromString(token);
-//        int idWorker = authManager.getUserIdByToken(uuid);
-        return DaoFactory.getReportGeneratorDao().priceGen(session);
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authManager.getUserIdByToken(uuid);
+        return DaoFactory.getReportGeneratorDao().priceGen(session, idWorker);
     }
 
     public File getPriceByApartamentsId(Session session, String token, String apartamentId) throws CustomException {
-        //        if (token == null) {
-//            throw new IsNotAuthenticatedException();
-//        }
-//        UUID uuid = UUID.fromString(token);
-//        int idWorker = authManager.getUserIdByToken(uuid);
-        return DaoFactory.getReportGeneratorDao().apartamentsPageGen(session, Integer.valueOf(apartamentId));
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authManager.getUserIdByToken(uuid);
+        return DaoFactory.getReportGeneratorDao().apartamentsPageGen(session, Integer.valueOf(apartamentId), idWorker);
     }
 }
