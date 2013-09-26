@@ -3,8 +3,10 @@ function getapartamentsListPage() {
         $.get("api/auth/validate", function(data) {
             if ((data == "3") || (data == "2")) {
                 $("#addApartamentBtn").css("display", "block");
+                $("#genApartamentsPriceBtn").css("display", "block");
             } else {
                 $("#addApartamentBtn").css("display", "none");
+                $("#genApartamentsPriceBtn").css("display", "none");
             }
         });
         $("#mainContainer").html(data);

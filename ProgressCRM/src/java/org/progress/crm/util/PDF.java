@@ -30,10 +30,10 @@ public class PDF {
     private static BaseFont times;
     private static Font times14;
 
-    public static File GeneratePrice(List aparts) {
+    public static File GeneratePrice(List aparts, String workerName) {
         try {
             Document document = prepareGen();
-            addMetaData(document);
+            addMetaData(document, "Прайс " + new Date(), "Прайс", "Прайс", workerName, "ProgressCRM");
             addPricePage(document, aparts);
 //            addContent(document);
             return finalyGen(document);
@@ -43,10 +43,10 @@ public class PDF {
         }
     }
 
-    public static File GenerateApartamentsPage(Apartaments apart) {
+    public static File GenerateApartamentsPage(Apartaments apart, String workerName) {
         try {
             Document document = prepareGen();
-            addMetaData(document);
+            addMetaData(document, "Карточка объекта " + new Date(), "Карточка объекта", "Карточка объекта", workerName, "ProgressCRM");
 //            addPricePage(document);
 
 //            addContent(document);
@@ -60,12 +60,13 @@ public class PDF {
     // iText allows to add metadata to the PDF which can be viewed in your Adobe
     // Reader
     // under File -> Properties
-    private static void addMetaData(Document document) {
-        document.addTitle("My первый PDF");
-        document.addSubject("Using iText");
-        document.addKeywords("Java, PDF, iText");
-        document.addAuthor("Lars Vogel");
-        document.addCreator("Lars Vogel");
+    private static void addMetaData(Document document, String title, String subject,
+            String keywords, String author, String creator) {
+        document.addTitle(title);
+        document.addSubject(subject);
+        document.addKeywords(keywords);
+        document.addAuthor(author);
+        document.addCreator(creator);
     }
 
     private static void addPricePage(Document document, List<Apartaments> aparts)
