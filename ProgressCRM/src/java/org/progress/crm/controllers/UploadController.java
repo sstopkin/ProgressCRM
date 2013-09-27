@@ -95,6 +95,6 @@ public class UploadController {
         out.close();
 
         apartamentsPhotoController.addApartamentPhoto(session, newFileName.toString(), "test", "1");
-        return "newFileName.toString() + type";
+        return "RESP: " + newFileName.toString() + "." + type;
     }
 }
