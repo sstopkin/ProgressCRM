@@ -74,6 +74,7 @@ function addApartament() {
                 streetName: $('#apartamentStreet').text(),
                 houseNumber: $('#apartamentBuilding').text(),
                 buildingNumber: $('#apartamentBuildingAdd').text(),
+                rooms: $('#Rooms').val(),
                 kladrId: $('#Price').val(),
                 shortAddress: $('#address').text(),
                 price: $('#Price').val(),
