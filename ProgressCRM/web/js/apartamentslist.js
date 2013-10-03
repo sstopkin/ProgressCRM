@@ -45,7 +45,8 @@ function getapartamentsListPage() {
                     str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
-                            + entry.apartaments.shortAddress
+                            + entry.apartaments.shortAddress + " "
+                            + entry.apartaments.rooms
                             + "<p>Цена: " + entry.apartaments.price + "</p>";
                     str += "</h4>";
                     str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";

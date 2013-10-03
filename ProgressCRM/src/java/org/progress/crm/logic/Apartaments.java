@@ -23,6 +23,7 @@ public class Apartaments implements Serializable {
     private String kladrId;
     private String shortAddress;
     private int typeOfSales;
+    private int rooms;
     private int price;
     private int cityDistrict;
     private int floor;
@@ -51,7 +52,7 @@ public class Apartaments implements Serializable {
     public Apartaments() {
     }
 
-    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress, int price, int cityDistrict, int floor, int floors, int material, int sizeApartament, int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction, String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage, boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning, String clientPhone, String clientDescription, int idWorker, boolean IsApproved) {
+    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress, int rooms, int price, int cityDistrict, int floor, int floors, int material, int sizeApartament, int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction, String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage, boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning, String clientPhone, String clientDescription, int idWorker, boolean IsApproved) {
         this.typeOfSales = typeOfSales;
         this.price = price;
         this.cityDistrict = cityDistrict;
@@ -83,6 +84,16 @@ public class Apartaments implements Serializable {
         this.buildingNumber = buildingNumber;
         this.kladrId = kladrId;
         this.shortAddress = shortAddress;
+        this.rooms = rooms;
+    }
+
+    @Column(name = "Rooms")
+    public int getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(int rooms) {
+        this.rooms = rooms;
     }
 
     @Id
