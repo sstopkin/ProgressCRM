@@ -47,7 +47,7 @@ public class AuthenticationManager {
     public UUID getUserTokenById(int id) {
         Set<Map.Entry> set = tokens.entrySet();
         for (Map.Entry element : set) {
-            if (element.getValue() == id) {
+            if ((int)element.getValue() == id) {
                 return (UUID) element.getKey();
             }
         }
