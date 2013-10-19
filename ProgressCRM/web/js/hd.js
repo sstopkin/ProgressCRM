@@ -15,9 +15,11 @@ function getHelpDeskPage() {
                     str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
                     str += "</a>";
                     str += "<div class=\"media-body\">";
+                    str += "<h6 class=\"media-heading\">"
+                    str += entry.creationDate;
+                    str += "</h4>";
                     str += "<h4 class=\"media-heading\">"
-                            + entry.request
-                            + entry.creationDate + "</p>";
+                    str += entry.request;
                     str += "</h4>";
                     str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
                     str += "</div>";
