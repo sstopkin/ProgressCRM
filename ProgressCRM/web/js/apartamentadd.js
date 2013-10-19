@@ -98,9 +98,10 @@ function addApartament() {
                 clientdescription: $('#ClientDescription').val(),
             }),
             success: function(data) {
+                location.reload();//FIXME
                 $("#errorBlock").css("display", "none");
                 $('#addCourseBtn').css('display', 'block');
-                getCoursesPage();
+//                getCoursesPage();
             },
             error: function(data) {
                 showDanger(data.responseText);
