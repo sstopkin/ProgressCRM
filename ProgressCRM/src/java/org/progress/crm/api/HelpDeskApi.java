@@ -39,13 +39,26 @@ public class HelpDeskApi {
 
     @POST
     @Path("addrequest")
-    public Response addCustomer(@CookieParam("token") final String token,
+    public Response deleteHelpDeskRequest(@CookieParam("token") final String token,
             @FormParam("request") final String request,
             @FormParam("text") final String text) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 boolean result = helpDeskController.addHelpDeskRequest(session, token, request, text);
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @POST
+    @Path("deleterequest")
+    public Response deleteHelpDeskRequest(@CookieParam("token") final String token,
+            @FormParam("id") final String id) throws SQLException, CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                boolean result = helpDeskController.deleteHelpDeskRequest(session, token, id);
                 return ApiHelper.getResponse(result);
             }
         });

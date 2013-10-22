@@ -14,6 +14,16 @@ function getHelpDeskPage() {
                     str += "<a class = \"pull-left\" href = \"#\">";
                     str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
                     str += "</a>";
+                    if (permissions == "3") {
+                        str += "<div class=\"btn-toolbar\">";
+                        str += "<div class=\"btn-group\">";
+
+                        str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+
+                        str += "</div>";
+                        str += "</div>";
+                    }
                     str += "<div class=\"media-body\">";
                     str += "<h6 class=\"media-heading\">"
                     str += entry.creationDate;
@@ -53,7 +63,7 @@ function addHelpDeskRequest() {
         url: "api/helpdesk/addrequest",
         data: ({
             request: $('#hdRequest').val(),
-            text: $('#hdText').val(),
+            text: $('#hdText').val()
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
@@ -63,4 +73,24 @@ function addHelpDeskRequest() {
             showDanger(data.responseText);
         }
     });
+}
+
+function deleteHelpDeskRequestById(hdRequestId) {
+    console.log("deleteHelpDeskRequestById " + hdRequestId);
+    $.ajax({
+        type: "POST",
+        url: "api/helpdesk/deleterequest",
+        data: ({id: hdRequestId}),
+        success: function(data) {
+            getapartamentsListPage();
+        },
+        error: function(data) {
+            $("#errorBlock").addClass("alert-danger");
+            $("#errorMessage").html(data.responseText);
+            $("#errorBlock").css("display", "block");
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
 }

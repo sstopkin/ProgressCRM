@@ -42,11 +42,17 @@ function getapartamentsListPage() {
                     str += "</div>";
                     str += "<a class = \"pull-left\" href = \"#\">";
                     str += "<img class=\"media-object\" src=\"images/home.png\" alt=\"...\">";
-                    str += "</a>";
+                    str += "</a>";  
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
-                            + entry.apartaments.shortAddress + " "
-                            + entry.apartaments.rooms
+                            + entry.apartaments.id + " "
+                            + entry.apartaments.cityname + " "
+                            + entry.apartaments.streetname + " "
+                            + entry.apartaments.housenumber + " "
+                            + entry.apartaments.buildingnumber + " "
+                            + entry.apartaments.sizeapartaments + "/"
+                            + entry.apartaments.sizealiving +"/"
+                            + entry.apartaments.sizekitchen +" "
                             + "<p>Цена: " + entry.apartaments.price + "</p>";
                     str += "</h4>";
                     str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";

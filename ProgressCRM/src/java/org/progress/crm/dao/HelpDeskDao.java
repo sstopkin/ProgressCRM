@@ -28,4 +28,10 @@ public class HelpDeskDao {
         List<HelpDeskRequest> list = session.createCriteria(HelpDeskRequest.class).list();
         return list;
     }
+
+    public boolean deleteHelpDeskRequest(Session session, int idWorker, Integer hdId) throws SQLException, CustomException {
+        HelpDeskRequest hd = getHelpDeskRequestId(session, hdId);
+        session.delete(hd);
+        return true;
+    }
 }

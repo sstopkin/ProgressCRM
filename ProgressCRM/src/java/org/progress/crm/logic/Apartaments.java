@@ -28,6 +28,7 @@ public class Apartaments implements Serializable {
     private int cityDistrict;
     private int floor;
     private int floors;
+    private int roomNumber;
     private int material;
     private int sizeApartament;
     private int sizeLiving;
@@ -52,7 +53,7 @@ public class Apartaments implements Serializable {
     public Apartaments() {
     }
 
-    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress, int rooms, int price, int cityDistrict, int floor, int floors, int material, int sizeApartament, int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction, String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage, boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning, String clientPhone, String clientDescription, int idWorker, boolean IsApproved) {
+    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress, int rooms, int price, int cityDistrict, int floor, int floors, int roomNumber, int material, int sizeApartament, int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction, String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage, boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning, String clientPhone, String clientDescription, int idWorker, boolean IsApproved) {
         this.typeOfSales = typeOfSales;
         this.price = price;
         this.cityDistrict = cityDistrict;
@@ -85,6 +86,16 @@ public class Apartaments implements Serializable {
         this.kladrId = kladrId;
         this.shortAddress = shortAddress;
         this.rooms = rooms;
+        this.roomNumber = roomNumber;
+    }
+
+    @Column(name = "RoomNumber")
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     @Column(name = "Rooms")

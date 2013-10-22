@@ -84,6 +84,7 @@ public class ApartamentsAPI {
             @FormParam("citydistrict") final String cityDistrict,
             @FormParam("floor") final String floor,
             @FormParam("floors") final String floors,
+            @FormParam("roomnumber") final String roomNumber,
             @FormParam("material") final String material,
             @FormParam("sizeapartament") final String sizeApartament,
             @FormParam("sizeliving") final String sizeLiving,
@@ -104,7 +105,7 @@ public class ApartamentsAPI {
             public Response execute(Session session) throws CustomException, SQLException {
                 boolean result = apartamentsController.addApartament(session, token,
                         typeOfSales, cityName, streetName, houseNumber, buildingNumber,
-                        kladrId, shortAddress, rooms, price, cityDistrict, floor, floors,
+                        kladrId, shortAddress, rooms, price, cityDistrict, floor, floors, roomNumber,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
                         pureSale, mortgage, exchange, rent, rePlanning,
