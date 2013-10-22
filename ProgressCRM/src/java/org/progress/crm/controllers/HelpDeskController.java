@@ -12,14 +12,14 @@ import org.progress.crm.exceptions.IsNotAuthenticatedException;
 
 @Singleton
 public class HelpDeskController {
-
+    
     @EJB
     AuthenticationManager authManager;
-
+    
     public List getAllHelpDeskRequest(Session session) throws CustomException, SQLException {
         return DaoFactory.getHelpDeskDao().getAllHelpDeskRequests(session);
     }
-
+    
     public boolean addHelpDeskRequest(Session session, String token, String request, String description) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
@@ -27,6 +27,16 @@ public class HelpDeskController {
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
         DaoFactory.getHelpDeskDao().addHelpDeskRequest(session, idWorker, request, description, Integer.valueOf("1"));
+        return true;
+    }
+    
+    public boolean deleteHelpDeskRequest(Session session, String token, String id) throws IsNotAuthenticatedException, SQLException, CustomException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authManager.getUserIdByToken(uuid);
+        DaoFactory.getHelpDeskDao().deleteHelpDeskRequest(session, idWorker, Integer.valueOf(id));
         return true;
     }
 }
