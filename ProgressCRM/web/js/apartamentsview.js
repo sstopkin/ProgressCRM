@@ -51,6 +51,15 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
+                content += "Адрес "
+                        + array.apartaments.cityName + " "
+                        + array.apartaments.streetName + " "
+                        + array.apartaments.houseNumber + " "
+                        + array.apartaments.buildingNumber + " - "
+                        + array.apartaments.roomNumber + " ";
+                content += "</p>";
+
+                content += "<p>";
                 content += "Количество комнат " + array.apartaments.rooms;
                 content += "</p>";
 

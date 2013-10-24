@@ -46,13 +46,14 @@ function getapartamentsListPage() {
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
                             + entry.apartaments.id + " "
-                            + entry.apartaments.cityname + " "
-                            + entry.apartaments.streetname + " "
-                            + entry.apartaments.housenumber + " "
-                            + entry.apartaments.buildingnumber + " "
-                            + entry.apartaments.sizeapartaments + "/"
-                            + entry.apartaments.sizealiving +"/"
-                            + entry.apartaments.sizekitchen +" "
+                            + entry.apartaments.cityName + " "
+                            + entry.apartaments.streetName + " "
+                            + entry.apartaments.houseNumber + " "
+                            + entry.apartaments.buildingNumber + " - "
+                            + entry.apartaments.roomNumber + " "
+                            + entry.apartaments.sizeApartament + "/"
+                            + entry.apartaments.sizeLiving +"/"
+                            + entry.apartaments.sizeKitchen +" "
                             + "<p>Цена: " + entry.apartaments.price + "</p>";
                     str += "</h4>";
                     str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";
