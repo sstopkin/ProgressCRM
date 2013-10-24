@@ -119,26 +119,30 @@ function getApartamentViewPage(apartamentId) {
                         content += "";
                 }
                 content += "</p>";
-
+                content += "<p>";
+                content += "Балкон: ";
                 if (array.apartaments.balcony != 0) {
-                    content += "<p>";
-                    content += "Балкон " + array.apartaments.balcony;
-                    content += "</p>";
+                    content += array.apartaments.balcony;
                 }
-                if (array.apartaments.loggia != 0) {
-                    content += "<p>";
-                    content += "Лоджия " + array.apartaments.loggia;
-                    content += "</p>";
-                }
-                content += "<p>";
-                content += "Этажность " + array.apartaments.floors;
-                content += "</p>";
-                content += "<p>";
-                content += "Этаж " + array.apartaments.floor;
                 content += "</p>";
 
                 content += "<p>";
-                content += "Год постройки дома " + array.apartaments.yearOfConstruction;
+                content += "Лоджия: ";
+                if (array.apartaments.loggia != 0) {
+                    content += array.apartaments.loggia;
+
+                }
+                content += "</p>";
+
+                content += "<p>";
+                content += "Этажность: " + array.apartaments.floors;
+                content += "</p>";
+                content += "<p>";
+                content += "Этаж: " + array.apartaments.floor;
+                content += "</p>";
+
+                content += "<p>";
+                content += "Год постройки дома: " + array.apartaments.yearOfConstruction;
                 content += "</p>";
 
                 content += "<p>";
@@ -161,36 +165,36 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                content += "Описание " + array.apartaments.description;
+                content += "Описание: " + array.apartaments.description;
                 content += "</p>";
 
                 content += "<p>";
-                content += "Информация о клиенте " + array.apartaments.clientDescription;
+                content += "Информация о клиенте: " + array.apartaments.clientDescription;
                 content += "</p>";
                 content += "<p>";
-                content += "Телефон клиента " + array.apartaments.clientPhone;
+                content += "Телефон клиента: " + array.apartaments.clientPhone;
                 content += "</p>";
 
 
 
                 content += "<p>";
-                content += "Объект добавлен " + array.apartaments.сreationDate;
+                content += "Объект добавлен: " + array.apartaments.сreationDate;
                 content += "</p>";
                 content += "<p>";
-                content += "Объект изменен " + array.apartaments.lastModify;
+                content += "Объект изменен: " + array.apartaments.lastModify;
                 content += "</p>";
 
                 console.log(array.apartaments.idWorker);
                 console.log(array.apartaments.kladrId);
 
                 content += "<p>";
-                content += "Площадь общая" + array.apartaments.sizeApartament;
+                content += "Площадь общая: " + array.apartaments.sizeApartament;
                 content += "</p>";
                 content += "<p>";
-                content += "Площадь кухни " + array.apartaments.sizeKitchen;
+                content += "Площадь кухни: " + array.apartaments.sizeKitchen;
                 content += "</p>";
                 content += "<p>";
-                content += "Площадь жилая " + array.apartaments.sizeLiving;
+                content += "Площадь жилая: " + array.apartaments.sizeLiving;
                 content += "</p>";
 
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import javax.ejb.EJB;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
@@ -19,10 +20,14 @@ import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Workers;
 import org.progress.crm.util.SHA1;
+import org.progress.crm.logic.Constants;
 
 @Singleton
 @Lock(LockType.READ)
 public class AuthenticationManager {
+
+    @EJB
+    LogServiceController logServiceController;
 
     private Map tokens;
 
@@ -47,7 +52,7 @@ public class AuthenticationManager {
     public UUID getUserTokenById(int id) {
         Set<Map.Entry> set = tokens.entrySet();
         for (Map.Entry element : set) {
-            if ((int)element.getValue() == id) {
+            if ((int) element.getValue() == id) {
                 return (UUID) element.getKey();
             }
         }
@@ -62,14 +67,17 @@ public class AuthenticationManager {
         }
         Workers pr = DaoFactory.getWorkersDao().getWorkerByEmail(session, email);
         if (pr == null) {
+//            logServiceController.addEvent(session, pr.getId(), Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
 
         if (pr.getPwdhash().equals(SHA1.sha1(password))) {
             UUID token = UUID.randomUUID();
             tokens.put(token, pr.getId());
+//            logServiceController.addEvent(session, pr.getId(), Constants.LOGSERVICEACTIONSCODE.AUTHOK);
             return token.toString();
         } else {
+//            logServiceController.addEvent(session, pr.getId(), Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
     }

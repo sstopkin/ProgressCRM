@@ -10,6 +10,7 @@ function addApartament() {
                 || ($('#CityDistrict').val() == "")
                 || ($('#Floor').val() == "")
                 || ($('#Floors').val() == "")
+                || ($('#RoomNumber').val() == "")
                 || ($('#Material').val() == "")
                 || ($('#SizeApartament').val() == "")
                 || ($('#SizeLiving').val() == "")
@@ -81,6 +82,7 @@ function addApartament() {
                 citydistrict: $('#CityDistrict').val(),
                 floor: $('#Floor').val(),
                 floors: $('#Floors').val(),
+                roomnumber: $('#RoomNumber').val(),
                 material: $('#Material').val(),
                 sizeapartament: $('#SizeApartament').val(),
                 sizeliving: $('#SizeLiving').val(),

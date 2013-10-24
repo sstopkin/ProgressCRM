@@ -35,4 +35,8 @@ public class DaoFactory {
     public static NewsDao getNewsDao() {
         return new NewsDao();
     }
+
+    public static LogServiceDao getLogServiceDao() {
+        return new LogServiceDao();
+    }
 }
