@@ -15,9 +15,9 @@ import org.progress.crm.dao.DaoFactory;
  */
 @Singleton
 public class LogServiceController {
-//
-//    public boolean addEvent(Session session, int idWorker, int action) {
-//        DaoFactory.getLogServiceDao().addNewAction(session, idWorker, action);
-//        return true;
-//    }
+
+    public boolean addEvent(Session session, int idWorker, String description, int action) {
+        DaoFactory.getLogServiceDao().addNewAction(session, idWorker, description, action);
+        return true;
+    }
 }
