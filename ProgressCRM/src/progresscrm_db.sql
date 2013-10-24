@@ -137,10 +137,13 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`LogService` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `idWorker` INT NOT NULL ,
-`Action` INT NOT NULL,
-FOREIGN KEY (idWorker) REFERENCES Workers(id),
+`ActionCode` INT NOT NULL,
+`Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 PRIMARY KEY (`id`) ,
 INDEX `idWorkerIndex` (`idWorker` ASC));
+
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
+	VALUES ('null', 'null','null', 'null', 0, 'null', true);
 
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('adminFName', 'adminSName','adminLName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'admin@progress55.com', false);

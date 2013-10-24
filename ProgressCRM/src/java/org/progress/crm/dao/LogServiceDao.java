@@ -14,13 +14,15 @@ import org.progress.crm.logic.LogService;
  * @author best
  */
 public class LogServiceDao {
-//
-//    public boolean addNewAction(final Session session, int idWorker, int action) {
-//        return (boolean) session.save(new LogService(idWorker, action));
-//    }
-//
-//    public List<LogService> getFullLog(Session session) {
-//        List<LogService> list = session.createCriteria(LogService.class).list();
-//        return list;
-//    }
+
+    public boolean addNewAction(final Session session, int idWorker, String description, int action) {
+        session.save(new LogService(action, idWorker, description));
+        session.getTransaction().commit();
+        return true;
+    }
+
+    public List<LogService> getFullLog(Session session) {
+        List<LogService> list = session.createCriteria(LogService.class).list();
+        return list;
+    }
 }

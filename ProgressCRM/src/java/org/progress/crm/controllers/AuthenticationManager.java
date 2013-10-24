@@ -67,17 +67,18 @@ public class AuthenticationManager {
         }
         Workers pr = DaoFactory.getWorkersDao().getWorkerByEmail(session, email);
         if (pr == null) {
-//            logServiceController.addEvent(session, pr.getId(), Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
+            //first user must be NULL
+            logServiceController.addEvent(session, 1, email + " [" + password + "]", Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
 
         if (pr.getPwdhash().equals(SHA1.sha1(password))) {
             UUID token = UUID.randomUUID();
             tokens.put(token, pr.getId());
-//            logServiceController.addEvent(session, pr.getId(), Constants.LOGSERVICEACTIONSCODE.AUTHOK);
+            logServiceController.addEvent(session, pr.getId(), "null", Constants.LOGSERVICEACTIONSCODE.AUTHOK);
             return token.toString();
         } else {
-//            logServiceController.addEvent(session, pr.getId(), Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
+            logServiceController.addEvent(session, pr.getId(), email + " [" + password + "]", Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
     }
