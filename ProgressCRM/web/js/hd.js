@@ -14,16 +14,16 @@ function getHelpDeskPage() {
                     str += "<a class = \"pull-left\" href = \"#\">";
                     str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
                     str += "</a>";
-                    if (permissions == "3") {
-                        str += "<div class=\"btn-toolbar\">";
-                        str += "<div class=\"btn-group\">";
-
-                        str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-
-                        str += "</div>";
-                        str += "</div>";
-                    }
+//                    if (permissions == "3") {
+//                        str += "<div class=\"btn-toolbar\">";
+//                        str += "<div class=\"btn-group\">";
+//
+//                        str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//
+//                        str += "</div>";
+//                        str += "</div>";
+//                    }
                     str += "<div class=\"media-body\">";
                     str += "<h6 class=\"media-heading\">"
                     str += entry.creationDate;
