@@ -68,27 +68,30 @@ public class AuthenticationManager {
         Workers pr = DaoFactory.getWorkersDao().getWorkerByEmail(session, email);
         if (pr == null) {
             //first user must be NULL
-//            logServiceController.addEvent(1, email + " [" + password + "]", Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
+            logServiceController.addEvent(1, email + " [" + password + "]", Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
 
         if (pr.getPwdhash().equals(SHA1.sha1(password))) {
             UUID token = UUID.randomUUID();
             tokens.put(token, pr.getId());
-//            logServiceController.addEvent(pr.getId(), "null", Constants.LOGSERVICEACTIONSCODE.AUTHOK);
+            logServiceController.addEvent(pr.getId(), "null", Constants.LOGSERVICEACTIONSCODE.AUTHOK);
             return token.toString();
         } else {
-//            logServiceController.addEvent(pr.getId(), email + " [" + password + "]", Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
+            logServiceController.addEvent(pr.getId(), email + " [" + password + "]", Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
     }
 
     @Lock(LockType.WRITE)
     public boolean logOut(String token) throws CustomException {
+        int workerId = getUserIdByToken(UUID.fromString(token));
         try {
+            logServiceController.addEvent(workerId, "", Constants.LOGSERVICEACTIONSCODE.LOGOUTOK);
             tokens.remove(UUID.fromString(token));
             return true;
         } catch (Exception ex) {
+            logServiceController.addEvent(1, "", Constants.LOGSERVICEACTIONSCODE.LOGOUTFAIL);
             throw new BadLogOutException();
         }
     }
