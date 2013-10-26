@@ -12,7 +12,6 @@ public class LogServiceDao {
 
     public boolean addNewAction(final Session session, int idWorker, String description, int action) {
         session.save(new LogService(action, idWorker, description));
-        session.getTransaction().commit();
         return true;
     }
 
