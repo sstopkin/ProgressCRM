@@ -1,6 +1,7 @@
 package org.progress.crm.dao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.progress.crm.exceptions.CustomException;
@@ -31,7 +32,9 @@ public class HelpDeskDao {
 
     public boolean deleteHelpDeskRequest(Session session, int idWorker, Integer hdId) throws SQLException, CustomException {
         HelpDeskRequest hd = getHelpDeskRequestId(session, hdId);
-        session.delete(hd);
+        hd.setLastModify(new Date());
+        hd.setDeleted(true);
+        session.update(hd);
         return true;
     }
 }

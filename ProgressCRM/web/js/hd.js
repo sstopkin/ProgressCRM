@@ -34,8 +34,8 @@ function getHelpDeskPage() {
                             if (permissions == "3") {
                                 str += "<div class=\"btn-toolbar\">";
                                 str += "<div class=\"btn-group\">";
+                                str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
                                 str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-                                str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
                                 str += "</div>";
                                 str += "</div>";
                             }
@@ -93,7 +93,7 @@ function deleteHelpDeskRequestById(hdRequestId) {
     console.log("deleteHelpDeskRequestById " + hdRequestId);
     $.ajax({
         type: "POST",
-        url: "api/helpdesk/deleterequest",
+        url: "api/news/deletenews",
         data: ({id: hdRequestId}),
         success: function(data) {
             getapartamentsListPage();
