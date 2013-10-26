@@ -8,7 +8,7 @@ $(document).ready(function() {
         $("#helpInfoBlock").css("display", "none");
         $('#taskContentHelp').addClass("hiddenHelp");
     });
-    getMainPage();
+
     $("#addApartaments").css("display", "none");
     $.ajax({
         type: "GET",
@@ -18,16 +18,13 @@ $(document).ready(function() {
             $("#logged").css("display", "block");
             $.get("api/auth/validate", function(data3) {
                 var permissions = data3;
-                if (permissions == "3") {
-                    $('#adminTabLink').css("display", "block");
-                }
             });
         },
         error: function(data) {
             $("#loginForm").css("display", "block");
-            $('#adminTabLink').css("display", "none");
         }
     });
+    getMainPage();
     $("#mainLink").click(function(e) {
         e.preventDefault();
         getMainPage();
@@ -67,7 +64,7 @@ $(document).ready(function() {
             plupload.each(arguments, function(arg) {
                 var row = "";
 
-                if (typeof(arg) != "string") {
+                if (typeof (arg) != "string") {
                     plupload.each(arg, function(value, key) {
                         // Convert items in File objects to human readable form
                         if (arg instanceof plupload.File) {
@@ -91,7 +88,7 @@ $(document).ready(function() {
                             }
                         }
 
-                        if (typeof(value) != "function") {
+                        if (typeof (value) != "function") {
                             row += (row ? ', ' : '') + key + '=' + value;
                         }
                     });
@@ -225,6 +222,17 @@ function getAdminPage() {
 }
 
 function getNews() {
+//    var permissions;
+//    $.ajax({
+//        type: "GET",
+//        url: "api/auth/validate",
+//        success: function(data) {
+//            permissions= data;
+//        },
+//        error: function(data) {
+//            showWarning(data.responseText);
+//        }
+//    });
     $("#addApartaments").css("display", "none");
     $.get("api/news", function(data) {
         var str = "<table class=\"table\"><tbody>\n";
@@ -237,9 +245,20 @@ function getNews() {
             str += "<h3>" + list[i].header + "</h3>";
             str += "<div class=\"row\">";
             str += "<div class=\"col-md-7 col-md-offset-1\">";
-            str += "<p>" + list[i].text + "</p>"
+            if (permissions == "3") {
+                str += "===================================";
+//                str += "<div class=\"btn-toolbar\">";
+//                str += "<div class=\"btn-group\">";
+//
+//                str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//                str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//
+//                str += "</div>";
+//                str += "</div>";
+            }
+            str += "<p>" + list[i].text + "</p>";
             str += "</div>";
-            str += "<p>" + list[i].lastModify + "</p>"
+            str += "<p>" + list[i].lastModify + "</p>";
             str += "</div>";
             str += "</tr></td>";
         }
