@@ -222,50 +222,50 @@ function getAdminPage() {
 }
 
 function getNews() {
-//    var permissions;
-//    $.ajax({
-//        type: "GET",
-//        url: "api/auth/validate",
-//        success: function(data) {
-//            permissions= data;
-//        },
-//        error: function(data) {
-//            showWarning(data.responseText);
-//        }
-//    });
-    $("#addApartaments").css("display", "none");
-    $.get("api/news", function(data) {
-        var str = "<table class=\"table\"><tbody>\n";
-        var ids = [];
-        var content = "course";
-        var list = JSON.parse(data);
-        for (var i = 0; i < list.length; ++i) {
-            ids[i] = list[i].id;
-            str += "<tr><td>";
-            str += "<h3>" + list[i].header + "</h3>";
-            str += "<div class=\"row\">";
-            str += "<div class=\"col-md-7 col-md-offset-1\">";
-            if (permissions == "3") {
-                str += "===================================";
-//                str += "<div class=\"btn-toolbar\">";
-//                str += "<div class=\"btn-group\">";
-//
-//                str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-//                str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-//
-//                str += "</div>";
-//                str += "</div>";
-            }
-            str += "<p>" + list[i].text + "</p>";
-            str += "</div>";
-            str += "<p>" + list[i].lastModify + "</p>";
-            str += "</div>";
-            str += "</tr></td>";
+    var permissions;
+    $.ajax({
+        type: "GET",
+        url: "api/auth/validate",
+        success: function(data) {
+            permissions = data;
+            $.get("api/news", function(data) {
+                var str = "<table class=\"table\"><tbody>\n";
+                var ids = [];
+                var content = "course";
+                var list = JSON.parse(data);
+                for (var i = 0; i < list.length; ++i) {
+                    ids[i] = list[i].id;
+                    str += "<tr><td>";
+                    str += "<h3>" + list[i].header + "</h3>";
+                    str += "<div class=\"row\">";
+                    str += "<div class=\"col-md-7 col-md-offset-1\">";
+                    if (permissions == "3") {
+                        str += "<div class=\"btn-toolbar\">";
+                        str += "<div class=\"btn-group\">";
+
+                        str += "<button type=\"button\" onclick=\"editNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
+                        str += "<button type=\"button\" onclick=\"deleteNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+
+                        str += "</div>";
+                        str += "</div>";
+                    }
+                    str += "<p>" + list[i].text + "</p>";
+                    str += "</div>";
+                    str += "<p>" + list[i].lastModify + "</p>";
+                    str += "</div>";
+                    str += "</tr></td>";
+                }
+                str += "\n</tbody>\n</table>\n";
+                transfer = ids;
+                $("#news").html(str);
+            });
+
+        },
+        error: function(data) {
+            showWarning(data.responseText);
         }
-        str += "\n</tbody>\n</table>\n";
-        transfer = ids;
-        $("#news").html(str);
     });
+    $("#addApartaments").css("display", "none");
     return false;
 }
 
@@ -302,4 +302,23 @@ function checkStatus() {
 //            $('#adminTabLink').css("display", "none");
         }
     });
+}
+
+function deleteNewsById(newsId) {    
+    $.ajax({
+        type: "POST",
+        url: "api/news/deletenews",
+        data: ({id: newsId}),
+        success: function(data) {
+            getMainPage();
+        },
+        error: function(data) {
+            $("#errorBlock").addClass("alert-danger");
+            $("#errorMessage").html(data.responseText);
+            $("#errorBlock").css("display", "block");
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
 }
