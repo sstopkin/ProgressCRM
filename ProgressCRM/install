@@ -1,0 +1,4 @@
+devel
+
+cp ProgressCRM/lib/iTextPDF/tahoma.ttf /var/progresscrm/tahoma.ttf
+chmod 755 -R /var/progresscrm/

@@ -39,7 +39,7 @@ $(document).ready(function() {
 });
 
 function getProfilePage() {
-    $("#footerContent").css("display", "none");
+    $("#addApartaments").css("display", "none");
     $.get("profile.html", function(data) {
         $("#mainContainer").html(data);
         $.ajax({

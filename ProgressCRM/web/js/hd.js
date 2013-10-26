@@ -1,40 +1,48 @@
 function getHelpDeskPage() {
+    var permissions;
     $("#addApartaments").css("display", "none");
     $.get("hd.html", function(data) {
         $("#mainContainer").html(data);
         $.ajax({
             type: "GET",
-            url: "api/helpdesk/getallrequest",
+            url: "api/auth",
             success: function(data) {
-                $("#errorBlock").css("display", "none");
-                var array = JSON.parse(data);
-                var str = "";
-                array.forEach(function(entry) {
-                    str += "<div class = \"media\">";
-                    str += "<a class = \"pull-left\" href = \"#\">";
-                    str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
-                    str += "</a>";
-//                    if (permissions == "3") {
-//                        str += "<div class=\"btn-toolbar\">";
-//                        str += "<div class=\"btn-group\">";
-//
-//                        str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-//                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-//
-//                        str += "</div>";
-//                        str += "</div>";
-//                    }
-                    str += "<div class=\"media-body\">";
-                    str += "<h6 class=\"media-heading\">"
-                    str += entry.creationDate;
-                    str += "</h4>";
-                    str += "<h4 class=\"media-heading\">"
-                    str += entry.request;
-                    str += "</h4>";
-                    str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
-                    str += "</div>";
-                    str += "</div>";
+                $("#profileLink").html(data);
+                $("#logged").css("display", "block");
+                $.get("api/auth/validate", function(data3) {
+                    permissions = data3;
                 });
+                $.ajax({
+                    type: "GET",
+                    url: "api/helpdesk/getallrequest",
+                    success: function(data) {
+                        $("#errorBlock").css("display", "none");
+                        var array = JSON.parse(data);
+                        var str = "";
+                        array.forEach(function(entry) {
+                            str += "<div class = \"media\">";
+                            str += "<a class = \"pull-left\" href = \"#\">";
+                            str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
+                            str += "</a>";
+                            str += "<div class=\"media-body\">";
+                            str += "<h6 class=\"media-heading\">";
+                            str += entry.creationDate;
+                            str += "</h4>";
+                            str += "<h4 class=\"media-heading\">";
+                            str += entry.request;
+                            str += "</h4>";
+                            if (permissions == "3") {
+                                str += "<div class=\"btn-toolbar\">";
+                                str += "<div class=\"btn-group\">";
+                                str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                                str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                                str += "</div>";
+                                str += "</div>";
+                            }
+                            str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
+                            str += "</div>";
+                            str += "</div>";
+                        });
 //                console.log(array.apartaments.IsApproved);
 //                console.log(array.apartaments.deleted);
 //
@@ -44,13 +52,19 @@ function getHelpDeskPage() {
 //                content += "</p>";
 
 
-                $("#mainHelpDeskContainer").html(str);
+                        $("#mainHelpDeskContainer").html(str);
+                    },
+                    error: function(data) {
+                        showDanger(data.responseText);
+                        return false;
+                    }
+                });
             },
             error: function(data) {
-                showDanger(data.responseText);
-                return false;
+                $("#loginForm").css("display", "block");
             }
         });
+
     });
 }
 
