@@ -8,7 +8,6 @@ $(document).ready(function() {
         $("#helpInfoBlock").css("display", "none");
         $('#taskContentHelp').addClass("hiddenHelp");
     });
-
     $("#addApartaments").css("display", "none");
     $.ajax({
         type: "GET",
@@ -223,6 +222,9 @@ function getAdminPage() {
 
 function getNews() {
     var permissions;
+    if (permissions == "3") {
+
+    }
     $.ajax({
         type: "GET",
         url: "api/auth/validate",
@@ -269,6 +271,29 @@ function getNews() {
     return false;
 }
 
+function  editNewsById(id) {
+    alert(editNewsById + " " + id);
+}
+
+function addNews() {
+    $('#newsModal').modal('toggle');
+    $.ajax({
+        type: "POST",
+        url: "api/news/addnews",
+        data: ({
+            header: $('#newsHeader').val(),
+            text: $('#newsText').val()
+        }),
+        success: function(data) {
+            $("#errorBlock").css("display", "none");
+            getMainPage();
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+        }
+    });
+}
+
 function showDanger(message) {
     $("#errorBlock").addClass("alert-danger");
     $("#errorMessage").html(message);
@@ -304,7 +329,7 @@ function checkStatus() {
     });
 }
 
-function deleteNewsById(newsId) {    
+function deleteNewsById(newsId) {
     $.ajax({
         type: "POST",
         url: "api/news/deletenews",
