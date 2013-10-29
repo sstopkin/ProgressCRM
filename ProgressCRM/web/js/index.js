@@ -32,6 +32,10 @@ $(document).ready(function() {
         e.preventDefault();
         getapartamentsListPage();
     });
+    $("#customersLink").click(function(e) {
+        e.preventDefault();
+        getCustomersPage();
+    });
     $("#helpDeskLink").click(function(e) {
         e.preventDefault();
         getHelpDeskPage();
