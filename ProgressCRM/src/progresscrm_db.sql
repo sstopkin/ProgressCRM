@@ -21,9 +21,15 @@ UNIQUE INDEX `EmailIndex` (`Email` ASC) );
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Customers` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`FName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`MName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`LName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`customersLname` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`customersFname` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`customersMname` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+-- `customersDOB` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`customersSex` INT NOT NULL,
+`customersPhone` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`customersEmail` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`customersAddress` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`customersExtra` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 PRIMARY KEY (`id`));
 
@@ -63,7 +69,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
 `RePlanning` TINYINT(1) NOT NULL DEFAULT false ,
 
 `ClientPhone` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`ClientDescription` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`ClientDescription` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 
 `CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `LastModify` TIMESTAMP NOT NULL, 
@@ -81,7 +87,7 @@ INDEX `idCustomerIndex` (`idWorker` ASC));
 CREATE TABLE IF NOT EXISTS `progresscrm`.`ApartamentsPhoto` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`Description` VARCHAR(50) CHARACTER SET utf8,
+`Description` MEDIUMTEXT CHARACTER SET utf8,
 `ApartamentsId` INT NOT NULL ,
 FOREIGN KEY (ApartamentsId) REFERENCES Apartaments(id),
 PRIMARY KEY (`id`) ,
