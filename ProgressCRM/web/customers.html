@@ -1,5 +1,19 @@
 <div class="container">
-    <div id="addCustomer">//style="display: none"
+
+    <div class="row">
+        <input onclick="addCustomer();" type="button" class="btn btn-primary pull-right" id="addCustomerBtn" value="Добавить клиента" />
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div id="divCustomersList"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="addCustomer" style="display: none">
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Общая информация</a></li>
             <li class=""><a href="#tab2" data-toggle="tab">Дополнительно</a></li>
@@ -129,7 +143,7 @@
                     </form>
                 </div>
             </div>
-            <input type="button" class="btn btn-primary pull-right" id="apartamentAddReadyLink" value="Готово" />
+            <input type="button" class="btn btn-primary pull-right" id="customersAddReadyLink" value="Готово" />
         </div>
     </div>
 
