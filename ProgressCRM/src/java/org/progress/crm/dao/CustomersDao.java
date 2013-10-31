@@ -4,13 +4,15 @@ import java.util.List;
 import org.hibernate.Session;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Customers;
-import org.progress.crm.util.Command;
-import org.progress.crm.util.TransactionService;
 
 public class CustomersDao {
 
-    public int addCustomer(final Session session, final String fName, final String lName, final String mName) throws CustomException {
-        return (int) session.save(new Customers(fName, lName, mName));
+    public int addCustomer(final Session session, final String fName, final String lName,
+            final String mName, final int customersMonthOfBirthday, final int customersDayOfBirthday,
+            final int customersYearOfBirthday, final int customersSex, final String customersPhone,
+            final String customersEmail, final String customersAddress, final String customersExtra) throws CustomException {
+        return (int) session.save(new Customers(fName, lName, mName, customersMonthOfBirthday,
+                customersDayOfBirthday, customersYearOfBirthday, customersSex, customersPhone, customersEmail, customersAddress, customersExtra));
     }
 
     public boolean removeCustomerById(final Session session, final int customerId) throws CustomException {
