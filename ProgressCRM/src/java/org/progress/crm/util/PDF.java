@@ -133,7 +133,8 @@ public class PDF {
             table.addCell(aparts.get(i).getHouseNumber());
             table.addCell(aparts.get(i).getDescription());
             table.addCell(String.valueOf(aparts.get(i).getPrice()));
-            table.addCell(aparts.get(i).getClientPhone());
+            //FIXME
+//            table.addCell(aparts.get(i).getClientPhone());
         }
 
         Paragraph p = new Paragraph("asdasdasdтекст текст текст", new Font(times, 14));

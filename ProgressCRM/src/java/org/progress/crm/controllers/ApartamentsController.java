@@ -39,7 +39,7 @@ public class ApartamentsController {
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
             String pureSale, String mortgage, String exchange, String rent,
-            String rePplanning, String clientPhone, String clientDescription) throws CustomException {
+            String rePplanning, String idCustomer) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -54,8 +54,7 @@ public class ApartamentsController {
                 Integer.valueOf(loggia), Integer.valueOf(yearOfConstruction), description,
                 Boolean.parseBoolean(pureSale), Boolean.parseBoolean(mortgage),
                 Boolean.parseBoolean(exchange), Boolean.parseBoolean(rent),
-                Boolean.parseBoolean(rePplanning), clientPhone, clientDescription,
-                idWorker, false);
+                Boolean.parseBoolean(rePplanning), idWorker, Integer.valueOf(idCustomer), false);
         return true;
     }
 
@@ -63,8 +62,7 @@ public class ApartamentsController {
             String typeOfSales, String price, String cityDistrict, String floor, String floors,
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
-            String pureSale, String mortgage, String exchange, String rent, String rePlanning,
-            String clientPhone, String clientDescription) throws CustomException {
+            String pureSale, String mortgage, String exchange, String rent, String rePlanning, String idCustomer) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -78,8 +76,7 @@ public class ApartamentsController {
         Apartaments apartaments = DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentsId));
         apartaments.setBalcony(Integer.valueOf(balcony));
         apartaments.setCityDistrict(Integer.valueOf(cityDistrict));
-        apartaments.setClientDescription(clientDescription);
-        apartaments.setClientPhone(clientPhone);
+        apartaments.setIdCustomer(Integer.valueOf(idCustomer));
         apartaments.setDescription(description);
         apartaments.setFloor(Integer.valueOf(floor));
         apartaments.setFloors(Integer.valueOf(floors));

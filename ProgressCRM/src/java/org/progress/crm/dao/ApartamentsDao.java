@@ -15,14 +15,13 @@ public class ApartamentsDao {
             int loggia, int yearOfConstruction, String description,
             boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
             boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent,
-            boolean rePplanning, String clientPhone, String clientDescription,
-            int idWorker, boolean IsApproved) throws CustomException {
+            boolean rePplanning, int idWorker, int idCustomer, boolean IsApproved) throws CustomException {
         return (int) session.save(new Apartaments(typeOfSales, cityName, streetName,
                 houseNumber, buildingNumber, kladrId, shortAddress, rooms, price, cityDistrict, floor,
                 floors, roomNumber, material, sizeApartament, sizeLiving, sizeKitchen, balcony,
                 loggia, yearOfConstruction, description, MethodOfPurchase_PureSale,
                 MethodOfPurchase_Mortgage, MethodOfPurchase_Exchange, MethodOfPurchase_Rent,
-                rePplanning, clientPhone, clientDescription, idWorker, IsApproved));
+                rePplanning, idWorker, idCustomer, IsApproved));
 
     }
 

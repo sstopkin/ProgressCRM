@@ -18,8 +18,7 @@ function addApartament() {
                 || ($('#Balcony').val() == "")
                 || ($('#Loggia').val() == "")
                 || ($('#YearOfConstruction').val() == "")
-                || ($('#Description').val() == "")
-                || ($('#ClientPhone').val() == "")
+                || ($('#IdCustomer').val() == "")
                 ) {
             $("#errorBlock").addClass("alert-danger");
             $("#errorMessage").html("Не все поля заполнены");
@@ -96,8 +95,7 @@ function addApartament() {
                 exchange: exchange,
                 rent: rent,
                 replanning: replanning,
-                clientphone: $('#ClientPhone').val(),
-                clientdescription: $('#ClientDescription').val(),
+                idCustomer: $("#IdCustomer").val()
             }),
             success: function(data) {
                 location.reload();//FIXME

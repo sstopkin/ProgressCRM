@@ -98,8 +98,7 @@ public class ApartamentsAPI {
             @FormParam("exchange") final String exchange,
             @FormParam("rent") final String rent,
             @FormParam("replanning") final String rePlanning,
-            @FormParam("clientphone") final String clientPhone,
-            @FormParam("clientdescription") final String clientDescription) throws SQLException, CustomException {
+            @FormParam("idCustomer") final String idCustomer) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
@@ -108,8 +107,7 @@ public class ApartamentsAPI {
                         kladrId, shortAddress, rooms, price, cityDistrict, floor, floors, roomNumber,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
-                        pureSale, mortgage, exchange, rent, rePlanning,
-                        clientPhone, clientDescription);
+                        pureSale, mortgage, exchange, rent, rePlanning, idCustomer);
                 return ApiHelper.getResponse(result);
             }
         });
@@ -137,8 +135,7 @@ public class ApartamentsAPI {
             @FormParam("exchange") final String exchange,
             @FormParam("rent") final String rent,
             @FormParam("replanning") final String rePlanning,
-            @FormParam("clientphone") final String clientPhone,
-            @FormParam("clientdescription") final String clientDescription) throws SQLException, CustomException {
+            @FormParam("idCustomer") final String idCustomer) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
@@ -146,8 +143,7 @@ public class ApartamentsAPI {
                         typeOfSales, price, cityDistrict, floor, floors,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
-                        pureSale, mortgage, exchange, rent, rePlanning,
-                        clientPhone, clientDescription);
+                        pureSale, mortgage, exchange, rent, rePlanning, idCustomer);
                 return ApiHelper.getResponse(false);
             }
         });
