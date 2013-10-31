@@ -351,3 +351,8 @@ function deleteNewsById(newsId) {
     });
     return false;
 }
+
+function returnSearchResult() {
+    $("#customerSearchModal").modal('hide');
+    $("#IdCustomer").val("1");
+}
