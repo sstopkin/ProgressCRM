@@ -81,10 +81,16 @@ public class CustomersController {
         }
         Customers customers = getCustomerById(session, id);
         customers.setDeleted(false);
-        //FIXME
         customers.setCustomersFname(fName);
         customers.setCustomersMname(mName);
         customers.setCustomersLname(lName);
+        customers.setCustomersYearOfBirthday(Integer.valueOf(customersYearOfBirthday));
+        customers.setCustomersDayOfBirthday(Integer.valueOf(customersDayOfBirthday));
+        customers.setCustomersMonthOfBirthday(Integer.valueOf(customersMonthOfBirthday));
+        customers.setCustomersPhone(customersPhone);
+        customers.setCustomersEmail(customersEmail);
+        customers.setCustomersAddress(customersAddress);
+        customers.setCustomersExtra(customersExtra);
 
         DaoFactory.getCustomersDao().modifyCustomer(session, customers);
         return true;
