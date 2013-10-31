@@ -42,18 +42,23 @@ public class Apartaments implements Serializable {
     private boolean MethodOfPurchase_Exchange;
     private boolean MethodOfPurchase_Rent;
     private boolean rePplanning;
-    private String clientPhone;
-    private String clientDescription;
     private Date сreationDate;
     private Date lastModify;
     private int idWorker;
+    private int idCustomer;
     private boolean IsApproved;
     private boolean deleted;
 
     public Apartaments() {
     }
 
-    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress, int rooms, int price, int cityDistrict, int floor, int floors, int roomNumber, int material, int sizeApartament, int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction, String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage, boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning, String clientPhone, String clientDescription, int idWorker, boolean IsApproved) {
+    public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber,
+            String buildingNumber, String kladrId, String shortAddress, int rooms, int price,
+            int cityDistrict, int floor, int floors, int roomNumber, int material, int sizeApartament,
+            int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction,
+            String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
+            boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning,
+            int idWorker, int idCustomer, boolean IsApproved) {
         this.typeOfSales = typeOfSales;
         this.price = price;
         this.cityDistrict = cityDistrict;
@@ -72,8 +77,7 @@ public class Apartaments implements Serializable {
         this.MethodOfPurchase_Exchange = MethodOfPurchase_Exchange;
         this.MethodOfPurchase_Rent = MethodOfPurchase_Rent;
         this.rePplanning = rePplanning;
-        this.clientPhone = clientPhone;
-        this.clientDescription = clientDescription;
+        this.idCustomer = idCustomer;
         this.idWorker = idWorker;
         this.IsApproved = IsApproved;
         this.deleted = false;
@@ -362,22 +366,13 @@ public class Apartaments implements Serializable {
         this.rePplanning = rePplanning;
     }
 
-    @Column(name = "ClientPhone")
-    public String getClientPhone() {
-        return clientPhone;
+    @Column(name = "idCustomer")
+    public int getIdCustomer() {
+        return idCustomer;
     }
 
-    public void setClientPhone(String clientPhone) {
-        this.clientPhone = clientPhone;
-    }
-
-    @Column(name = "ClientDescription")
-    public String getClientDescription() {
-        return clientDescription;
-    }
-
-    public void setClientDescription(String clientDescription) {
-        this.clientDescription = clientDescription;
+    public void setIdCustomer(int idCustomer) {
+        this.idCustomer = idCustomer;
     }
 
     @Column(name = "CreationDate")

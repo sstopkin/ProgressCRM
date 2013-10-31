@@ -169,10 +169,10 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                content += "Информация о клиенте: " + array.apartaments.clientDescription;
+                content += "Информация о клиенте: FIXME" ;//array.apartaments.clientDescription
                 content += "</p>";
                 content += "<p>";
-                content += "Телефон клиента: " + array.apartaments.clientPhone;
+                content += "Телефон клиента: FIXME";
                 content += "</p>";
 
 
