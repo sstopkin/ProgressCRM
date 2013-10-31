@@ -15,12 +15,38 @@ public class Customers implements Serializable {
 
     private int id;
     @Expose
-    private String fName;
+    private String customersFname;
     @Expose
-    private String lName;
+    private String customersLname;
     @Expose
-    private String mName;
+    private String customersMname;
+    private int customersMonthOfBirthday;
+    private int customersDayOfBirthday;
+    private int customersYearOfBirthday;
+    private int customersSex;
+    private String customersPhone;
+    private String customersEmail;
+    private String customersAddress;
+    private String customersExtra;
     private boolean deleted;
+
+    public Customers(String customersFname, String customersLname, String customersMname,
+            int customersMonthOfBirthday, int customersDayOfBirthday, int customersYearOfBirthday,
+            int customersSex, String customersPhone, String customersEmail, String customersAddress,
+            String customersExtra) {
+        this.customersFname = customersFname;
+        this.customersLname = customersLname;
+        this.customersMname = customersMname;
+        this.customersMonthOfBirthday = customersMonthOfBirthday;
+        this.customersDayOfBirthday = customersDayOfBirthday;
+        this.customersYearOfBirthday = customersYearOfBirthday;
+        this.customersSex = customersSex;
+        this.customersPhone = customersPhone;
+        this.customersEmail = customersEmail;
+        this.customersAddress = customersAddress;
+        this.customersExtra = customersExtra;
+        this.deleted = false;
+    }
 
     @Column(name = "Deleted")
     public boolean isDeleted() {
@@ -31,41 +57,106 @@ public class Customers implements Serializable {
         this.deleted = deleted;
     }
 
-    public Customers(String fName, String lName, String mName) {
-        this.fName = fName;
-        this.lName = lName;
-        this.mName = mName;
-        this.deleted = false;
+    @Column(name = "customersFname")
+    public String getCustomersFname() {
+        return customersFname;
+    }
+
+    public void setCustomersFname(String customersFname) {
+        this.customersFname = customersFname;
+    }
+
+    @Column(name = "customersLname")
+    public String getCustomersLname() {
+        return customersLname;
+    }
+
+    public void setCustomersLname(String customersLname) {
+        this.customersLname = customersLname;
+    }
+
+    @Column(name = "customersMname")
+    public String getCustomersMname() {
+        return customersMname;
+    }
+
+    public void setCustomersMname(String customersMname) {
+        this.customersMname = customersMname;
+    }
+
+    @Column(name = "customersMonthOfBirthday")
+    public int getCustomersMonthOfBirthday() {
+        return customersMonthOfBirthday;
+    }
+
+    public void setCustomersMonthOfBirthday(int customersMonthOfBirthday) {
+        this.customersMonthOfBirthday = customersMonthOfBirthday;
+    }
+
+    @Column(name = "customersDayOfBirthday")
+    public int getCustomersDayOfBirthday() {
+        return customersDayOfBirthday;
+    }
+
+    public void setCustomersDayOfBirthday(int customersDayOfBirthday) {
+        this.customersDayOfBirthday = customersDayOfBirthday;
+    }
+
+    @Column(name = "customersYearOfBirthday")
+    public int getCustomersYearOfBirthday() {
+        return customersYearOfBirthday;
+    }
+
+    public void setCustomersYearOfBirthday(int customersYearOfBirthday) {
+        this.customersYearOfBirthday = customersYearOfBirthday;
+    }
+
+    @Column(name = "customersSex")
+    public int getCustomersSex() {
+        return customersSex;
+    }
+
+    public void setCustomersSex(int customersSex) {
+        this.customersSex = customersSex;
+    }
+
+    @Column(name = "customersPhone")
+    public String getCustomersPhone() {
+        return customersPhone;
+    }
+
+    public void setCustomersPhone(String customersPhone) {
+        this.customersPhone = customersPhone;
+    }
+
+    @Column(name = "customersEmail")
+    public String getCustomersEmail() {
+        return customersEmail;
+    }
+
+    public void setCustomersEmail(String customersEmail) {
+        this.customersEmail = customersEmail;
+    }
+    
+    @Column(name = "customersAddress")
+    public String getCustomersAddress() {
+        return customersAddress;
+    }
+
+    public void setCustomersAddress(String customersAddress) {
+        this.customersAddress = customersAddress;
+    }
+
+    @Column(name = "customersExtra")
+    public String getCustomersExtra() {
+        return customersExtra;
+    }
+
+    public void setCustomersExtra(String customersExtra) {
+        this.customersExtra = customersExtra;
     }
 
     public Customers() {
-    }
-
-    @Column(name = "FName")
-    public String getfName() {
-        return fName;
-    }
-
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    @Column(name = "LName")
-    public String getlName() {
-        return lName;
-    }
-
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
-
-    @Column(name = "MName")
-    public String getmName() {
-        return mName;
-    }
-
-    public void setmName(String mName) {
-        this.mName = mName;
     }
 
     @Id

@@ -26,7 +26,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Customers` (
 `customersMname` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `customersMonthOfBirthday` INT NOT NULL,
 `customersDayOfBirthday` INT NOT NULL,
-`customersYearOfBirthday` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`customersYearOfBirthday` INT NOT NULL,
 `customersSex` INT NOT NULL,
 `customersPhone` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `customersEmail` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,

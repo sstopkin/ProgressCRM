@@ -19,11 +19,34 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().getCustomerById(session, Integer.valueOf(customerId));
     }
 
-    public boolean addCustomer(Session session, String token, String fName, String lName, String mName) throws CustomException {
+    public boolean addCustomer(Session session,
+            String token,
+            String fName,
+            String lName,
+            String mName,
+            String customersMonthOfBirthday,
+            String customersDayOfBirthday,
+            String customersYearOfBirthday,
+            String customersSex,
+            String customersPhone,
+            String customersEmail,
+            String customersAddress,
+            String customersExtra) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        DaoFactory.getCustomersDao().addCustomer(session, fName, lName, mName);
+        DaoFactory.getCustomersDao().addCustomer(session,
+                fName, lName,
+                mName,
+                Integer.valueOf(customersMonthOfBirthday),
+                Integer.valueOf(customersDayOfBirthday),
+                Integer.valueOf(customersYearOfBirthday),
+                Integer.valueOf(customersSex),
+                customersPhone,
+                customersEmail,
+                customersAddress,
+                customersExtra
+        );
         return true;
     }
 
@@ -39,15 +62,30 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
     }
 
-    public boolean editCustomer(Session session, String token, String id, String fName, String lName, String mName) throws CustomException {
+    public boolean editCustomer(Session session,
+            String token,
+            String id,
+            String fName,
+            String lName,
+            String mName,
+            String customersMonthOfBirthday,
+            String customersDayOfBirthday,
+            String customersYearOfBirthday,
+            String customersSex,
+            String customersPhone,
+            String customersEmail,
+            String customersAddress,
+            String customersExtra) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         Customers customers = getCustomerById(session, id);
         customers.setDeleted(false);
-        customers.setfName(fName);
-        customers.setlName(lName);
-        customers.setmName(mName);
+        //FIXME
+        customers.setCustomersFname(fName);
+        customers.setCustomersMname(mName);
+        customers.setCustomersLname(lName);
+
         DaoFactory.getCustomersDao().modifyCustomer(session, customers);
         return true;
     }

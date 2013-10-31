@@ -54,13 +54,34 @@ public class CustomersApi {
     @POST
     @Path("addcustomer")
     public Response addCustomer(@CookieParam("token") final String token,
-            @FormParam("fname") final String fName,
-            @FormParam("mname") final String mName,
-            @FormParam("lname") final String lName) throws SQLException, CustomException {
+            @FormParam("customersFname") final String customersFname,
+            @FormParam("customersMname") final String customersMname,
+            @FormParam("customersLname") final String customersLname,
+            @FormParam("customersYearOfBirthday") final String customersYearOfBirthday,
+            @FormParam("customersMonthOfBirthday") final String customersMonthOfBirthday,
+            @FormParam("customersDayOfBirthday") final String customersDayOfBirthday,
+            @FormParam("customersSex") final String customersSex,
+            @FormParam("customersEmail") final String customersEmail,
+            @FormParam("customersPhone") final String customersPhone,
+            @FormParam("customersAddress") final String customersAddress,
+            @FormParam("customersExtra") final String customersExtra
+    ) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = customersController.addCustomer(session, token, fName, mName, lName);
+                boolean result = customersController.addCustomer(session,
+                        token,
+                        customersFname,
+                        customersLname,
+                        customersMname,
+                        customersMonthOfBirthday,
+                        customersDayOfBirthday,
+                        customersYearOfBirthday,
+                        customersSex,
+                        customersPhone,
+                        customersEmail,
+                        customersAddress,
+                        customersExtra);
                 return ApiHelper.getResponse(result);
             }
         });
@@ -69,13 +90,33 @@ public class CustomersApi {
     @POST
     @Path("editcustomer")
     public Response editCustomer(@CookieParam("token") final String token, @FormParam("id") final String id,
-            @FormParam("fname") final String fName,
-            @FormParam("mname") final String mName,
-            @FormParam("lname") final String lName) throws SQLException, CustomException {
+            @FormParam("customersFname") final String customersFname,
+            @FormParam("customersMname") final String customersMname,
+            @FormParam("customersLname") final String customersLname,
+            @FormParam("customersYearOfBirthday") final String customersYearOfBirthday,
+            @FormParam("customersMonthOfBirthday") final String customersMonthOfBirthday,
+            @FormParam("customersDayOfBirthday") final String customersDayOfBirthday,
+            @FormParam("customersSex") final String customersSex,
+            @FormParam("customersEmail") final String customersEmail,
+            @FormParam("customersPhone") final String customersPhone,
+            @FormParam("customersAddress") final String customersAddress,
+            @FormParam("customersExtra") final String customersExtra
+    ) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = customersController.editCustomer(session, token, id, fName, lName, mName);
+                boolean result = customersController.editCustomer(session, token, id,
+                        customersFname,
+                        customersLname,
+                        customersMname,
+                        customersMonthOfBirthday,
+                        customersDayOfBirthday,
+                        customersYearOfBirthday,
+                        customersSex,
+                        customersPhone,
+                        customersEmail,
+                        customersAddress,
+                        customersExtra);
                 return ApiHelper.getResponse(result);
             }
         });
