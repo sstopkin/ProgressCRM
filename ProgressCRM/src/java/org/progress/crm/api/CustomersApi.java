@@ -134,4 +134,19 @@ public class CustomersApi {
             }
         });
     }
+
+    @GET
+    @Path("search")
+    public Response getCustomerByQuery(
+            @QueryParam("query") final String query) throws CustomException {//@CookieParam("token") final String token,
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson apartamentById = new GsonBuilder().create();
+                String result = apartamentById.toJson(customersController.getCustomersListByQuery(session, query));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
 }
