@@ -95,4 +95,9 @@ public class CustomersController {
         DaoFactory.getCustomersDao().modifyCustomer(session, customers);
         return true;
     }
+
+    public List getCustomersListByQuery(Session session, String str) throws CustomException {
+        return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
+    }
+
 }
