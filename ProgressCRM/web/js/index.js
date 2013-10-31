@@ -356,3 +356,9 @@ function returnSearchResult() {
     $("#customerSearchModal").modal('hide');
     $("#IdCustomer").val("1");
 }
+
+function customersSearchAction() {
+    var res="asd";    
+    $("#customerSearchResultTable").html(res);
+
+}
