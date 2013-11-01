@@ -21,53 +21,55 @@ function getCustomersPage() {
 //        $.get("api/auth/author", function(data2) {
 //            userId = data2;
 //        });
-//        $.ajax({
-//            type: "GET",
-//            url: "api/apartament/getallapartament",
-//            success: function(data) {
-//                $("#errorBlock").css("display", "none");
-//                var array = JSON.parse(data);
-//                var str = "";
-//                array.forEach(function(entry) {
-//                    str += "<div class = \"media\">";
-//                    if (permissions == "3") {
-//                        str += "<div class=\"btn-toolbar\">";
-//                        str += "<div class=\"btn-group\">";
+        $.ajax({
+            type: "GET",
+            url: "api/customers/getallcustomer",
+            success: function(data) {
+                $("#errorBlock").css("display", "none");
+                var array = JSON.parse(data);
+                var str = "";
+                array.forEach(function(entry) {
+                        str += "<div class = \"media\">";
+//                        if (permissions == "3") {
+//                            str += "<div class=\"btn-toolbar\">";
+//                            str += "<div class=\"btn-group\">";
 //
-//                        str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//                            str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
 //
+//                            str += "</div>";
+//                            str += "</div>";
+//                        }
 //                        str += "</div>";
-//                        str += "</div>";
-//                    }
-//                    str += "</div>";
-//                    str += "<a class = \"pull-left\" href = \"#\">";
-//                    str += "<img class=\"media-object\" src=\"images/home.png\" alt=\"...\">";
-//                    str += "</a>";
-//                    str += "<div class=\"media-body\">";
-//                    str += "<h4 class=\"media-heading\">"
-//                            + entry.apartaments.id + " "
-//                            + entry.apartaments.cityName + " "
-//                            + entry.apartaments.streetName + " "
-//                            + entry.apartaments.houseNumber + " "
-//                            + entry.apartaments.buildingNumber + " - "
-//                            + entry.apartaments.roomNumber + " "
-//                            + entry.apartaments.sizeApartament + "/"
-//                            + entry.apartaments.sizeLiving + "/"
-//                            + entry.apartaments.sizeKitchen + " "
-//                            + "<p>Цена: " + entry.apartaments.price + "</p>";
-//                    str += "</h4>";
-//                    str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";
-//                    str += "</div>";
-//                    str += "</div>";
-//                });
-//
-//                $("#divApartamentsList").html(str);
-//            },
-//            error: function(data) {
-//                showDanger(data.responseText);
-//                return false;
-//            }
-//        });
+                    str += "<a class = \"pull-left\" href = \"#\">";
+                    str += "<img class=\"media-object\" src=\"images/gnome.png\" alt=\"...\">";
+                    str += "</a>";
+                    str += "<div class=\"media-body\">";
+                    str += "<h4 class=\"media-heading\">"
+                    str += entry.id + " ";
+                    str += "</h4>";
+                    str +=
+                            +entry.customersAddress + " "
+                            + entry.customersDayOfBirthday + " "
+                            + entry.customersEmail + " "
+                            + entry.customersExtra + " "
+                            + entry.customersFname + " "
+                            + entry.customersLname + " "
+                            + entry.customersMname + " "
+                            + entry.customersMonthOfBirthday + " "
+                            + entry.customersPhone + " "
+                            + entry.customersSex + " "
+                            + entry.customersYearOfBirthday + " ";
+                    str += "</div>";
+                    str += "</div>";
+                });
+
+                $("#divCustomersList").html(str);
+            },
+            error: function(data) {
+                showDanger(data.responseText);
+                return false;
+            }
+        });
     });
 }
 
