@@ -15,13 +15,12 @@ function submitCall() {
         url: "api/calls/addcall",
         data: ({
             id: $("#submitCallId").val(),
-            description: "asd"
-//                     $('#submitCallDescription').val()
+            description: $('#submitCallDescription').val()
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
             $('#addCourseBtn').css('display', 'block');
-            alert("OK");
+            location.reload();//FIXME
         },
         error: function(data) {
             showDanger(data.responseText);
