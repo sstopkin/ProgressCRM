@@ -26,6 +26,19 @@ public class CustomersApi {
     CustomersController customersController;
 
     @GET
+    @Path("getallcustomer")
+    public Response getAllCustomers(@CookieParam("token") final String token) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson apartamentById = new GsonBuilder().create();
+                String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @GET
     @Path("getcustomer")
     public Response getCustomerById(@QueryParam("id") final String id) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {

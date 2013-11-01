@@ -53,13 +53,13 @@ public class NewsApi {
     @POST
     @Path("addnews")
     public Response editCourse(@CookieParam("token") final String token, @FormParam("id") final String id,
-            @FormParam("text") final String text,
-            @FormParam("header") final String header)
+            @FormParam("header") final String header,
+            @FormParam("text") final String text)
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = newsController.addNews(session, token, text, header);
+                boolean result = newsController.addNews(session, token, header, text);
                 return ApiHelper.getResponse(result);
             }
         });

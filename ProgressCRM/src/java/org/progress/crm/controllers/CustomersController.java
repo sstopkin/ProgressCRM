@@ -97,7 +97,12 @@ public class CustomersController {
     }
 
     public List getCustomersListByQuery(Session session, String str) throws CustomException {
+        //FIXME!!!!!    
         return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
     }
 
+    public List<Customers> getAllCustomers(Session session, String token) {
+        //FIXME!!!!!    
+        return DaoFactory.getCustomersDao().getAllCustomers(session);
+    }
 }
