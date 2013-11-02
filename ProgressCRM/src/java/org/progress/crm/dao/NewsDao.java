@@ -3,12 +3,17 @@ package org.progress.crm.dao;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.progress.crm.logic.DbFields;
 import org.progress.crm.logic.News;
 
 public class NewsDao {
 
     public List<News> getNews(Session session) {
-        List<News> list = session.createCriteria(News.class).list();
+        List<News> list = session.createCriteria(News.class).
+                add(Restrictions.eq(DbFields.NEWS.DELETED, false)).
+                addOrder(Order.desc(DbFields.NEWS.LASTMODIFY)).list();
         return list;
     }
 

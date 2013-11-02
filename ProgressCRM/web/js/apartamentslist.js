@@ -28,7 +28,48 @@ function getapartamentsListPage() {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
+                //FIXME begin
+                var flag1=false;
+                var flag2=false;
+                var flag3=false;
+                var flag4=false;
+                var flag5=false;
+
+                var text1 = "1-комнатные";
+                var text2 = "2-комнатные";
+                var text3 = "3-комнатные";
+                var text4 = "4-комнатные";
+                var text5 = "5-комнатные";
+
+
                 array.forEach(function(entry) {
+
+                    str += "<H3>";
+                    switch (entry.apartaments.id) {
+                        case 1:
+                            if(flag1==false){
+                                
+                            }
+                            else{
+                                
+                            }
+                            break;
+                        case 2:
+                            statements2
+                            break;
+                        case 3:
+                            statementsN
+                            break;
+                        case 4:
+                            statementsN
+                            break;
+                        case 5:
+                            statementsN
+                            break;
+                    }
+                    str += "</H3>";
+
+
                     str += "<div class = \"media\">";
                     if (permissions == "3") {
                         str += "<div class=\"btn-toolbar\">";
@@ -42,18 +83,19 @@ function getapartamentsListPage() {
                     str += "</div>";
                     str += "<a class = \"pull-left\" href = \"#\">";
                     str += "<img class=\"media-object\" src=\"images/home.png\" alt=\"...\">";
-                    str += "</a>";  
+                    str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
                             + entry.apartaments.id + " "
+                            + entry.apartaments.rooms + " "
                             + entry.apartaments.cityName + " "
                             + entry.apartaments.streetName + " "
                             + entry.apartaments.houseNumber + " "
                             + entry.apartaments.buildingNumber + " - "
                             + entry.apartaments.roomNumber + " "
                             + entry.apartaments.sizeApartament + "/"
-                            + entry.apartaments.sizeLiving +"/"
-                            + entry.apartaments.sizeKitchen +" "
+                            + entry.apartaments.sizeLiving + "/"
+                            + entry.apartaments.sizeKitchen + " "
                             + "<p>Цена: " + entry.apartaments.price + "</p>";
                     str += "</h4>";
                     str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";

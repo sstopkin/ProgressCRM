@@ -24,7 +24,14 @@ public class DbFields {
 
     public class CALLS {
 
-        public final static String ID = "apartamentId";
+        public final static String ID = "id";
         public final static String DATE = "date";
+    }
+
+    public class NEWS {
+
+        public final static String ID = "id";
+        public final static String LASTMODIFY = "lastModify";
+        public final static String DELETED = "deleted";
     }
 }
