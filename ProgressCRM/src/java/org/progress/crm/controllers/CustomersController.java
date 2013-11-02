@@ -96,13 +96,19 @@ public class CustomersController {
         return true;
     }
 
-    public List getCustomersListByQuery(Session session, String str) throws CustomException {
+    public List getCustomersListByQuery(Session session, String token, String str) throws CustomException {
         //FIXME!!!!!    
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
     }
 
-    public List<Customers> getAllCustomers(Session session, String token) {
-        //FIXME!!!!!    
+    public List<Customers> getAllCustomers(Session session, String token) throws IsNotAuthenticatedException {
+        //FIXME!!!!! 
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         return DaoFactory.getCustomersDao().getAllCustomers(session);
     }
 }
