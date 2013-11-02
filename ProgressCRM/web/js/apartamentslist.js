@@ -28,48 +28,48 @@ function getapartamentsListPage() {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
-                //FIXME begin
-                var flag1=false;
-                var flag2=false;
-                var flag3=false;
-                var flag4=false;
-                var flag5=false;
-
-                var text1 = "1-комнатные";
-                var text2 = "2-комнатные";
-                var text3 = "3-комнатные";
-                var text4 = "4-комнатные";
-                var text5 = "5-комнатные";
-
+                var flag1 = false;
+                var flag2 = false;
+                var flag3 = false;
+                var flag4 = false;
+                var flag5 = false;
 
                 array.forEach(function(entry) {
 
                     str += "<H3>";
-                    switch (entry.apartaments.id) {
+                    switch (entry.apartaments.rooms) {
                         case 1:
-                            if(flag1==false){
-                                
-                            }
-                            else{
-                                
+                            if (flag1 == false) {
+                                str += "1-комнатные";
+                                flag1 = true;
                             }
                             break;
                         case 2:
-                            statements2
+                            if (flag2 == false) {
+                                str += "2-комнатные";
+                                flag2 = true;
+                            }
                             break;
                         case 3:
-                            statementsN
+                            if (flag3 == false) {
+                                str += "3-комнатные";
+                                flag3 = true;
+                            }
                             break;
                         case 4:
-                            statementsN
+                            if (flag4 == false) {
+                                str += "4-комнатные";
+                                flag4 = true;
+                            }
                             break;
                         case 5:
-                            statementsN
+                            if (flag5 == false) {
+                                str += "5-комнатные";
+                                flag5 = true;
+                            }
                             break;
                     }
                     str += "</H3>";
-
-
                     str += "<div class = \"media\">";
                     if (permissions == "3") {
                         str += "<div class=\"btn-toolbar\">";
