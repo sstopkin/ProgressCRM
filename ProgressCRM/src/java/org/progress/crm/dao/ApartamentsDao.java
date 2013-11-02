@@ -3,8 +3,11 @@ package org.progress.crm.dao;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Apartaments;
+import org.progress.crm.logic.DbFields;
 
 public class ApartamentsDao {
 
@@ -61,6 +64,8 @@ public class ApartamentsDao {
 //                boolean isApproved = Boolean.parseBoolean(approved);
 //                return session.createCriteria(Apartaments.class).
 //                        add(Restrictions.eq(DbFields.APARTAMENTS.APPROVED, isApproved)).list();
-        return session.createCriteria(Apartaments.class).list();
+        return session.createCriteria(Apartaments.class).
+                add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false)).
+                addOrder(Order.desc(DbFields.APARTAMENTS.ROOMS)).list();
     }
 }

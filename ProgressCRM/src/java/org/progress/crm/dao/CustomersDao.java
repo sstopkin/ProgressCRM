@@ -32,6 +32,12 @@ public class CustomersDao {
 
     public List<String> findCustomerByStr(final Session session, final String str) throws CustomException {
         //FIXME!!!!!    
+//        List cats = sess.createCriteria(Cat.class)
+//    .add( Restrictions.like("name", "Fritz%") )
+//    .add( Restrictions.between("weight", minWeight, maxWeight) )
+//    .list();
+        
+//        crit.setMaxResults(50);
         if (str.equals("")) {
             return session.createSQLQuery("select * from progresscrm.Customers ORDER BY id DESC limit 10;").addEntity(Customers.class).list();
         } else {
