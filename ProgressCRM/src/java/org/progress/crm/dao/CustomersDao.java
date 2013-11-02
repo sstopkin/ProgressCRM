@@ -32,8 +32,11 @@ public class CustomersDao {
 
     public List<String> findCustomerByStr(final Session session, final String str) throws CustomException {
         //FIXME!!!!!    
-        List list = session.createSQLQuery("SELECT * FROM progresscrm.Customers WHERE (customersLname like '%" + str + "%' OR customersFname like '%" + str + "%' OR customersMname like '%" + str + "%');").addEntity(Customers.class).list();
-        return list;
+        if (str.equals("")) {
+            return session.createSQLQuery("select * from progresscrm.Customers ORDER BY id DESC limit 10;").addEntity(Customers.class).list();
+        } else {
+            return session.createSQLQuery("SELECT * FROM progresscrm.Customers WHERE (customersLname like '%" + str + "%' OR customersFname like '%" + str + "%' OR customersMname like '%" + str + "%');").addEntity(Customers.class).list();
+        }
     }
 
     public List<Customers> getAllCustomers(Session session) {

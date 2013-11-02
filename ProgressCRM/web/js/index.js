@@ -353,7 +353,7 @@ function deleteNewsById(newsId) {
 }
 
 function returnSearchResult() {
-    $("#customerSearchModal").modal('hide');
+    $("#customerSearchModal").modal('hide');//FIXME toggle?
     console.log($(":radio[name=browser]").filter(":checked").val());
     $("#IdCustomer").val($(":radio[name=browser]").filter(":checked").val());
 
@@ -369,15 +369,22 @@ function customersSearchAction() {
             var str = "";
             str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
             str += "<thead class='t-header'>Звонки<tr>";
-            str += "<th>Имя</th>";
+            str += "<th>ID</th>";
             str += "<th>Фамилия</th>";
+            str += "<th>Имя</th>";
+            str += "<th>Отчество</th>";
             str += "</tr></thead>";
             str += "<tbody>";
             for (var j = 0; j < array.length; ++j) {
-                str += "<tr><td><input type=\"radio\" name=\"browser\" value=\"" + array[j].id + "\"> " + array[j].customersFname + "<Br></td>";
+                str += "<tr>";
+                str += "<td><input type=\"radio\" name=\"browser\" value=\"" + array[j].id + "\"> ";
                 str += "</td><td>";
                 str += array[j].customersLname;
-                str += "</tr";
+                str += "</td><td>";
+                str += array[j].customersFname;
+                str += "</td><td>";
+                str += array[j].customersMname;
+                str += "</td></tr>";
             }
             str += "\n</tbody>\n</table>\n";
             $("#customerSearchResultTable").html(str);
@@ -387,4 +394,10 @@ function customersSearchAction() {
             return false;
         }
     });
+}
+
+function customersShowModal() {
+    console.log("customersInitModal");
+    $('#customerSearchModal').modal('show')
+    customersSearchAction();
 }
