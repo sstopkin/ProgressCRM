@@ -53,6 +53,18 @@ FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
+-- Table `progresscrm`.`AnnouncementsCalls`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`AnnouncementsCalls` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+`idWorker` INT NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+PRIMARY KEY (`id`));
+
+-- -----------------------------------------------------
 -- Table `progresscrm`.`Apartaments`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
