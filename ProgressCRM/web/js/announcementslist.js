@@ -1,7 +1,7 @@
 function getАnnouncementsPage() {
     var permissions;
     $("#addannouncements").css("display", "none");
-    $.get("announcements.html", function(data) {
+    $.get("announcementslist.html", function(data) {
         $("#mainContainer").html(data);
         $.ajax({
             type: "GET",
