@@ -12,53 +12,62 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
-import org.progress.crm.controllers.HelpDeskController;
+import org.progress.crm.controllers.AnnouncementsController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
 import org.progress.crm.util.TransactionService;
 
+/**
+ *
+ * @author best
+ */
 @Stateless
-@Path("helpdesk")
-public class HelpDeskApi {
+@Path("announcements")
+public class Announcements {
 
     @EJB
-    HelpDeskController helpDeskController;
+    AnnouncementsController announcementsController;
 
     @GET
-    @Path("getallrequest")
-    public Response getAllHelpDeskRequest() throws CustomException {
+    @Path("getallannouncements")
+    public Response getAllAnnouncements() throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson allHelpDeskRequest = new GsonBuilder().create();
-                String result = allHelpDeskRequest.toJson(helpDeskController.getAllHelpDeskRequest(session));
+                String result = allHelpDeskRequest.toJson(announcementsController.getAllAnnouncements(session));
                 return ApiHelper.getResponse(result);
             }
         });
     }
 
     @POST
-    @Path("addrequest")
-    public Response addHelpDeskRequest(@CookieParam("token") final String token,
-            @FormParam("request") final String request,
-            @FormParam("text") final String text) throws SQLException, CustomException {
+    @Path("addannouncements")
+    public Response deleteAnnouncements(@CookieParam("token") final String token,
+            @FormParam("street") final String street,
+            @FormParam("rooms") final String rooms,
+            @FormParam("floor") final String floor,
+            @FormParam("floors") final String floors,
+            @FormParam("phone") final String phone,
+            @FormParam("description") final String description) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = helpDeskController.addHelpDeskRequest(session, token, request, text);
+                boolean result = announcementsController.addAnnouncements(session, token, street,
+                        rooms, floor, floors, phone, description);
                 return ApiHelper.getResponse(result);
             }
         });
     }
 
     @POST
-    @Path("deleterequest")
-    public Response deleteHelpDeskRequest(@CookieParam("token") final String token,
+    @Path("deleteannouncements")
+    public Response deleteAnnouncements(@CookieParam("token") final String token,
             @FormParam("id") final String id) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = helpDeskController.deleteHelpDeskRequest(session, token, id);
+                boolean result = announcementsController.deleteAnnouncements(session, token, id);
                 return ApiHelper.getResponse(result);
             }
         });

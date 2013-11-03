@@ -28,6 +28,10 @@ $(document).ready(function() {
         e.preventDefault();
         getMainPage();
     });
+    $("#announcementsLink").click(function(e) {
+        e.preventDefault();
+        getАnnouncementsPage();
+    });
     $("#apartamentsLink").click(function(e) {
         e.preventDefault();
         getapartamentsListPage();
