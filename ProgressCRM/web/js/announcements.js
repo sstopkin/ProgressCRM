@@ -29,7 +29,7 @@ function getАnnouncementsPage() {
                             str += entry.creationDate;
                             str += "</h4>";
                             str += "<h4 class=\"media-heading\">";
-                            str += entry.request;
+                            str += entry.id;
                             str += "</h4>";
                             if (permissions == "3") {
                                 str += "<div class=\"btn-toolbar\">";
@@ -39,19 +39,11 @@ function getАnnouncementsPage() {
                                 str += "</div>";
                                 str += "</div>";
                             }
+                            str += entry.street + " " + entry.rooms + " " + entry.floor + " " + entry.floors + " " + entry.phone + " " + entry.description;
                             str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
                             str += "</div>";
                             str += "</div>";
                         });
-//                console.log(array.apartaments.IsApproved);
-//                console.log(array.apartaments.deleted);
-//
-//
-//                content += "<p>";
-//                content += "ID = " + array.apartaments.id;
-//                content += "</p>";
-
-
                         $("#mainAnnouncementsContainer").html(str);
                     },
                     error: function(data) {
@@ -90,23 +82,23 @@ function addAnnouncements() {
         }
     });
 }
-//
-//function deleteHelpDeskRequestById(hdRequestId) {
-//    console.log("deleteHelpDeskRequestById " + hdRequestId);
-//    $.ajax({
-//        type: "POST",
-//        url: "api/news/deletenews",
-//        data: ({id: hdRequestId}),
-//        success: function(data) {
-//            getapartamentsListPage();
-//        },
-//        error: function(data) {
-//            $("#errorBlock").addClass("alert-danger");
-//            $("#errorMessage").html(data.responseText);
-//            $("#errorBlock").css("display", "block");
-//            checkStatus();
-//            return false;
-//        }
-//    });
-//    return false;
-//}
+
+function deleteAnnouncementsById(announcementsId) {
+    console.log("deleteAnnouncementsById " + announcementsId);
+    $.ajax({
+        type: "POST",
+        url: "api/announcements/deleteannouncements",
+        data: ({id: hdRequestId}),
+        success: function(data) {
+            getАnnouncementsPage();
+        },
+        error: function(data) {
+            $("#errorBlock").addClass("alert-danger");
+            $("#errorMessage").html(data.responseText);
+            $("#errorBlock").css("display", "block");
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
+}
