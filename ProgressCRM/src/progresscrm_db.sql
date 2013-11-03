@@ -36,6 +36,23 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Customers` (
 PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
+-- Table `progresscrm`.`Announcements`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Announcements` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`Street` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Rooms` INT NOT NULL ,
+`Floor` INT NOT NULL ,
+`Floors` INT NOT NULL ,
+`Phone` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`idWorker` INT NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+PRIMARY KEY (`id`));
+
+-- -----------------------------------------------------
 -- Table `progresscrm`.`Apartaments`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
