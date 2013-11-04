@@ -23,7 +23,7 @@ import org.progress.crm.util.TransactionService;
  */
 @Stateless
 @Path("announcements")
-public class Announcements {
+public class AnnouncementsApi {
 
     @EJB
     AnnouncementsController announcementsController;
@@ -43,7 +43,7 @@ public class Announcements {
 
     @POST
     @Path("addannouncements")
-    public Response deleteAnnouncements(@CookieParam("token") final String token,
+    public Response addAnnouncements(@CookieParam("token") final String token,
             @FormParam("street") final String street,
             @FormParam("rooms") final String rooms,
             @FormParam("floor") final String floor,

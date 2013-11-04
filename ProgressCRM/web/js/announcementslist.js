@@ -39,8 +39,8 @@ function getАnnouncementsPage() {
                                 str += "</div>";
                                 str += "</div>";
                             }
-                            str += entry.street + " " + entry.rooms + " " + entry.floor + " " + entry.floors + " " + entry.phone + " " + entry.description;
-                            str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
+                            str += entry.description;
+                            str += "<a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.id + ")\">ссылка</a>";
                             str += "</div>";
                             str += "</div>";
                         });
