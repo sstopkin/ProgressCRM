@@ -60,7 +60,9 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`AnnouncementsCalls` (
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 `idWorker` INT NOT NULL ,
+`AnnouncementsId` INT NOT NULL ,
 `CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (AnnouncementsId) REFERENCES Announcements(id),
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`));
 

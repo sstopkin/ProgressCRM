@@ -69,8 +69,6 @@ function getHelpDeskPage() {
 }
 
 function addHelpDeskRequest() {
-//    alert($('#hdRequest').val());
-//    alert($('#hdText').val());
     $('#myModal').modal('toggle');
     $.ajax({
         type: "POST",
