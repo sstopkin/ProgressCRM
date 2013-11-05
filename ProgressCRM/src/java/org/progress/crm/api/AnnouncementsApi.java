@@ -78,13 +78,14 @@ public class AnnouncementsApi {
     @Path("search")
     public Response getAnnouncementsListByQuery(@CookieParam("token") final String token,
             @QueryParam("street") final String street,
+            @QueryParam("rooms") final String rooms,
             @QueryParam("floor") final String floor,
             @QueryParam("floors") final String floors) throws CustomException {//@CookieParam("token") final String token,
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson announcements = new GsonBuilder().create();
-                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, floor, floors));
+                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, rooms, floor, floors));
                 return ApiHelper.getResponse(result);
             }
         });

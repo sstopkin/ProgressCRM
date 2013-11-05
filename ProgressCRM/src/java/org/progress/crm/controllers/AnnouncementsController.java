@@ -46,11 +46,29 @@ public class AnnouncementsController {
         return true;
     }
 
-    public Object getAnnouncementsListByQuery(Session session, String token, String street, String floor, String floors) throws IsNotAuthenticatedException {
+    public Object getAnnouncementsListByQuery(Session session, String token, String street, String rooms, String floor, String floors) throws IsNotAuthenticatedException {
         //FIXME!!!!!    
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        return DaoFactory.getAnnouncementsDao().getAnnouncementsListByQuery(session, street, Integer.valueOf(floor), Integer.valueOf(floors));
+        int rooms_;
+        int floor_;
+        int floors_;
+        if (rooms.equals("")) {
+            rooms_ = -1;
+        } else {
+            rooms_ = Integer.valueOf(rooms);
+        }
+        if (floor.equals("")) {
+            floor_ = -1;
+        } else {
+            floor_ = Integer.valueOf(floor);
+        }
+        if (floors.equals("")) {
+            floors_ = -1;
+        } else {
+            floors_ = Integer.valueOf(floors);
+        }
+        return DaoFactory.getAnnouncementsDao().getAnnouncementsListByQuery(session, street, rooms_, floor_, floors_);
     }
 }

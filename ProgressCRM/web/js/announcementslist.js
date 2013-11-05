@@ -76,6 +76,7 @@ function searchAnnouncements() {
     $.ajax({
         type: "GET",
         url: "api/announcements/search?street=" + $('#announcementsSearchStreet').val() +
+                "&rooms=" + $("#announcementsSearchRooms").val() +
                 "&floor=" + $('#announcementsSearchFloor').val() +
                 "&floors=" + $('#announcementsSearchFloors').val(),
         success: function(data) {
