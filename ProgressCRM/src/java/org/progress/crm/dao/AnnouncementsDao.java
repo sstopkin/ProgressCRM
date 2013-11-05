@@ -3,8 +3,10 @@ package org.progress.crm.dao;
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Announcements;
+import org.progress.crm.logic.DbFields;
 
 /**
  *
@@ -38,5 +40,15 @@ public class AnnouncementsDao {
         ann.setDeleted(true);
         session.update(ann);
         return true;
+    }
+
+    public List getAnnouncementsListByQuery(Session session, String street, int floor, int floors) {
+
+        return session.createCriteria(Announcements.class)
+                .add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street))
+                .add(Restrictions.like(DbFields.ANNOUNCEMENTS.FLOOR, floor))
+                .add(Restrictions.like(DbFields.ANNOUNCEMENTS.FLOORS, floors))
+                .add(Restrictions.eq(DbFields.ANNOUNCEMENTS.DELETED, false))
+                .list();//.add(Restrictions.between("weight", minWeight, maxWeight))
     }
 }

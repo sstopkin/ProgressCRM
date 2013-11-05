@@ -1,5 +1,4 @@
 function getАnnouncementsPage() {
-    var permissions;
     $("#addannouncements").css("display", "none");
     $.get("announcementslist.html", function(data) {
         $("#mainContainer").html(data);
@@ -9,42 +8,12 @@ function getАnnouncementsPage() {
             success: function(data) {
                 $("#profileLink").html(data);
                 $("#logged").css("display", "block");
-                $.get("api/auth/validate", function(data3) {
-                    permissions = data3;
-                });
                 $.ajax({
                     type: "GET",
                     url: "api/announcements/getallannouncements",
                     success: function(data) {
                         $("#errorBlock").css("display", "none");
-                        var array = JSON.parse(data);
-                        var str = "";
-                        array.forEach(function(entry) {
-                            str += "<div class = \"media\">";
-                            str += "<a class = \"pull-left\" href = \"#\">";
-                            str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
-                            str += "</a>";
-                            str += "<div class=\"media-body\">";
-                            str += "<h6 class=\"media-heading\">";
-                            str += entry.creationDate;
-                            str += "</h4>";
-                            str += "<h4 class=\"media-heading\">";
-                            str += entry.id;
-                            str += "</h4>";
-                            if (permissions == "3") {
-                                str += "<div class=\"btn-toolbar\">";
-                                str += "<div class=\"btn-group\">";
-                                str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
-                                str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-                                str += "</div>";
-                                str += "</div>";
-                            }
-                            str += entry.description;
-                            str += "<a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.id + ")\">ссылка</a>";
-                            str += "</div>";
-                            str += "</div>";
-                        });
-                        $("#mainAnnouncementsContainer").html(str);
+                        writeToDivAnnouncementsList(data);
                     },
                     error: function(data) {
                         showDanger(data.responseText);
@@ -101,4 +70,57 @@ function deleteAnnouncementsById(announcementsId) {
         }
     });
     return false;
+}
+
+function searchAnnouncements() {
+    $.ajax({
+        type: "GET",
+        url: "api/announcements/search?street=" + $('#announcementsSearchStreet').val() +
+                "&floor=" + $('#announcementsSearchFloor').val() +
+                "&floors=" + $('#announcementsSearchFloors').val(),
+        success: function(data) {
+            $("#errorBlock").css("display", "none");
+            var array = JSON.parse(data);
+            writeToDivAnnouncementsList(data);
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
+        }
+    });
+}
+
+function writeToDivAnnouncementsList(data) {
+    var permissions;
+    $.get("api/auth/validate", function(data3) {
+        permissions = data3;
+    });
+    var array = JSON.parse(data);
+    var str = "";
+    array.forEach(function(entry) {
+        str += "<div class = \"media\">";
+        str += "<a class = \"pull-left\" href = \"#\">";
+        str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
+        str += "</a>";
+        str += "<div class=\"media-body\">";
+        str += "<h6 class=\"media-heading\">";
+        str += entry.creationDate;
+        str += "</h4>";
+        str += "<h4 class=\"media-heading\">";
+        str += entry.id;
+        str += "</h4>";
+        if (permissions == "3") {
+            str += "<div class=\"btn-toolbar\">";
+            str += "<div class=\"btn-group\">";
+            str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
+            str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+            str += "</div>";
+            str += "</div>";
+        }
+        str += entry.description;
+        str += "<a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.id + ")\">ссылка</a>";
+        str += "</div>";
+        str += "</div>";
+    });
+    $("#mainAnnouncementsContainer").html(str);
 }
