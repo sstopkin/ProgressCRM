@@ -118,7 +118,10 @@ function writeToDivAnnouncementsList(data) {
             str += "</div>";
             str += "</div>";
         }
-        str += entry.description;
+        str += " street: " + entry.street;
+        str += " rooms:" + entry.rooms;
+        str += " floor/floors:" + entry.floor + "/" + entry.floors;
+        str += " description: " + entry.description;
         str += "<a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.id + ")\">ссылка</a>";
         str += "</div>";
         str += "</div>";
