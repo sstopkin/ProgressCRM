@@ -2,6 +2,7 @@ package org.progress.crm.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
@@ -42,13 +43,22 @@ public class AnnouncementsDao {
         return true;
     }
 
-    public List getAnnouncementsListByQuery(Session session, String street, int floor, int floors) {
-
-        return session.createCriteria(Announcements.class)
-                .add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street))
-                .add(Restrictions.like(DbFields.ANNOUNCEMENTS.FLOOR, floor))
-                .add(Restrictions.like(DbFields.ANNOUNCEMENTS.FLOORS, floors))
-                .add(Restrictions.eq(DbFields.ANNOUNCEMENTS.DELETED, false))
-                .list();//.add(Restrictions.between("weight", minWeight, maxWeight))
+    public List getAnnouncementsListByQuery(Session session, String street, int rooms, int floor, int floors) {
+        Criteria criteria = session.createCriteria(Announcements.class);
+        if (!street.equals("")) {
+            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street));
+        }
+        if (rooms != -1) {
+            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.ROOMS, rooms));
+        }
+        if (floor != -1) {
+            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.FLOOR, floor));
+        }
+        if (floors != -1) {
+            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.FLOORS, floors));
+        }
+        criteria.add(Restrictions.eq(DbFields.ANNOUNCEMENTS.DELETED, false));
+        return criteria.list();
+//.add(Restrictions.between("weight", minWeight, maxWeight))
     }
 }
