@@ -237,3 +237,21 @@ INSERT INTO `HelpDesk` (`id`,`idWorker`,`Request`,`Text`,`Status`,`CreationDate`
 INSERT INTO `HelpDesk` (`id`,`idWorker`,`Request`,`Text`,`Status`,`CreationDate`,`LastModify`,`Deleted`) VALUES (3,2,' text text text',' text text text text text text',1,'2013-09-23 12:58:47','2013-09-23 12:58:47',0);
 INSERT INTO `HelpDesk` (`id`,`idWorker`,`Request`,`Text`,`Status`,`CreationDate`,`LastModify`,`Deleted`) VALUES (4,2,' text',' text',1,'2013-09-23 12:58:50','2013-09-23 12:58:50',0);
 INSERT INTO `HelpDesk` (`id`,`idWorker`,`Request`,`Text`,`Status`,`CreationDate`,`LastModify`,`Deleted`) VALUES (5,2,' text text text text',' text text text text',1,'2013-09-23 12:58:55','2013-09-23 12:58:55',0);
+
+/*
+-- Query: SELECT * FROM progresscrm.Announcements
+LIMIT 0, 1000
+
+-- Date: 2013-11-05 23:50
+*/
+INSERT INTO `Announcements` (`id`,`Street`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (1,'Челюскинцев',2,5,5,'89134563211','3+',3,'2013-11-05 23:47:54',0);
+INSERT INTO `Announcements` (`id`,`Street`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (2,'Северная',1,2,16,'89081020123','текст',3,'2013-11-05 23:48:40',0);
+
+/*
+-- Query: SELECT * FROM progresscrm.AnnouncementsCalls
+LIMIT 0, 1000
+
+-- Date: 2013-11-05 23:51
+*/
+INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (1,'текст',0,3,2,'2013-11-05 23:49:56');
+INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (2,'1234567890',0,3,2,'2013-11-05 23:50:07');
