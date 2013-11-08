@@ -1,4 +1,4 @@
-package org.progress.crm.util;
+package org.progress.crm.scheduled;
 
 import java.util.Date;
 import java.util.logging.Level;
@@ -22,5 +22,11 @@ public class CronJob {
     public void runEveryMinute() {
         log.log(Level.INFO,
                 "running every minute .. now it's: " + new Date().toString());
+    }
+    
+    @Schedule(second = "*/5",minute = "*", hour = "*")
+    public void runEvery10Second() {
+        log.log(Level.INFO,
+                "running every second .. now it's: " + new Date().toString());
     }
 }
