@@ -2,6 +2,19 @@ function getАnnouncementsPage() {
     $("#addannouncements").css("display", "none");
     $.get("announcementslist.html", function(data) {
         $("#mainContainer").html(data);
+        var date = new Date();
+        var day = date.getDay();
+        day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        $('#announcementsSearchStartDate').val(day + "-" + month + "-" + year);
+        $('#announcementsSearchStartDate').datepicker({
+            format: 'dd-mm-yyyy'
+        });
+        $('#announcementsSearchEndDate').val(day + "-" + month + "-" + year);
+        $('#announcementsSearchEndDate').datepicker({
+            format: 'dd-mm-yyyy'
+        });
         $.ajax({
             type: "GET",
             url: "api/auth",

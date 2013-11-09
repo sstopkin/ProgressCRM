@@ -115,4 +115,19 @@ public class AuthApi {
             }
         });
     }
+
+    @GET
+    @Path("userslist")
+    public Response getAllUsersList(@CookieParam("token") final String token)
+            throws SQLException, CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson allUsersList = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                String profileJson = allUsersList.toJson(workersController
+                        .getAllUsersList(session, token));
+                return ApiHelper.getResponse(profileJson);
+            }
+        });
+    }
 }

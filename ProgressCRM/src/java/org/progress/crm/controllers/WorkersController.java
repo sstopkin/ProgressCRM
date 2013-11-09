@@ -87,4 +87,8 @@ public class WorkersController {
 //        }
         return list;
     }
+
+    public Object getAllUsersList(Session session, String token) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
