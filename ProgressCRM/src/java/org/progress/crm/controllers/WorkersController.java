@@ -73,22 +73,20 @@ public class WorkersController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
-            throw new PermissionsDeniedException();
-        }
+        //FIXME
+//        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
+//            throw new PermissionsDeniedException();
+//        }
         List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkers(session);
         List list = new ArrayList();
-//        for (Workers ws : profiles) {
-//            List ll = new ArrayList();
-//            ll.add(ws);
-//            List score = scoreController.getLevelFeaturesByUserScore(ws.getPoints());
-//            ll.add(score.get(3));
-//            list.add(ll);
-//        }
+        for (Workers ws : workers) {
+            List ll = new ArrayList();
+            ll.add(ws.getId());
+            ll.add(ws.getfName());
+            ll.add(ws.getlName());
+            ll.add(ws.getmName());
+            list.add(ll);
+        }
         return list;
-    }
-
-    public Object getAllUsersList(Session session, String token) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

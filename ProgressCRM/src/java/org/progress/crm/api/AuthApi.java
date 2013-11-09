@@ -125,7 +125,7 @@ public class AuthApi {
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson allUsersList = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                 String profileJson = allUsersList.toJson(workersController
-                        .getAllUsersList(session, token));
+                        .getAllUsers(session, token));
                 return ApiHelper.getResponse(profileJson);
             }
         });
