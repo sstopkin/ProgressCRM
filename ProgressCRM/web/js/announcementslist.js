@@ -15,6 +15,7 @@ function getАnnouncementsPage() {
         $('#announcementsSearchEndDate').datepicker({
             format: 'dd-mm-yyyy'
         });
+        console.log("api" + getAllWorkersList());
         $.ajax({
             type: "GET",
             url: "api/auth",
@@ -112,6 +113,9 @@ function writeToDivAnnouncementsList(data) {
     var array = JSON.parse(data);
     var str = "";
     array.forEach(function(entry) {
+        workersList.forEach(function(workersList) {
+            
+        });
         str += "<div class = \"media\">";
         str += "<a class = \"pull-left\" href = \"#\">";
         str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";

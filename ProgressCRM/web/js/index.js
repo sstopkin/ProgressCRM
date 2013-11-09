@@ -1,5 +1,6 @@
 var transfer;
 var type;
+var workersList;
 $(document).ready(function() {
     $("#closeAlert").click(function() {
         $("#errorBlock").css("display", "none");
@@ -23,6 +24,7 @@ $(document).ready(function() {
             $("#loginForm").css("display", "block");
         }
     });
+    getAllWorkersList();
     getMainPage();
     $("#mainLink").click(function(e) {
         e.preventDefault();
@@ -404,4 +406,18 @@ function customersShowModal() {
     console.log("customersInitModal");
     $('#customerSearchModal').modal('show')
     customersSearchAction();
+}
+
+function getAllWorkersList() {
+    $.ajax({
+        type: "GET",
+        url: "api/auth/userslist",
+        success: function(data) {
+            workersList = JSON.parse(data);
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
+        }
+    });
 }
