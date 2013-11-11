@@ -414,6 +414,7 @@ function getAllWorkersList() {
         url: "api/auth/userslist",
         success: function(data) {
             workersList = JSON.parse(data);
+            return true;
         },
         error: function(data) {
             showDanger(data.responseText);
