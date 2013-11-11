@@ -15,7 +15,9 @@ function getАnnouncementsPage() {
         $('#announcementsSearchEndDate').datepicker({
             format: 'dd-mm-yyyy'
         });
-        console.log("api" + getAllWorkersList());
+        workersList.forEach(function(entry) {
+            $("#announcementsSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
+        });
         $.ajax({
             type: "GET",
             url: "api/auth",
@@ -113,9 +115,6 @@ function writeToDivAnnouncementsList(data) {
     var array = JSON.parse(data);
     var str = "";
     array.forEach(function(entry) {
-        workersList.forEach(function(workersList) {
-            
-        });
         str += "<div class = \"media\">";
         str += "<a class = \"pull-left\" href = \"#\">";
         str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
@@ -139,6 +138,12 @@ function writeToDivAnnouncementsList(data) {
         str += " rooms:" + entry.rooms;
         str += " floor/floors:" + entry.floor + "/" + entry.floors;
         str += " description: " + entry.description;
+        for (var i = 0; i < workersList.length; ++i) {
+            var a = workersList[i];
+            if (entry.idWorker == a[0]) {
+                str += " author: " + a[1] + " " + a[2] + " " + a[3];
+            }
+        }
         str += "<a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.id + ")\">ссылка</a>";
         str += "</div>";
         str += "</div>";
