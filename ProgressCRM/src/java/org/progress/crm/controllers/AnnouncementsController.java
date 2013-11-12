@@ -46,7 +46,8 @@ public class AnnouncementsController {
         return true;
     }
 
-    public Object getAnnouncementsListByQuery(Session session, String token, String street, String rooms, String floor, String floors) throws IsNotAuthenticatedException {
+    public Object getAnnouncementsListByQuery(Session session, String token, String street,
+            String rooms, String floor, String floors, String idWorker) throws IsNotAuthenticatedException {
         //FIXME!!!!!    
         if (token == null) {
             throw new IsNotAuthenticatedException();
@@ -54,6 +55,7 @@ public class AnnouncementsController {
         int rooms_;
         int floor_;
         int floors_;
+        int idWorker_;
         if (rooms.equals("")) {
             rooms_ = -1;
         } else {
@@ -69,6 +71,11 @@ public class AnnouncementsController {
         } else {
             floors_ = Integer.valueOf(floors);
         }
-        return DaoFactory.getAnnouncementsDao().getAnnouncementsListByQuery(session, street, rooms_, floor_, floors_);
+        if (idWorker.equals("")) {
+            idWorker_ = -1;
+        } else {
+            idWorker_ = Integer.valueOf(idWorker);
+        }
+        return DaoFactory.getAnnouncementsDao().getAnnouncementsListByQuery(session, street, rooms_, floor_, floors_, idWorker_);
     }
 }

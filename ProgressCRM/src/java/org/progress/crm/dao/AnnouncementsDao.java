@@ -43,7 +43,7 @@ public class AnnouncementsDao {
         return true;
     }
 
-    public List getAnnouncementsListByQuery(Session session, String street, int rooms, int floor, int floors) {
+    public List getAnnouncementsListByQuery(Session session, String street, int rooms, int floor, int floors, int idWorker) {
         Criteria criteria = session.createCriteria(Announcements.class);
         if (!street.equals("")) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street));
@@ -56,6 +56,9 @@ public class AnnouncementsDao {
         }
         if (floors != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.FLOORS, floors));
+        }
+        if (idWorker != -1) {
+            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.IDWORKER, idWorker));
         }
         criteria.add(Restrictions.eq(DbFields.ANNOUNCEMENTS.DELETED, false));
         return criteria.list();

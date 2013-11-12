@@ -89,12 +89,22 @@ function deleteAnnouncementsById(announcementsId) {
 }
 
 function searchAnnouncements() {
+    var startData = $('#announcementsSearchStartDate').val().split("-");
+    var endData = $('#announcementsSearchEndDate').val().split("-");
+    console.log(startData);
     $.ajax({
         type: "GET",
         url: "api/announcements/search?street=" + $('#announcementsSearchStreet').val() +
                 "&rooms=" + $("#announcementsSearchRooms").val() +
                 "&floor=" + $('#announcementsSearchFloor').val() +
-                "&floors=" + $('#announcementsSearchFloors').val(),
+                "&floors=" + $('#announcementsSearchFloors').val() +
+                "&floors=" + $('#announcementsSearchAuthor').val() +
+                "&sdated=" + startData[0] +
+                "&sdatem=" + startData[1] +
+                "&sdatey=" + startData[2] +
+                "&edated=" + endData[0] +
+                "&edatem=" + endData[1] +
+                "&edatey=" + endData[2],
         success: function(data) {
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
