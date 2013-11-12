@@ -13,6 +13,7 @@ function getAnnouncementsViewPage(announcementsId) {
                 str += "<thead class='t-header'>Звонки<tr>";
                 str += "<th>Дата</th>";
                 str += "<th>Комментарий</th>";
+                str += "<th>Автор</th>";
                 str += "</tr></thead>";
                 str += "<tbody>";
                 for (var j = 0; j < array.length; ++j) {
@@ -20,6 +21,13 @@ function getAnnouncementsViewPage(announcementsId) {
                     str += array[j].creationDate;
                     str += "</td><td>";
                     str += array[j].description;
+                    str += "</td><td>";
+                    for (var i = 0; i < workersList.length; ++i) {
+                        var a = workersList[i];
+                        if (array[j].idWorker == a[0]) {
+                            str +=a[1] + " " + a[2] + " " + a[3];
+                        }
+                    }
                 }
                 str += "\n</tbody>\n</table>\n";
                 $("#announcementsCalls").html(str);
