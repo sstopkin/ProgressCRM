@@ -82,17 +82,13 @@ public class AnnouncementsApi {
             @QueryParam("floor") final String floor,
             @QueryParam("floors") final String floors,
             @QueryParam("idworker") final String idWorker,
-            @QueryParam("sdated") final String sdated,
-            @QueryParam("sdatem") final String sdatem,
-            @QueryParam("sdatey") final String sdatey,
-            @QueryParam("edated") final String edated,
-            @QueryParam("edatem") final String edatem,
-            @QueryParam("edatey") final String edatey) throws CustomException {//@CookieParam("token") final String token,
+            @QueryParam("startdate") final String startdate,
+            @QueryParam("enddate") final String enddate) throws CustomException {//@CookieParam("token") final String token,
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson announcements = new GsonBuilder().create();
-                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, rooms, floor, floors, idWorker, sdated, sdatem, sdatey, edated, edatem, edatey));
+                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, rooms, floor, floors, idWorker, startdate, enddate));
                 return ApiHelper.getResponse(result);
             }
         });

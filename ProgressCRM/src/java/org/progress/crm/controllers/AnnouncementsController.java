@@ -1,8 +1,14 @@
 package org.progress.crm.controllers;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
@@ -47,12 +53,11 @@ public class AnnouncementsController {
     }
 
     public Object getAnnouncementsListByQuery(Session session, String token, String street,
-            String rooms, String floor, String floors, String idWorker, String sdated, String sdatem,
-            String sdatey,
-            String edated,
-            String edatem,
-            String edatey) throws IsNotAuthenticatedException {
+            String rooms, String floor, String floors, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException {
         //FIXME!!!!!    
+        DateFormat formatter = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
+        Date startDate_ = null;
+        Date endDate_ = null;
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -80,6 +85,20 @@ public class AnnouncementsController {
         } else {
             idWorker_ = Integer.valueOf(idWorker);
         }
-        return DaoFactory.getAnnouncementsDao().getAnnouncementsListByQuery(session, street, rooms_, floor_, floors_, idWorker_);
+        if (!startDate.equals("")) {
+            try {
+                startDate_ = formatter.parse(startDate + " 00:00:01");
+            } catch (ParseException ex) {
+                Logger.getLogger(AnnouncementsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (!endDate.equals("")) {
+            try {
+                endDate_ = formatter.parse(endDate + " 23:59:59");
+            } catch (ParseException ex) {
+                Logger.getLogger(AnnouncementsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return DaoFactory.getAnnouncementsDao().getAnnouncementsListByQuery(session, street, rooms_, floor_, floors_, idWorker_, startDate_, endDate_);
     }
 }
