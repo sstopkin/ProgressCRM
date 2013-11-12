@@ -15,6 +15,7 @@ function getАnnouncementsPage() {
         $('#announcementsSearchEndDate').datepicker({
             format: 'dd-mm-yyyy'
         });
+        $("#announcementsSearchAuthor").append('<option value="">Все</option>');
         workersList.forEach(function(entry) {
             $("#announcementsSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
@@ -89,9 +90,6 @@ function deleteAnnouncementsById(announcementsId) {
 }
 
 function searchAnnouncements() {
-    var startData = $('#announcementsSearchStartDate').val().split("-");
-    var endData = $('#announcementsSearchEndDate').val().split("-");
-    console.log(startData);
     $.ajax({
         type: "GET",
         url: "api/announcements/search?" +
@@ -100,12 +98,8 @@ function searchAnnouncements() {
                 "&floor=" + $('#announcementsSearchFloor').val() +
                 "&floors=" + $('#announcementsSearchFloors').val() +
                 "&idworker=" + $('#announcementsSearchAuthor').val() +
-                "&sdated=" + startData[0] +
-                "&sdatem=" + startData[1] +
-                "&sdatey=" + startData[2] +
-                "&edated=" + endData[0] +
-                "&edatem=" + endData[1] +
-                "&edatey=" + endData[2],
+                "&startdate=" + $('#announcementsSearchStartDate').val() +
+                "&enddate=" + $('#announcementsSearchEndDate').val(),
         success: function(data) {
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);

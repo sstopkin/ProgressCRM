@@ -1,9 +1,11 @@
 package org.progress.crm.dao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Announcements;
@@ -43,7 +45,7 @@ public class AnnouncementsDao {
         return true;
     }
 
-    public List getAnnouncementsListByQuery(Session session, String street, int rooms, int floor, int floors, int idWorker) {
+    public List getAnnouncementsListByQuery(Session session, String street, int rooms, int floor, int floors, int idWorker, Date startDate, Date endDate) {
         Criteria criteria = session.createCriteria(Announcements.class);
         if (!street.equals("")) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street));
@@ -59,6 +61,12 @@ public class AnnouncementsDao {
         }
         if (idWorker != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.IDWORKER, idWorker));
+        }
+        if (startDate != null) {
+            criteria.add(Restrictions.ge(DbFields.ANNOUNCEMENTS.CREATIONDATE, startDate));
+        }
+        if (endDate != null) {
+            criteria.add(Restrictions.le(DbFields.ANNOUNCEMENTS.CREATIONDATE, endDate));
         }
         criteria.add(Restrictions.eq(DbFields.ANNOUNCEMENTS.DELETED, false));
         return criteria.list();
