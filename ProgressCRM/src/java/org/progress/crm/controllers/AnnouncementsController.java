@@ -47,7 +47,11 @@ public class AnnouncementsController {
     }
 
     public Object getAnnouncementsListByQuery(Session session, String token, String street,
-            String rooms, String floor, String floors, String idWorker) throws IsNotAuthenticatedException {
+            String rooms, String floor, String floors, String idWorker, String sdated, String sdatem,
+            String sdatey,
+            String edated,
+            String edatem,
+            String edatey) throws IsNotAuthenticatedException {
         //FIXME!!!!!    
         if (token == null) {
             throw new IsNotAuthenticatedException();
