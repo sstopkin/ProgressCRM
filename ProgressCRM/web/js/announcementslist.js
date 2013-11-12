@@ -94,11 +94,12 @@ function searchAnnouncements() {
     console.log(startData);
     $.ajax({
         type: "GET",
-        url: "api/announcements/search?street=" + $('#announcementsSearchStreet').val() +
+        url: "api/announcements/search?" +
+                "street=" + $('#announcementsSearchStreet').val() +
                 "&rooms=" + $("#announcementsSearchRooms").val() +
                 "&floor=" + $('#announcementsSearchFloor').val() +
                 "&floors=" + $('#announcementsSearchFloors').val() +
-                "&floors=" + $('#announcementsSearchAuthor').val() +
+                "&idworker=" + $('#announcementsSearchAuthor').val() +
                 "&sdated=" + startData[0] +
                 "&sdatem=" + startData[1] +
                 "&sdatey=" + startData[2] +

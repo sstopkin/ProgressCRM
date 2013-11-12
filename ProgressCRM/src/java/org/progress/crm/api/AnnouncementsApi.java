@@ -92,7 +92,7 @@ public class AnnouncementsApi {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson announcements = new GsonBuilder().create();
-                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, rooms, floor, floors, idWorker));
+                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, rooms, floor, floors, idWorker, sdated, sdatem, sdatey, edated, edatem, edatey));
                 return ApiHelper.getResponse(result);
             }
         });
