@@ -53,6 +53,7 @@ function addAnnouncements() {
         url: "api/announcements/addannouncements",
         data: ({
             street: $('#announcementsStreet').val(),
+            houseNumber: $('#announcementsHouseNumber').val(),
             rooms: $('#announcementsRooms').val(),
             floor: $('#announcementsFloor').val(),
             floors: $('#announcementsFloors').val(),
@@ -94,6 +95,7 @@ function searchAnnouncements() {
         type: "GET",
         url: "api/announcements/search?" +
                 "street=" + $('#announcementsSearchStreet').val() +
+                "&housenumber=" + $('#announcementsSearchHouseNumber').val() +
                 "&rooms=" + $("#announcementsSearchRooms").val() +
                 "&floor=" + $('#announcementsSearchFloor').val() +
                 "&floors=" + $('#announcementsSearchFloors').val() +
@@ -140,6 +142,7 @@ function writeToDivAnnouncementsList(data) {
             str += "</div>";
         }
         str += " street: " + entry.street;
+        str += " houseNumber: " + entry.houseNumber;
         str += " rooms:" + entry.rooms;
         str += " floor/floors:" + entry.floor + "/" + entry.floors;
         str += " description: " + entry.description;

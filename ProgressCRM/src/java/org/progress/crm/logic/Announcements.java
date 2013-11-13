@@ -21,6 +21,7 @@ public class Announcements implements Serializable {
 
     private int id;
     private String street;
+    private String houseNumber;
     private int rooms;
     private int floor;
     private int floors;
@@ -33,8 +34,9 @@ public class Announcements implements Serializable {
     public Announcements() {
     }
 
-    public Announcements(String street, int rooms, int floor, int floors, String phone, String description, int idWorker) {
+    public Announcements(String street, String houseNumber, int rooms, int floor, int floors, String phone, String description, int idWorker) {
         this.street = street;
+        this.houseNumber = houseNumber;
         this.rooms = rooms;
         this.floor = floor;
         this.floors = floors;
@@ -82,6 +84,15 @@ public class Announcements implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    @Column(name = "HouseNumber")
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
     }
 
     @Column(name = "Rooms")

@@ -46,6 +46,7 @@ public class AnnouncementsApi {
     @Path("addannouncements")
     public Response addAnnouncements(@CookieParam("token") final String token,
             @FormParam("street") final String street,
+            @FormParam("houseNumber") final String houseNumber,
             @FormParam("rooms") final String rooms,
             @FormParam("floor") final String floor,
             @FormParam("floors") final String floors,
@@ -54,7 +55,7 @@ public class AnnouncementsApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = announcementsController.addAnnouncements(session, token, street,
+                boolean result = announcementsController.addAnnouncements(session, token, street, houseNumber,
                         rooms, floor, floors, phone, description);
                 return ApiHelper.getResponse(result);
             }
@@ -79,6 +80,7 @@ public class AnnouncementsApi {
     public Response getAnnouncementsListByQuery(@CookieParam("token") final String token,
             @QueryParam("street") final String street,
             @QueryParam("rooms") final String rooms,
+            @QueryParam("housenumber") final String houseNumber,
             @QueryParam("floor") final String floor,
             @QueryParam("floors") final String floors,
             @QueryParam("idworker") final String idWorker,
@@ -88,7 +90,7 @@ public class AnnouncementsApi {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson announcements = new GsonBuilder().create();
-                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, rooms, floor, floors, idWorker, startdate, enddate));
+                String result = announcements.toJson(announcementsController.getAnnouncementsListByQuery(session, token, street, houseNumber,rooms, floor, floors, idWorker, startdate, enddate));
                 return ApiHelper.getResponse(result);
             }
         });

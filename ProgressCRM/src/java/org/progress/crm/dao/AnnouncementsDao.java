@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Announcements;
@@ -17,9 +16,9 @@ import org.progress.crm.logic.DbFields;
  */
 public class AnnouncementsDao {
 
-    public boolean addAnnouncements(final Session session, final int idWorker, final String street,
+    public boolean addAnnouncements(final Session session, final int idWorker, final String street, final String houseNumber,
             final int rooms, final int floor, final int floors, final String phone, final String description) throws SQLException, CustomException {
-        Announcements hd = new Announcements(street, rooms, floor, floors, phone, description, idWorker);
+        Announcements hd = new Announcements(street, houseNumber, rooms, floor, floors, phone, description, idWorker);
         session.save(hd);
         return true;
     }
@@ -45,11 +44,8 @@ public class AnnouncementsDao {
         return true;
     }
 
-    public List getAnnouncementsListByQuery(Session session, String street, int rooms, int floor, int floors, int idWorker, Date startDate, Date endDate) {
+    public List getAnnouncementsListByQuery(Session session, String street, String houseNumber, int rooms, int floor, int floors, int idWorker, Date startDate, Date endDate) {
         Criteria criteria = session.createCriteria(Announcements.class);
-        if (!street.equals("")) {
-            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street));
-        }
         if (rooms != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.ROOMS, rooms));
         }
@@ -62,11 +58,17 @@ public class AnnouncementsDao {
         if (idWorker != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.IDWORKER, idWorker));
         }
-        if (startDate != null) {
-            criteria.add(Restrictions.ge(DbFields.ANNOUNCEMENTS.CREATIONDATE, startDate));
+//        if (startDate != null) {
+//            criteria.add(Restrictions.ge(DbFields.ANNOUNCEMENTS.CREATIONDATE, startDate));
+//        }
+//        if (endDate != null) {
+//            criteria.add(Restrictions.le(DbFields.ANNOUNCEMENTS.CREATIONDATE, endDate));
+//        }
+        if (!street.equals("")) {
+            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street));
         }
-        if (endDate != null) {
-            criteria.add(Restrictions.le(DbFields.ANNOUNCEMENTS.CREATIONDATE, endDate));
+        if (!houseNumber.equals("")) {
+            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.HOUSENUMBER, houseNumber));
         }
         criteria.add(Restrictions.eq(DbFields.ANNOUNCEMENTS.DELETED, false));
         return criteria.list();

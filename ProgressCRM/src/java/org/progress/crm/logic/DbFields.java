@@ -47,6 +47,7 @@ public class DbFields {
 
         public final static String ID = "id";
         public final static String STREETS = "street";
+        public final static String HOUSENUMBER = "houseNumber";
         public final static String ROOMS = "rooms";
         public final static String FLOOR = "floor";
         public final static String FLOORS = "floors";
