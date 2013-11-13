@@ -41,6 +41,7 @@ PRIMARY KEY (`id`));
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Announcements` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `Street` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`HouseNumber` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `Rooms` INT NOT NULL ,
 `Floor` INT NOT NULL ,
 `Floors` INT NOT NULL ,
@@ -244,8 +245,8 @@ LIMIT 0, 1000
 
 -- Date: 2013-11-05 23:50
 */
-INSERT INTO `Announcements` (`id`,`Street`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (1,'Челюскинцев',2,5,5,'89134563211','3+',3,'2013-11-05 23:47:54',0);
-INSERT INTO `Announcements` (`id`,`Street`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (2,'Северная',1,2,16,'89081020123','текст',3,'2013-11-05 23:48:40',0);
+INSERT INTO `Announcements` (`id`,`Street`,`HouseNumber`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (1,'Челюскинцев','12',2,5,5,'89134563211','3+',3,'2013-11-05 23:47:54',0);
+INSERT INTO `Announcements` (`id`,`Street`,`HouseNumber`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (2,'Северная','7/2',1,2,16,'89081020123','текст',3,'2013-11-05 23:48:40',0);
 
 /*
 -- Query: SELECT * FROM progresscrm.AnnouncementsCalls
