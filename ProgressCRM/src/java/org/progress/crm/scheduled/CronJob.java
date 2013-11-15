@@ -18,15 +18,21 @@ public class CronJob {
 
     private final Logger log = Logger.getLogger(CronJob.class.getName());
 
-    @Schedule(minute = "*/1", hour = "*")
-    public void runEveryMinute() {
+//    @Schedule(minute = "*/1", hour = "*")
+//    public void runEveryMinute() {
+//        log.log(Level.INFO,
+//                "running every minute .. now it's: " + new Date().toString());
+//    }
+//
+//    @Schedule(second = "*/5", minute = "*", hour = "*")
+//    public void runEvery10Second() {
+//        log.log(Level.INFO,
+//                "running every second .. now it's: " + new Date().toString());
+//    }
+
+    @Schedule(dayOfMonth = "*")
+    public void runEveryDay() {
         log.log(Level.INFO,
-                "running every minute .. now it's: " + new Date().toString());
-    }
-    
-    @Schedule(second = "*/5",minute = "*", hour = "*")
-    public void runEvery10Second() {
-        log.log(Level.INFO,
-                "running every second .. now it's: " + new Date().toString());
+                "##############################################################: " + new Date().toString());
     }
 }
