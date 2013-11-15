@@ -31,6 +31,7 @@ function getHelpDeskPage() {
                             str += "<h4 class=\"media-heading\">";
                             str += entry.request;
                             str += "</h4>";
+                            str += entry.text;
                             if (permissions == "3") {
                                 str += "<div class=\"btn-toolbar\">";
                                 str += "<div class=\"btn-group\">";
@@ -38,6 +39,12 @@ function getHelpDeskPage() {
                                 str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
                                 str += "</div>";
                                 str += "</div>";
+                            }
+                            for (var i = 0; i < workersList.length; ++i) {
+                                var a = workersList[i];
+                                if (entry.idWorker == a[0]) {
+                                    str += "<td>" + a[1] + " " + a[3] + "</td>";
+                                }
                             }
                             str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
                             str += "</div>";

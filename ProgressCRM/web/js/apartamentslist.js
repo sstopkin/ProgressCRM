@@ -27,7 +27,53 @@ function getapartamentsListPage() {
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
-                var str = "";
+                var str = "<table class=\"table table-bordered\">";
+                str += "<thead>";
+                str += "<tr>";
+                str += "<th>#</th>";
+                str += "<th>Улица</th>";
+                str += "<th>Номер дома</th>";
+                str += "<th>Кол-во комнат</th>";
+                str += "<th>Этаж/Этажность</th>";
+                str += "<th>Описание</th>";
+                str += "<th>Автор</th>";
+                str += "<th>Дата</th>";
+                str += "</tr>";
+                str += "</thead>";
+                str += "<tbody>";
+
+//IsApproved: false
+//MethodOfPurchase_Exchange: false
+//MethodOfPurchase_Mortgage: false
+//MethodOfPurchase_PureSale: false
+//MethodOfPurchase_Rent: false
+//balcony: 0
+//buildingNumber: ""
+//cityDistrict: 5
+//cityName: "г. Омск"
+//deleted: false
+//description: "текст"
+//floor: 1
+//floors: 5
+//houseNumber: "д. 92"
+//id: 4
+//idCustomer: 1
+//idWorker: 2
+//kladrId: "123"
+//lastModify: "Sep 23, 2013 12:44:16 PM"
+//loggia: 0
+//material: 2
+//price: 123
+//rePplanning: false
+//roomNumber: 1
+//rooms: 3
+//shortAddress: "644089, г. Омск, пр-кт. Мира, д. 92"
+//sizeApartament: 234
+//sizeKitchen: 23
+//sizeLiving: 123
+//streetName: "пр-кт. Мира"
+//typeOfSales: 2
+//yearOfConstruction: 124
                 var flag1 = false;
                 var flag2 = false;
                 var flag3 = false;
@@ -70,39 +116,60 @@ function getapartamentsListPage() {
                             break;
                     }
                     str += "</H3>";
-                    str += "<div class = \"media\">";
-                    if (permissions == "3") {
-                        str += "<div class=\"btn-toolbar\">";
-                        str += "<div class=\"btn-group\">";
 
-                        str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
 
-                        str += "</div>";
-                        str += "</div>";
+                    str += "<tr>";
+                    str += "<td><a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.apartaments.id + ")\">" + entry.apartaments.id + "</a></td>";
+                    str += "<td>" + entry.street + "</td>";
+                    str += "<td>" + entry.houseNumber + "</td>";
+                    str += "<td>" + entry.rooms + "</td>";
+                    str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
+                    str += "<td>" + entry.description + "</td>";
+                    for (var i = 0; i < workersList.length; ++i) {
+                        var a = workersList[i];
+                        if (entry.idWorker == a[0]) {
+                            str += "<td>" + a[1] + a[3] + "</td>";
+                        }
                     }
-                    str += "</div>";
-                    str += "<a class = \"pull-left\" href = \"#\">";
-                    str += "<img class=\"media-object\" src=\"images/home.png\" alt=\"...\">";
-                    str += "</a>";
-                    str += "<div class=\"media-body\">";
-                    str += "<h4 class=\"media-heading\">"
-                            + entry.apartaments.id + " "
-                            + entry.apartaments.rooms + " "
-                            + entry.apartaments.cityName + " "
-                            + entry.apartaments.streetName + " "
-                            + entry.apartaments.houseNumber + " "
-                            + entry.apartaments.buildingNumber + " - "
-                            + entry.apartaments.roomNumber + " "
-                            + entry.apartaments.sizeApartament + "/"
-                            + entry.apartaments.sizeLiving + "/"
-                            + entry.apartaments.sizeKitchen + " "
-                            + "<p>Цена: " + entry.apartaments.price + "</p>";
-                    str += "</h4>";
-                    str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";
-                    str += "</div>";
-                    str += "</div>";
-                });
+                    str += "<td>" + entry.creationDate + "</td>";
+                    str += "</tr>";
 
+
+
+
+//                    str += "<div class = \"media\">";
+//                    if (permissions == "3") {
+//                        str += "<div class=\"btn-toolbar\">";
+//                        str += "<div class=\"btn-group\">";
+//
+//                        str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//
+//                        str += "</div>";
+//                        str += "</div>";
+//                    }
+//                    str += "</div>";
+//                    str += "<a class = \"pull-left\" href = \"#\">";
+//                    str += "<img class=\"media-object\" src=\"images/home.png\" alt=\"...\">";
+//                    str += "</a>";
+//                    str += "<div class=\"media-body\">";
+//                    str += "<h4 class=\"media-heading\">"
+//                            + entry.apartaments.id + " "
+//                            + entry.apartaments.rooms + " "
+//                            + entry.apartaments.cityName + " "
+//                            + entry.apartaments.streetName + " "
+//                            + entry.apartaments.houseNumber + " "
+//                            + entry.apartaments.buildingNumber + " - "
+//                            + entry.apartaments.roomNumber + " "
+//                            + entry.apartaments.sizeApartament + "/"
+//                            + entry.apartaments.sizeLiving + "/"
+//                            + entry.apartaments.sizeKitchen + " "
+//                            + "<p>Цена: " + entry.apartaments.price + "</p>";
+//                    str += "</h4>";
+//                    str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";
+//                    str += "</div>";
+//                    str += "</div>";
+                });
+                str += "</tbody>";
                 $("#divApartamentsList").html(str);
             },
             error: function(data) {
