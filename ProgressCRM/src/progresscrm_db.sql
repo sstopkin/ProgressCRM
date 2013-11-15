@@ -192,6 +192,12 @@ INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Emai
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('expertfName', 'expertsName','expertlName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 1, 'expert@progress55.com', false);
 
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
+	VALUES ('Андрей', 'Геннадьевич','Бармашов', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'abar71@progress55.com', false);
+
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
+	VALUES ('Жанна', 'Витальевна','Тутубалина', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'zvt@progress55.com', false);
+
 INSERT INTO `progresscrm`.`Customers`
 (`id`,`customersLname`,`customersFname`,`customersMname`,`customersMonthOfBirthday`,`customersDayOfBirthday`,`customersYearOfBirthday`,
 `customersSex`,`customersPhone`,`customersEmail`,`customersAddress`,`customersExtra`,`Deleted`)
@@ -226,6 +232,16 @@ INSERT INTO `Calls` (`id`,`ApartamentsId`,`Date`,`Description`,`idWorker`) VALUE
 
 INSERT INTO `progresscrm`.`News` (`id`, `idWorker`, `Header`, `Text`, `CreationDate`, `LastModify`, `Deleted`) VALUES (1, 1, 'News', 'text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text ', '2013-12-20', '2013-12-20', false);
 INSERT INTO `progresscrm`.`News` (`id`, `idWorker`, `Header`, `Text`, `CreationDate`, `LastModify`, `Deleted`) VALUES (2, 2, 'News news news', '2013-12-20 2013-12-20 2013-12-20 2013-12-20 2013-12-20 2013-12-20 2013-12-20 2013-12-20 2013-12-20 2013-12-20 2013-12-20', '2013-12-20', '2013-12-20', false);
+INSERT INTO `progresscrm`.`News` (`id`, `idWorker`, `Header`, `Text`, `CreationDate`, `LastModify`, `Deleted`) VALUES (3, 4, 'Названо пять самых дорогих коттеджей в Омске', 'На середину ноября 2013 года по самой высокой цене в Омске продают коттедж в Центральном округе на ул. Судоремонтная,14. Двухэтажный кирпичный особняк общей площадью 395,3 квадратных метров стоит 47 миллионов рублей. 
+
+Второе место в рейтинге занимает 7-комнатный коттедж, расположенный в Советском округе, рядом с ОмГТУ. Площадь трехэтажного кирпичного дома равна 600 квадратным метрам. Из объявления следует, что интерьер выполнен в классическом стиле. В доме расположены большая гостиная с камином, гостиная-кинозал, кабинет, светлые спальни и гостевые комнаты, зимний сад, бильярдная, служебные помещения, просторная кухня-столовая. Купить такой коттедж можно за 39 миллионов рублей. 
+
+За 35 миллионов рублей продают коттедж общей площадью 380 квадратных метров в Кировском округе, ул. 12-я Любинская. Здесь есть бассейн, баня, сауна, гараж, а сам дом, по словам продавца, с евроремонтом, теплым полом и эксклюзивной мебелью. 
+
+На четвертом месте коттедж в Центральном округе по ул. Березовая общей площадью 432 квадратных метра. Цена на такое жилье также равна 35 миллионам рублей, однако стоимость за квадратный метр меньше, чем в предыдущем случае. В доме есть 3 спальни, столовая 25 кв.м., каминный зал. Имеется зона отдыха: бильярдная, русская баня на дровах, спортзал, помещение под кабинет, библиотеку. Гараж рассчитан на 4 автомобиля. 
+
+Замыкает пятерку лидеров кирпичный  коттедж площадью 516 "квадратов", расположенный на пересечении улиц Вавилова/7-я Северная. В доме евроремонт, подвесные потолки, подключена сигнализация. Продавец предлагает использовать здание не только в качестве жилья, но и как помещение для бизнеса. Стоит такой особняк, по словам продавца, 28 миллионов 990 тысяч рублей. ', '2013-12-20', '2013-12-20', false);
+
 
 /*
 -- Query: SELECT * FROM progresscrm.HelpDesk
@@ -254,5 +270,5 @@ LIMIT 0, 1000
 
 -- Date: 2013-11-05 23:51
 */
-INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (1,'текст',0,3,2,'2013-11-05 23:49:56');
-INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (2,'1234567890',0,3,2,'2013-11-05 23:50:07');
+INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (1,'отказался от услуг агенства',0,3,2,'2013-11-05 23:49:56');
+INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (2,'просит время подумать',0,3,2,'2013-11-05 23:50:07');

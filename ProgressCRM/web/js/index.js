@@ -263,6 +263,12 @@ function getNews() {
                     }
                     str += "<p>" + list[i].text + "</p>";
                     str += "</div>";
+                    for (var it = 0; it < workersList.length; ++it) {
+                        var a = workersList[it];
+                        if (list[i].idWorker == a[0]) {
+                            str += "<p>" + a[1] + a[3] + "</p>";
+                        }
+                    }
                     str += "<p>" + list[i].lastModify + "</p>";
                     str += "</div>";
                     str += "</tr></td>";

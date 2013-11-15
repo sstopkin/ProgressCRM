@@ -145,7 +145,7 @@ function writeToDivAnnouncementsList(data) {
         for (var i = 0; i < workersList.length; ++i) {
             var a = workersList[i];
             if (entry.idWorker == a[0]) {
-                str += "<td>" + a[1] + a[3] + "</td>";
+                str += "<td>" + a[1] + " " + a[3] + "</td>";
             }
         }
         str += "<td>" + entry.creationDate + "</td>";
