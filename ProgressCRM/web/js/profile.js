@@ -55,10 +55,6 @@ function getProfilePage() {
                 $("#profileName").html(value.name);
                 $("#profileLName").html(value.lname);
                 $("#profilePoints").html(value.points);
-
-
-                $("#profileProgressBar").html(resultStr);
-                var hei = document.getElementById('forh').offsetHeight;
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -66,5 +62,9 @@ function getProfilePage() {
             }
         });
     });
+}
+
+function processingComplete() {
+    $('#dataProcessingIFrame').load("1.html");
 }
 
