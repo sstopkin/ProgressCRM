@@ -31,11 +31,11 @@ function getapartamentsListPage() {
                 str += "<thead>";
                 str += "<tr>";
                 str += "<th>#</th>";
-                str += "<th>Улица</th>";
-                str += "<th>Номер дома</th>";
-                str += "<th>Кол-во комнат</th>";
-                str += "<th>Этаж/Этажность</th>";
-                str += "<th>Описание</th>";
+                str += "<th>Адрес</th>";
+                str += "<th>Комнат</th>";
+                str += "<th>Площадь О/К/Ж</th>";
+                str += "<th>Этаж</th>";
+                str += "<th>Цена</th>";
                 str += "<th>Автор</th>";
                 str += "<th>Дата</th>";
                 str += "</tr>";
@@ -82,56 +82,54 @@ function getapartamentsListPage() {
 
                 array.forEach(function(entry) {
 
-                    str += "<H3>";
                     switch (entry.apartaments.rooms) {
                         case 1:
                             if (flag1 == false) {
-                                str += "1-комнатные";
+                                str += "<tr><td COLSPAN=8>1-комнатные</td></tr>";
                                 flag1 = true;
                             }
                             break;
                         case 2:
                             if (flag2 == false) {
-                                str += "2-комнатные";
+                                str += "<tr><td COLSPAN=8>2-комнатные</td></tr>";
                                 flag2 = true;
                             }
                             break;
                         case 3:
                             if (flag3 == false) {
-                                str += "3-комнатные";
+                                str += "<tr><td COLSPAN=8>3-комнатные</td></tr>";
                                 flag3 = true;
                             }
                             break;
                         case 4:
                             if (flag4 == false) {
-                                str += "4-комнатные";
+                                str += "<tr><td COLSPAN=8>4-комнатные</td></tr>";
                                 flag4 = true;
                             }
                             break;
                         case 5:
                             if (flag5 == false) {
-                                str += "5-комнатные";
+                                str += "<tr><td COLSPAN=8>5-комнатные</td></tr>";
                                 flag5 = true;
                             }
                             break;
                     }
-                    str += "</H3>";
 
 
                     str += "<tr>";
                     str += "<td><a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.apartaments.id + ")\">" + entry.apartaments.id + "</a></td>";
-                    str += "<td>" + entry.street + "</td>";
-                    str += "<td>" + entry.houseNumber + "</td>";
-                    str += "<td>" + entry.rooms + "</td>";
-                    str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
-                    str += "<td>" + entry.description + "</td>";
+                    str += "<td>" + entry.apartaments.shortAddress + "</td>";
+                    str += "<td>" + entry.apartaments.rooms + "</td>";
+                    str += "<td>" + entry.apartaments.sizeApartament+" / "+entry.apartaments.sizeKitchen+" / "+entry.apartaments.sizeLiving + "</td>";
+                    str += "<td>" + entry.apartaments.floor + " / " + entry.apartaments.floors + "</td>";
+                    str += "<td>" + entry.apartaments.price + "</td>";
                     for (var i = 0; i < workersList.length; ++i) {
                         var a = workersList[i];
-                        if (entry.idWorker == a[0]) {
+                        if (entry.apartaments.idWorker == a[0]) {
                             str += "<td>" + a[1] + a[3] + "</td>";
                         }
                     }
-                    str += "<td>" + entry.creationDate + "</td>";
+                    str += "<td>" + entry.apartaments.сreationDate + "</td>";
                     str += "</tr>";
 
 
