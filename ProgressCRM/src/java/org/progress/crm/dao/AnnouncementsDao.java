@@ -33,7 +33,8 @@ public class AnnouncementsDao {
     }
 
     public List<Announcements> getAllAnnouncements(final Session session) throws SQLException, CustomException {
-        List<Announcements> list = session.createCriteria(Announcements.class).list();
+        List<Announcements> list = session.createCriteria(Announcements.class).
+                add(Restrictions.eq(DbFields.ANNOUNCEMENTS.DELETED, false)).list();
         return list;
     }
 

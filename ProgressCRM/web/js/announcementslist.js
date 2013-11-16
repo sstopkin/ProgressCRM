@@ -75,7 +75,7 @@ function deleteAnnouncementsById(announcementsId) {
     $.ajax({
         type: "POST",
         url: "api/announcements/deleteannouncements",
-        data: ({id: hdRequestId}),
+        data: ({id: announcementsId}),
         success: function(data) {
             getАnnouncementsPage();
         },
@@ -115,10 +115,11 @@ function searchAnnouncements() {
 }
 
 function writeToDivAnnouncementsList(data) {
-    var permissions;
-    $.get("api/auth/validate", function(data3) {
-        permissions = data3;
-    });
+    var permissions = $.ajax({
+        type: "GET",
+        url: "api/auth/validate",
+        async: false
+    }).responseText;
     var array = JSON.parse(data);
     var str = "<table class=\"table table-bordered\">";
     str += "<thead>";
@@ -127,10 +128,14 @@ function writeToDivAnnouncementsList(data) {
     str += "<th>Улица</th>";
     str += "<th>Номер дома</th>";
     str += "<th>Кол-во комнат</th>";
-    str += "<th>Этаж/Этажность</th>";
+    str += "<th>Этаж</th>";
     str += "<th>Описание</th>";
     str += "<th>Автор</th>";
     str += "<th>Дата</th>";
+    if (permissions == "3") {
+        str += "<th>Редактировать</th>";
+        str += "<th>Удалить</th>";
+    }
     str += "</tr>";
     str += "</thead>";
     str += "<tbody>";
@@ -149,41 +154,13 @@ function writeToDivAnnouncementsList(data) {
             }
         }
         str += "<td>" + entry.creationDate + "</td>";
+
+        if (permissions == "3") {
+            str += "<td>" + "<button type=\"button\" onclick=\"editAnnouncementsById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+            str += "<td>" + "<button type=\"button\" onclick=\"deleteAnnouncementsById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+        }
         str += "</tr>";
     });
     str += "</tbody>";
-//        str += "<div class = \"media\">";
-//        str += "<a class = \"pull-left\" href = \"#\">";
-//        str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
-//        str += "</a>";
-//        str += "<div class=\"media-body\">";
-//        str += "<h6 class=\"media-heading\">";
-//        str += entry.creationDate;
-//        str += "</h4>";
-//        str += "<h4 class=\"media-heading\">";
-//        str += entry.id;
-//        str += "</h4>";
-//        if (permissions == "3") {
-//            str += "<div class=\"btn-toolbar\">";
-//            str += "<div class=\"btn-group\">";
-//            str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
-//            str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-//            str += "</div>";
-//            str += "</div>";
-//        }
-//        str += " street: " + entry.street;
-//        str += " houseNumber: " + entry.houseNumber;
-//        str += " rooms:" + entry.rooms;
-//        str += " floor/floors:" + entry.floor + "/" + entry.floors;
-//        str += " description: " + entry.description;
-//        for (var i = 0; i < workersList.length; ++i) {
-//            var a = workersList[i];
-//            if (entry.idWorker == a[0]) {
-//                str += " author: " + a[1] + " " + a[2] + " " + a[3];
-//            }
-//        }
-//        str += "<a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.id + ")\">ссылка</a>";
-//        str += "</div>";
-//        str += "</div>";
     $("#mainAnnouncementsContainer").html(str);
 }
