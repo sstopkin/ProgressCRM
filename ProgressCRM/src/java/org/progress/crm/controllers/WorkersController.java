@@ -83,8 +83,8 @@ public class WorkersController {
             List ll = new ArrayList();
             ll.add(ws.getId());
             ll.add(ws.getfName());
-            ll.add(ws.getlName());
             ll.add(ws.getmName());
+            ll.add(ws.getlName());
             list.add(ll);
         }
         return list;

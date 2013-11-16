@@ -1,18 +1,17 @@
 package org.progress.crm.scheduled;
 
-import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
-import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.progress.crm.controllers.CustomersController;
 import org.progress.crm.exceptions.CustomException;
-import org.progress.crm.util.Command;
-import org.progress.crm.util.TransactionService;
+import org.progress.crm.logic.Customers;
+import org.progress.crm.util.HibernateUtil;
 
 /**
  *
@@ -40,15 +39,25 @@ public class CronJob {
 //        log.log(Level.INFO,
 //                "running every second .. now it's: " + new Date().toString());
 //    }
+//    @Schedule(second = "*/5", minute = "*", hour = "*")
     @Schedule(dayOfMonth = "*")
-    public String runEveryDay() throws CustomException {
-        return TransactionService.runInScope(new Command<String>() {
-            @Override
-            public String execute(Session session) throws CustomException, SQLException {
-                log.log(Level.INFO, "########################: " + new Date().toString());
-                customersController.getCustomerByString(session, null)
-                return "";
+    public void runEveryDay() throws CustomException {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            List<Customers> list = customersController.getCustomersListByBirthday(session, new Date());
+            for (Customers customers : list) {
+                log.log(Level.INFO,
+                        ".. now it's: " + new Date().toString() + " " + customers.getCustomersFname());
             }
-        });
+            session.getTransaction().commit();
+//        } catch (HibernateException | SQLException | NoSuchAlgorithmException | IOException | InterruptedException | ExecutionException e) {
+//            session.getTransaction().rollback();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
     }
 }

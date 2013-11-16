@@ -1,5 +1,6 @@
 package org.progress.crm.dao;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 import org.progress.crm.exceptions.CustomException;
@@ -36,7 +37,7 @@ public class CustomersDao {
 //    .add( Restrictions.like("name", "Fritz%") )
 //    .add( Restrictions.between("weight", minWeight, maxWeight) )
 //    .list();
-        
+
 //        crit.setMaxResults(50);
         if (str.equals("")) {
             return session.createSQLQuery("select * from progresscrm.Customers ORDER BY id DESC limit 10;").addEntity(Customers.class).list();
@@ -46,6 +47,10 @@ public class CustomersDao {
     }
 
     public List<Customers> getAllCustomers(Session session) {
+        return session.createCriteria(Customers.class).list();
+    }
+
+    public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) {
         return session.createCriteria(Customers.class).list();
     }
 }

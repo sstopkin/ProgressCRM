@@ -1,5 +1,6 @@
 package org.progress.crm.controllers;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
@@ -112,7 +113,7 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().getAllCustomers(session);
     }
 
-    public List<Customers> getCustomersListByBirthday(Session session) throws IsNotAuthenticatedException {
-        return DaoFactory.getCustomersDao().getAllCustomers(session);
+    public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) throws IsNotAuthenticatedException {
+        return DaoFactory.getCustomersDao().getCustomersListByBirthday(session, currentDay);
     }
 }
