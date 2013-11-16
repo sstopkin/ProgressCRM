@@ -1,23 +1,20 @@
 function getapartamentsListPage() {
     $.get("apartamentslist.html", function(data) {
-        $.get("api/auth/validate", function(data) {
-            if ((data == "3") || (data == "2")) {
-                $("#addApartamentBtn").css("display", "block");
-                $("#genApartamentsPriceBtn").css("display", "block");
-            } else {
-                $("#addApartamentBtn").css("display", "none");
-                $("#genApartamentsPriceBtn").css("display", "none");
-            }
-        });
+        var permissions = $.ajax({
+            type: "GET",
+            url: "api/auth/validate",
+            async: false
+        }).responseText;
+        if ((permissions == "3") || (permissions == "2")) {
+            $("#addApartamentBtn").css("display", "block");
+            $("#genApartamentsPriceBtn").css("display", "block");
+        } else {
+            $("#addApartamentBtn").css("display", "none");
+            $("#genApartamentsPriceBtn").css("display", "none");
+        }
         $("#mainContainer").html(data);
         var permissions;
         var userId;
-        $.get("api/auth/validate", function(data3) {
-            permissions = data3;
-            if (permissions == "3") {
-                $("#approvingTagsForTasks").css("display", "block");
-            }
-        });
         $.get("api/auth/author", function(data2) {
             userId = data2;
         });
@@ -38,6 +35,10 @@ function getapartamentsListPage() {
                 str += "<th>Цена</th>";
                 str += "<th>Автор</th>";
                 str += "<th>Дата</th>";
+                if (permissions == "3") {
+                    str += "<th>Редактировать</th>";
+                    str += "<th>Удалить</th>";
+                }
                 str += "</tr>";
                 str += "</thead>";
                 str += "<tbody>";
@@ -120,7 +121,7 @@ function getapartamentsListPage() {
                     str += "<td><a href=\"#\" onclick=\"return getAnnouncementsViewPage(" + entry.apartaments.id + ")\">" + entry.apartaments.id + "</a></td>";
                     str += "<td>" + entry.apartaments.shortAddress + "</td>";
                     str += "<td>" + entry.apartaments.rooms + "</td>";
-                    str += "<td>" + entry.apartaments.sizeApartament+" / "+entry.apartaments.sizeKitchen+" / "+entry.apartaments.sizeLiving + "</td>";
+                    str += "<td>" + entry.apartaments.sizeApartament + " / " + entry.apartaments.sizeKitchen + " / " + entry.apartaments.sizeLiving + "</td>";
                     str += "<td>" + entry.apartaments.floor + " / " + entry.apartaments.floors + "</td>";
                     str += "<td>" + entry.apartaments.price + "</td>";
                     for (var i = 0; i < workersList.length; ++i) {
@@ -130,6 +131,10 @@ function getapartamentsListPage() {
                         }
                     }
                     str += "<td>" + entry.apartaments.сreationDate + "</td>";
+                    if (permissions == "3") {
+                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsEditById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+                    }
                     str += "</tr>";
 
 
@@ -140,7 +145,7 @@ function getapartamentsListPage() {
 //                        str += "<div class=\"btn-toolbar\">";
 //                        str += "<div class=\"btn-group\">";
 //
-//                        str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//                        str += "";
 //
 //                        str += "</div>";
 //                        str += "</div>";
