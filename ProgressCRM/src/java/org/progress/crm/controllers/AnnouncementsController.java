@@ -15,6 +15,7 @@ import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
+import org.progress.crm.logic.Announcements;
 
 /**
  *
@@ -52,8 +53,8 @@ public class AnnouncementsController {
         return true;
     }
 
-    public Object getAnnouncementsListByQuery(Session session, String token, String street, String houseNumber,
-            String rooms, String floor, String floors, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException {
+    public List<Announcements> getAnnouncementsListByQuery(Session session, String token, String street, String houseNumber,
+            String rooms, String floor, String floors, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException, SQLException {
         //FIXME!!!!!    
         DateFormat formatter = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
         Date startDate_ = null;
