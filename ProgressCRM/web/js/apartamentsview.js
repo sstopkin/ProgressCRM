@@ -194,11 +194,13 @@ function getApartamentViewPage(apartamentId) {
                 $("#apartamentsFeatures").html(content);
 
 
-                var maps="<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll="+55.354135+","+40.297852+"&amp;spn=28.518959,86.572266&amp;z=4&amp;vpsrc=0&amp;output=embed\"></iframe>";
-                        < br / >
-                        < small >
-                        < a href = "http://maps.google.ru/?ie=UTF8&amp;ll=55.354135,40.297852&amp;spn=28.518959,86.572266&amp;z=4&amp;vpsrc=0&amp;source=embed" style = "color:#0000FF;text-align:left" > Просмотреть увеличенную карту < /a>
-                        < /small>
+                var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;spn="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
+                maps += "<br/>";
+                maps += "<small>";
+                maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;spn="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
+                maps += "</small>";
+                
+                $("#mapApartamentsView").html(maps);
             },
             error: function(data) {
                 showDanger(data.responseText);
