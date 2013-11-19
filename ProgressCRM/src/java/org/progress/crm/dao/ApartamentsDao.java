@@ -12,7 +12,8 @@ import org.progress.crm.logic.DbFields;
 public class ApartamentsDao {
 
     public int addApartament(final Session session, int typeOfSales, String cityName,
-            String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress, int rooms,
+            String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress,
+            String apartamentLan, String apartamentLon, int rooms,
             int price, int cityDistrict, int floor, int floors, int roomNumber, int material,
             int sizeApartament, int sizeLiving, int sizeKitchen, int balcony,
             int loggia, int yearOfConstruction, String description,
@@ -20,7 +21,8 @@ public class ApartamentsDao {
             boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent,
             boolean rePplanning, int idWorker, int idCustomer, boolean IsApproved) throws CustomException {
         return (int) session.save(new Apartaments(typeOfSales, cityName, streetName,
-                houseNumber, buildingNumber, kladrId, shortAddress, rooms, price, cityDistrict, floor,
+                houseNumber, buildingNumber, kladrId, shortAddress, apartamentLan, apartamentLon,
+                rooms, price, cityDistrict, floor,
                 floors, roomNumber, material, sizeApartament, sizeLiving, sizeKitchen, balcony,
                 loggia, yearOfConstruction, description, MethodOfPurchase_PureSale,
                 MethodOfPurchase_Mortgage, MethodOfPurchase_Exchange, MethodOfPurchase_Rent,

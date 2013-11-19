@@ -258,7 +258,8 @@
                     });
 
                     var position = res.geoObjects.get(0).geometry.getCoordinates();
-
+                    $("#apartamentLan").text(position[0]);
+                    $("#apartamentLon").text(position[1]);
                     placemark = new ymaps.Placemark(position, {}, {});
 
                     map.geoObjects.add(placemark);

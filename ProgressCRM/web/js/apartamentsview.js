@@ -10,21 +10,6 @@ function getApartamentViewPage(apartamentId) {
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
-//                ymaps.ready(function() {
-//                    if (map_created)
-//                        return;
-//                    map_created = true;
-//
-//                    map = new ymaps.Map('mapApartamentsView', {
-//                        center: [73.378, 54.983],
-//                        zoom: 12
-//                    });
-//                    map.controls.add('smallZoomControl', {top: 5, left: 5});
-//                });
-//                MapUpdateView(array.apartaments.cityName,
-//                        array.apartaments.streetName,
-//                        array.apartaments.houseNumber,
-//                        array.apartaments.buildingNumber);
                 var content = "";
 
                 console.log(array.apartamentsPhotosList);
@@ -169,7 +154,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                content += "Информация о клиенте: FIXME" ;//array.apartaments.clientDescription
+                content += "Информация о клиенте: FIXME";//array.apartaments.clientDescription
                 content += "</p>";
                 content += "<p>";
                 content += "Телефон клиента: FIXME";
@@ -184,7 +169,14 @@ function getApartamentViewPage(apartamentId) {
                 content += "Объект изменен: " + array.apartaments.lastModify;
                 content += "</p>";
 
-                console.log(array.apartaments.idWorker);
+                for (var i = 0; i < workersList.length; ++i) {
+                    var a = workersList[i];
+                    if (array.apartaments.idWorker == a[0]) {
+                        content += "<p>";
+                        content += "Автор: " + a[1] + " " + a[3];
+                        content += "</p>";
+                    }
+                }
                 console.log(array.apartaments.kladrId);
 
                 content += "<p>";
@@ -200,6 +192,13 @@ function getApartamentViewPage(apartamentId) {
 
 
                 $("#apartamentsFeatures").html(content);
+
+
+                var maps="<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll="+55.354135+","+40.297852+"&amp;spn=28.518959,86.572266&amp;z=4&amp;vpsrc=0&amp;output=embed\"></iframe>";
+                        < br / >
+                        < small >
+                        < a href = "http://maps.google.ru/?ie=UTF8&amp;ll=55.354135,40.297852&amp;spn=28.518959,86.572266&amp;z=4&amp;vpsrc=0&amp;source=embed" style = "color:#0000FF;text-align:left" > Просмотреть увеличенную карту < /a>
+                        < /small>
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -235,58 +234,3 @@ function getApartamentViewPage(apartamentId) {
         });
     });
 }
-
-// Обновляет карту
-var MapUpdateView = function(city, street, building, buildingAdd) {
-    var zoom = 12;
-    var address = '';
-
-    var cityVal = $.trim(city);
-    if (cityVal) {
-        if (address)
-            address += ', ';
-        address += (cityVal ? (' ') : '') + cityVal;
-        zoom = 12;
-    }
-
-    var streetVal = $.trim(street);
-    if (streetVal) {
-        if (address)
-            address += ', ';
-        address += (streetVal ? (' ') : '') + streetVal;
-        zoom = 14;
-    }
-
-    var buildingVal = $.trim(building);
-    if (buildingVal) {
-        if (address)
-            address += ', ';
-        address += 'д. ' + buildingVal;
-        zoom = 16;
-    }
-
-    var buildingAddVal = $.trim(buildingAdd);
-    if (buildingAddVal) {
-        if (address)
-            address += ', ';
-        address += buildingAddVal;
-        zoom = 16;
-    }
-    console.log("MAP " + address);
-    if (address && map_created) {
-        var geocode = ymaps.geocode(address);
-        geocode.then(function(res) {
-            map.geoObjects.each(function(geoObject) {
-                map.geoObjects.remove(geoObject);
-            });
-
-            var position = res.geoObjects.get(0).geometry.getCoordinates();
-
-            placemark = new ymaps.Placemark(position, {}, {});
-
-            map.geoObjects.add(placemark);
-            map.setCenter(position, zoom);
-        });
-    }
-};
-
