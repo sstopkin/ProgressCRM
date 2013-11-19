@@ -79,6 +79,9 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
 `BuildingNumber` VARCHAR(50) CHARACTER SET utf8,
 `KladrId` VARCHAR(50) CHARACTER SET utf8,
 `ShortAddress` VARCHAR(100) CHARACTER SET utf8,
+`ApartamentLan` VARCHAR(10) CHARACTER SET utf8,
+`ApartamentLon` VARCHAR(10) CHARACTER SET utf8,
+
 
 `TypeOfSales` TINYINT(1) NOT NULL DEFAULT 0,
 `Rooms` INT NOT NULL ,

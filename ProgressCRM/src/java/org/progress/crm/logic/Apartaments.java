@@ -22,6 +22,8 @@ public class Apartaments implements Serializable {
     private String buildingNumber;
     private String kladrId;
     private String shortAddress;
+    private String apartamentLan;
+    private String apartamentLon;
     private int typeOfSales;
     private int rooms;
     private int price;
@@ -53,7 +55,8 @@ public class Apartaments implements Serializable {
     }
 
     public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber,
-            String buildingNumber, String kladrId, String shortAddress, int rooms, int price,
+            String buildingNumber, String kladrId, String shortAddress, String apartamentLan, String apartamentLon,
+            int rooms, int price,
             int cityDistrict, int floor, int floors, int roomNumber, int material, int sizeApartament,
             int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction,
             String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
@@ -89,8 +92,28 @@ public class Apartaments implements Serializable {
         this.buildingNumber = buildingNumber;
         this.kladrId = kladrId;
         this.shortAddress = shortAddress;
+        this.apartamentLan = apartamentLan;
+        this.apartamentLon = apartamentLon;
         this.rooms = rooms;
         this.roomNumber = roomNumber;
+    }
+
+    @Column(name = "ApartamentLan")
+    public String getApartamentLan() {
+        return apartamentLan;
+    }
+
+    public void setApartamentLan(String apartamentLan) {
+        this.apartamentLan = apartamentLan;
+    }
+
+    @Column(name = "ApartamentLon")
+    public String getApartamentLon() {
+        return apartamentLon;
+    }
+
+    public void setApartamentLon(String apartamentLon) {
+        this.apartamentLon = apartamentLon;
     }
 
     @Column(name = "RoomNumber")

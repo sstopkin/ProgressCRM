@@ -35,7 +35,7 @@ public class ApartamentsController {
 
     public boolean addApartament(Session session, String token, String typeOfSales,
             String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId,
-            String shortAddress, String rooms, String price, String cityDistrict, String floor, String floors, String roomNumber,
+            String shortAddress, String apartamentLan, String apartamentLon, String rooms, String price, String cityDistrict, String floor, String floors, String roomNumber,
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
             String pureSale, String mortgage, String exchange, String rent,
@@ -47,7 +47,8 @@ public class ApartamentsController {
         int idWorker = authManager.getUserIdByToken(uuid);
 
         DaoFactory.getApartamentsDao().addApartament(session, Integer.valueOf(typeOfSales),
-                cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress, Integer.valueOf(rooms),
+                cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress, 
+                apartamentLan, apartamentLon, Integer.valueOf(rooms),
                 Integer.valueOf(price), Integer.valueOf(cityDistrict), Integer.valueOf(floor),
                 Integer.valueOf(floors), Integer.valueOf(roomNumber), Integer.valueOf(material), Integer.valueOf(sizeApartament),
                 Integer.valueOf(sizeLiving), Integer.valueOf(sizeKitchen), Integer.valueOf(balcony),
