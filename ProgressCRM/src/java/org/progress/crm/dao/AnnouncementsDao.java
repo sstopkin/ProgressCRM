@@ -47,7 +47,7 @@ public class AnnouncementsDao {
         return true;
     }
 
-    public List<Announcements> getAnnouncementsListByQuery(Session session, String street, String houseNumber, int rooms, int floor, int floors, int idWorker, Date startDate, Date endDate) throws SQLException, SQLException, SQLException, SQLException {
+    public List<Announcements> getAnnouncementsListByQuery(Session session, String street, String houseNumber, int rooms, int floor, int floors, int idWorker, String startDate, String endDate) throws SQLException, SQLException, SQLException, SQLException {
         Criteria criteria = session.createCriteria(Announcements.class);
         if (rooms != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.ROOMS, rooms));
@@ -61,11 +61,15 @@ public class AnnouncementsDao {
         if (idWorker != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.IDWORKER, idWorker));
         }
-        if (startDate != null) {
-            criteria.add(Restrictions.ge(DbFields.ANNOUNCEMENTS.CREATIONDATE, startDate));
-        }
-        if (endDate != null) {
-            criteria.add(Restrictions.le(DbFields.ANNOUNCEMENTS.CREATIONDATE, endDate));
+        if ((startDate != null) && (endDate != null) && (startDate.equals(endDate))) {
+            criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTS.CREATIONDATE + " like '%" + startDate + "%'"));
+        } else {
+            if (startDate != null) {
+                criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTS.CREATIONDATE + " >= '" + startDate + "'"));
+            }
+            if (endDate != null) {
+                criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTS.CREATIONDATE + " <= '" + endDate + "'"));
+            }
         }
         if (!street.equals("")) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTS.STREETS, street));
