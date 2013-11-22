@@ -56,9 +56,8 @@ public class AnnouncementsController {
     public List<Announcements> getAnnouncementsListByQuery(Session session, String token, String street, String houseNumber,
             String rooms, String floor, String floors, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException, SQLException {
         //FIXME!!!!!    
-        DateFormat formatter = new SimpleDateFormat("dd-mm-yyyy hh:mm:ss");
-        Date startDate_ = null;
-        Date endDate_ = null;
+        String startDate_ = null;
+        String endDate_ = null;
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -87,18 +86,10 @@ public class AnnouncementsController {
             idWorker_ = Integer.valueOf(idWorker);
         }
         if (!startDate.equals("")) {
-            try {
-                startDate_ = formatter.parse(startDate + " 00:00:01");
-            } catch (ParseException ex) {
-                Logger.getLogger(AnnouncementsController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            startDate_ = startDate;
         }
         if (!endDate.equals("")) {
-            try {
-                endDate_ = formatter.parse(endDate + " 23:59:59");
-            } catch (ParseException ex) {
-                Logger.getLogger(AnnouncementsController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            endDate_ = endDate;
         }
         return DaoFactory.getAnnouncementsDao().getAnnouncementsListByQuery(session, street, houseNumber, rooms_, floor_, floors_, idWorker_, startDate_, endDate_);
     }
