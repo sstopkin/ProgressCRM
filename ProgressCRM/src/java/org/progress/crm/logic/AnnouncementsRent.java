@@ -25,6 +25,7 @@ public class AnnouncementsRent implements Serializable {
     private int rooms;
     private int floor;
     private int floors;
+    private int price;
     private String phone;
     private String description;
     private int idWorker;
@@ -34,7 +35,7 @@ public class AnnouncementsRent implements Serializable {
     public AnnouncementsRent() {
     }
 
-    public AnnouncementsRent(String street, String houseNumber, int rooms, int floor, int floors, String phone, String description, int idWorker) {
+    public AnnouncementsRent(String street, String houseNumber, int rooms, int floor, int floors, int price, String phone, String description, int idWorker) {
         this.street = street;
         this.houseNumber = houseNumber;
         this.rooms = rooms;
@@ -45,6 +46,7 @@ public class AnnouncementsRent implements Serializable {
         this.idWorker = idWorker;
         this.creationDate = new Date();
         this.deleted = false;
+        this.price = price;
     }
 
     @Id
@@ -56,6 +58,15 @@ public class AnnouncementsRent implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Column(name = "Price")
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Column(name = "Deleted")

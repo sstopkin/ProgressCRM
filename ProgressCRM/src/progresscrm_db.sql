@@ -63,6 +63,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`AnnouncementsRent` (
 `Rooms` INT NOT NULL ,
 `Floor` INT NOT NULL ,
 `Floors` INT NOT NULL ,
+`Price` INT NOT NULL ,
 `Phone` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `idWorker` INT NOT NULL ,
@@ -75,6 +76,20 @@ PRIMARY KEY (`id`));
 -- Table `progresscrm`.`AnnouncementsCalls`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`AnnouncementsCalls` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+`idWorker` INT NOT NULL ,
+`AnnouncementsId` INT NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (AnnouncementsId) REFERENCES Announcements(id),
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+PRIMARY KEY (`id`));
+
+-- -----------------------------------------------------
+-- Table `progresscrm`.`AnnouncementsRentCalls`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`AnnouncementsRentCalls` (
 `id` INT NOT NULL AUTO_INCREMENT ,
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,

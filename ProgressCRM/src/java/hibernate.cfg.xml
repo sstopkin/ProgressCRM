@@ -23,6 +23,7 @@
         <mapping class="org.progress.crm.logic.Announcements" />
         <mapping class="org.progress.crm.logic.AnnouncementsRent" />
         <mapping class="org.progress.crm.logic.AnnouncementsCalls" />
+        <mapping class="org.progress.crm.logic.AnnouncementsRentCalls" />
         <mapping class="org.progress.crm.logic.Apartaments" />
         <mapping class="org.progress.crm.logic.ApartamentsPhoto" />
         <mapping class="org.progress.crm.logic.Calls" />

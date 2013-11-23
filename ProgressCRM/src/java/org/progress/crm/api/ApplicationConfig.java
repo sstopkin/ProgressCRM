@@ -22,6 +22,7 @@ public class ApplicationConfig extends Application {
         resources.add(org.progress.crm.api.AnnouncementsApi.class);
         resources.add(org.progress.crm.api.AnnouncementsCallsApi.class);
         resources.add(org.progress.crm.api.AnnouncementsRentApi.class);
+        resources.add(org.progress.crm.api.AnnouncementsRentCallsApi.class);
         resources.add(org.progress.crm.api.ApartamentsAPI.class);
         resources.add(org.progress.crm.api.AuthApi.class);
         resources.add(org.progress.crm.api.CallsApi.class);

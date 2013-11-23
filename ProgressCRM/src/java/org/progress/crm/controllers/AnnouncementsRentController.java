@@ -26,14 +26,14 @@ public class AnnouncementsRentController {
     }
 
     public boolean addAnnouncementsRent(Session session, String token, String street, String houseNumber,
-            String rooms, String floor, String floors, String phone, String description) throws CustomException, SQLException {
+            String rooms, String floor, String floors, String price, String phone, String description) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
         DaoFactory.getAnnouncementsRentDao().addAnnouncementsRent(session, idWorker, street, houseNumber,
-                Integer.valueOf(rooms), Integer.valueOf(floor), Integer.valueOf(floors), phone, description);
+                Integer.valueOf(rooms), Integer.valueOf(floor), Integer.valueOf(floors), Integer.valueOf(price), phone, description);
         return true;
     }
 
