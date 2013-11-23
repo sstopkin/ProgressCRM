@@ -57,4 +57,19 @@ public class DbFields {
         public final static String CREATIONDATE = "creationDate";
         public final static String DELETED = "deleted";
     }
+    
+    public class ANNOUNCEMENTSRENT {
+
+        public final static String ID = "id";
+        public final static String STREETS = "street";
+        public final static String HOUSENUMBER = "houseNumber";
+        public final static String ROOMS = "rooms";
+        public final static String FLOOR = "floor";
+        public final static String FLOORS = "floors";
+        public final static String PHONE = "phone";
+        public final static String DESCRIPTION = "description";
+        public final static String IDWORKER = "idWorker";
+        public final static String CREATIONDATE = "creationDate";
+        public final static String DELETED = "deleted";
+    }
 }

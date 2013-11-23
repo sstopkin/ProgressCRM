@@ -34,6 +34,10 @@ $(document).ready(function() {
         e.preventDefault();
         getАnnouncementsPage();
     });
+    $("#announcementsRentLink").click(function(e) {
+        e.preventDefault();
+        getАnnouncementsRentPage();
+    });
     $("#apartamentsLink").click(function(e) {
         e.preventDefault();
         getapartamentsListPage();

@@ -47,4 +47,8 @@ public class DaoFactory {
     public static AnnouncementsCallsDao getAnnouncementsCallsDao() {
         return new AnnouncementsCallsDao();
     }
+
+    public static AnnouncementsRentDao getAnnouncementsRentDao() {
+        return new AnnouncementsRentDao();
+    }
 }
