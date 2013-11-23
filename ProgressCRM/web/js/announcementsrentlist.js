@@ -57,12 +57,13 @@ function addAnnouncementsRent() {
             rooms: $('#announcementsRentRooms').val(),
             floor: $('#announcementsRentFloor').val(),
             floors: $('#announcementsRentFloors').val(),
+            price: $('#announcementsRentPrice').val(),
             phone: $('#announcementsRentPhone').val(),
             description: $('#announcementsRentDescription').val()
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getАnnouncementsPage();
+            getАnnouncementsRentPage();
         },
         error: function(data) {
             showDanger(data.responseText);

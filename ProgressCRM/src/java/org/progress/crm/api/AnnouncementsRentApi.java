@@ -50,13 +50,14 @@ public class AnnouncementsRentApi {
             @FormParam("rooms") final String rooms,
             @FormParam("floor") final String floor,
             @FormParam("floors") final String floors,
+            @FormParam("price") final String price,
             @FormParam("phone") final String phone,
             @FormParam("description") final String description) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 boolean result = announcementsRentController.addAnnouncementsRent(session, token, street, houseNumber,
-                        rooms, floor, floors, phone, description);
+                        rooms, floor, floors, price, phone, description);
                 return ApiHelper.getResponse(result);
             }
         });
@@ -90,7 +91,7 @@ public class AnnouncementsRentApi {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson announcements = new GsonBuilder().create();
-                String result = announcements.toJson(announcementsRentController.getAnnouncementsRentListByQuery(session, token, street, houseNumber,rooms, floor, floors, idWorker, startdate, enddate));
+                String result = announcements.toJson(announcementsRentController.getAnnouncementsRentListByQuery(session, token, street, houseNumber, rooms, floor, floors, idWorker, startdate, enddate));
                 return ApiHelper.getResponse(result);
             }
         });

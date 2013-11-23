@@ -3,7 +3,7 @@ function getAnnouncementsRentViewPage(announcementsRentId) {
         $("#mainContainer").html(data);
         $.ajax({
             type: "GET",
-            url: "api/announcementsRentcalls/getcalls?id=" + announcementsRentId,
+            url: "api/announcementsrentcalls/getcalls?id=" + announcementsRentId,
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
@@ -57,7 +57,7 @@ function submitAnnouncementsRentCall() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getАnnouncementsPage();
+            getАnnouncementsRentPage();
         },
         error: function(data) {
             showDanger(data.responseText);

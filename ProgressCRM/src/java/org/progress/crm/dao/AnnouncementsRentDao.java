@@ -16,8 +16,8 @@ import org.progress.crm.logic.DbFields;
 public class AnnouncementsRentDao {
 
     public boolean addAnnouncementsRent(final Session session, final int idWorker, final String street, final String houseNumber,
-            final int rooms, final int floor, final int floors, final String phone, final String description) throws SQLException, CustomException {
-        AnnouncementsRent hd = new AnnouncementsRent(street, houseNumber, rooms, floor, floors, phone, description, idWorker);
+            final int rooms, final int floor, final int floors, final int price, final String phone, final String description) throws SQLException, CustomException {
+        AnnouncementsRent hd = new AnnouncementsRent(street, houseNumber, rooms, floor, floors, price, phone, description, idWorker);
         session.save(hd);
         return true;
     }

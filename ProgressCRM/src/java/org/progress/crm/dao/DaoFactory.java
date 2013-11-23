@@ -51,4 +51,8 @@ public class DaoFactory {
     public static AnnouncementsRentDao getAnnouncementsRentDao() {
         return new AnnouncementsRentDao();
     }
+
+    public static AnnouncementsRentCallsDao getAnnouncementsRentCallsDao() {
+        return new AnnouncementsRentCallsDao();
+    }
 }

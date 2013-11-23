@@ -72,4 +72,11 @@ public class DbFields {
         public final static String CREATIONDATE = "creationDate";
         public final static String DELETED = "deleted";
     }
+    
+        public class ANNOUNCEMENTSRENTCALLS {
+
+        public final static String ID = "id";
+        public final static String DATE = "creationDate";
+        public final static String ANNOUNCEMENTSID = "announcementsId";
+    }
 }
