@@ -1,5 +1,5 @@
 function getAnnouncementsRentViewPage(announcementsRentId) {
-    $.get("announcementsRentview.html", function(data) {
+    $.get("announcementsrentview.html", function(data) {
         $("#mainContainer").html(data);
         $.ajax({
             type: "GET",
@@ -50,7 +50,7 @@ function submitAnnouncementsRentCall() {
     $('#announcementsRentCallsAddMoadl').modal('toggle');
     $.ajax({
         type: "POST",
-        url: "api/announcementsRentcalls/addannouncementsRentcalls",
+        url: "api/announcementsrentcalls/addannouncementsrentcalls",
         data: ({
             id: $("#announcementsRentCallsId").val(),
             description: $('#announcementsRentCallsDescription').val()
