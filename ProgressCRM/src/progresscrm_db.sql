@@ -94,9 +94,9 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`AnnouncementsRentCalls` (
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 `idWorker` INT NOT NULL ,
-`AnnouncementsId` INT NOT NULL ,
+`AnnouncementsRentId` INT NOT NULL ,
 `CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (AnnouncementsId) REFERENCES Announcements(id),
+FOREIGN KEY (AnnouncementsRentId) REFERENCES AnnouncementsRent(id),
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`));
 
@@ -216,9 +216,11 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`LogService` (
 PRIMARY KEY (`id`) ,
 INDEX `idWorkerIndex` (`idWorker` ASC));
 
+-- NULL user --
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('null', 'null','null', 'null', 0, 'null', true);
 
+-- test users--
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('adminFName', 'adminSName','adminLName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'admin@progress55.com', false);
 
@@ -228,11 +230,17 @@ INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Emai
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('expertfName', 'expertsName','expertlName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 1, 'expert@progress55.com', false);
 
+-- real user--
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('Андрей', 'Геннадьевич','Бармашов', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'abar71@progress55.com', false);
 
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
 	VALUES ('Жанна', 'Витальевна','Тутубалина', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'zvt@progress55.com', false);
+
+/*
+-- Query: SELECT * FROM progresscrm.Customers
+LIMIT 0, 1000
+*/
 
 INSERT INTO `progresscrm`.`Customers`
 (`id`,`customersLname`,`customersFname`,`customersMname`,`customersMonthOfBirthday`,`customersDayOfBirthday`,`customersYearOfBirthday`,
@@ -242,8 +250,6 @@ VALUES(1,'fname','customersFname','customersMname',4,26,1986,1,'customersPhone',
 /*
 -- Query: SELECT * FROM progresscrm.Apartaments
 LIMIT 0, 1000
-
--- Date: 2013-09-23 12:45
 */
 INSERT INTO `Apartaments` (`id`,`CityName`,`StreetName`,`HouseNumber`,`BuildingNumber`,`KladrId`,`ShortAddress`,`TypeOfSales`,`Rooms`,`Price`,`CityDistrict`,`Floor`,`Floors`,`RoomNumber`,`Material`,`SizeApartament`,`SizeLiving`,`SizeKitchen`,`Balcony`,`Loggia`,`YearOfConstruction`,`Description`,`MethodOfPurchase_PureSale`,`MethodOfPurchase_Mortgage`,`MethodOfPurchase_Exchange`,`MethodOfPurchase_Rent`,`RePlanning`,`CreationDate`,`LastModify`,`idWorker`,`idCustomer`,`IsApproved`,`Deleted`)  VALUES (1,'г. Омск','ул. Пушкина','д. 67','','123','г. Омск, ул. Пушкина, д. 67',1,1,123,5,6,6,23,3,234,123,23,0,0,124,'текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст ',0,0,0,0,0,'2013-09-23 12:40:49','2013-09-23 12:40:49',2,1,0,0);
 INSERT INTO `Apartaments` (`id`,`CityName`,`StreetName`,`HouseNumber`,`BuildingNumber`,`KladrId`,`ShortAddress`,`TypeOfSales`,`Rooms`,`Price`,`CityDistrict`,`Floor`,`Floors`,`RoomNumber`,`Material`,`SizeApartament`,`SizeLiving`,`SizeKitchen`,`Balcony`,`Loggia`,`YearOfConstruction`,`Description`,`MethodOfPurchase_PureSale`,`MethodOfPurchase_Mortgage`,`MethodOfPurchase_Exchange`,`MethodOfPurchase_Rent`,`RePlanning`,`CreationDate`,`LastModify`,`idWorker`,`idCustomer`,`IsApproved`,`Deleted`) VALUES (2,'г. Омск','пр-кт. Культуры','д. 2','','123','644029, г. Омск, пр-кт. Культуры, д. 2',1,2,123,5,1,5,24,2,234,123,23,0,0,124,'текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст текст ',0,0,0,0,0,'2013-09-23 12:43:34','2013-09-23 12:43:34',2,1,0,0);
@@ -255,8 +261,6 @@ INSERT INTO `Apartaments` (`id`,`CityName`,`StreetName`,`HouseNumber`,`BuildingN
 /*
 -- Query: SELECT * FROM progresscrm.Calls
 LIMIT 0, 1000
-
--- Date: 2013-09-23 12:48
 */
 INSERT INTO `Calls` (`id`,`ApartamentsId`,`Date`,`Description`,`idWorker`) VALUES (1,1,'2013-09-23 12:47:55','asd',2);
 INSERT INTO `Calls` (`id`,`ApartamentsId`,`Date`,`Description`,`idWorker`) VALUES (2,4,'2013-09-23 12:47:59','asd',2);
@@ -282,8 +286,6 @@ INSERT INTO `progresscrm`.`News` (`id`, `idWorker`, `Header`, `Text`, `CreationD
 /*
 -- Query: SELECT * FROM progresscrm.HelpDesk
 LIMIT 0, 1000
-
--- Date: 2013-09-23 12:59
 */
 INSERT INTO `HelpDesk` (`id`,`idWorker`,`Request`,`Text`,`Status`,`CreationDate`,`LastModify`,`Deleted`) VALUES (1,2,'Text text text text text text text text text text text text text text',' text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text',1,'2013-09-23 12:58:21','2013-09-23 12:58:21',0);
 INSERT INTO `HelpDesk` (`id`,`idWorker`,`Request`,`Text`,`Status`,`CreationDate`,`LastModify`,`Deleted`) VALUES (2,2,' text text text text text text text text text text text text',' text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text',1,'2013-09-23 12:58:41','2013-09-23 12:58:41',0);
@@ -294,8 +296,6 @@ INSERT INTO `HelpDesk` (`id`,`idWorker`,`Request`,`Text`,`Status`,`CreationDate`
 /*
 -- Query: SELECT * FROM progresscrm.Announcements
 LIMIT 0, 1000
-
--- Date: 2013-11-05 23:50
 */
 INSERT INTO `Announcements` (`id`,`Street`,`HouseNumber`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (1,'Челюскинцев','12',2,5,5,'89134563211','3+',3,'2013-11-05 23:47:54',0);
 INSERT INTO `Announcements` (`id`,`Street`,`HouseNumber`,`Rooms`,`Floor`,`Floors`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (2,'Северная','7/2',1,2,16,'89081020123','текст',3,'2013-11-05 23:48:40',0);
@@ -303,8 +303,13 @@ INSERT INTO `Announcements` (`id`,`Street`,`HouseNumber`,`Rooms`,`Floor`,`Floors
 /*
 -- Query: SELECT * FROM progresscrm.AnnouncementsCalls
 LIMIT 0, 1000
-
--- Date: 2013-11-05 23:51
 */
 INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (1,'отказался от услуг агенства',0,3,2,'2013-11-05 23:49:56');
 INSERT INTO `AnnouncementsCalls` (`id`,`Description`,`Deleted`,`idWorker`,`AnnouncementsId`,`CreationDate`) VALUES (2,'просит время подумать',0,3,2,'2013-11-05 23:50:07');
+
+/*
+-- Query: SELECT * FROM progresscrm.AnnouncementsRent
+LIMIT 0, 1000
+*/
+INSERT INTO `AnnouncementsRent` (`id`,`Street`,`HouseNumber`,`Rooms`,`Floor`,`Floors`,`Price`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (1,'Енисейская','23',1,1,2,6000,'89607896523','стремная',3,'2013-11-25 23:12:44',0);
+INSERT INTO `AnnouncementsRent` (`id`,`Street`,`HouseNumber`,`Rooms`,`Floor`,`Floors`,`Price`,`Phone`,`Description`,`idWorker`,`CreationDate`,`Deleted`) VALUES (2,'3й Разъезд','5',2,9,9,9000,'89874561265','сделан ремонт',3,'2013-11-25 23:29:11',0);

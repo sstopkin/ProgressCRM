@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 public class AnnouncementsRentCalls implements Serializable {
 
     private int id;
-    private int announcementsId;
+    private int announcementsRentId;
     private String description;
     private boolean deleted;
     private int idWorker;
@@ -29,21 +29,21 @@ public class AnnouncementsRentCalls implements Serializable {
     public AnnouncementsRentCalls() {
     }
 
-    public AnnouncementsRentCalls(int announcementsId, String description, int idWorker) {
-        this.announcementsId = announcementsId;
+    public AnnouncementsRentCalls(int announcementsRentId, String description, int idWorker) {
+        this.announcementsRentId = announcementsRentId;
         this.description = description;
         this.deleted = false;
         this.idWorker = idWorker;
         this.creationDate = new Date();
     }
 
-    @Column(name = "AnnouncementsId")
-    public int getAnnouncementsId() {
-        return announcementsId;
+    @Column(name = "AnnouncementsRentId")
+    public int getAnnouncementsRentId() {
+        return announcementsRentId;
     }
 
-    public void setAnnouncementsId(int announcementsId) {
-        this.announcementsId = announcementsId;
+    public void setAnnouncementsRentId(int announcementsRentId) {
+        this.announcementsRentId = announcementsRentId;
     }
 
     @Id

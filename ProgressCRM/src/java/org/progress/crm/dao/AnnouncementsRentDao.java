@@ -59,7 +59,7 @@ public class AnnouncementsRentDao {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.IDWORKER, idWorker));
         }
         if ((startDate != null) && (endDate != null) && (startDate.equals(endDate))) {
-            criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTSRENT.CREATIONDATE + " like '%" + startDate + "%'"));
+            criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTSRENT.CREATIONDATE + " >= CURDATE()"));
         } else {
             if (startDate != null) {
                 criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTSRENT.CREATIONDATE + " >= '" + startDate + "'"));
