@@ -38,8 +38,8 @@ public class AnnouncementsController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-        DaoFactory.getAnnouncementsDao().addAnnouncements(session, idWorker, street, houseNumber,
-                Integer.valueOf(rooms), Integer.valueOf(floor), Integer.valueOf(floors), phone, description);
+        DaoFactory.getAnnouncementsDao().addAnnouncements(session, idWorker, street.toLowerCase(), houseNumber.toLowerCase(),
+                Integer.valueOf(rooms), Integer.valueOf(floor), Integer.valueOf(floors), phone.toLowerCase(), description);
         return true;
     }
 

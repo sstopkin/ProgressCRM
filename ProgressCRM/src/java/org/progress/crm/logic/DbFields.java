@@ -77,6 +77,6 @@ public class DbFields {
 
         public final static String ID = "id";
         public final static String DATE = "creationDate";
-        public final static String ANNOUNCEMENTSID = "announcementsId";
+        public final static String ANNOUNCEMENTSID = "announcementsRentId";
     }
 }
