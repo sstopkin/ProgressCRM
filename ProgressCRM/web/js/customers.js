@@ -1,23 +1,18 @@
 function getCustomersPage() {
     $.get("customers.html", function(data) {
-//        $.get("api/auth/validate", function(data) {
-//            if ((data == "3") || (data == "2")) {
-//                $("#addApartamentBtn").css("display", "block");
-//                $("#genApartamentsPriceBtn").css("display", "block");
-//            } else {
-//                $("#addApartamentBtn").css("display", "none");
-//                $("#genApartamentsPriceBtn").css("display", "none");
-//            }
-//        });
+        var permissions = $.ajax({
+            type: "GET",
+            url: "api/auth/validate",
+            async: false
+        }).responseText;
+        if ((permissions == "3") || (permissions == "2")) {
+            $("#addApartamentBtn").css("display", "block");
+            $("#genApartamentsPriceBtn").css("display", "block");
+        } else {
+            $("#addApartamentBtn").css("display", "none");
+            $("#genApartamentsPriceBtn").css("display", "none");
+        }
         $("#mainContainer").html(data);
-//        var permissions;
-//        var userId;
-//        $.get("api/auth/validate", function(data3) {
-//            permissions = data3;
-//            if (permissions == "3") {
-//                $("#approvingTagsForTasks").css("display", "block");
-//            }
-//        });
 //        $.get("api/auth/author", function(data2) {
 //            userId = data2;
 //        });
@@ -29,7 +24,7 @@ function getCustomersPage() {
                 var array = JSON.parse(data);
                 var str = "";
                 array.forEach(function(entry) {
-                        str += "<div class = \"media\">";
+                    str += "<div class = \"media\">";
 //                        if (permissions == "3") {
 //                            str += "<div class=\"btn-toolbar\">";
 //                            str += "<div class=\"btn-group\">";
@@ -122,7 +117,7 @@ function addCustomer() {
                 location.reload();//FIXME
                 $("#errorBlock").css("display", "none");
                 $('#addCourseBtn').css('display', 'block');
-//                getCoursesPage();
+                getCustomersPage();
             },
             error: function(data) {
                 showDanger(data.responseText);

@@ -1,8 +1,6 @@
 (function($) {
     $(function() {
-        var token = '51dfe5d42fb2b43e3300006e';
-        var key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
-
+        
         var city = $('[name="city"]');
         var street = $('[name="street"]');
         var building = $('[name="building"]');
@@ -50,8 +48,8 @@
 
         // Подключение плагина для поля ввода города
         city.kladr({
-            token: token,
-            key: key,
+            token: KLADR_token,
+            key: KLADR_key,
             type: $.ui.kladrObjectType.CITY,
             withParents: true,
             label: Label,
@@ -68,8 +66,8 @@
 
         // Подключение плагина для поля ввода улицы
         street.kladr({
-            token: token,
-            key: key,
+            token: KLADR_token,
+            key: KLADR_key,
             type: $.ui.kladrObjectType.STREET,
             label: Label,
             select: function(event, ui) {
@@ -84,8 +82,8 @@
 
         // Подключение плагина для поля ввода номера дома
         building.kladr({
-            token: token,
-            key: key,
+            token: KLADR_token,
+            key: KLADR_key,
             type: $.ui.kladrObjectType.BUILDING,
             label: Label,
             select: function(event, ui) {
@@ -99,8 +97,8 @@
         // Проверка корректности названия города (если пользователь ввёл сам, а не выбрал в списке)
         city.change(function() {
             $.kladrCheck({
-                token: token,
-                key: key,
+                token: KLADR_token,
+                key: KLADR_key,
                 value: city.val(),
                 type: $.ui.kladrObjectType.CITY,
             }, function(obj) {
@@ -125,8 +123,8 @@
         // Проверка корректности названия улицы (если пользователь ввёл сам, а не выбрал в списке)
         street.change(function() {
             var query = {
-                token: token,
-                key: key,
+                token: KLADR_token,
+                key: KLADR_key,
                 value: street.val(),
                 type: $.ui.kladrObjectType.STREET,
             };
@@ -158,8 +156,8 @@
         // Проверка названия строения
         building.change(function() {
             var query = {
-                token: token,
-                key: key,
+                token: KLADR_token,
+                key: KLADR_key,
                 value: building.val(),
                 type: $.ui.kladrObjectType.BUILDING,
             };

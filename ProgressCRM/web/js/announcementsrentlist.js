@@ -19,6 +19,15 @@ function getАnnouncementsRentPage() {
         workersList.forEach(function(entry) {
             $("#announcementsRentSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
+
+        $('#announcementsRentSearchStreet').kladr({
+            token: KLADR_token,
+            key: KLADR_key,
+            type: $.ui.kladrObjectType.STREET,
+            parentType: $.ui.kladrObjectType.CITY,
+            parentId: KLADR_parentId
+        });
+
         $.ajax({
             type: "GET",
             url: "api/auth",
@@ -81,9 +90,7 @@ function deleteAnnouncementsRentById(announcementsRentId) {
             getАnnouncementsPage();
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }

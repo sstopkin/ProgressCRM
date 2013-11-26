@@ -1,5 +1,4 @@
 function getHelpDeskPage() {
-    var permissions;
     $("#addApartaments").css("display", "none");
     $.get("hd.html", function(data) {
         $("#mainContainer").html(data);
@@ -9,9 +8,11 @@ function getHelpDeskPage() {
             success: function(data) {
                 $("#profileLink").html(data);
                 $("#logged").css("display", "block");
-                $.get("api/auth/validate", function(data3) {
-                    permissions = data3;
-                });
+                var permissions = $.ajax({
+                    type: "GET",
+                    url: "api/auth/validate",
+                    async: false
+                }).responseText;
                 $.ajax({
                     type: "GET",
                     url: "api/helpdesk/getallrequest",
@@ -50,15 +51,6 @@ function getHelpDeskPage() {
                             str += "</div>";
                             str += "</div>";
                         });
-//                console.log(array.apartaments.IsApproved);
-//                console.log(array.apartaments.deleted);
-//
-//
-//                content += "<p>";
-//                content += "ID = " + array.apartaments.id;
-//                content += "</p>";
-
-
                         $("#mainHelpDeskContainer").html(str);
                     },
                     error: function(data) {
