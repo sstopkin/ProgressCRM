@@ -1,15 +1,10 @@
 var transfer;
 var type;
 var workersList;
+var KLADR_token = '51dfe5d42fb2b43e3300006e';
+var KLADR_key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
+var KLADR_parentId='5500000100000';
 $(document).ready(function() {
-    $("#closeAlert").click(function() {
-        $("#errorBlock").css("display", "none");
-    });
-    $("#closeInfo").click(function() {
-        $("#helpInfoBlock").css("display", "none");
-        $('#taskContentHelp').addClass("hiddenHelp");
-    });
-    $("#addApartaments").css("display", "none");
     $.ajax({
         type: "GET",
         url: "api/auth",
@@ -18,13 +13,21 @@ $(document).ready(function() {
             $("#logged").css("display", "block");
             $.get("api/auth/validate", function(data3) {
                 var permissions = data3;
+                getAllWorkersList();
             });
         },
         error: function(data) {
             $("#loginForm").css("display", "block");
         }
     });
-    getAllWorkersList();
+    $("#closeAlert").click(function() {
+        $("#errorBlock").css("display", "none");
+    });
+    $("#closeInfo").click(function() {
+        $("#helpInfoBlock").css("display", "none");
+        $('#taskContentHelp').addClass("hiddenHelp");
+    });
+    $("#addApartaments").css("display", "none");
     getMainPage();
     $("#mainLink").click(function(e) {
         e.preventDefault();
@@ -55,17 +58,10 @@ $(document).ready(function() {
         e.preventDefault();
         getTasksPage("task");
     });
-    $('#adminLink').click(function(e) {
-        e.preventDefault();
-        getAdminPage("admin");
-    });
-
-
     $("#aboutLink").click(function(e) {
         e.preventDefault();
         getAboutPage("about");
     });
-
     $("#callsLink").click(function(e) {
         e.preventDefault();
         getCallsPage();
@@ -91,21 +87,6 @@ function getCallsPage() {
     $("#addApartaments").css("display", "none");
     $.get("calls.html", function(data) {
         $("#mainContainer").html(data);
-    });
-}
-
-function getAdminPage() {
-    $("#addApartaments").css("display", "none");
-    $.get("api/auth/validate", function(data) {
-        if (data == "3") {
-            $.get("admin.html", function(data) {
-                $("#mainContainer").html(data);
-                $("#usersLink").click(getUsersList);
-                $("#verifyTasksLink").click(getUnevaluatedTasks);
-                $("#moderationLink").click(getModerationPage)
-                getUsersList();
-            });
-        }
     });
 }
 

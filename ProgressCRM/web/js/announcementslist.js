@@ -71,7 +71,6 @@ function addAnnouncements() {
 }
 
 function deleteAnnouncementsById(announcementsId) {
-    console.log("deleteAnnouncementsById " + announcementsId);
     $.ajax({
         type: "POST",
         url: "api/announcements/deleteannouncements",
