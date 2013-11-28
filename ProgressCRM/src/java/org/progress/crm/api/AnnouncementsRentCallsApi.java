@@ -31,12 +31,12 @@ public class AnnouncementsRentCallsApi {
 
     @GET
     @Path("getallannouncementsrentcalls")
-    public Response getAllAnnouncementsRentCalls() throws CustomException {
+    public Response getAllAnnouncementsRentCalls(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson all = new GsonBuilder().create();
-                String result = all.toJson(announcementsRentCallsController.getAllAnnouncementsRentCalls(session));
+                String result = all.toJson(announcementsRentCallsController.getAllAnnouncementsRentCalls(session, token));
                 return ApiHelper.getResponse(result);
             }
         });

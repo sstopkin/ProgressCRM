@@ -7,11 +7,9 @@ function getАnnouncementsRentPage() {
         day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
-//        $('#announcementsRentSearchStartDate').val(year + "-" + month + "-" + day);
         $('#announcementsRentSearchStartDate').datepicker({
             format: 'yyyy-mm-dd'
         });
-//        $('#announcementsRentSearchEndDate').val(year + "-" + month + "-" + day);
         $('#announcementsRentSearchEndDate').datepicker({
             format: 'yyyy-mm-dd'
         });
@@ -51,7 +49,6 @@ function getАnnouncementsRentPage() {
                 $("#loginForm").css("display", "block");
             }
         });
-
     });
 }
 

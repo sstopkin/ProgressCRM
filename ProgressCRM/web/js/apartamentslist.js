@@ -13,7 +13,6 @@ function getApartamentsListPage() {
             $("#genApartamentsPriceBtn").css("display", "none");
         }
         $("#mainContainer").html(data);
-        var permissions;
         var userId;
         $.get("api/auth/author", function(data2) {
             userId = data2;

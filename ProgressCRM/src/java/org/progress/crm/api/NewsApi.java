@@ -25,13 +25,13 @@ public class NewsApi {
     NewsController newsController;
 
     @GET
-    public Response news() throws SQLException, CustomException {
+    public Response news(@CookieParam("token") final String token) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson newsList = new GsonBuilder().create();
                 String newsJson = newsList.toJson(newsController
-                        .getNews(session));
+                        .getNews(session, token));
                 return ApiHelper.getResponse(newsJson);
             }
         });

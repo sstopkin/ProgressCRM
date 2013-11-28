@@ -69,14 +69,8 @@ public class WorkersController {
         DaoFactory.getWorkersDao().updateWorker(session, worker);
     }
 
-    public List<Workers> getAllUsers(Session session, String token) throws CustomException, SQLException {
-        if (token == null) {
-            throw new IsNotAuthenticatedException();
-        }
-        //FIXME
-//        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
-//            throw new PermissionsDeniedException();
-//        }
+    //do not add token check, it`s guest api
+    public List<Workers> getAllUsers(Session session) throws CustomException, SQLException {
         List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkers(session);
         List list = new ArrayList();
         for (Workers ws : workers) {

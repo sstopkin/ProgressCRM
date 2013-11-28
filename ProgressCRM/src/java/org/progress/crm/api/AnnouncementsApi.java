@@ -31,12 +31,12 @@ public class AnnouncementsApi {
 
     @GET
     @Path("getallannouncements")
-    public Response getAllAnnouncements() throws CustomException {
+    public Response getAllAnnouncements(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson allHelpDeskRequest = new GsonBuilder().create();
-                String result = allHelpDeskRequest.toJson(announcementsController.getAllAnnouncements(session));
+                String result = allHelpDeskRequest.toJson(announcementsController.getAllAnnouncements(session, token));
                 return ApiHelper.getResponse(result);
             }
         });

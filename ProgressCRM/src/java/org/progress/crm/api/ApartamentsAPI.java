@@ -27,12 +27,13 @@ public class ApartamentsAPI {
 
     @GET
     @Path("getapartament")
-    public Response getApartamentById(@QueryParam("id") final String id) throws CustomException {
+    public Response getApartamentById(@QueryParam("id") final String id, 
+            @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(apartamentsController.getApartamentById(session, id));
+                String result = apartamentById.toJson(apartamentsController.getApartamentById(session, token, id));
                 return ApiHelper.getResponse(result);
             }
         });
@@ -40,12 +41,12 @@ public class ApartamentsAPI {
 
     @GET
     @Path("getallapartament")
-    public Response getApartamentById() throws CustomException {
+    public Response getApartamentById(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(apartamentsController.getAllApartament(session));
+                String result = apartamentById.toJson(apartamentsController.getAllApartament(session, token));
                 return ApiHelper.getResponse(result);
             }
         });

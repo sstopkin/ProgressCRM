@@ -5,6 +5,7 @@ var KLADR_token = '51dfe5d42fb2b43e3300006e';
 var KLADR_key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
 var KLADR_parentId = '5500000100000';
 $(document).ready(function() {
+    getAllWorkersList();
     $.ajax({
         type: "GET",
         url: "api/auth",
@@ -35,7 +36,6 @@ $(document).ready(function() {
 });
 
 function getMainPage() {
-    $("#addApartaments").css("display", "none");
     $.get("main.html", function(data) {
         $("#mainContainer").html(data);
     });
@@ -43,7 +43,6 @@ function getMainPage() {
 }
 
 function getAboutPage() {
-    $("#addApartaments").css("display", "none");
     $.get("about.html", function(data) {
         $("#mainContainer").html(data);
     });
@@ -57,60 +56,50 @@ function getCallsPage() {
 }
 
 function getNews() {
-    var permissions;
-    if (permissions == "3") {
-
-    }
-    $.ajax({
+    var permissions = $.ajax({
         type: "GET",
         url: "api/auth/validate",
-        success: function(data) {
-            permissions = data;
-            $.get("api/news", function(data) {
-                var str = "<table class=\"table\"><tbody>\n";
-                var ids = [];
-                var content = "course";
-                var list = JSON.parse(data);
-                for (var i = 0; i < list.length; ++i) {
-                    ids[i] = list[i].id;
-                    str += "<tr><td>";
-                    str += "<h3>" + list[i].header + "</h3>";
-                    str += "<div class=\"row\">";
-                    str += "<div class=\"col-md-7 col-md-offset-1\">";
-                    if (permissions == "3") {
-                        str += "<div class=\"btn-toolbar\">";
-                        str += "<div class=\"btn-group\">";
+        async: false
+    }).responseText;
+    if (permissions == "3") {
+        $("#addApartaments").css("display", "block");
+    }
+    $.get("api/news", function(data) {
+        var str = "<table class=\"table\"><tbody>\n";
+        var ids = [];
+        var list = JSON.parse(data);
+        for (var i = 0; i < list.length; ++i) {
+            ids[i] = list[i].id;
+            str += "<tr><td>";
+            str += "<h3>" + list[i].header + "</h3>";
+            str += "<div class=\"row\">";
+            str += "<div class=\"col-md-7 col-md-offset-1\">";
+            if (permissions == "3") {
+                str += "<div class=\"btn-toolbar\">";
+                str += "<div class=\"btn-group\">";
 
-                        str += "<button type=\"button\" onclick=\"editNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
-                        str += "<button type=\"button\" onclick=\"deleteNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                str += "<button type=\"button\" onclick=\"editNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
+                str += "<button type=\"button\" onclick=\"deleteNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
 
-                        str += "</div>";
-                        str += "</div>";
-                    }
-                    str += "<p>" + list[i].text + "</p>";
-                    str += "</div>";
-                    for (var it = 0; it < workersList.length; ++it) {
-                        var a = workersList[it];
-                        if (list[i].idWorker == a[0]) {
-                            str += "<p>" + a[1] + a[3] + "</p>";
-                        }
-                    }
-                    str += "<p>" + list[i].lastModify + "</p>";
-                    str += "</div>";
-                    str += "</tr></td>";
+                str += "</div>";
+                str += "</div>";
+            }
+            str += "<p>" + list[i].text + "</p>";
+            str += "</div>";
+            for (var it = 0; it < workersList.length; ++it) {
+                var a = workersList[it];
+                if (list[i].idWorker == a[0]) {
+                    str += "<p>" + a[1] + a[3] + "</p>";
                 }
-                str += "\n</tbody>\n</table>\n";
-                transfer = ids;
-                $("#news").html(str);
-            });
-
-        },
-        error: function(data) {
-            showWarning(data.responseText);
+            }
+            str += "<p>" + list[i].lastModify + "</p>";
+            str += "</div>";
+            str += "</tr></td>";
         }
+        str += "\n</tbody>\n</table>\n";
+        transfer = ids;
+        $("#news").html(str);
     });
-    $("#addApartaments").css("display", "none");
-    return false;
 }
 
 function  editNewsById(id) {

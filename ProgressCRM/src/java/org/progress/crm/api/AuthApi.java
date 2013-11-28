@@ -118,14 +118,14 @@ public class AuthApi {
 
     @GET
     @Path("userslist")
-    public Response getAllUsersList(@CookieParam("token") final String token)
+    public Response getAllUsersList()
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson allUsersList = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                 String profileJson = allUsersList.toJson(workersController
-                        .getAllUsers(session, token));
+                        .getAllUsers(session));
                 return ApiHelper.getResponse(profileJson);
             }
         });

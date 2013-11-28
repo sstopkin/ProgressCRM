@@ -30,7 +30,6 @@ public class UploadController {
         if (uploadedInputStream == null || fileDetail == null) {
             throw new BadRequestException();
         }
-
         String filename = fileDetail.getFileName();
         String type = filename.substring(filename.lastIndexOf('.') + 1);
 

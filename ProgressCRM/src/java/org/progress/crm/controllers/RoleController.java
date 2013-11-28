@@ -44,7 +44,6 @@ public class RoleController {
         if (token == null) {
             return 0;
         }
-
         UUID uuid = UUID.fromString(token);
         if (authManager.isAuthentificated(uuid)) {
             int userId = authManager.getUserIdByToken(uuid);

@@ -13,6 +13,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
+import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Announcements;
@@ -27,7 +28,10 @@ public class AnnouncementsController {
     @EJB
     AuthenticationManager authManager;
 
-    public List getAllAnnouncements(Session session) throws CustomException, SQLException {
+    public List getAllAnnouncements(Session session, String token) throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         return DaoFactory.getAnnouncementsDao().getAllAnnouncements(session);
     }
 
@@ -44,6 +48,9 @@ public class AnnouncementsController {
     }
 
     public boolean deleteAnnouncements(Session session, String token, String id) throws IsNotAuthenticatedException, SQLException, CustomException {
+        if (id == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -55,12 +62,11 @@ public class AnnouncementsController {
 
     public List<Announcements> getAnnouncementsListByQuery(Session session, String token, String street, String houseNumber,
             String rooms, String floor, String floors, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException, SQLException {
-        //FIXME!!!!!    
-        String startDate_ = null;
-        String endDate_ = null;
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
+        String startDate_ = null;
+        String endDate_ = null;
         int rooms_;
         int floor_;
         int floors_;

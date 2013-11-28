@@ -40,12 +40,13 @@ public class CustomersApi {
 
     @GET
     @Path("getcustomer")
-    public Response getCustomerById(@QueryParam("id") final String id) throws CustomException {
+    public Response getCustomerById(@QueryParam("id") final String id,
+            @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getCustomerById(session, id));
+                String result = apartamentById.toJson(customersController.getCustomerById(session, token, id));
                 return ApiHelper.getResponse(result);
             }
         });
@@ -53,12 +54,13 @@ public class CustomersApi {
 
     @GET
     @Path("searchcustomer")
-    public Response getCustomersByString(@QueryParam("str") final String str) throws CustomException {
+    public Response getCustomersByString(@QueryParam("str") final String str,
+            @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getCustomerByString(session, str));
+                String result = apartamentById.toJson(customersController.getCustomerByString(session, token, str));
                 return ApiHelper.getResponse(result);
             }
         });
