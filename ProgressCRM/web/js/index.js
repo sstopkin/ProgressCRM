@@ -3,21 +3,25 @@ var type;
 var workersList;
 var KLADR_token = '51dfe5d42fb2b43e3300006e';
 var KLADR_key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
-var KLADR_parentId='5500000100000';
+var KLADR_parentId = '5500000100000';
 $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: "api/auth",
+        async: false,
         success: function(data) {
             $("#profileLink").html(data);
             $("#logged").css("display", "block");
-            $.get("api/auth/validate", function(data3) {
-                var permissions = data3;
-                getAllWorkersList();
-            });
+            getAllWorkersList();
         },
         error: function(data) {
             $("#loginForm").css("display", "block");
+        }
+    });
+    parseUrl(location.href);
+    $('#loginForm').keydown(function(event) {
+        if (event.which == 13) {
+            $('#loginBtn').click();
         }
     });
     $("#closeAlert").click(function() {
@@ -28,44 +32,6 @@ $(document).ready(function() {
         $('#taskContentHelp').addClass("hiddenHelp");
     });
     $("#addApartaments").css("display", "none");
-    getMainPage();
-    $("#mainLink").click(function(e) {
-        e.preventDefault();
-        getMainPage();
-    });
-    $("#announcementsLink").click(function(e) {
-        e.preventDefault();
-        getАnnouncementsPage();
-    });
-    $("#announcementsRentLink").click(function(e) {
-        e.preventDefault();
-        getАnnouncementsRentPage();
-    });
-    $("#apartamentsLink").click(function(e) {
-        e.preventDefault();
-        getapartamentsListPage();
-    });
-    $("#customersLink").click(function(e) {
-        e.preventDefault();
-        getCustomersPage();
-    });
-    $("#helpDeskLink").click(function(e) {
-        e.preventDefault();
-        getHelpDeskPage();
-    });
-
-    $("#tasksLink").click(function(e) {
-        e.preventDefault();
-        getTasksPage("task");
-    });
-    $("#aboutLink").click(function(e) {
-        e.preventDefault();
-        getAboutPage("about");
-    });
-    $("#callsLink").click(function(e) {
-        e.preventDefault();
-        getCallsPage();
-    });
 });
 
 function getMainPage() {
@@ -278,6 +244,7 @@ function getAllWorkersList() {
     $.ajax({
         type: "GET",
         url: "api/auth/userslist",
+        async: false,
         success: function(data) {
             workersList = JSON.parse(data);
             return true;
