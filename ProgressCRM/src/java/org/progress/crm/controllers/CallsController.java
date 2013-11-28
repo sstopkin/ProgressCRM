@@ -28,7 +28,7 @@ public class CallsController {
     }
 
     public boolean addCallsByApartsId(Session session, String token, String apartamentsId, String description) throws CustomException, SQLException {
-        if (apartamentsId == null) {
+        if (apartamentsId == null || apartamentsId.equals("")) {
             throw new BadRequestException();
         }
         if (token == null) {
