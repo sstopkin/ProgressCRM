@@ -69,13 +69,8 @@ function getCustomersPage() {
 }
 
 function addCustomer() {
-    console.log("addCustomer");
-    $("#addCustomer").css("display", "block");
-    $("#errorBlock").css("display", "none");
-
-    $("#customersAddReadyLink").css("display", "inline");
-    $("#customersAddReadyLink").click(function() {
-//        if (
+    $('#customersAddMoadl').modal('toggle');
+//    if (
 //                ($('#TypeOfSales').val() == "")
 //                || ($('#Price').val() == "")
 //                || ($('#CityDistrict').val() == "")
@@ -97,33 +92,31 @@ function addCustomer() {
 //            $("#errorBlock").css("display", "block");
 //            return false;
 //        }
-        $.ajax({
-            type: "POST",
-            url: "api/customers/addcustomer",
-            data: ({
-                customersFname: $('#customersFname').val(),
-                customersMname: $('#customersMname').val(),
-                customersLname: $('#customersLname').val(),
-                customersYearOfBirthday: $('#customersYearOfBirthday').val(),
-                customersMonthOfBirthday: $('#customersMonthOfBirthday').val(),
-                customersDayOfBirthday: $('#customersDayOfBirthday').val(),
-                customersSex: $('#customersSex').val(),
-                customersEmail: $('#customersEmail').val(),
-                customersPhone: $('#customersPhone').val(),
-                customersAddress: $('#customersAddress').val(),
-                customersExtra: $('#customersExtra').val()
-            }),
-            success: function(data) {
-                location.reload();//FIXME
-                $("#errorBlock").css("display", "none");
-                $('#addCourseBtn').css('display', 'block');
-                getCustomersPage();
-            },
-            error: function(data) {
-                showDanger(data.responseText);
-            }
-        });
-        $("#addApartaments").css("display", "none");
+    $.ajax({
+        type: "POST",
+        url: "api/customers/addcustomer",
+        data: ({
+            customersFname: $('#customersFname').val(),
+            customersMname: $('#customersMname').val(),
+            customersLname: $('#customersLname').val(),
+            customersYearOfBirthday: $('#customersYearOfBirthday').val(),
+            customersMonthOfBirthday: $('#customersMonthOfBirthday').val(),
+            customersDayOfBirthday: $('#customersDayOfBirthday').val(),
+            customersSex: $('#customersSex').val(),
+            customersEmail: $('#customersEmail').val(),
+            customersPhone: $('#customersPhone').val(),
+            customersAddress: $('#customersAddress').val(),
+            customersExtra: $('#customersExtra').val()
+        }),
+        success: function(data) {
+            location.reload();//FIXME
+            $("#errorBlock").css("display", "none");
+            $('#addCourseBtn').css('display', 'block');
+            getCustomersPage();
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+        }
     });
 }
 
