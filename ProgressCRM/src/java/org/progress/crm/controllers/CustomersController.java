@@ -13,9 +13,12 @@ import org.progress.crm.logic.Customers;
 @Singleton
 public class CustomersController {
 
-    public Customers getCustomerById(Session session, String customerId) throws CustomException {
+    public Customers getCustomerById(Session session, String token, String customerId) throws CustomException {
         if (customerId == null) {
             throw new BadRequestException();
+        }
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
         }
         return DaoFactory.getCustomersDao().getCustomerById(session, Integer.valueOf(customerId));
     }
@@ -52,6 +55,9 @@ public class CustomersController {
     }
 
     public boolean removeCustomer(Session session, String token, String id) throws CustomException {
+        if (id == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -59,7 +65,13 @@ public class CustomersController {
         return true;
     }
 
-    public List getCustomerByString(Session session, String str) throws CustomException {
+    public List getCustomerByString(Session session, String token, String str) throws CustomException {
+        if (str == null) {
+            throw new BadRequestException();
+        }
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
     }
 
@@ -80,7 +92,7 @@ public class CustomersController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        Customers customers = getCustomerById(session, id);
+        Customers customers = DaoFactory.getCustomersDao().getCustomerById(session, Integer.valueOf(id));
         customers.setDeleted(false);
         customers.setCustomersFname(fName);
         customers.setCustomersMname(mName);
@@ -98,7 +110,9 @@ public class CustomersController {
     }
 
     public List getCustomersListByQuery(Session session, String token, String str) throws CustomException {
-        //FIXME!!!!!    
+        if (str == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -106,7 +120,6 @@ public class CustomersController {
     }
 
     public List<Customers> getAllCustomers(Session session, String token) throws IsNotAuthenticatedException {
-        //FIXME!!!!! 
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }

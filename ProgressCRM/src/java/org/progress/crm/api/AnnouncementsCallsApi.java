@@ -31,12 +31,12 @@ public class AnnouncementsCallsApi {
 
     @GET
     @Path("getallannouncementscalls")
-    public Response getAllAnnouncementsCalls() throws CustomException {
+    public Response getAllAnnouncementsCalls(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson allHelpDeskRequest = new GsonBuilder().create();
-                String result = allHelpDeskRequest.toJson(announcementsCallsController.getAllAnnouncementsCalls(session));
+                String result = allHelpDeskRequest.toJson(announcementsCallsController.getAllAnnouncementsCalls(session, token));
                 return ApiHelper.getResponse(result);
             }
         });
@@ -71,12 +71,13 @@ public class AnnouncementsCallsApi {
 
     @GET
     @Path("getcalls")
-    public Response getAnnouncementsCallsById(@QueryParam("id") final String id) throws CustomException {
+    public Response getAnnouncementsCallsById(@QueryParam("id") final String id,
+            @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson announcementsCallsById = new GsonBuilder().create();
-                String result = announcementsCallsById.toJson(announcementsCallsController.getAnnouncementsCallsByAnnouncementsId(session, id));
+                String result = announcementsCallsById.toJson(announcementsCallsController.getAnnouncementsCallsByAnnouncementsId(session, token, id));
                 return ApiHelper.getResponse(result);
             }
         });

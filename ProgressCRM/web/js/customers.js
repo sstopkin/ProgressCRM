@@ -25,16 +25,16 @@ function getCustomersPage() {
                 var str = "";
                 array.forEach(function(entry) {
                     str += "<div class = \"media\">";
-//                        if (permissions == "3") {
-//                            str += "<div class=\"btn-toolbar\">";
-//                            str += "<div class=\"btn-group\">";
+//                    if (permissions == "3") {
+//                        str += "<div class=\"btn-toolbar\">";
+//                        str += "<div class=\"btn-group\">";
 //
-//                            str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//                        str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
 //
-//                            str += "</div>";
-//                            str += "</div>";
-//                        }
 //                        str += "</div>";
+//                        str += "</div>";
+//                    }
+                    str += "</div>";
                     str += "<a class = \"pull-left\" href = \"#\">";
                     str += "<img class=\"media-object\" src=\"images/gnome.png\" alt=\"...\">";
                     str += "</a>";

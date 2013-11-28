@@ -21,7 +21,10 @@ public class AnnouncementsRentController {
     @EJB
     AuthenticationManager authManager;
 
-    public List getAllAnnouncementsRent(Session session) throws CustomException, SQLException {
+    public List getAllAnnouncementsRent(Session session, String token) throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         return DaoFactory.getAnnouncementsRentDao().getAllAnnouncementsRent(session);
     }
 
@@ -49,7 +52,9 @@ public class AnnouncementsRentController {
 
     public List<AnnouncementsRent> getAnnouncementsRentListByQuery(Session session, String token, String street, String houseNumber,
             String rooms, String floor, String floors, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException, SQLException {
-        //FIXME!!!!!    
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         String startDate_ = null;
         String endDate_ = null;
         if (token == null) {

@@ -10,7 +10,6 @@ import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
-import org.progress.crm.logic.AnnouncementsCalls;
 
 /**
  *
@@ -22,7 +21,10 @@ public class AnnouncementsCallsController {
     @EJB
     AuthenticationManager authManager;
 
-    public List getAllAnnouncementsCalls(Session session) throws CustomException, SQLException {
+    public List getAllAnnouncementsCalls(Session session, String token) throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         return DaoFactory.getAnnouncementsCallsDao().getAllAnnouncementsCalls(session);
     }
 
@@ -37,6 +39,9 @@ public class AnnouncementsCallsController {
     }
 
     public boolean deleteAnnouncementsCalls(Session session, String token, String id) throws IsNotAuthenticatedException, SQLException, CustomException {
+        if (id == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -46,9 +51,12 @@ public class AnnouncementsCallsController {
         return true;
     }
 
-    public List getAnnouncementsCallsByAnnouncementsId(Session session, String id) throws IsNotAuthenticatedException, BadRequestException, SQLException, CustomException {
+    public List getAnnouncementsCallsByAnnouncementsId(Session session, String token, String id) throws IsNotAuthenticatedException, BadRequestException, SQLException, CustomException {
         if (id == null) {
             throw new BadRequestException();
+        }
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
         }
         return DaoFactory.getAnnouncementsCallsDao().getAnnouncementsCallsByAnnouncementsId(session, Integer.valueOf(id));
     }

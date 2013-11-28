@@ -17,23 +17,26 @@ public class CallsController {
     @EJB
     AuthenticationManager authManager;
 
-    public List getCallsByApartsId(Session session, String apartamentsId) throws CustomException, SQLException {
+    public List getCallsByApartsId(Session session, String token, String apartamentsId) throws CustomException, SQLException {
         if (apartamentsId == null) {
             throw new BadRequestException();
+        }
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
         }
         return DaoFactory.getCallsDao().getCustomerCallsByApartamentsId(session, Integer.valueOf(apartamentsId));
     }
 
     public boolean addCallsByApartsId(Session session, String token, String apartamentsId, String description) throws CustomException, SQLException {
+        if (apartamentsId == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
 
-        if (apartamentsId == null) {
-            throw new BadRequestException();
-        }
         DaoFactory.getCallsDao().addCustomerCall(session, Integer.valueOf(apartamentsId), description, idWorker);
         return true;
     }

@@ -21,9 +21,12 @@ public class ApartamentsController {
     @EJB
     AuthenticationManager authManager;
 
-    public ApartamentAndPhotos getApartamentById(Session session, String apartamentId) throws CustomException {
+    public ApartamentAndPhotos getApartamentById(Session session, String token, String apartamentId) throws CustomException {
         if (apartamentId == null) {
             throw new BadRequestException();
+        }
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
         }
         ApartamentAndPhotos result = new ApartamentAndPhotos();
         result.setApartaments(DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentId)));
@@ -47,7 +50,7 @@ public class ApartamentsController {
         int idWorker = authManager.getUserIdByToken(uuid);
 
         DaoFactory.getApartamentsDao().addApartament(session, Integer.valueOf(typeOfSales),
-                cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress, 
+                cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress,
                 apartamentLan, apartamentLon, Integer.valueOf(rooms),
                 Integer.valueOf(price), Integer.valueOf(cityDistrict), Integer.valueOf(floor),
                 Integer.valueOf(floors), Integer.valueOf(roomNumber), Integer.valueOf(material), Integer.valueOf(sizeApartament),
@@ -64,15 +67,14 @@ public class ApartamentsController {
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
             String pureSale, String mortgage, String exchange, String rent, String rePlanning, String idCustomer) throws CustomException {
+        if (apartamentsId == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-
-        if (apartamentsId == null) {
-            throw new BadRequestException();
-        }
 
         Apartaments apartaments = DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentsId));
         apartaments.setBalcony(Integer.valueOf(balcony));
@@ -101,15 +103,14 @@ public class ApartamentsController {
     }
 
     public boolean removeApartament(Session session, String token, String apartamentsId) throws CustomException {
+        if (apartamentsId == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-
-        if (apartamentsId == null) {
-            throw new BadRequestException();
-        }
 
         Apartaments apartaments = DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentsId));
         apartaments.setDeleted(true);
@@ -117,7 +118,10 @@ public class ApartamentsController {
         return true;
     }
 
-    public List<ApartamentAndPhotos> getAllApartament(Session session) throws CustomException {
+    public List<ApartamentAndPhotos> getAllApartament(Session session, String token) throws CustomException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         List<ApartamentAndPhotos> result = new ArrayList<>();
         List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session);
         for (Apartaments apartaments1 : apartaments) {

@@ -21,7 +21,10 @@ public class AnnouncementsRentCallsController {
     @EJB
     AuthenticationManager authManager;
 
-    public List getAllAnnouncementsRentCalls(Session session) throws CustomException, SQLException {
+    public List getAllAnnouncementsRentCalls(Session session, String token) throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
         return DaoFactory.getAnnouncementsRentCallsDao().getAllAnnouncementsRentCalls(session);
     }
 
@@ -36,6 +39,9 @@ public class AnnouncementsRentCallsController {
     }
 
     public boolean deleteAnnouncementsRentCalls(Session session, String token, String id) throws IsNotAuthenticatedException, SQLException, CustomException {
+        if (id == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -46,6 +52,9 @@ public class AnnouncementsRentCallsController {
     }
 
     public List getAnnouncementsRentCallsByAnnouncementsId(Session session, String id) throws IsNotAuthenticatedException, BadRequestException, SQLException, CustomException {
+        if (id == null) {
+            throw new BadRequestException();
+        }
         if (id == null) {
             throw new BadRequestException();
         }

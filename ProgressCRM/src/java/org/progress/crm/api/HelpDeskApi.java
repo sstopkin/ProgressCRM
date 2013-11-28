@@ -26,12 +26,12 @@ public class HelpDeskApi {
 
     @GET
     @Path("getallrequest")
-    public Response getAllHelpDeskRequest() throws CustomException {
+    public Response getAllHelpDeskRequest(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson allHelpDeskRequest = new GsonBuilder().create();
-                String result = allHelpDeskRequest.toJson(helpDeskController.getAllHelpDeskRequest(session));
+                String result = allHelpDeskRequest.toJson(helpDeskController.getAllHelpDeskRequest(session, token));
                 return ApiHelper.getResponse(result);
             }
         });

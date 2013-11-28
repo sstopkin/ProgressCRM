@@ -27,12 +27,13 @@ public class CallsApi {
 
     @GET
     @Path("getcalls")
-    public Response getCallsByApartamentsId(@QueryParam("id") final String id) throws CustomException {
+    public Response getCallsByApartamentsId(@QueryParam("id") final String id,
+            @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(callsController.getCallsByApartsId(session, id));
+                String result = apartamentById.toJson(callsController.getCallsByApartsId(session, token, id));
                 return ApiHelper.getResponse(result);
             }
         });
