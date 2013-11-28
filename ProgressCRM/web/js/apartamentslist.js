@@ -1,4 +1,4 @@
-function getapartamentsListPage() {
+function getApartamentsListPage() {
     $.get("apartamentslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
