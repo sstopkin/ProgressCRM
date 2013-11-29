@@ -19,7 +19,29 @@ function getАnnouncementsPage() {
         workersList.forEach(function(entry) {
             $("#announcementsSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
-        writeToDivAnnouncementsList(data);
+        $.ajax({
+            type: "GET",
+            url: "api/auth",
+            success: function(data) {
+                $("#profileLink").html(data);
+                $("#logged").css("display", "block");
+                $.ajax({
+                    type: "GET",
+                    url: "api/announcements/getallannouncements",
+                    success: function(data) {
+                        $("#errorBlock").css("display", "none");
+                        writeToDivAnnouncementsList(data);
+                    },
+                    error: function(data) {
+                        showDanger(data.responseText);
+                        return false;
+                    }
+                });
+            },
+            error: function(data) {
+                $("#loginForm").css("display", "block");
+            }
+        });
     });
 }
 
