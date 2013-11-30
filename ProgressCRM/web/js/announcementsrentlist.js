@@ -25,6 +25,14 @@ function getАnnouncementsRentPage() {
             parentType: $.ui.kladrObjectType.CITY,
             parentId: KLADR_parentId
         });
+        
+        $('#announcementsRentStreet').kladr({
+            token: KLADR_token,
+            key: KLADR_key,
+            type: $.ui.kladrObjectType.STREET,
+            parentType: $.ui.kladrObjectType.CITY,
+            parentId: KLADR_parentId
+        });
 
         $.ajax({
             type: "GET",
