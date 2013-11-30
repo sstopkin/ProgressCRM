@@ -205,6 +205,21 @@ PRIMARY KEY (`id`) ,
 INDEX `idWorkerIndex` (`idWorker` ASC));
 
 -- -----------------------------------------------------
+-- Table `progresscrm`.`Planner`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Planner` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`idWorker` INT NOT NULL ,
+`TaskType` INT NOT NULL ,
+`TaskId` INT NOT NULL ,
+`TaskDescription` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`TaskDate` TIMESTAMP NOT NULL, 
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+PRIMARY KEY (`id`));
+
+-- -----------------------------------------------------
 -- Table `progresscrm`.`LogService`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`LogService` (
