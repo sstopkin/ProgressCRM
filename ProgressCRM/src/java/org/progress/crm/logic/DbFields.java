@@ -2,7 +2,6 @@ package org.progress.crm.logic;
 
 public class DbFields {
 
-    // table Apartaments
     public class APARTAMENTS {
 
         public final static String ID = "id";
@@ -16,7 +15,6 @@ public class DbFields {
         public final static String EMAIL = "email";
     }
 
-    // table ApartamentsPhoto
     public class APARTAMENTS_PHOTO {
 
         public final static String APARTAMENTS_ID = "ApartamentsId";
@@ -57,7 +55,7 @@ public class DbFields {
         public final static String CREATIONDATE = "creationDate";
         public final static String DELETED = "deleted";
     }
-    
+
     public class ANNOUNCEMENTSRENT {
 
         public final static String ID = "id";
@@ -72,11 +70,21 @@ public class DbFields {
         public final static String CREATIONDATE = "creationDate";
         public final static String DELETED = "deleted";
     }
-    
-        public class ANNOUNCEMENTSRENTCALLS {
+
+    public class ANNOUNCEMENTSRENTCALLS {
 
         public final static String ID = "id";
         public final static String DATE = "creationDate";
         public final static String ANNOUNCEMENTSID = "announcementsRentId";
+    }
+
+    public class PLANNER {
+
+        public final static String ID = "id";
+        public final static String TASKTYPE = "taskType";
+        public final static String CREATIONDATE = "creationDate";
+        public final static String TASKDATE = "taskDate";
+        public final static String IDWORKER = "idWorker";
+        public final static String DELETED = "deleted";
     }
 }

@@ -2,8 +2,6 @@ package org.progress.crm.dao;
 
 public class DaoFactory {
 
-    public static final String UNDEFINED = "undefined";
-
     public static WorkersDao getWorkersDao() {
         return new WorkersDao();
     }
@@ -54,5 +52,9 @@ public class DaoFactory {
 
     public static AnnouncementsRentCallsDao getAnnouncementsRentCallsDao() {
         return new AnnouncementsRentCallsDao();
+    }
+
+    public static PlannerDao getPlannerDao() {
+        return new PlannerDao();
     }
 }
