@@ -27,6 +27,16 @@ public class Planner implements Serializable {
     public Planner() {
     }
 
+    public Planner(int idWorker, int taskType, int taskId, String taskDescription, Date taskDate) {
+        this.idWorker = idWorker;
+        this.taskType = taskType;
+        this.taskId = taskId;
+        this.taskDescription = taskDescription;
+        this.creationDate = new Date();
+        this.taskDate = taskDate;
+        this.deleted = false;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
