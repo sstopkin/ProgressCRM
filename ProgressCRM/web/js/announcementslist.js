@@ -61,7 +61,7 @@ function addAnnouncements() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getАnnouncementsPage();
+            document.location.href = "#announcements";
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -75,7 +75,7 @@ function deleteAnnouncementsById(announcementsId) {
         url: "api/announcements/deleteannouncements",
         data: ({id: announcementsId}),
         success: function(data) {
-            getАnnouncementsPage();
+            document.location.href = "#announcements";
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");

@@ -24,12 +24,25 @@ public class PlannerApi {
      PlannerController plannerController;
 
     @GET
+    @Path("all")
     public Response getAllPlannerTasks(@CookieParam("token") final String token) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson tasksList = new GsonBuilder().create();
                 String newsJson = tasksList.toJson(plannerController.getTasks(session, token));
+                return ApiHelper.getResponse(newsJson);
+            }
+        });
+    }
+    
+    @GET
+    public Response getAllPlannerTasksByWorker(@CookieParam("token") final String token) throws SQLException, CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson tasksList = new GsonBuilder().create();
+                String newsJson = tasksList.toJson(plannerController.getTasksByWorker(session, token));
                 return ApiHelper.getResponse(newsJson);
             }
         });

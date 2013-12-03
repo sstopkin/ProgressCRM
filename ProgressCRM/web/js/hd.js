@@ -2,7 +2,6 @@ function getHelpDeskPage() {
     $("#addApartaments").css("display", "none");
     $.get("hd.html", function(data) {
         $("#mainContainer").html(data);
-        $("#profileLink").html(data);
         var permissions = $.ajax({
             type: "GET",
             url: "api/auth/validate",
@@ -67,7 +66,7 @@ function addHelpDeskRequest() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getHelpDeskPage();
+            document.location.href = "#helpdesk";
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -82,7 +81,7 @@ function deleteHelpDeskRequestById(hdRequestId) {
         url: "api/news/deletenews",
         data: ({id: hdRequestId}),
         success: function(data) {
-            getapartamentsListPage();
+            document.location.href = "#helpdesk";
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");

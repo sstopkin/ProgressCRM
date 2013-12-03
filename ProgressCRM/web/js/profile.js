@@ -55,6 +55,7 @@ function getProfilePage() {
                 $("#profileName").html(value.name);
                 $("#profileLName").html(value.lname);
                 $("#profilePoints").html(value.points);
+                $("profilePlannerTasksList").html(plannerGetWorkersTasks());
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -63,8 +64,3 @@ function getProfilePage() {
         });
     });
 }
-
-function processingComplete() {
-    $('#dataProcessingIFrame').load("1.html");
-}
-

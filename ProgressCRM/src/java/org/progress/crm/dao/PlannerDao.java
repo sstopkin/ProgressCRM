@@ -10,6 +10,14 @@ import org.progress.crm.logic.Planner;
 
 public class PlannerDao {
 
+    public List<Planner> getTasksByWorker(Session session, int idWorker) {
+        List<Planner> list = session.createCriteria(Planner.class).
+                add(Restrictions.eq(DbFields.PLANNER.IDWORKER, idWorker)).
+                add(Restrictions.eq(DbFields.PLANNER.DELETED, false)).
+                addOrder(Order.desc(DbFields.PLANNER.CREATIONDATE)).list();
+        return list;
+    }
+
     public List<Planner> getTasks(Session session) {
         List<Planner> list = session.createCriteria(Planner.class).
                 add(Restrictions.eq(DbFields.PLANNER.DELETED, false)).
