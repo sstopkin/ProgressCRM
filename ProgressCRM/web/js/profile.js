@@ -55,7 +55,7 @@ function getProfilePage() {
                 $("#profileName").html(value.name);
                 $("#profileLName").html(value.lname);
                 $("#profilePoints").html(value.points);
-                $("profilePlannerTasksList").html(plannerGetWorkersTasks());
+                plannerGetWorkersTasks();
             },
             error: function(data) {
                 showDanger(data.responseText);
