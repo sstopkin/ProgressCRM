@@ -32,8 +32,8 @@ public class PlannerController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-//        DaoFactory.getPlannerDao().addTask(session, idWorker,
-//                Integer.valueOf(taskType), Integer.valueOf(taskId), taskDescription, taskDate);
+        DaoFactory.getPlannerDao().addTask(session, idWorker,
+                Integer.valueOf(taskType), Integer.valueOf(taskId), taskDescription, new Date());
         return true;
     }
     

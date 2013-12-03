@@ -40,24 +40,24 @@ public class CronJob {
 //                "running every second .. now it's: " + new Date().toString());
 //    }
 //    @Schedule(second = "*/5", minute = "*", hour = "*")
-    @Schedule(dayOfMonth = "*")
-    public void runEveryDay() throws CustomException {
-        Session session = null;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            List<Customers> list = customersController.getCustomersListByBirthday(session, new Date());
-            for (Customers customers : list) {
-                log.log(Level.INFO,
-                        ".. now it's: " + new Date().toString() + " " + customers.getCustomersFname());
-            }
-            session.getTransaction().commit();
-//        } catch (HibernateException | SQLException | NoSuchAlgorithmException | IOException | InterruptedException | ExecutionException e) {
-//            session.getTransaction().rollback();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-    }
+//    @Schedule(dayOfMonth = "*")
+//    public void runEveryDay() throws CustomException {
+//        Session session = null;
+//        try {
+//            session = HibernateUtil.getSessionFactory().openSession();
+//            session.beginTransaction();
+//            List<Customers> list = customersController.getCustomersListByBirthday(session, new Date());
+//            for (Customers customers : list) {
+//                log.log(Level.INFO,
+//                        ".. now it's: " + new Date().toString() + " " + customers.getCustomersFname());
+//            }
+//            session.getTransaction().commit();
+////        } catch (HibernateException | SQLException | NoSuchAlgorithmException | IOException | InterruptedException | ExecutionException e) {
+////            session.getTransaction().rollback();
+//        } finally {
+//            if (session != null && session.isOpen()) {
+//                session.close();
+//            }
+//        }
+//    }
 }

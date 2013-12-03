@@ -154,7 +154,7 @@ function writeToDivAnnouncementsRentList(data) {
     str += "<tbody>";
     array.forEach(function(entry) {
         str += "<tr>";
-        str += "<td><a href=\"#\" onclick=\"return getAnnouncementsRentViewPage(" + entry.id + ")\">" + entry.id + "</a></td>";
+        str += "<td><a href=\"#announcementsrent/view/"+entry.id+"\"\">" + entry.id + "</a></td>";
         str += "<td>" + entry.street + "</td>";
         str += "<td>" + entry.houseNumber + "</td>";
         str += "<td>" + entry.rooms + "</td>";

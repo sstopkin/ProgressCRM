@@ -57,7 +57,7 @@ function submitAnnouncementsCall() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getАnnouncementsPage();
+            document.location.href = "#announcements";
         },
         error: function(data) {
             showDanger(data.responseText);

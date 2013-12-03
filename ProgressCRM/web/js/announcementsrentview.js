@@ -9,6 +9,7 @@ function getAnnouncementsRentViewPage(announcementsRentId) {
                 var array = JSON.parse(data);
                 var str = "";
                 str += "<input onclick=\"showAnnouncementsRentCallMoadl(" + announcementsRentId + ");\" type=\"button\" class=\"btn btn-primary pull-right\" value=\"Добавить звонок\" />";
+                str += "<input onclick=\"showPlannerAddTaskModal(" + announcementsRentId + "," + 1 + ");\" type=\"button\" class=\"btn btn-warning pull-right\" value=\"Добавить в календарь\" />";
                 str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
                 str += "<thead class='t-header'>Звонки<tr>";
                 str += "<th>Дата</th>";
@@ -25,7 +26,7 @@ function getAnnouncementsRentViewPage(announcementsRentId) {
                     for (var i = 0; i < workersList.length; ++i) {
                         var a = workersList[i];
                         if (array[j].idWorker == a[0]) {
-                            str +=a[1] + " " + a[2] + " " + a[3];
+                            str += a[1] + " " + a[2] + " " + a[3];
                         }
                     }
                 }
@@ -57,7 +58,7 @@ function submitAnnouncementsRentCall() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getАnnouncementsRentPage();
+            document.location.href = "#announcementsrent";
         },
         error: function(data) {
             showDanger(data.responseText);

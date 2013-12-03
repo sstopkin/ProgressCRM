@@ -125,44 +125,62 @@ function helpParseUrl(arr, type) {
         return;
     }
     else {
-        if ((arr[1] == "solve") && (type == "task")) {
+        if ((arr[1] == "view") && (type == "announcementsrent")) {
             if (!arr[2]) {
                 showDanger();
                 return;
             }
-            getSolveTaskPage(arr[2]);
+            getAnnouncementsRentViewPage(arr[2]);
             return;
         }
-
-        if ((arr[1] == "diff") && (type == "task")) {
+        
+        if ((arr[1] == "view") && (type == "announcements")) {
             if (!arr[2]) {
                 showDanger();
                 return;
             }
-            getListByDiff(type, undefined, arr[2]);
+            getAnnouncementsViewPage(arr[2]);
             return;
         }
-
-        if (arr[1] == "add") {
-            if (type == "task") {
-                getAddTaskPage();
-                return;
-            }
-            if (type == "course") {
-                getAddCoursePage();
-                return;
-            }
-        }
-
-        if (arr[1] == "view") {
-            getContent(type, arr[2]);
-            return;
-        }
-
-        if (arr[1] == "edit") {
-            getEditContentPage(type, arr[2]);
-            return;
-        }
+        
+//        if ((arr[1] == "solve") && (type == "task")) {
+//            if (!arr[2]) {
+//                showDanger();
+//                return;
+//            }
+//            getSolveTaskPage(arr[2]);
+//            return;
+//        }
+//
+//        if ((arr[1] == "diff") && (type == "task")) {
+//            if (!arr[2]) {
+//                showDanger();
+//                return;
+//            }
+//            getListByDiff(type, undefined, arr[2]);
+//            return;
+//        }
+//
+//        if (arr[1] == "add") {
+//            if (type == "task") {
+//                getAddTaskPage();
+//                return;
+//            }
+//            if (type == "course") {
+//                getAddCoursePage();
+//                return;
+//            }
+//        }
+//
+//        if (arr[1] == "view") {
+//            getContent(type, arr[2]);
+//            return;
+//        }
+//
+//        if (arr[1] == "edit") {
+//            getEditContentPage(type, arr[2]);
+//            return;
+//        }
 
 //        if (arr[1] == "tag") {
 //            var afterDecoding = decodeURIComponent(arr[2]);
