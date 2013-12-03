@@ -18,6 +18,15 @@ public class PlannerController {
     @EJB
     AuthenticationManager authenticationManager;
     
+    public List<Planner> getTasksByWorker(Session session, String token) throws SQLException, IsNotAuthenticatedException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authenticationManager.getUserIdByToken(uuid);
+        return DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
+    }
+    
     public List<Planner> getTasks(Session session, String token) throws SQLException, IsNotAuthenticatedException {
         if (token == null) {
             throw new IsNotAuthenticatedException();

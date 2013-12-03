@@ -77,7 +77,7 @@ function addAnnouncementsRent() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getАnnouncementsRentPage();
+            document.location.href = "#announcementsrent";
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -92,7 +92,7 @@ function deleteAnnouncementsRentById(announcementsRentId) {
         url: "api/announcementsrent/deleteannouncementsrent",
         data: ({id: announcementsRentId}),
         success: function(data) {
-            getАnnouncementsPage();
+            document.location.href = "#announcementsrent";
         },
         error: function(data) {
             showDanger(data.responseText);

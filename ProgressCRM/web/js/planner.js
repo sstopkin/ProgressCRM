@@ -14,7 +14,7 @@ function showPlannerAddTaskModal(taskId, typeId) {
 }
 
 function addPlannerTask() {
-    $('#announcementsAddMoadl').modal('toggle');
+    $('#plannerAddTaskModal').modal('toggle');
     $.ajax({
         type: "POST",
         url: "api/planner/addtask",
@@ -30,6 +30,60 @@ function addPlannerTask() {
         },
         error: function(data) {
             showDanger(data.responseText);
+        }
+    });
+}
+
+function plannerGetWorkersTasks() {
+    var permissions = $.ajax({
+        type: "GET",
+        url: "api/auth/validate",
+        async: false
+    }).responseText;
+    $.ajax({
+        type: "GET",
+        url: "api/helpdesk/getallrequest",
+        success: function(data) {
+            $("#errorBlock").css("display", "none");
+            var array = JSON.parse(data);
+            var str = "";
+            array.forEach(function(entry) {
+                console.log(entry);
+//                str += "<div class = \"media\">";
+//                str += "<a class = \"pull-left\" href = \"#\">";
+//                str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
+//                str += "</a>";
+//                str += "<div class=\"media-body\">";
+//                str += "<h6 class=\"media-heading\">";
+//                str += entry.creationDate;
+//                str += "</h4>";
+//                str += "<h4 class=\"media-heading\">";
+//                str += entry.request;
+//                str += "</h4>";
+//                str += entry.text;
+//                if (permissions == "3") {
+//                    str += "<div class=\"btn-toolbar\">";
+//                    str += "<div class=\"btn-group\">";
+//                    str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
+//                    str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+//                    str += "</div>";
+//                    str += "</div>";
+//                }
+//                for (var i = 0; i < workersList.length; ++i) {
+//                    var a = workersList[i];
+//                    if (entry.idWorker == a[0]) {
+//                        str += "<td>" + a[1] + " " + a[3] + "</td>";
+//                    }
+//                }
+//                str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
+//                str += "</div>";
+//                str += "</div>";
+            });
+            return str;
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
         }
     });
 }
