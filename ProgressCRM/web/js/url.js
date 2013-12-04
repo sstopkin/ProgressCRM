@@ -48,6 +48,7 @@ function parseUrl(str) {
     delete uri.source;
 //    ##################
     var pathAnnouncementsRent = "announcementsrent";
+    var pathCustomersRent = "customersrent";
     var pathAnnouncements = "announcements";
     var pathAbout = "about";
     var pathCustomers = "customers";
@@ -73,6 +74,11 @@ function parseUrl(str) {
 
     if (arr[0] == pathAnnouncements) {
         helpParseUrl(arr, "announcements");
+        return;
+    }
+    
+    if (arr[0] == pathCustomersRent) {
+        helpParseUrl(arr, "customersrent");
         return;
     }
 
@@ -119,6 +125,10 @@ function helpParseUrl(arr, type) {
 
         if (type == "announcements") {
             getАnnouncementsPage();
+            return;
+        }
+        if (type == "customersrent") {
+            getCustomersRentPage();
             return;
         }
         get404Page();
