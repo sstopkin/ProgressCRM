@@ -6,42 +6,42 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
-import org.progress.crm.logic.AnnouncementsRent;
+import org.progress.crm.logic.CustomersRent;
 import org.progress.crm.logic.DbFields;
 
-public class AnnouncementsRentDao {
+public class CustomersRentDao {
 
-    public boolean addAnnouncementsRent(final Session session, final int idWorker, final String street, final String houseNumber,
-            final int rooms, final int floor, final int floors, final int price, final String phone, final String description) throws SQLException, CustomException {
-        AnnouncementsRent hd = new AnnouncementsRent(street, houseNumber, rooms, floor, floors, price, phone, description, idWorker);
-        session.save(hd);
+    public boolean addCustomersRent(final Session session, final int status, final int assigned, 
+            final String description, final int idWorker, final int idCustomer) throws SQLException, CustomException {
+        CustomersRent customersRent = new CustomersRent(status, assigned, description, idWorker, idCustomer);
+        session.save(customersRent);
         return true;
     }
 
-    public boolean updateAnnouncementsRent(final Session session, final AnnouncementsRent announcementsRent) throws SQLException, CustomException {
-        session.update(announcementsRent);
+    public boolean updateCustomersRent(final Session session, final CustomersRent customersRent) throws SQLException, CustomException {
+        session.update(customersRent);
         return true;
     }
 
-    public AnnouncementsRent getAnnouncementsRentById(final Session session, final Integer annId) throws SQLException, CustomException {
-        return (AnnouncementsRent) session.get(AnnouncementsRent.class, annId);
+    public CustomersRent getCustomersRentById(final Session session, final Integer customersRentId) throws SQLException, CustomException {
+        return (CustomersRent) session.get(CustomersRent.class, customersRentId);
     }
 
-    public List<AnnouncementsRent> getAllAnnouncementsRent(final Session session) throws SQLException, CustomException {
-        List<AnnouncementsRent> list = session.createCriteria(AnnouncementsRent.class).
-                add(Restrictions.eq(DbFields.ANNOUNCEMENTSRENT.DELETED, false)).list();
+    public List<CustomersRent> getAllCustomersRent(final Session session) throws SQLException, CustomException {
+        List<CustomersRent> list = session.createCriteria(CustomersRent.class).
+                add(Restrictions.eq(DbFields.CUSTOMERSRENT.DELETED, false)).list();
         return list;
     }
 
-    public boolean deleteAnnouncementsRent(Session session, int idWorker, Integer annId) throws SQLException, CustomException {
-        AnnouncementsRent ann = getAnnouncementsRentById(session, annId);
+    public boolean deleteCustomersRent(Session session, int customersRentId) throws SQLException, CustomException {
+        CustomersRent ann = getCustomersRentById(session, customersRentId);
         ann.setDeleted(true);
         session.update(ann);
         return true;
     }
 
-    public List<AnnouncementsRent> getAnnouncementsRentListByQuery(Session session, String street, String houseNumber, int rooms, int floor, int floors, int idWorker, String startDate, String endDate) throws SQLException, SQLException, SQLException, SQLException {
-        Criteria criteria = session.createCriteria(AnnouncementsRent.class);
+    public List<CustomersRent> getCustomersRentListByQuery(Session session, String street, String houseNumber, int rooms, int floor, int floors, int idWorker, String startDate, String endDate) throws SQLException, SQLException, SQLException, SQLException {
+        Criteria criteria = session.createCriteria(CustomersRent.class);
         if (rooms != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.ROOMS, rooms));
         }

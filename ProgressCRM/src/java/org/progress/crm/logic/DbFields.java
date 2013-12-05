@@ -87,4 +87,8 @@ public class DbFields {
         public final static String IDWORKER = "idWorker";
         public final static String DELETED = "deleted";
     }
+    
+    public class CUSTOMERSRENT {
+        public final static String DELETED = "deleted";
+    }
 }
