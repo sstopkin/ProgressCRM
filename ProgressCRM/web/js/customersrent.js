@@ -18,22 +18,6 @@ function getCustomersRentPage() {
             $("#customersRentSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
 
-        $('#customersRentSearchStreet').kladr({
-            token: KLADR_token,
-            key: KLADR_key,
-            type: $.ui.kladrObjectType.STREET,
-            parentType: $.ui.kladrObjectType.CITY,
-            parentId: KLADR_parentId
-        });
-        
-        $('#customersRentStreet').kladr({
-            token: KLADR_token,
-            key: KLADR_key,
-            type: $.ui.kladrObjectType.STREET,
-            parentType: $.ui.kladrObjectType.CITY,
-            parentId: KLADR_parentId
-        });
-
         $.ajax({
             type: "GET",
             url: "api/auth",
@@ -66,13 +50,9 @@ function addCustomersRent() {
         type: "POST",
         url: "api/customersrent/addcustomersrent",
         data: ({
-            street: $('#customersRentStreet').val(),
-            houseNumber: $('#customersRentHouseNumber').val(),
-            rooms: $('#customersRentRooms').val(),
-            floor: $('#customersRentFloor').val(),
-            floors: $('#customersRentFloors').val(),
-            price: $('#customersRentPrice').val(),
-            phone: $('#customersRentPhone').val(),
+            status: $('#customersRentStatus').val(),
+            assigned: $('#customersRentAssigned').val(),
+            idcustomer: $('#customersRentIdCustomer').val(),
             description: $('#customersRentDescription').val()
         }),
         success: function(data) {
@@ -134,46 +114,47 @@ function writeToDivCustomersRentList(data) {
         async: false
     }).responseText;
     var array = JSON.parse(data);
-    var str = "<table class=\"table table-bordered\">";
-    str += "<thead>";
-    str += "<tr>";
-    str += "<th>#</th>";
-    str += "<th>Улица</th>";
-    str += "<th>Номер дома</th>";
-    str += "<th>Кол-во комнат</th>";
-    str += "<th>Этаж</th>";
-    str += "<th>Описание</th>";
-    str += "<th>Автор</th>";
-    str += "<th>Дата</th>";
-    if (permissions == "3") {
-        str += "<th>Редактировать</th>";
-        str += "<th>Удалить</th>";
-    }
-    str += "</tr>";
-    str += "</thead>";
-    str += "<tbody>";
-    array.forEach(function(entry) {
-        str += "<tr>";
-        str += "<td><a href=\"#customersrent/view/"+entry.id+"\"\">" + entry.id + "</a></td>";
-        str += "<td>" + entry.street + "</td>";
-        str += "<td>" + entry.houseNumber + "</td>";
-        str += "<td>" + entry.rooms + "</td>";
-        str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
-        str += "<td>" + entry.description + "</td>";
-        for (var i = 0; i < workersList.length; ++i) {
-            var a = workersList[i];
-            if (entry.idWorker == a[0]) {
-                str += "<td>" + a[1] + " " + a[3] + "</td>";
-            }
-        }
-        str += "<td>" + entry.creationDate + "</td>";
-
-        if (permissions == "3") {
-            str += "<td>" + "<button type=\"button\" onclick=\"editCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
-            str += "<td>" + "<button type=\"button\" onclick=\"deleteCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
-        }
-        str += "</tr>";
-    });
-    str += "</tbody>";
+    var str=array;
+//    var str = "<table class=\"table table-bordered\">";
+//    str += "<thead>";
+//    str += "<tr>";
+//    str += "<th>#</th>";
+//    str += "<th>Улица</th>";
+//    str += "<th>Номер дома</th>";
+//    str += "<th>Кол-во комнат</th>";
+//    str += "<th>Этаж</th>";
+//    str += "<th>Описание</th>";
+//    str += "<th>Автор</th>";
+//    str += "<th>Дата</th>";
+//    if (permissions == "3") {
+//        str += "<th>Редактировать</th>";
+//        str += "<th>Удалить</th>";
+//    }
+//    str += "</tr>";
+//    str += "</thead>";
+//    str += "<tbody>";
+//    array.forEach(function(entry) {
+//        str += "<tr>";
+//        str += "<td><a href=\"#customersrent/view/"+entry.id+"\"\">" + entry.id + "</a></td>";
+//        str += "<td>" + entry.street + "</td>";
+//        str += "<td>" + entry.houseNumber + "</td>";
+//        str += "<td>" + entry.rooms + "</td>";
+//        str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
+//        str += "<td>" + entry.description + "</td>";
+//        for (var i = 0; i < workersList.length; ++i) {
+//            var a = workersList[i];
+//            if (entry.idWorker == a[0]) {
+//                str += "<td>" + a[1] + " " + a[3] + "</td>";
+//            }
+//        }
+//        str += "<td>" + entry.creationDate + "</td>";
+//
+//        if (permissions == "3") {
+//            str += "<td>" + "<button type=\"button\" onclick=\"editCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+//            str += "<td>" + "<button type=\"button\" onclick=\"deleteCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+//        }
+//        str += "</tr>";
+//    });
+//    str += "</tbody>";
     $("#mainCustomersRentContainer").html(str);
 }

@@ -91,49 +91,26 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Добавить объявление</h4>
+                <h4 class="modal-title">Добавить клиента аренды</h4>
             </div>
             <div class="modal-body">
+                <input onclick="customersShowModal('customersRentIdCustomer');" type="button" class="btn btn-primary" value="Выбрать клиента" />
                 <div class="form-group">
-                    <label class="control-label">Улица<br></label>
+                    <label class="control-label">idCustomer<br></label>
                     <div class="controls">
-                        <input id="customersRentStreet" type="text" class="form-control">
+                        <input id="customersRentIdCustomer" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Номер дома<br></label>
+                    <label class="control-label">customersRentAssigned<br></label>
                     <div class="controls">
-                        <input id="customersRentHouseNumber" type="text" class="form-control">
+                        <input id="customersRentAssigned" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Кол-во комнат<br></label>
+                    <label class="control-label">customersRentStatus<br></label>
                     <div class="controls">
-                        <input id="customersRentRooms" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Этаж<br></label>
-                    <div class="controls">
-                        <input id="customersRentFloor" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Этажность<br></label>
-                    <div class="controls">
-                        <input id="customersRentFloors" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Цена<br></label>
-                    <div class="controls">
-                        <input id="customersRentPrice" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Телефон<br></label>
-                    <div class="controls">
-                        <input id="customersRentPhone" type="text" class="form-control">
+                        <input id="customersRentStatus" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">

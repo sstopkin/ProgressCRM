@@ -182,11 +182,12 @@ function deleteNewsById(newsId) {
 function returnSearchResult() {
     $("#customerSearchModal").modal('hide');//FIXME toggle?
     console.log($(":radio[name=browser]").filter(":checked").val());
-    $("#IdCustomer").val($(":radio[name=browser]").filter(":checked").val());
+    var customerSearchResultField=$("#customerSearchResultField");
+    $("#"+customerSearchResultField.val()).val($(":radio[name=browser]").filter(":checked").val());
 
 }
 
-function customersSearchAction() {
+function customersSearchAction(divName) {
     $.ajax({
         type: "GET",
         url: "api/customers/search?query=" + $("#customersSearchQuery").val(),
@@ -215,6 +216,7 @@ function customersSearchAction() {
             }
             str += "\n</tbody>\n</table>\n";
             $("#customerSearchResultTable").html(str);
+            $("#customerSearchResultField").val(divName);
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -223,10 +225,10 @@ function customersSearchAction() {
     });
 }
 
-function customersShowModal() {
+function customersShowModal(divName) {
     console.log("customersInitModal");
     $('#customerSearchModal').modal('show')
-    customersSearchAction();
+    customersSearchAction(divName);
 }
 
 function getAllWorkersList() {
