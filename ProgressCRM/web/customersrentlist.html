@@ -79,7 +79,8 @@
 <div class="container">
     <!-- Button trigger modal -->
     <div class="row">
-        <a data-toggle="modal" href="#customersRentAddMoadl" class="btn btn-primary pull-right">Добавить объявление</a>
+        <!--<a data-toggle="modal" href="#customersRentAddMoadl" class="btn btn-primary pull-right">Добавить объявление</a>-->
+        <input onclick="customersRentShowAddCustomerModal();" type="button" class="btn btn-primary pull-right" value="Добавить">
     </div>
 </div>
 
@@ -102,15 +103,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">customersRentAssigned<br></label>
+                    <label class="control-label">Назначена<br></label>
                     <div class="controls">
-                        <input id="customersRentAssigned" type="text" class="form-control">
+                        <select class="form-control" id="customersRentAssigned"></select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">customersRentStatus<br></label>
+                    <label class="control-label">Статус<br></label>
                     <div class="controls">
-                        <input id="customersRentStatus" type="text" class="form-control">
+                        <select class="form-control" id="customersRentStatus"></select>
                     </div>
                 </div>
                 <div class="form-group">
