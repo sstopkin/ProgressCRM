@@ -114,7 +114,7 @@ function writeToDivCustomersRentList(data) {
         async: false
     }).responseText;
     var array = JSON.parse(data);
-    var str=array;
+    var str = array;
 //    var str = "<table class=\"table table-bordered\">";
 //    str += "<thead>";
 //    str += "<tr>";
@@ -157,4 +157,17 @@ function writeToDivCustomersRentList(data) {
 //    });
 //    str += "</tbody>";
     $("#mainCustomersRentContainer").html(str);
+}
+
+function customersRentShowAddCustomerModal() {
+    console.log("customersRentShowAddCustomerModal");
+    $('#customersRentAddMoadl').modal('show');
+
+    $("#customersRentAssigned").append('<option value="">Все</option>');
+    workersList.forEach(function(entry) {
+        $("#customersRentAssigned").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
+    });
+    taskStatusList.forEach(function(entry) {
+        $("#customersRentStatus").append('<option value="' + entry[0] + '">' + entry[1]+'</option>');
+    });
 }
