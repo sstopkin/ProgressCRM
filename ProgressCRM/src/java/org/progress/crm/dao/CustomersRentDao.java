@@ -11,7 +11,7 @@ import org.progress.crm.logic.DbFields;
 
 public class CustomersRentDao {
 
-    public boolean addCustomersRent(final Session session, final int status, final int assigned, 
+    public boolean addCustomersRent(final Session session, final int status, final int assigned,
             final String description, final int idWorker, final int idCustomer) throws SQLException, CustomException {
         CustomersRent customersRent = new CustomersRent(status, assigned, description, idWorker, idCustomer);
         session.save(customersRent);
@@ -40,37 +40,37 @@ public class CustomersRentDao {
         return true;
     }
 
-    public List<CustomersRent> getCustomersRentListByQuery(Session session, String street, String houseNumber, int rooms, int floor, int floors, int idWorker, String startDate, String endDate) throws SQLException, SQLException, SQLException, SQLException {
+    public List<CustomersRent> getCustomersRentListByQuery(Session session, int assigned, int idWorker, String startDate, String endDate) throws SQLException, SQLException, SQLException, SQLException {
         Criteria criteria = session.createCriteria(CustomersRent.class);
-        if (rooms != -1) {
-            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.ROOMS, rooms));
+        if (assigned != -1) {
+            criteria.add(Restrictions.like(DbFields.CUSTOMERSRENT.ASSIGNED, assigned));
         }
-        if (floor != -1) {
-            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.FLOOR, floor));
-        }
-        if (floors != -1) {
-            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.FLOORS, floors));
-        }
+//        if (rooms != -1) {
+//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.ROOMS, rooms));
+//        }
+//        if (floor != -1) {
+//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.FLOOR, floor));
+//        }
+//        if (floors != -1) {
+//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.FLOORS, floors));
+//        }
         if (idWorker != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.IDWORKER, idWorker));
         }
         if ((startDate != null) && (endDate != null) && (startDate.equals(endDate))) {
-            criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTSRENT.CREATIONDATE + " >= CURDATE()"));
+            criteria.add(Restrictions.sqlRestriction(DbFields.CUSTOMERSRENT.CREATIONDATE + " >= CURDATE()"));
         } else {
             if (startDate != null) {
-                criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTSRENT.CREATIONDATE + " >= '" + startDate + "'"));
+                criteria.add(Restrictions.sqlRestriction(DbFields.CUSTOMERSRENT.CREATIONDATE + " >= '" + startDate + "'"));
             }
             if (endDate != null) {
-                criteria.add(Restrictions.sqlRestriction(DbFields.ANNOUNCEMENTSRENT.CREATIONDATE + " <= '" + endDate + "'"));
+                criteria.add(Restrictions.sqlRestriction(DbFields.CUSTOMERSRENT.CREATIONDATE + " <= '" + endDate + "'"));
             }
         }
-        if (!street.equals("")) {
-            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.STREETS, street));
-        }
-        if (!houseNumber.equals("")) {
-            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.HOUSENUMBER, houseNumber));
-        }
-        criteria.add(Restrictions.eq(DbFields.ANNOUNCEMENTSRENT.DELETED, false));
+//        if (!houseNumber.equals("")) {
+//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.HOUSENUMBER, houseNumber));
+//        }
+        criteria.add(Restrictions.eq(DbFields.CUSTOMERSRENT.DELETED, false));
         return criteria.list();
 //.add(Restrictions.between("weight", minWeight, maxWeight))
     }

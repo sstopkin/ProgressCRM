@@ -17,6 +17,11 @@ function getCustomersRentPage() {
         workersList.forEach(function(entry) {
             $("#customersRentSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
+        
+        $("#customersRentSearchAssigned").append('<option value="">Все</option>');
+        workersList.forEach(function(entry) {
+            $("#customersRentSearchAssigned").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
+        });
 
         $.ajax({
             type: "GET",
@@ -87,11 +92,7 @@ function searchCustomersRent() {
     $.ajax({
         type: "GET",
         url: "api/customersrent/search?" +
-                "street=" + $('#customersRentSearchStreet').val() +
-                "&housenumber=" + $('#customersRentSearchHouseNumber').val() +
-                "&rooms=" + $("#customersRentSearchRooms").val() +
-                "&floor=" + $('#customersRentSearchFloor').val() +
-                "&floors=" + $('#customersRentSearchFloors').val() +
+                "assigned=" + $('#customersRentSearchAssigned').val() +
                 "&idworker=" + $('#customersRentSearchAuthor').val() +
                 "&startdate=" + $('#customersRentSearchStartDate').val() +
                 "&enddate=" + $('#customersRentSearchEndDate').val(),
@@ -141,7 +142,7 @@ function writeToDivCustomersRentList(data) {
                 str += "<td>" + a[1] + " " + a[3] + "</td>";
             }
         }
-        str += "<td>" + taskStatusList[entry.status][1]+ "</td>";
+        str += "<td>" + taskStatusList[entry.status][1] + "</td>";
         str += "<td>" + entry.idCustomer + "</td>";
         str += "<td>" + entry.description + "</td>";
         for (var i = 0; i < workersList.length; ++i) {
@@ -150,7 +151,7 @@ function writeToDivCustomersRentList(data) {
                 str += "<td>" + a[1] + " " + a[3] + "</td>";
             }
         }
-        
+
         str += "<td>" + entry.creationDate + "</td>";
         if (permissions == "3") {
             str += "<td>" + "<button type=\"button\" onclick=\"editCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";

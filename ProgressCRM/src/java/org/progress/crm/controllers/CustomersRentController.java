@@ -44,34 +44,16 @@ public class CustomersRentController {
         return true;
     }
 
-    public List<CustomersRent> getCustomersRentListByQuery(Session session, String token, String street, String houseNumber,
-            String rooms, String floor, String floors, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException, SQLException {
+    public List<CustomersRent> getCustomersRentListByQuery(Session session, String token, String assigned, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         String startDate_ = null;
         String endDate_ = null;
+        int idWorker_;
+        int assigned_;
         if (token == null) {
             throw new IsNotAuthenticatedException();
-        }
-        int rooms_;
-        int floor_;
-        int floors_;
-        int idWorker_;
-        if (rooms.equals("")) {
-            rooms_ = -1;
-        } else {
-            rooms_ = Integer.valueOf(rooms);
-        }
-        if (floor.equals("")) {
-            floor_ = -1;
-        } else {
-            floor_ = Integer.valueOf(floor);
-        }
-        if (floors.equals("")) {
-            floors_ = -1;
-        } else {
-            floors_ = Integer.valueOf(floors);
         }
         if (idWorker.equals("")) {
             idWorker_ = -1;
@@ -81,9 +63,14 @@ public class CustomersRentController {
         if (!startDate.equals("")) {
             startDate_ = startDate;
         }
+        if (assigned.equals("")) {
+            assigned_ = -1;
+        } else {
+            assigned_ = Integer.valueOf(assigned);
+        }
         if (!endDate.equals("")) {
             endDate_ = endDate;
         }
-        return DaoFactory.getCustomersRentDao().getCustomersRentListByQuery(session, street, houseNumber, rooms_, floor_, floors_, idWorker_, startDate_, endDate_);
+        return DaoFactory.getCustomersRentDao().getCustomersRentListByQuery(session, assigned_, idWorker_, startDate_, endDate_);
     }
 }

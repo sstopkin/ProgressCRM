@@ -90,5 +90,8 @@ public class DbFields {
     
     public class CUSTOMERSRENT {
         public final static String DELETED = "deleted";
+        public final static String ASSIGNED = "assigned";
+        public final static String IDWORKER = "idWorker";
+        public final static String CREATIONDATE = "creationDate";
     }
 }
