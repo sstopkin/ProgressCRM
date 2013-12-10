@@ -71,11 +71,7 @@ public class CustomersRentApi {
     @GET
     @Path("search")
     public Response getCustomersRentListByQuery(@CookieParam("token") final String token,
-            @QueryParam("street") final String street,
-            @QueryParam("rooms") final String rooms,
-            @QueryParam("housenumber") final String houseNumber,
-            @QueryParam("floor") final String floor,
-            @QueryParam("floors") final String floors,
+            @QueryParam("assigned") final String assigned,
             @QueryParam("idworker") final String idWorker,
             @QueryParam("startdate") final String startdate,
             @QueryParam("enddate") final String enddate) throws CustomException {//@CookieParam("token") final String token,
@@ -83,7 +79,7 @@ public class CustomersRentApi {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson customers = new GsonBuilder().create();
-                String result = customers.toJson(customersRentController.getCustomersRentListByQuery(session, token, street, houseNumber, rooms, floor, floors, idWorker, startdate, enddate));
+                String result = customers.toJson(customersRentController.getCustomersRentListByQuery(session, token, assigned, idWorker, startdate, enddate));
                 return ApiHelper.getResponse(result);
             }
         });
