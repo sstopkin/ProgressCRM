@@ -14,13 +14,16 @@ function getCustomersRentPage() {
             format: 'yyyy-mm-dd'
         });
         $("#customersRentSearchAuthor").append('<option value="">Все</option>');
+        taskStatusList = JSON.parse(taskStatusListJSON);
         workersList.forEach(function(entry) {
             $("#customersRentSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
-        
         $("#customersRentSearchAssigned").append('<option value="">Все</option>');
         workersList.forEach(function(entry) {
             $("#customersRentSearchAssigned").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
+        });
+        taskStatusList.forEach(function(entry) {
+            $("#customersRentSearchStatus").append('<option value="' + entry[0] + '">' + entry[1] + '</option>');
         });
 
         $.ajax({
@@ -95,7 +98,8 @@ function searchCustomersRent() {
                 "assigned=" + $('#customersRentSearchAssigned').val() +
                 "&idworker=" + $('#customersRentSearchAuthor').val() +
                 "&startdate=" + $('#customersRentSearchStartDate').val() +
-                "&enddate=" + $('#customersRentSearchEndDate').val(),
+                "&enddate=" + $('#customersRentSearchEndDate').val() +
+                "&status=" + $('#customersRentSearchStatus').val(),
         success: function(data) {
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);

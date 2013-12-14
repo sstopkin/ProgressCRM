@@ -44,7 +44,9 @@ public class CustomersRentController {
         return true;
     }
 
-    public List<CustomersRent> getCustomersRentListByQuery(Session session, String token, String assigned, String idWorker, String startDate, String endDate) throws IsNotAuthenticatedException, SQLException {
+    public List<CustomersRent> getCustomersRentListByQuery(Session session, String token, String assigned,
+            String idWorker, String startDate, String endDate, String status)
+            throws IsNotAuthenticatedException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -52,8 +54,14 @@ public class CustomersRentController {
         String endDate_ = null;
         int idWorker_;
         int assigned_;
+        int status_;
         if (token == null) {
             throw new IsNotAuthenticatedException();
+        }
+        if (status.equals("")) {
+            status_ = -1;
+        } else {
+            status_ = Integer.valueOf(status);
         }
         if (idWorker.equals("")) {
             idWorker_ = -1;
@@ -71,6 +79,7 @@ public class CustomersRentController {
         if (!endDate.equals("")) {
             endDate_ = endDate;
         }
-        return DaoFactory.getCustomersRentDao().getCustomersRentListByQuery(session, assigned_, idWorker_, startDate_, endDate_);
+        return DaoFactory.getCustomersRentDao().getCustomersRentListByQuery(session, 
+                assigned_, idWorker_, startDate_, endDate_, status_);
     }
 }

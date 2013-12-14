@@ -40,22 +40,18 @@ public class CustomersRentDao {
         return true;
     }
 
-    public List<CustomersRent> getCustomersRentListByQuery(Session session, int assigned, int idWorker, String startDate, String endDate) throws SQLException, SQLException, SQLException, SQLException {
+    public List<CustomersRent> getCustomersRentListByQuery(Session session,
+            int assigned, int idWorker, String startDate, String endDate, int status)
+            throws SQLException, SQLException, SQLException, SQLException {
         Criteria criteria = session.createCriteria(CustomersRent.class);
         if (assigned != -1) {
             criteria.add(Restrictions.like(DbFields.CUSTOMERSRENT.ASSIGNED, assigned));
         }
-//        if (rooms != -1) {
-//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.ROOMS, rooms));
-//        }
-//        if (floor != -1) {
-//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.FLOOR, floor));
-//        }
-//        if (floors != -1) {
-//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.FLOORS, floors));
-//        }
         if (idWorker != -1) {
             criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.IDWORKER, idWorker));
+        }
+        if ((status != -1) && (status != 0)) {
+            criteria.add(Restrictions.like(DbFields.CUSTOMERSRENT.STATUS, status));
         }
         if ((startDate != null) && (endDate != null) && (startDate.equals(endDate))) {
             criteria.add(Restrictions.sqlRestriction(DbFields.CUSTOMERSRENT.CREATIONDATE + " >= CURDATE()"));
@@ -67,9 +63,6 @@ public class CustomersRentDao {
                 criteria.add(Restrictions.sqlRestriction(DbFields.CUSTOMERSRENT.CREATIONDATE + " <= '" + endDate + "'"));
             }
         }
-//        if (!houseNumber.equals("")) {
-//            criteria.add(Restrictions.like(DbFields.ANNOUNCEMENTSRENT.HOUSENUMBER, houseNumber));
-//        }
         criteria.add(Restrictions.eq(DbFields.CUSTOMERSRENT.DELETED, false));
         return criteria.list();
 //.add(Restrictions.between("weight", minWeight, maxWeight))
