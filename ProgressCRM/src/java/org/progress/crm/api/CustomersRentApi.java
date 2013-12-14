@@ -74,12 +74,13 @@ public class CustomersRentApi {
             @QueryParam("assigned") final String assigned,
             @QueryParam("idworker") final String idWorker,
             @QueryParam("startdate") final String startdate,
-            @QueryParam("enddate") final String enddate) throws CustomException {//@CookieParam("token") final String token,
+            @QueryParam("enddate") final String enddate,
+            @QueryParam("status") final String status) throws CustomException {//@CookieParam("token") final String token,
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson customers = new GsonBuilder().create();
-                String result = customers.toJson(customersRentController.getCustomersRentListByQuery(session, token, assigned, idWorker, startdate, enddate));
+                String result = customers.toJson(customersRentController.getCustomersRentListByQuery(session, token, assigned, idWorker, startdate, enddate, status));
                 return ApiHelper.getResponse(result);
             }
         });

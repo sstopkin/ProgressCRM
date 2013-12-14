@@ -1,6 +1,7 @@
 var transfer;
 var type;
 var workersList = null;
+var taskStatusListJSON = "[[0,\"Нет статуса\"],[1,\"Новый\"],[2,\"В работе\"],[3,\"Прогресс\"],[4,\"Заселился\"]]";
 var taskStatusList = null;
 var KLADR_token = '51dfe5d42fb2b43e3300006e';
 var KLADR_key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
@@ -16,9 +17,6 @@ $(document).ready(function() {
             $("#logged").css("display", "block");
             if (workersList == null) {
                 getAllWorkersList();
-            }
-            if (taskStatusList == null) {
-                taskStatusList = JSON.parse("[[0,\"Нет статуса\"],[1,\"Новый\"],[2,\"В работе\"],[3,\"Прогресс\"],[4,\"Заселился\"]]");
             }
         },
         error: function(data) {

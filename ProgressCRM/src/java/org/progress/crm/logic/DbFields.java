@@ -93,5 +93,6 @@ public class DbFields {
         public final static String ASSIGNED = "assigned";
         public final static String IDWORKER = "idWorker";
         public final static String CREATIONDATE = "creationDate";
+        public final static String STATUS = "status";
     }
 }
