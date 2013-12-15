@@ -50,10 +50,35 @@ function getCustomersRentPage() {
             }
         });
     });
+    $('#customersRentAddMoadlForm').validate({
+        rules: {
+            customersRentIdCustomer: {
+                required: true,
+                email: true
+            }
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+        success: function(label) {
+            $(label).closest('form').find('.valid').removeClass("invalid");
+        },
+        errorPlacement: function(error, element) {
+            error.text(element.closest('.form-group').find('.help-block'));
+        }
+    });
 }
 
 function addCustomersRent() {
     $('#customersRentAddMoadl').modal('toggle');
+    if ($("#customersRentIdCustomer").hasClass("has-error")) {
+        $("#regErr").css("display", "inline");
+        $("#regErr").html("Не выбран клиент");
+        return false;
+    }
     $.ajax({
         type: "POST",
         url: "api/customersrent/addcustomersrent",
