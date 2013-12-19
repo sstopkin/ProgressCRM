@@ -55,7 +55,7 @@
 <div class="container">
     <!-- Button trigger modal -->
     <div class="row">
-        <input onclick="customersRentShowAddCustomerModal();" type="button" class="btn btn-primary pull-right" value="Добавить">
+        <input onclick="customersRentShowAddCustomerModal(1);" type="button" class="btn btn-primary pull-right" value="Добавить">
     </div>
 </div>
 
@@ -98,7 +98,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-                <input onclick="addCustomersRent();" type="button" class="btn btn-success pull-right" value="Добавить" />
+                <input id="customersRentAddButton" onclick="addCustomersRent();" type="button" class="btn btn-success pull-right" value="Добавить" style="display: none"/>
+                <input id="customersRentAddEdit" onclick="editCustomersRent();" type="button" class="btn btn-success pull-right" value="Сохранить" style="display: none"/>
             </div>
         </div> <!--/.modal-content--> 
     </div> <!--/.modal-dialog--> 

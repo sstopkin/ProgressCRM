@@ -28,9 +28,6 @@ function getCustomersRentPage() {
         taskStatusList.forEach(function(entry) {
             $("#customersRentSearchStatus").append('<option value="' + entry[0] + '">' + entry[1] + '</option>');
         });
-
-
-
         $.ajax({
             type: "GET",
             url: "api/auth",
@@ -178,7 +175,7 @@ function writeToDivCustomersRentList(data) {
     $("#mainCustomersRentContainer").html(str);
 }
 
-function customersRentShowAddCustomerModal() {
+function customersRentShowAddCustomerModal(mode) {
     console.log("customersRentShowAddCustomerModal");
     $('#customersRentAddMoadl').modal('show');
 
@@ -191,4 +188,9 @@ function customersRentShowAddCustomerModal() {
     taskStatusList.forEach(function(entry) {
         $("#customersRentStatus").append('<option value="' + entry[0] + '">' + entry[1] + '</option>');
     });
+    if (mode == "1") {
+        $("#customersRentAddButton").css("display", "block");
+    } else if (mode == "2") {
+        $("#customersRentAddEdit").css("display", "block");
+    }
 }
