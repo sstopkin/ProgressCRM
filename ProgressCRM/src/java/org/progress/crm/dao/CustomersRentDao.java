@@ -1,6 +1,7 @@
 package org.progress.crm.dao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -66,5 +67,17 @@ public class CustomersRentDao {
         criteria.add(Restrictions.eq(DbFields.CUSTOMERSRENT.DELETED, false));
         return criteria.list();
 //.add(Restrictions.between("weight", minWeight, maxWeight))
+    }
+
+    public void editCustomersRentById(Session session, int id, int status, int assigned,
+            String description, int idWorker, int idCustomer) throws SQLException, CustomException {
+        CustomersRent cr = getCustomersRentById(session, id);
+        cr.setAssigned(assigned);
+        cr.setDescription(description);
+        cr.setIdCustomer(idCustomer);
+        cr.setIdWorker(idWorker);
+        cr.setLastModify(new Date());
+        cr.setStatus(status);
+        session.update(cr);
     }
 }
