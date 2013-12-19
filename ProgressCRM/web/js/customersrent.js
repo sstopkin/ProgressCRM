@@ -15,16 +15,21 @@ function getCustomersRentPage() {
         });
         $("#customersRentSearchAuthor").append('<option value="">Все</option>');
         taskStatusList = JSON.parse(taskStatusListJSON);
+        $("#customersRentSearchAuthor").empty();
         workersList.forEach(function(entry) {
             $("#customersRentSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
+        $("#customersRentSearchAssigned").empty();
         $("#customersRentSearchAssigned").append('<option value="">Все</option>');
         workersList.forEach(function(entry) {
             $("#customersRentSearchAssigned").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
+        $("#customersRentSearchStatus").empty();
         taskStatusList.forEach(function(entry) {
             $("#customersRentSearchStatus").append('<option value="' + entry[0] + '">' + entry[1] + '</option>');
         });
+
+
 
         $.ajax({
             type: "GET",
@@ -50,33 +55,14 @@ function getCustomersRentPage() {
             }
         });
     });
-    $('#customersRentAddMoadlForm').validate({
-        rules: {
-            customersRentIdCustomer: {
-                required: true,
-                email: true
-            }
-        },
-        highlight: function(element, errorClass, validClass) {
-            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-        },
-        unhighlight: function(element, errorClass, validClass) {
-            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-        },
-        success: function(label) {
-            $(label).closest('form').find('.valid').removeClass("invalid");
-        },
-        errorPlacement: function(error, element) {
-            error.text(element.closest('.form-group').find('.help-block'));
-        }
-    });
 }
 
 function addCustomersRent() {
     $('#customersRentAddMoadl').modal('toggle');
-    if ($("#customersRentIdCustomer").hasClass("has-error")) {
-        $("#regErr").css("display", "inline");
-        $("#regErr").html("Не выбран клиент");
+    if ($("#customersRentIdCustomer").val() == "") {
+        $("#errorBlock").addClass("alert-warning");
+        $("#errorMessage").html("Не выбран клиент");
+        $("#errorBlock").css("display", "block");
         return false;
     }
     $.ajax({
@@ -197,9 +183,11 @@ function customersRentShowAddCustomerModal() {
     $('#customersRentAddMoadl').modal('show');
 
     $("#customersRentAssigned").append('<option value="">Все</option>');
+    $("#customersRentAssigned").empty();
     workersList.forEach(function(entry) {
         $("#customersRentAssigned").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
     });
+    $("#customersRentStatus").empty();
     taskStatusList.forEach(function(entry) {
         $("#customersRentStatus").append('<option value="' + entry[0] + '">' + entry[1] + '</option>');
     });
