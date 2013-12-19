@@ -73,22 +73,21 @@ function addCustomersRent() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            document.location.href = "#customersrent";
         },
         error: function(data) {
             showDanger(data.responseText);
         }
     });
+    window.location.reload();
 }
 
 function deleteCustomersRentById(customersRentId) {
-    console.log("deleteCustomersRentById " + customersRentId);
     $.ajax({
         type: "POST",
         url: "api/customersrent/deletecustomersrent",
         data: ({id: customersRentId}),
         success: function(data) {
-            document.location.href = "#customersrent";
+            window.location.reload();
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -140,7 +139,7 @@ function writeToDivCustomersRentList(data) {
     str += "<th>Дата</th>";
     if (permissions == "3") {
         str += "<th>Редактировать</th>";
-//        str += "<th>Удалить</th>";
+        str += "<th>Удалить</th>";
     }
     str += "</tr>";
     str += "</thead>";
@@ -167,7 +166,7 @@ function writeToDivCustomersRentList(data) {
         str += "<td>" + entry.creationDate + "</td>";
         if (permissions == "3") {
             str += "<td>" + "<button type=\"button\" onclick=\"customersRentShowAddCustomerModal(2," + entry.id + "," + entry.assigned + "," + entry.status + "," + entry.idCustomer + ",'" + entry.description + "');\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
-//            str += "<td>" + "<button type=\"button\" onclick=\"deleteCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+            str += "<td>" + "<button type=\"button\" onclick=\"deleteCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
         }
         str += "</tr>";
     });
@@ -221,10 +220,10 @@ function editCustomersRent() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            document.location.href = "#customersrent";
         },
         error: function(data) {
             showDanger(data.responseText);
         }
     });
+    window.location.reload();
 }
