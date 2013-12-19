@@ -138,10 +138,10 @@ function writeToDivCustomersRentList(data) {
     str += "<th>Описание</th>";
     str += "<th>Автор</th>";
     str += "<th>Дата</th>";
-//    if (permissions == "3") {
-//        str += "<th>Редактировать</th>";
+    if (permissions == "3") {
+        str += "<th>Редактировать</th>";
 //        str += "<th>Удалить</th>";
-//    }
+    }
     str += "</tr>";
     str += "</thead>";
     str += "<tbody>";
@@ -166,8 +166,8 @@ function writeToDivCustomersRentList(data) {
 
         str += "<td>" + entry.creationDate + "</td>";
         if (permissions == "3") {
-            str += "<td>" + "<button type=\"button\" onclick=\"editCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
-            str += "<td>" + "<button type=\"button\" onclick=\"deleteCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+            str += "<td>" + "<button type=\"button\" onclick=\"customersRentShowAddCustomerModal(2," + entry.id + "," + entry.assigned + "," + entry.status + "," + entry.idCustomer + ",'" + entry.description + "');\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+//            str += "<td>" + "<button type=\"button\" onclick=\"deleteCustomersRentById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
         }
         str += "</tr>";
     });
@@ -175,8 +175,9 @@ function writeToDivCustomersRentList(data) {
     $("#mainCustomersRentContainer").html(str);
 }
 
-function customersRentShowAddCustomerModal(mode) {
-    console.log("customersRentShowAddCustomerModal");
+function customersRentShowAddCustomerModal(mode, id, assigned, status, idcustomer, description) {
+    $("#customersRentAddButton").css("display", "none");
+    $("#customersRentAddEdit").css("display", "none");
     $('#customersRentAddMoadl').modal('show');
 
     $("#customersRentAssigned").append('<option value="">Все</option>');
@@ -192,5 +193,38 @@ function customersRentShowAddCustomerModal(mode) {
         $("#customersRentAddButton").css("display", "block");
     } else if (mode == "2") {
         $("#customersRentAddEdit").css("display", "block");
+        $("#customersRentIdEdit").val(id);
+        $('#customersRentAssigned').val(assigned);
+        $('#customersRentStatus').val(status);
+        $('#customersRentIdCustomer').val(idcustomer);
+        $('#customersRentDescription').val(description);
     }
+}
+
+function editCustomersRent() {
+    $('#customersRentAddMoadl').modal('toggle');
+    if ($("#customersRentIdCustomer").val() == "") {
+        $("#errorBlock").addClass("alert-warning");
+        $("#errorMessage").html("Не выбран клиент");
+        $("#errorBlock").css("display", "block");
+        return false;
+    }
+    $.ajax({
+        type: "POST",
+        url: "api/customersrent/editcustomersrent",
+        data: ({
+            id: $('#customersRentIdEdit').val(),
+            status: $('#customersRentStatus').val(),
+            assigned: $('#customersRentAssigned').val(),
+            idcustomer: $('#customersRentIdCustomer').val(),
+            description: $('#customersRentDescription').val()
+        }),
+        success: function(data) {
+            $("#errorBlock").css("display", "none");
+            document.location.href = "#customersrent";
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+        }
+    });
 }
