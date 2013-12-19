@@ -36,6 +36,17 @@ public class CustomersRentController {
         return true;
     }
 
+    public boolean editCustomersRentById(Session session, String token, String id, String status, String assigned, String description, String idCustomer) throws IsNotAuthenticatedException, SQLException, CustomException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authManager.getUserIdByToken(uuid);
+        DaoFactory.getCustomersRentDao().editCustomersRentById(session, Integer.valueOf(id), Integer.valueOf(status),
+                Integer.valueOf(assigned), description, idWorker, Integer.valueOf(idCustomer));
+        return true;
+    }
+
     public boolean deleteCustomersRent(Session session, String token, String id) throws IsNotAuthenticatedException, SQLException, CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
@@ -79,7 +90,7 @@ public class CustomersRentController {
         if (!endDate.equals("")) {
             endDate_ = endDate;
         }
-        return DaoFactory.getCustomersRentDao().getCustomersRentListByQuery(session, 
+        return DaoFactory.getCustomersRentDao().getCustomersRentListByQuery(session,
                 assigned_, idWorker_, startDate_, endDate_, status_);
     }
 }

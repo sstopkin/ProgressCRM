@@ -48,7 +48,25 @@ public class CustomersRentApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = customersRentController.addCustomersRent(session, token, 
+                boolean result = customersRentController.addCustomersRent(session, token,
+                        status, assigned, description, idcustomer);
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @POST
+    @Path("editcustomersrent")
+    public Response editCustomersRent(@CookieParam("token") final String token,
+            @FormParam("id") final String id,
+            @FormParam("status") final String status,
+            @FormParam("assigned") final String assigned,
+            @FormParam("idcustomer") final String idcustomer,
+            @FormParam("description") final String description) throws SQLException, CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                boolean result = customersRentController.editCustomersRentById(session, token, id,
                         status, assigned, description, idcustomer);
                 return ApiHelper.getResponse(result);
             }
