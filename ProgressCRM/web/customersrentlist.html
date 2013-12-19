@@ -55,7 +55,6 @@
 <div class="container">
     <!-- Button trigger modal -->
     <div class="row">
-        <!--<a data-toggle="modal" href="#customersRentAddMoadl" class="btn btn-primary pull-right">Добавить объявление</a>-->
         <input onclick="customersRentShowAddCustomerModal();" type="button" class="btn btn-primary pull-right" value="Добавить">
     </div>
 </div>
@@ -71,12 +70,12 @@
                 <h4 class="modal-title">Добавить клиента аренды</h4>
             </div>
             <div class="modal-body">
-                <form method='post' action='#' id="customersRentAddMoadlForm" name="customersRentAddMoadlForm">
+                <form method='post' action='#' id="customersRentAddMoadlForm">
                     <input onclick="customersShowModal('customersRentIdCustomer');" type="button" class="btn btn-primary" value="Выбрать клиента" />
                     <div class="form-group">
                         <label class="control-label">idCustomer<br></label>
                         <div class="controls">
-                            <input id="customersRentIdCustomer" name="customersRentIdCustomer" type="text" class="form-control required input-block-level">
+                            <input id="customersRentIdCustomer" type="text" class="form-control required input-block-level">
                         </div>
                     </div>
                     <div class="form-group">
