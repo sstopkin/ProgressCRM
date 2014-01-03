@@ -1,5 +1,4 @@
 function getHelpDeskPage() {
-    $("#addApartaments").css("display", "none");
     $.get("hd.html", function(data) {
         $("#mainContainer").html(data);
         var permissions = $.ajax({
