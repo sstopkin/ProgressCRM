@@ -36,7 +36,6 @@ $(document).ready(function() {
         $("#helpInfoBlock").css("display", "none");
         $('#taskContentHelp').addClass("hiddenHelp");
     });
-    $("#addApartaments").css("display", "none");
 });
 
 function getMainPage() {
@@ -53,7 +52,6 @@ function getAboutPage() {
 }
 
 function getCallsPage() {
-    $("#addApartaments").css("display", "none");
     $.get("calls.html", function(data) {
         $("#mainContainer").html(data);
     });
@@ -66,7 +64,7 @@ function getNews() {
         async: false
     }).responseText;
     if (permissions == "3") {
-        $("#addApartaments").css("display", "block");
+        
     }
     $.get("api/news", function(data) {
         var str = "<table class=\"table\"><tbody>\n";
