@@ -62,15 +62,30 @@ function getCallsPage() {
     });
 }
 
+function getAdminPage() {
+    $.get("api/auth/validate", function(data) {
+        if (data == "3") {
+            $.get("admin.html", function(data) {
+                $("#mainContainer").html(data);
+                $("#usersLink").click(getUsersList);
+                $("#verifyTasksLink").click(getUnevaluatedTasks);
+                $("#moderationLink").click(getModerationPage);
+                getUsersList();
+                showFooterAbout();
+            });
+        }
+        else {
+            showWarning("У вас недостаточно прав для совершения данного действия");
+        }
+    });
+}
+
 function getNews() {
     var permissions = $.ajax({
         type: "GET",
         url: "api/auth/validate",
         async: false
     }).responseText;
-    if (permissions == "3") {
-
-    }
     $.get("api/news", function(data) {
         var str = "<table class=\"table\"><tbody>\n";
         var ids = [];

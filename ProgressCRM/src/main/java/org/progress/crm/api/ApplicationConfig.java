@@ -23,6 +23,7 @@ public class ApplicationConfig extends Application {
      * resources defined in the project.
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(org.progress.crm.api.AdminApi.class);
         resources.add(org.progress.crm.api.AnnouncementsApi.class);
         resources.add(org.progress.crm.api.AnnouncementsCallsApi.class);
         resources.add(org.progress.crm.api.AnnouncementsRentApi.class);

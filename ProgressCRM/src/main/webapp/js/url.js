@@ -56,7 +56,8 @@ function parseUrl(str) {
     var pathProfile = "profile";
     var pathApartaments = "apartaments";
     var pathCalls = "calls";
-
+    var pathAdmin = "admin";
+    
     if (!uri.fragment) {
         getMainPage();
         return;
@@ -106,6 +107,10 @@ function parseUrl(str) {
     }
     if (arr[0] == pathCalls) {
         getCallsPage();
+        return;
+    }
+    if (arr[0] == pathAdmin) {
+        getAdminPage();
         return;
     }
     get404Page();
