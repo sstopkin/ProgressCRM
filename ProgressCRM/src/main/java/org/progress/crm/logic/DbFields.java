@@ -12,6 +12,7 @@ public class DbFields {
 
     public class WORKERS {
 
+        public final static String ID = "id";
         public final static String EMAIL = "email";
     }
 

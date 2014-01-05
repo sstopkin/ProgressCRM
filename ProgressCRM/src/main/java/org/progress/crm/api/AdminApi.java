@@ -80,7 +80,7 @@ public class AdminApi {
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson allUsers = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
                         .create();
-                String result = allUsers.toJson(workersController.getAllUsers(session));
+                String result = allUsers.toJson(workersController.getAllUsersToAdmin(session, token));
                 return ApiHelper.getResponse(result);
             }
         });

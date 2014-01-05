@@ -17,6 +17,7 @@ import org.progress.crm.exceptions.BadLogInException;
 import org.progress.crm.exceptions.BadLogOutException;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
+import org.progress.crm.exceptions.DisabledUserException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Workers;
 import org.progress.crm.util.SHA1;
@@ -72,6 +73,10 @@ public class AuthenticationManager {
             throw new BadLogInException();
         }
 
+        if (!pr.getIsActive()) {
+            throw new DisabledUserException();
+        }
+        
         if (pr.getPwdhash().equals(SHA1.sha1(password))) {
             UUID token = UUID.randomUUID();
             tokens.put(token, pr.getId());

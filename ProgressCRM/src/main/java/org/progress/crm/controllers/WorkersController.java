@@ -71,7 +71,7 @@ public class WorkersController {
 
     //do not add token check, it`s guest api
     public List<Workers> getAllUsers(Session session) throws CustomException, SQLException {
-        List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkers(session);
+        List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderByEmail(session);
         List list = new ArrayList();
         for (Workers ws : workers) {
             List ll = new ArrayList();
@@ -82,5 +82,32 @@ public class WorkersController {
             list.add(ll);
         }
         return list;
+    }
+
+    //with token, it`s admin API
+    public List<Workers> getAllUsersToAdmin(Session session, String token) throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
+            throw new PermissionsDeniedException();
+        } else {
+            List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderById(session);
+            List list = new ArrayList();
+            for (Workers ws : workers) {
+                if (ws.getId() != 1) {
+                    List ll = new ArrayList();
+                    ll.add(ws.getId());
+                    ll.add(ws.getEmail());
+                    ll.add(ws.getlName());
+                    ll.add(ws.getfName());
+                    ll.add(ws.getmName());
+                    ll.add(ws.isDeleted());
+                    ll.add(ws.getIsActive());
+                    list.add(ll);
+                }
+            }
+            return list;
+        }
     }
 }
