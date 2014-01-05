@@ -26,6 +26,8 @@ public class Workers implements Serializable {
     @Expose
     private String email;
     private boolean deleted;
+    @Expose
+    private boolean isActive;
 
     public Workers() {
     }
@@ -37,6 +39,16 @@ public class Workers implements Serializable {
         this.pwdhash = thePass;
         this.email = theEmail;
         this.deleted = false;
+        this.isActive = true;
+    }
+
+    @Column(name = "IsActive")
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
     @Column(name = "Deleted")

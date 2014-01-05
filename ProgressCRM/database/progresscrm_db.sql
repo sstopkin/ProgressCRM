@@ -13,6 +13,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Workers` (
 `Permissions` INT NOT NULL DEFAULT 1,
 `Email` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+`IsActive` TINYINT(1) NOT NULL DEFAULT true ,
 PRIMARY KEY (`id`) ,
 UNIQUE INDEX `EmailIndex` (`Email` ASC) );
 
@@ -249,25 +250,25 @@ PRIMARY KEY (`id`) ,
 INDEX `idWorkerIndex` (`idWorker` ASC));
 
 -- NULL user --
-INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
-	VALUES ('null', 'null','null', 'null', 0, 'null', true);
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
+	VALUES ('null', 'null','null', 'null', 0, 'null', true, true);
 
 -- test users--
-INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
-	VALUES ('adminFName', 'adminSName','adminLName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'admin@progress55.com', false);
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
+	VALUES ('adminFName', 'adminSName','adminLName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'admin@progress55.com', false, true);
 
-INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
-	VALUES ('userfName', 'usersName','userlName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 2, 'user@progress55.com', false);
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
+	VALUES ('userfName', 'usersName','userlName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 2, 'user@progress55.com', false, true);
 
-INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
-	VALUES ('expertfName', 'expertsName','expertlName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 1, 'expert@progress55.com', false);
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
+	VALUES ('expertfName', 'expertsName','expertlName', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 1, 'expert@progress55.com', false, true);
 
 -- real user--
-INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
-	VALUES ('Андрей', 'Геннадьевич','Бармашов', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'abar71@progress55.com', false);
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
+	VALUES ('Андрей', 'Геннадьевич','Бармашов', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'abar71@progress55.com', false, true);
 
-INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted) 
-	VALUES ('Жанна', 'Витальевна','Тутубалина', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'zvt@progress55.com', false);
+INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
+	VALUES ('Жанна', 'Витальевна','Тутубалина', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 3, 'zvt@progress55.com', false, true);
 
 /*
 -- Query: SELECT * FROM progresscrm.Customers

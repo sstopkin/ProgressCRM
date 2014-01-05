@@ -30,9 +30,15 @@ public class WorkersDao {
                 .load();
     }
 
-    public List<Workers> getAllWorkers(Session session) throws SQLException {
+    public List<Workers> getAllWorkersOrderByEmail(Session session) throws SQLException {
         return session.createCriteria(Workers.class)
                 .addOrder(Order.asc(DbFields.WORKERS.EMAIL))
+                .list();
+    }
+    
+    public List<Workers> getAllWorkersOrderById(Session session) throws SQLException {
+        return session.createCriteria(Workers.class)
+                .addOrder(Order.asc(DbFields.WORKERS.ID))
                 .list();
     }
 }
