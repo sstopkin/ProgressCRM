@@ -80,14 +80,52 @@ function getUsersList() {
                 str += list[j][4];
                 str += "</td><td>";
                 if (list[j][6] == true) {
-                    str += "<a href=\"\" onclick=\"return banUser(" + list[j][0].id + ");\"><span class=\"label label-success\">Активен</span></a>";
+                    str += "<a href=\"\" onclick=\"return banUser(" + list[j][0] + ");\"><span class=\"label label-success\">Активен</span></a>";
                 } else {
-                    str += "<a href=\"\" onclick=\"return unBanUser(" + list[j][0].id + ");\"><span class=\"label label-danger\">Заблокирован</span></a>";
+                    str += "<a href=\"\" onclick=\"return unBanUser(" + list[j][0] + ");\"><span class=\"label label-danger\">Заблокирован</span></a>";
                 }
                 str += "</td></tr>";
             }
             str += "</tbody></table>";
             $("#adminContent").html(str);
+        },
+        error: function(data) {
+            $("#errorBlock").addClass("alert-danger");
+            $("#errorMessage").html(data.responseText);
+            $("#errorBlock").css("display", "block");
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
+}
+
+function banUser(id) {
+    $.ajax({
+        type: "POST",
+        url: "api/admin/banuser",
+        data: ({id: id}),
+        success: function(data) {
+            getUsersList();
+        },
+        error: function(data) {
+            $("#errorBlock").addClass("alert-danger");
+            $("#errorMessage").html(data.responseText);
+            $("#errorBlock").css("display", "block");
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
+}
+
+function unBanUser(id) {
+    $.ajax({
+        type: "POST",
+        url: "api/admin/unbanuser",
+        data: ({id: id}),
+        success: function(data) {
+            getUsersList();
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");
@@ -197,44 +235,6 @@ function getUsersList() {
 //    });
 //    return false;
 //}
-
-function banUser(id) {
-    $.ajax({
-        type: "POST",
-        url: "api/admin/banuser",
-        data: ({id: id}),
-        success: function(data) {
-            getUsersList();
-        },
-        error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
-            checkStatus();
-            return false;
-        }
-    });
-    return false;
-}
-
-function unBanUser(id) {
-    $.ajax({
-        type: "POST",
-        url: "api/admin/unbanuser",
-        data: ({id: id}),
-        success: function(data) {
-            getUsersList();
-        },
-        error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
-            checkStatus();
-            return false;
-        }
-    });
-    return false;
-}
 
 //function checkSuccessTask(id) {
 //    $.ajax({

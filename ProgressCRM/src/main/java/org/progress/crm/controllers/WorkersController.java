@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
+import org.progress.crm.api.ApiHelper;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
@@ -108,6 +109,32 @@ public class WorkersController {
                 }
             }
             return list;
+        }
+    }
+
+    public void setActivityUserById(Session session, String token, String id, boolean flag)
+            throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        if (id == null) {
+            throw new BadRequestException();
+        }
+        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
+            throw new PermissionsDeniedException();
+        }
+
+        int userId = ApiHelper.parseInt(id);
+        Workers pr = DaoFactory.getWorkersDao().getWorkerById(session, userId);
+        pr.setIsActive(flag);
+        updateWorker(session, pr);
+
+        if (!flag) {
+            UUID userToken = authManager.getUserTokenById(userId);
+            if (userToken == null) {
+                return;
+            }
+            authManager.logOut(userToken.toString());
         }
     }
 }

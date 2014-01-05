@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
@@ -86,31 +88,31 @@ public class AdminApi {
         });
     }
 
-//    @POST
-//    @Path("banuser")
-//    public Response banUserById(@CookieParam("token") final String token, @FormParam("id") final String id)
-//            throws CustomException, SQLException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                workersController.setActivityUserById(session, token, id, false);
-//                return ApiHelper.getResponse(true);
-//            }
-//        });
-//    }
+    @POST
+    @Path("banuser")
+    public Response banUserById(@CookieParam("token") final String token, @FormParam("id") final String id)
+            throws CustomException, SQLException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                workersController.setActivityUserById(session, token, id, false);
+                return ApiHelper.getResponse(true);
+            }
+        });
+    }
 
-//    @POST
-//    @Path("unbanuser")
-//    public Response unBanUserById(@CookieParam("token") final String token, @FormParam("id") final String id)
-//            throws CustomException, SQLException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                workersController.setActivityUserById(session, token, id, true);
-//                return ApiHelper.getResponse(true);
-//            }
-//        });
-//    }
+    @POST
+    @Path("unbanuser")
+    public Response unBanUserById(@CookieParam("token") final String token, @FormParam("id") final String id)
+            throws CustomException, SQLException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                workersController.setActivityUserById(session, token, id, true);
+                return ApiHelper.getResponse(true);
+            }
+        });
+    }
 
 //    @POST
 //    @Path("chngpoints")
