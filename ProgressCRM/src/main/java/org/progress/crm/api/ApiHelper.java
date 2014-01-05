@@ -2,8 +2,9 @@ package org.progress.crm.api;
 
 import java.io.File;
 import javax.ws.rs.core.Response;
+import org.progress.crm.exceptions.BadRequestException;
 
-class ApiHelper {
+public class ApiHelper {
 
     public static Response getResponse(boolean value) {
         return Response.ok(String.valueOf(value)).build();
@@ -26,5 +27,13 @@ class ApiHelper {
         response.header("Content-Disposition",
                 "attachment; filename=report.pdf");
         return response.build();
+    }
+
+    public static int parseInt(String value) throws BadRequestException {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException ex) {
+            throw new BadRequestException();
+        }
     }
 }
