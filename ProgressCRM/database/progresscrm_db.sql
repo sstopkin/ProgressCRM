@@ -2,6 +2,17 @@ CREATE SCHEMA IF NOT EXISTS `progresscrm` DEFAULT CHARACTER SET utf8;
 USE `progresscrm`;
 
 -- -----------------------------------------------------
+-- Table `progresscrm`.`Filespace`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Filespace` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`UUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Name` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+PRIMARY KEY (`id`) ,
+UNIQUE INDEX `UUIDIndex` (`UUID` ASC) );
+
+-- -----------------------------------------------------
 -- Table `progresscrm`.`Workers`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Workers` (
@@ -162,6 +173,9 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
 `IsApproved` TINYINT(1) NOT NULL DEFAULT false ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 
+`idFilespace` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+
+FOREIGN KEY (idFilespace) REFERENCES Filespace(id),
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 FOREIGN KEY (idCustomer) REFERENCES Customers(id),
 PRIMARY KEY (`id`) ,
