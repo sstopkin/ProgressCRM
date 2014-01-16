@@ -14,16 +14,16 @@ function getApartamentViewPage(apartamentId) {
 
                 console.log(array.apartamentsPhotosList);
 
-                console.log(array.apartaments.IsApproved);
-                console.log(array.apartaments.deleted);
+                console.log(array.IsApproved);
+                console.log(array.deleted);
 
                 content += "<p>";
-                content += "ID = " + array.apartaments.id;
+                content += "ID = " + array.id;
                 content += "</p>";
 
 
                 content += "<p>";
-                switch (array.apartaments.typeOfSales) {
+                switch (array.typeOfSales) {
                     case 1:
                         content += "Эксклюзивная продажа";
                         break;
@@ -37,37 +37,37 @@ function getApartamentViewPage(apartamentId) {
 
                 content += "<p>";
                 content += "Адрес "
-                        + array.apartaments.cityName + " "
-                        + array.apartaments.streetName + " "
-                        + array.apartaments.houseNumber + " "
-                        + array.apartaments.buildingNumber + " - "
-                        + array.apartaments.roomNumber + " ";
+                        + array.cityName + " "
+                        + array.streetName + " "
+                        + array.houseNumber + " "
+                        + array.buildingNumber + " - "
+                        + array.roomNumber + " ";
                 content += "</p>";
 
                 content += "<p>";
-                content += "Количество комнат " + array.apartaments.rooms;
+                content += "Количество комнат " + array.rooms;
                 content += "</p>";
 
                 content += "<p>";
-                content += "Цена = " + array.apartaments.price;
+                content += "Цена = " + array.price;
                 content += "</p>";
 
-                if (array.apartaments.MethodOfPurchase_Mortgage) {
+                if (array.MethodOfPurchase_Mortgage) {
                     content += "<p>";
                     content += "Ипотека";
                     content += "</p>";
                 }
-                if (array.apartaments.MethodOfPurchase_PureSale) {
+                if (array.MethodOfPurchase_PureSale) {
                     content += "<p>";
                     content += "Чистая продажа";
                     content += "</p>";
                 }
-                if (array.apartaments.MethodOfPurchase_Exchange) {
+                if (array.MethodOfPurchase_Exchange) {
                     content += "<p>";
                     content += "Обмен";
                     content += "</p>";
                 }
-                if (array.apartaments.MethodOfPurchase_Rent) {
+                if (array.MethodOfPurchase_Rent) {
                     content += "<p>";
                     content += "Аренда";
                     content += "</p>";
@@ -75,7 +75,7 @@ function getApartamentViewPage(apartamentId) {
 
                 content += "<p>";
                 content += "Перепланировки: ";
-                if (array.apartaments.rePplanning) {
+                if (array.rePplanning) {
                     content += "Да";
                 }
                 else {
@@ -84,7 +84,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                switch (array.apartaments.cityDistrict) {
+                switch (array.cityDistrict) {
                     case 1:
                         content += "Кировский административный округ";
                         break;
@@ -106,32 +106,32 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
                 content += "<p>";
                 content += "Балкон: ";
-                if (array.apartaments.balcony != 0) {
-                    content += array.apartaments.balcony;
+                if (array.balcony != 0) {
+                    content += array.balcony;
                 }
                 content += "</p>";
 
                 content += "<p>";
                 content += "Лоджия: ";
-                if (array.apartaments.loggia != 0) {
-                    content += array.apartaments.loggia;
+                if (array.loggia != 0) {
+                    content += array.loggia;
 
                 }
                 content += "</p>";
 
                 content += "<p>";
-                content += "Этажность: " + array.apartaments.floors;
+                content += "Этажность: " + array.floors;
                 content += "</p>";
                 content += "<p>";
-                content += "Этаж: " + array.apartaments.floor;
-                content += "</p>";
-
-                content += "<p>";
-                content += "Год постройки дома: " + array.apartaments.yearOfConstruction;
+                content += "Этаж: " + array.floor;
                 content += "</p>";
 
                 content += "<p>";
-                switch (array.apartaments.material) {
+                content += "Год постройки дома: " + array.yearOfConstruction;
+                content += "</p>";
+
+                content += "<p>";
+                switch (array.material) {
                     case 1:
                         content += "Панельный";
                         break;
@@ -150,11 +150,11 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                content += "Описание: " + array.apartaments.description;
+                content += "Описание: " + array.description;
                 content += "</p>";
 
                 content += "<p>";
-                content += "Информация о клиенте: FIXME";//array.apartaments.clientDescription
+                content += "Информация о клиенте: FIXME";//array.clientDescription
                 content += "</p>";
                 content += "<p>";
                 content += "Телефон клиента: FIXME";
@@ -163,30 +163,30 @@ function getApartamentViewPage(apartamentId) {
 
 
                 content += "<p>";
-                content += "Объект добавлен: " + array.apartaments.сreationDate;
+                content += "Объект добавлен: " + array.сreationDate;
                 content += "</p>";
                 content += "<p>";
-                content += "Объект изменен: " + array.apartaments.lastModify;
+                content += "Объект изменен: " + array.lastModify;
                 content += "</p>";
 
                 for (var i = 0; i < workersList.length; ++i) {
                     var a = workersList[i];
-                    if (array.apartaments.idWorker == a[0]) {
+                    if (array.idWorker == a[0]) {
                         content += "<p>";
                         content += "Автор: " + a[1] + " " + a[3];
                         content += "</p>";
                     }
                 }
-                console.log(array.apartaments.kladrId);
+                console.log(array.kladrId);
 
                 content += "<p>";
-                content += "Площадь общая: " + array.apartaments.sizeApartament;
+                content += "Площадь общая: " + array.sizeApartament;
                 content += "</p>";
                 content += "<p>";
-                content += "Площадь кухни: " + array.apartaments.sizeKitchen;
+                content += "Площадь кухни: " + array.sizeKitchen;
                 content += "</p>";
                 content += "<p>";
-                content += "Площадь жилая: " + array.apartaments.sizeLiving;
+                content += "Площадь жилая: " + array.sizeLiving;
                 content += "</p>";
 
 
@@ -194,10 +194,10 @@ function getApartamentViewPage(apartamentId) {
                 $("#apartamentsFeatures").html(content);
 
 
-                var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;spn="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
+                var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartamentLan+","+array.apartamentLon+"&amp;spn="+array.apartamentLan+","+array.apartamentLon+"&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
                 maps += "<br/>";
                 maps += "<small>";
-                maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;spn="+array.apartaments.apartamentLan+","+array.apartaments.apartamentLon+"&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
+                maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartamentLan+","+array.apartamentLon+"&amp;spn="+array.apartamentLan+","+array.apartamentLon+"&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
                 maps += "</small>";
                 
                 $("#mapApartamentsView").html(maps);

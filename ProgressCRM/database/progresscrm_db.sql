@@ -10,7 +10,20 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Filespace` (
 `Name` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 PRIMARY KEY (`id`) ,
-UNIQUE INDEX `UUIDIndex` (`UUID` ASC) );
+UNIQUE INDEX `UUIDFilespaceIndex` (`UUID` ASC) );
+
+-- -----------------------------------------------------
+-- Table `progresscrm`.`Files`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Files` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`UUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`idFilespace` INT NOT NULL ,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+FOREIGN KEY (idFilespace) REFERENCES Filespace(id),
+PRIMARY KEY (`id`) ,
+UNIQUE INDEX `UUIDFilesIndex` (`UUID` ASC) );
 
 -- -----------------------------------------------------
 -- Table `progresscrm`.`Workers`

@@ -1,6 +1,5 @@
 package org.progress.crm.controllers;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -11,9 +10,7 @@ import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
-import org.progress.crm.logic.ApartamentAndPhotos;
 import org.progress.crm.logic.Apartaments;
-import org.progress.crm.logic.ApartamentsPhoto;
 
 @Singleton
 public class ApartamentsController {
@@ -21,19 +18,14 @@ public class ApartamentsController {
     @EJB
     AuthenticationManager authManager;
 
-    public ApartamentAndPhotos getApartamentById(Session session, String token, String apartamentId) throws CustomException {
+    public Apartaments getApartamentById(Session session, String token, String apartamentId) throws CustomException {
         if (apartamentId == null) {
             throw new BadRequestException();
         }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        ApartamentAndPhotos result = new ApartamentAndPhotos();
-        result.setApartaments(DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentId)));
-//        result.setApartamentsPhotosList(DaoFactory.getApartamentsPhotoDao().getAllApartamentsPhotoByApartamentId(session,
-//                Integer.valueOf(apartamentId)));
-        result.setApartamentsPhotosList(new ArrayList<ApartamentsPhoto>());
-        return result;
+        return DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentId));
     }
 
     public boolean addApartament(Session session, String token, String typeOfSales,
@@ -118,18 +110,11 @@ public class ApartamentsController {
         return true;
     }
 
-    public List<ApartamentAndPhotos> getAllApartament(Session session, String token) throws CustomException {
+    public List<Apartaments> getAllApartament(Session session, String token) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        List<ApartamentAndPhotos> result = new ArrayList<>();
         List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session);
-        for (Apartaments apartaments1 : apartaments) {
-//            FIXME
-//            result.add(new ApartamentAndPhotos(apartaments1,
-//                    DaoFactory.getApartamentsPhotoDao().getAllApartamentsPhotoByApartamentId(session, apartaments1.getId())));
-            result.add(new ApartamentAndPhotos(apartaments1, null));
-        }
-        return result;
+        return apartaments;
     }
 }

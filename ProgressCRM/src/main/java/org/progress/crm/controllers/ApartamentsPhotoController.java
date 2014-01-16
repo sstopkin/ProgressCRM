@@ -24,7 +24,7 @@ public class ApartamentsPhotoController {
 //        if (token == null) { 
 //            throw new IsNotAuthenticatedException();
 //        }
-        DaoFactory.getApartamentsPhotoDao().addApartamentPhoto(session, filename, description, Integer.valueOf(apartamentId));
+//        DaoFactory.getApartamentsPhotoDao().addApartamentPhoto(session, filename, description, Integer.valueOf(apartamentId));
         return true;
     }
 }
