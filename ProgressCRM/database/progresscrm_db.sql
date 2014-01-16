@@ -2,30 +2,6 @@ CREATE SCHEMA IF NOT EXISTS `progresscrm` DEFAULT CHARACTER SET utf8;
 USE `progresscrm`;
 
 -- -----------------------------------------------------
--- Table `progresscrm`.`Filespace`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `progresscrm`.`Filespace` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`UUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`Name` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
-PRIMARY KEY (`id`) ,
-UNIQUE INDEX `UUIDFilespaceIndex` (`UUID` ASC) );
-
--- -----------------------------------------------------
--- Table `progresscrm`.`Files`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `progresscrm`.`Files` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`UUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`idFilespace` INT NOT NULL ,
-`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
-FOREIGN KEY (idFilespace) REFERENCES Filespace(id),
-PRIMARY KEY (`id`) ,
-UNIQUE INDEX `UUIDFilesIndex` (`UUID` ASC) );
-
--- -----------------------------------------------------
 -- Table `progresscrm`.`Workers`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Workers` (
@@ -40,6 +16,34 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Workers` (
 `IsActive` TINYINT(1) NOT NULL DEFAULT true ,
 PRIMARY KEY (`id`) ,
 UNIQUE INDEX `EmailIndex` (`Email` ASC) );
+
+-- -----------------------------------------------------
+-- Table `progresscrm`.`Filespaces`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Filespaces` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`FilespacesUUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`Name` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+PRIMARY KEY (`id`) ,
+UNIQUE INDEX `UUIDFilespaceIndex` (`UUID` ASC) );
+
+-- -----------------------------------------------------
+-- Table `progresscrm`.`Files`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Files` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`FilesUUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`idFilespace` INT NOT NULL ,
+`idWorker` INT NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+FOREIGN KEY (idFilespace) REFERENCES Filespace(id),
+PRIMARY KEY (`id`) ,
+UNIQUE INDEX `UUIDFilesIndex` (`UUID` ASC) );
 
 -- -----------------------------------------------------
 -- Table `progresscrm`.`Customers`
