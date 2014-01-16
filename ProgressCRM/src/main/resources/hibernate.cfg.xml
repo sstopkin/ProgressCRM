@@ -25,7 +25,7 @@
         <mapping class="org.progress.crm.logic.AnnouncementsCalls" />
         <mapping class="org.progress.crm.logic.AnnouncementsRentCalls" />
         <mapping class="org.progress.crm.logic.Apartaments" />
-        <mapping class="org.progress.crm.logic.ApartamentsPhoto" />
+        <mapping class="org.progress.crm.logic.Filespaces" />
         <mapping class="org.progress.crm.logic.Calls" />
         <mapping class="org.progress.crm.logic.Customers" />
         <mapping class="org.progress.crm.logic.CustomersRent" />
