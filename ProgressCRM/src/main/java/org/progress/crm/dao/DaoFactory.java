@@ -14,10 +14,6 @@ public class DaoFactory {
         return new CustomersDao();
     }
 
-    public static ApartamentsPhotoDao getApartamentsPhotoDao() {
-        return new ApartamentsPhotoDao();
-    }
-
     public static HelpDeskDao getHelpDeskDao() {
         return new HelpDeskDao();
     }

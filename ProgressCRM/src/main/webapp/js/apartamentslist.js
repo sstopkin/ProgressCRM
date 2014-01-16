@@ -82,7 +82,7 @@ function getApartamentsListPage() {
 
                 array.forEach(function(entry) {
 
-                    switch (entry.apartaments.rooms) {
+                    switch (entry.rooms) {
                         case 1:
                             if (flag1 == false) {
                                 str += "<tr><td COLSPAN=8>1-комнатные</td></tr>";
@@ -117,22 +117,22 @@ function getApartamentsListPage() {
 
 
                     str += "<tr>";
-                    str += "<td><a href=\"#\" onclick=\"return getApartamentViewPage(" + entry.apartaments.id + ")\">" + entry.apartaments.id + "</a></td>";
-                    str += "<td>" + entry.apartaments.shortAddress + "</td>";
-                    str += "<td>" + entry.apartaments.rooms + "</td>";
-                    str += "<td>" + entry.apartaments.sizeApartament + " / " + entry.apartaments.sizeKitchen + " / " + entry.apartaments.sizeLiving + "</td>";
-                    str += "<td>" + entry.apartaments.floor + " / " + entry.apartaments.floors + "</td>";
-                    str += "<td>" + entry.apartaments.price + "</td>";
+                    str += "<td><a href=\"#\" onclick=\"return getApartamentViewPage(" + entry.id + ")\">" + entry.id + "</a></td>";
+                    str += "<td>" + entry.shortAddress + "</td>";
+                    str += "<td>" + entry.rooms + "</td>";
+                    str += "<td>" + entry.sizeApartament + " / " + entry.sizeKitchen + " / " + entry.sizeLiving + "</td>";
+                    str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
+                    str += "<td>" + entry.price + "</td>";
                     for (var i = 0; i < workersList.length; ++i) {
                         var a = workersList[i];
-                        if (entry.apartaments.idWorker == a[0]) {
+                        if (entry.idWorker == a[0]) {
                             str += "<td>" + a[1] + a[3] + "</td>";
                         }
                     }
-                    str += "<td>" + entry.apartaments.сreationDate + "</td>";
+                    str += "<td>" + entry.сreationDate + "</td>";
                     if (permissions == "3") {
-                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsEditById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
-                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsEditById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
                     }
                     str += "</tr>";
 
@@ -155,19 +155,19 @@ function getApartamentsListPage() {
 //                    str += "</a>";
 //                    str += "<div class=\"media-body\">";
 //                    str += "<h4 class=\"media-heading\">"
-//                            + entry.apartaments.id + " "
-//                            + entry.apartaments.rooms + " "
-//                            + entry.apartaments.cityName + " "
-//                            + entry.apartaments.streetName + " "
-//                            + entry.apartaments.houseNumber + " "
-//                            + entry.apartaments.buildingNumber + " - "
-//                            + entry.apartaments.roomNumber + " "
-//                            + entry.apartaments.sizeApartament + "/"
-//                            + entry.apartaments.sizeLiving + "/"
-//                            + entry.apartaments.sizeKitchen + " "
-//                            + "<p>Цена: " + entry.apartaments.price + "</p>";
+//                            + entry.id + " "
+//                            + entry.rooms + " "
+//                            + entry.cityName + " "
+//                            + entry.streetName + " "
+//                            + entry.houseNumber + " "
+//                            + entry.buildingNumber + " - "
+//                            + entry.roomNumber + " "
+//                            + entry.sizeApartament + "/"
+//                            + entry.sizeLiving + "/"
+//                            + entry.sizeKitchen + " "
+//                            + "<p>Цена: " + entry.price + "</p>";
 //                    str += "</h4>";
-//                    str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.apartaments.id + " \')\">ссылка</a>";
+//                    str += "<a href=\"#\" onclick=\"return getApartamentViewPage(\'" + entry.id + " \')\">ссылка</a>";
 //                    str += "</div>";
 //                    str += "</div>";
                 });
