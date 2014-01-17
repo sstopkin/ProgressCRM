@@ -27,7 +27,6 @@ public class ApartamentsDao {
                 loggia, yearOfConstruction, description, MethodOfPurchase_PureSale,
                 MethodOfPurchase_Mortgage, MethodOfPurchase_Exchange, MethodOfPurchase_Rent,
                 rePplanning, idWorker, idCustomer, IsApproved));
-
     }
 
     public boolean setApproveApartamentById(final Session session, final int apartamentId, final boolean flag) throws CustomException {

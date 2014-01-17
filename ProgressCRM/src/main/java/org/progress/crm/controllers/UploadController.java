@@ -22,8 +22,6 @@ public class UploadController {
     private final String UPLOAD_FILE_LOCATION = "/tmp";
     @EJB
     AuthenticationManager singleton;
-    @EJB
-    ApartamentsPhotoController apartamentsPhotoController;
 
     public String getUploadedFileContent(Session session, InputStream uploadedInputStream,
             FormDataContentDisposition fileDetail) throws IOException, CustomException {
@@ -93,7 +91,7 @@ public class UploadController {
         out.flush();
         out.close();
 
-        apartamentsPhotoController.addApartamentPhoto(session, newFileName.toString(), "test", "1");
+//        apartamentsPhotoController.addApartamentPhoto(session, newFileName.toString(), "test", "1");
         return "RESP: " + newFileName.toString() + "." + type;
     }
 }

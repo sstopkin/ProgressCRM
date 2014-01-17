@@ -25,11 +25,11 @@ public class Filespaces implements Serializable {
     public Filespaces() {
     }
 
-    public Filespaces(Date creationDate, String Name, boolean deleted) {
+    public Filespaces(String Name) {
         this.FilespacesUUID = UUID.randomUUID().toString();
-        this.creationDate = creationDate;
+        this.creationDate = new Date();
         this.Name = Name;
-        this.deleted = deleted;
+        this.deleted = false;
     }
 
     @Column(name = "FilespacesUUID")

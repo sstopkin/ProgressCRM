@@ -27,23 +27,23 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Filespaces` (
 `Name` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 PRIMARY KEY (`id`) ,
-UNIQUE INDEX `UUIDFilespaceIndex` (`UUID` ASC) );
+UNIQUE INDEX `UUIDFilespaceIndex` (`FilespacesUUID` ASC) );
 
 -- -----------------------------------------------------
 -- Table `progresscrm`.`Files`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Files` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`FilesUUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`FileUUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `idFilespace` INT NOT NULL ,
 `idWorker` INT NOT NULL ,
 `CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
-FOREIGN KEY (idFilespace) REFERENCES Filespace(id),
+FOREIGN KEY (idFilespace) REFERENCES Filespaces(id),
 PRIMARY KEY (`id`) ,
-UNIQUE INDEX `UUIDFilesIndex` (`UUID` ASC) );
+UNIQUE INDEX `UUIDFilesIndex` (`FileUUID` ASC) );
 
 -- -----------------------------------------------------
 -- Table `progresscrm`.`Customers`
@@ -190,25 +190,13 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
 `IsApproved` TINYINT(1) NOT NULL DEFAULT false ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 
-`idFilespace` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`idFilespace` INT DEFAULT -1,
 
-FOREIGN KEY (idFilespace) REFERENCES Filespace(id),
+-- FOREIGN KEY (idFilespace) REFERENCES Filespaces(id),
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 FOREIGN KEY (idCustomer) REFERENCES Customers(id),
 PRIMARY KEY (`id`) ,
 INDEX `idCustomerIndex` (`idWorker` ASC));
-
--- -----------------------------------------------------
--- Table `progresscrm`.`ApartamentsPhoto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `progresscrm`.`ApartamentsPhoto` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`Filename` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`Description` MEDIUMTEXT CHARACTER SET utf8,
-`ApartamentsId` INT NOT NULL ,
-FOREIGN KEY (ApartamentsId) REFERENCES Apartaments(id),
-PRIMARY KEY (`id`) ,
-UNIQUE INDEX `FilenameIndex` (`Filename` ASC) );
 
 -- -----------------------------------------------------
 -- Table `progresscrm`.`HelpDesk`

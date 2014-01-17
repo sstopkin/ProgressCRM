@@ -57,4 +57,8 @@ public class DaoFactory {
     public static CustomersRentDao getCustomersRentDao(){
         return new CustomersRentDao();
     }
+    
+    public static FilespacesDao getFilespacesDao(){
+        return new FilespacesDao();
+    }
 }
