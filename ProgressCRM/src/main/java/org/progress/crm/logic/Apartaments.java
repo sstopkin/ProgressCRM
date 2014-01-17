@@ -49,6 +49,7 @@ public class Apartaments implements Serializable {
     private int idWorker;
     private int idCustomer;
     private boolean IsApproved;
+    private int idFilespace;
     private boolean deleted;
 
     public Apartaments() {
@@ -96,6 +97,16 @@ public class Apartaments implements Serializable {
         this.apartamentLon = apartamentLon;
         this.rooms = rooms;
         this.roomNumber = roomNumber;
+        this.idFilespace = -1;
+    }
+
+    @Column(name = "idFilespace")
+    public int getIdFilespace() {
+        return idFilespace;
+    }
+
+    public void setIdFilespace(int idFilespace) {
+        this.idFilespace = idFilespace;
     }
 
     @Column(name = "ApartamentLan")
