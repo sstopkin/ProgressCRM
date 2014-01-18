@@ -18,12 +18,12 @@ function parseUrl(str) {
         'relative', 'path', 'directory', 'file', 'query', 'fragment'],
             ini = (this.php_js && this.php_js.ini) || {},
             mode = (ini['phpjs.parse_url.mode'] &&
-            ini['phpjs.parse_url.mode'].local_value) || 'php',
+                    ini['phpjs.parse_url.mode'].local_value) || 'php',
             parser = {
-        php: /^(?:([^:\/?#]+):)?(?:\/\/()(?:(?:()(?:([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?()(?:(()(?:(?:[^?#\/]*\/)*)()(?:[^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-        strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-        loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/\/?)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/ // Added one optional slash to post-scheme to catch file:/// (should restrict this)
-    };
+                php: /^(?:([^:\/?#]+):)?(?:\/\/()(?:(?:()(?:([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?()(?:(()(?:(?:[^?#\/]*\/)*)()(?:[^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+                strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+                loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/\/?)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/ // Added one optional slash to post-scheme to catch file:/// (should restrict this)
+            };
 
     var m = parser[mode].exec(str),
             uri = {},
@@ -57,7 +57,7 @@ function parseUrl(str) {
     var pathApartaments = "apartaments";
     var pathCalls = "calls";
     var pathAdmin = "admin";
-    
+
     if (!uri.fragment) {
         getMainPage();
         return;
@@ -77,7 +77,7 @@ function parseUrl(str) {
         helpParseUrl(arr, "announcements");
         return;
     }
-    
+
     if (arr[0] == pathCustomersRent) {
         helpParseUrl(arr, "customersrent");
         return;
@@ -102,7 +102,7 @@ function parseUrl(str) {
         return;
     }
     if (arr[0] == pathApartaments) {
-        getApartamentsListPage();
+        helpParseUrl(arr, "apartaments");
         return;
     }
     if (arr[0] == pathCalls) {
@@ -148,7 +148,7 @@ function helpParseUrl(arr, type) {
             getAnnouncementsRentViewPage(arr[2]);
             return;
         }
-        
+
         if ((arr[1] == "view") && (type == "announcements")) {
             if (!arr[2]) {
                 showDanger();
@@ -157,7 +157,20 @@ function helpParseUrl(arr, type) {
             getAnnouncementsViewPage(arr[2]);
             return;
         }
+        if ((arr[1] == "view") && (type == "apartaments")) {
+            if (!arr[2]) {
+                showDanger();
+                return;
+            }
+            getApartamentViewPage(arr[2]);
+            return;
+        }
         
+        if ((arr[1] == "list") && (type == "apartaments"))
+        {
+            getApartamentsListPage();
+        }
+
 //        if ((arr[1] == "solve") && (type == "task")) {
 //            if (!arr[2]) {
 //                showDanger();

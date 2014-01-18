@@ -115,9 +115,8 @@ function getApartamentsListPage() {
                             break;
                     }
 
-
                     str += "<tr>";
-                    str += "<td><a href=\"#\" onclick=\"return getApartamentViewPage(" + entry.id + ")\">" + entry.id + "</a></td>";
+                    str += "<td><a href=\"#apartaments/view/"+entry.id+"\">" + entry.id + "</a></td>";
                     str += "<td>" + entry.shortAddress + "</td>";
                     str += "<td>" + entry.rooms + "</td>";
                     str += "<td>" + entry.sizeApartament + " / " + entry.sizeKitchen + " / " + entry.sizeLiving + "</td>";
