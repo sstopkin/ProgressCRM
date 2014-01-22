@@ -111,7 +111,6 @@ function addCustomer() {
         success: function(data) {
             location.reload();//FIXME
             $("#errorBlock").css("display", "none");
-            $('#addCourseBtn').css('display', 'block');
             getCustomersPage();
         },
         error: function(data) {

@@ -446,6 +446,7 @@ function addApartament() {
                     houseNumber: $('#apartamentBuilding').text(),
                     buildingNumber: $('#apartamentBuildingAdd').text(),
                     rooms: $('#Rooms').val(),
+                    //FIXME!!
                     kladrId: $('#Price').val(),
                     shortAddress: $('#address').text(),
                     apartamentLan: $("#apartamentLan").text(),
@@ -473,8 +474,6 @@ function addApartament() {
                 success: function(data) {
                     location.reload();//FIXME
                     $("#errorBlock").css("display", "none");
-                    $('#addCourseBtn').css('display', 'block');
-//                getCoursesPage();
                 },
                 error: function(data) {
                     showDanger(data.responseText);

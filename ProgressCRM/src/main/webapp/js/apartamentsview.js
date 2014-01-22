@@ -12,8 +12,6 @@ function getApartamentViewPage(apartamentId) {
                 var array = JSON.parse(data);
                 var content = "";
 
-                console.log(array.apartamentsPhotosList);
-
                 console.log(array.IsApproved);
                 console.log(array.deleted);
 
@@ -194,12 +192,12 @@ function getApartamentViewPage(apartamentId) {
                 $("#apartamentsFeatures").html(content);
 
 
-                var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartamentLan+","+array.apartamentLon+"&amp;spn="+array.apartamentLan+","+array.apartamentLon+"&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
+                var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
                 maps += "<br/>";
                 maps += "<small>";
-                maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll="+array.apartamentLan+","+array.apartamentLon+"&amp;spn="+array.apartamentLan+","+array.apartamentLon+"&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
+                maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
                 maps += "</small>";
-                
+
                 $("#mapApartamentsView").html(maps);
             },
             error: function(data) {
@@ -232,6 +230,47 @@ function getApartamentViewPage(apartamentId) {
             error: function(data) {
                 showDanger(data.responseText);
                 return false;
+            }
+        });
+    });
+}
+
+function apartamentsEditById(apartamentId) {
+    $.get("apartamentsadd.html", function(data) {
+        $("#mainContainer").html(data);
+        $.ajax({
+            type: "GET",
+            url: "api/apartament/getapartament?id=" + apartamentId,
+            success: function(data) {
+                $("#errorBlock").css("display", "none");
+                var array = JSON.parse(data);
+                $('#TypeOfSales').val(array.typeOfSales);
+                $('#apartamentCity').text(array.cityName);
+                $('#apartamentStreet').text(array.streetName);
+                $('#apartamentBuilding').text(array.houseNumber);
+                $('#apartamentBuildingAdd').text(array.buildingNumber);
+                $('#Rooms').val(array.rooms);
+                $('#address').text(array.shortAddress);
+                $("#apartamentLan").text(array.apartamentLan);
+                $("#apartamentLon").text(array.apartamentLon);
+                $('#Price').val(array.price);
+                $('#CityDistrict').val(array.citydistrict);
+                $('#Floor').val(array.floor);
+                $('#Floors').val(array.floors);
+                $('#RoomNumber').val(array.roomnumber);
+                $('#Material').val(array.material);
+                $('#SizeApartament').val(array.sizeapartament);
+                $('#SizeLiving').val(array.sizeliving);
+                $('#SizeKitchen').val(array.sizekitchen);
+                $('#Balcony').val(array.balcony);
+                $('#Loggia').val(array.loggia);
+                $('#YearOfConstruction').val(array.yearofconstruction);
+                $('#Description').val(array.description);
+//                    puresale: pursale
+//                    mortgage: mortgage
+//                    exchange: exchange
+//                    rent: rent
+//                    replanning: replanning
             }
         });
     });
