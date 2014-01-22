@@ -8,7 +8,6 @@ function submitCall() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            $('#addCourseBtn').css('display', 'block');
             location.reload();//FIXME
         },
         error: function(data) {
