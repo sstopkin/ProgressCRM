@@ -4,14 +4,15 @@ var map_created = false;
 function getApartamentViewPage(apartamentId) {
     $.get("apartamentsview.html", function(data) {
         $("#mainContainer").html(data);
+        var content = "";
+        var array;
         $.ajax({
             type: "GET",
             url: "api/apartament/getapartament?id=" + apartamentId,
+            async: false,
             success: function(data) {
                 $("#errorBlock").css("display", "none");
-                var array = JSON.parse(data);
-                var content = "";
-
+                array = JSON.parse(data);
                 console.log(array.IsApproved);
                 console.log(array.deleted);
 
@@ -151,14 +152,6 @@ function getApartamentViewPage(apartamentId) {
                 content += "Описание: " + array.description;
                 content += "</p>";
 
-                content += "<p>";
-                content += "Информация о клиенте: FIXME";//array.clientDescription
-                content += "</p>";
-                content += "<p>";
-                content += "Телефон клиента: FIXME";
-                content += "</p>";
-
-
 
                 content += "<p>";
                 content += "Объект добавлен: " + array.сreationDate;
@@ -187,11 +180,6 @@ function getApartamentViewPage(apartamentId) {
                 content += "Площадь жилая: " + array.sizeLiving;
                 content += "</p>";
 
-
-
-                $("#apartamentsFeatures").html(content);
-
-
                 var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
                 maps += "<br/>";
                 maps += "<small>";
@@ -203,6 +191,22 @@ function getApartamentViewPage(apartamentId) {
             error: function(data) {
                 showDanger(data.responseText);
                 return false;
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "api/customers/getcustomer?id=" + array.idCustomer,
+            async: false,
+            success: function(data) {
+                var array = JSON.parse(data);
+                content += "<p>";
+                content += "<b>Информация о владельце: </b>";//array.clientDescription
+                content += "</p>";
+                content += array.customersFname + " ";
+                content += array.customersMname + " ";
+                content += array.customersLname + " ";
+                content += array.customersPhone + " ";
+                content += "</p>";
             }
         });
         $.ajax({
@@ -232,6 +236,7 @@ function getApartamentViewPage(apartamentId) {
                 return false;
             }
         });
+        $("#apartamentsFeatures").html(content);
     });
 }
 
