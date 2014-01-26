@@ -250,32 +250,36 @@ function apartamentsEditById(apartamentId) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 $('#TypeOfSales').val(array.typeOfSales);
+                
                 $('#apartamentCity').text(array.cityName);
                 $('#apartamentStreet').text(array.streetName);
                 $('#apartamentBuilding').text(array.houseNumber);
                 $('#apartamentBuildingAdd').text(array.buildingNumber);
+                
                 $('#Rooms').val(array.rooms);
                 $('#address').text(array.shortAddress);
                 $("#apartamentLan").text(array.apartamentLan);
                 $("#apartamentLon").text(array.apartamentLon);
                 $('#Price').val(array.price);
-                $('#CityDistrict').val(array.citydistrict);
+                $('#CityDistrict').val(array.cityDistrict);
                 $('#Floor').val(array.floor);
                 $('#Floors').val(array.floors);
-                $('#RoomNumber').val(array.roomnumber);
+                $('#RoomNumber').val(array.roomNumber);
                 $('#Material').val(array.material);
-                $('#SizeApartament').val(array.sizeapartament);
-                $('#SizeLiving').val(array.sizeliving);
-                $('#SizeKitchen').val(array.sizekitchen);
+                $('#SizeApartament').val(array.sizeApartament);
+                $('#SizeLiving').val(array.sizeLiving);
+                $('#SizeKitchen').val(array.sizeKitchen);
                 $('#Balcony').val(array.balcony);
                 $('#Loggia').val(array.loggia);
-                $('#YearOfConstruction').val(array.yearofconstruction);
+                $('#YearOfConstruction').val(array.yearOfConstruction);
                 $('#Description').val(array.description);
-//                    puresale: pursale
-//                    mortgage: mortgage
-//                    exchange: exchange
-//                    rent: rent
-//                    replanning: replanning
+                $('#IdCustomer').val(array.idCustomer);
+                
+                $('#PureSale').prop("checked", array.MethodOfPurchase_PureSale);
+                $('#Mortgage').prop("checked", array.MethodOfPurchase_Mortgage);
+                $('#Exchange').prop("checked", array.MethodOfPurchase_Exchange);
+                $('#Rent').prop("checked", array.MethodOfPurchase_Rent);
+                $('#RePlanning').prop("checked", array.rePplanning);
             }
         });
     });
