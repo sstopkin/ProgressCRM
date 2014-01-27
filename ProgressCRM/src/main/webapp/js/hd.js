@@ -16,7 +16,7 @@ function getHelpDeskPage() {
                 array.forEach(function(entry) {
                     str += "<div class = \"media\">";
                     str += "<a class = \"pull-left\" href = \"#\">";
-                    str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
+                    str += "<img class=\"media-object\" src=\"images/apple2.png\" alt=\"...\">";
                     str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h6 class=\"media-heading\">";

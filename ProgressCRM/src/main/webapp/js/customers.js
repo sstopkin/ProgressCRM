@@ -36,11 +36,11 @@ function getCustomersPage() {
 //                    }
                     str += "</div>";
                     str += "<a class = \"pull-left\" href = \"#\">";
-                    str += "<img class=\"media-object\" src=\"images/gnome.png\" alt=\"...\">";
+                    str += "<img class=\"media-object\" src=\"images/stern.png\" alt=\"...\">";
                     str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
-                    str += entry.id + " ";
+                    str += "<b>"+ entry.id + "</b> ";
                     str += "</h4>";
                     str +=
                             +entry.customersAddress + " "
