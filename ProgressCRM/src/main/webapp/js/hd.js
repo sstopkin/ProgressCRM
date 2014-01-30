@@ -19,28 +19,25 @@ function getHelpDeskPage() {
                     str += "<img class=\"media-object\" src=\"images/apple2.png\" alt=\"...\">";
                     str += "</a>";
                     str += "<div class=\"media-body\">";
-                    str += "<h6 class=\"media-heading\">";
-                    str += entry.creationDate;
-                    str += "</h4>";
-                    str += "<h4 class=\"media-heading\">";
+                    str += "<h4 class=\"media-heading\"><b>";
                     str += entry.request;
-                    str += "</h4>";
-                    str += entry.text;
-                    if (permissions == "3") {
-                        str += "<div class=\"btn-toolbar\">";
-                        str += "<div class=\"btn-group\">";
-                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
+                    str += "</b>  ";
+                    if (permissions === "3") {
+///                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
                         str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-                        str += "</div>";
-                        str += "</div>";
                     }
+                    str += "</h4>";
+                    str += "<h5 class=\"media-heading\">";
+                    str += entry.creationDate;
+                    str += "</h5>";
+                    str += entry.text;
                     for (var i = 0; i < workersList.length; ++i) {
                         var a = workersList[i];
-                        if (entry.idWorker == a[0]) {
-                            str += "<td>" + a[1] + " " + a[3] + "</td>";
+                        if (entry.idWorker === a[0]) {
+                            str += "<p><i>" + a[1] + " " + a[3] + "</i></p>";
                         }
                     }
-                    str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
+//                    str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
                     str += "</div>";
                     str += "</div>";
                 });
@@ -64,8 +61,7 @@ function addHelpDeskRequest() {
             text: $('#hdText').val()
         }),
         success: function(data) {
-            $("#errorBlock").css("display", "none");
-            document.location.href = "#helpdesk";
+            location.reload();
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -74,13 +70,12 @@ function addHelpDeskRequest() {
 }
 
 function deleteHelpDeskRequestById(hdRequestId) {
-    console.log("deleteHelpDeskRequestById " + hdRequestId);
     $.ajax({
         type: "POST",
-        url: "api/news/deletenews",
+        url: "api/helpdesk/deleterequest",
         data: ({id: hdRequestId}),
         success: function(data) {
-            document.location.href = "#helpdesk";
+            location.reload();
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");

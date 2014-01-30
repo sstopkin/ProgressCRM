@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
+import org.progress.crm.logic.DbFields;
 import org.progress.crm.logic.HelpDeskRequest;
 
 public class HelpDeskDao {
@@ -26,7 +28,9 @@ public class HelpDeskDao {
     }
 
     public List<HelpDeskRequest> getAllHelpDeskRequests(final Session session) throws SQLException, CustomException {
-        List<HelpDeskRequest> list = session.createCriteria(HelpDeskRequest.class).list();
+        List<HelpDeskRequest> list = session.createCriteria(HelpDeskRequest.class)
+                .add(Restrictions.eq(DbFields.HELPDESK.DELETED, false))
+                .list();
         return list;
     }
 

@@ -96,4 +96,8 @@ public class DbFields {
         public final static String CREATIONDATE = "creationDate";
         public final static String STATUS = "status";
     }
+    
+    public class HELPDESK {
+        public final static String DELETED = "deleted";
+    }
 }
