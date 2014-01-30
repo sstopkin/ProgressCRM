@@ -1,4 +1,3 @@
-var transfer;
 var type;
 var workersList = null;
 var taskStatusListJSON = "[[0,\"Нет статуса\"],[1,\"Новый\"],[2,\"В работе\"],[3,\"Прогресс\"],[4,\"Заселился\"]]";
@@ -88,38 +87,31 @@ function getNews() {
     }).responseText;
     $.get("api/news", function(data) {
         var str = "<table class=\"table\"><tbody>\n";
-        var ids = [];
         var list = JSON.parse(data);
         for (var i = 0; i < list.length; ++i) {
-            ids[i] = list[i].id;
             str += "<tr><td>";
-            str += "<h3>" + list[i].header + "</h3>";
-            str += "<div class=\"row\">";
-            str += "<div class=\"col-md-7 col-md-offset-1\">";
+            str += "<p>" + list[i].lastModify + "</p>";
+            str += "<h3><b>";
             if (permissions == "3") {
-                str += "<div class=\"btn-toolbar\">";
-                str += "<div class=\"btn-group\">";
-
                 str += "<button type=\"button\" onclick=\"editNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
                 str += "<button type=\"button\" onclick=\"deleteNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-
-                str += "</div>";
-                str += "</div>";
             }
+            str += list[i].header + "</b>"
+            str += "</h3>";
+            str += "<div class=\"row\">";
+            str += "<div class=\"col-md-7 col-md-offset-1\">";
             str += "<p>" + list[i].text + "</p>";
-            str += "</div>";
             for (var it = 0; it < workersList.length; ++it) {
                 var a = workersList[it];
                 if (list[i].idWorker == a[0]) {
-                    str += "<p>" + a[1] + a[3] + "</p>";
+                    str += "<p><i>" + a[1] + a[3] + "</i></p>";
                 }
             }
-            str += "<p>" + list[i].lastModify + "</p>";
+            str += "</div>";
             str += "</div>";
             str += "</tr></td>";
         }
         str += "\n</tbody>\n</table>\n";
-        transfer = ids;
         $("#news").html(str);
     });
 }
@@ -139,7 +131,7 @@ function addNews() {
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            getMainPage();
+            location.reload();
         },
         error: function(data) {
             showDanger(data.responseText);
