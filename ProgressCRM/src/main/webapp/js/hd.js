@@ -19,13 +19,14 @@ function getHelpDeskPage() {
                     str += "<img class=\"media-object\" src=\"images/apple2.png\" alt=\"...\">";
                     str += "</a>";
                     str += "<div class=\"media-body\">";
-                    str += "<h4 class=\"media-heading\"><b>";
-                    str += entry.request;
-                    str += "</b>  ";
+                    str += "<h4 class=\"media-heading\">";
+                    str += "<b>";
                     if (permissions === "3") {
 ///                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
                         str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
                     }
+                    str += entry.request;
+                    str += "</b>";
                     str += "</h4>";
                     str += "<h5 class=\"media-heading\">";
                     str += entry.creationDate;
