@@ -104,7 +104,7 @@ function getNews() {
             for (var it = 0; it < workersList.length; ++it) {
                 var a = workersList[it];
                 if (list[i].idWorker == a[0]) {
-                    str += "<p><i>" + a[1] + a[3] + "</i></p>";
+                    str += "<p><i>" + a[3] +" "+ a[1] + "</i></p>";
                 }
             }
             str += "</div>";

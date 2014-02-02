@@ -44,9 +44,9 @@ $(document).ready(function() {
                 document.cookie = "token=; expires=" + cookie_date.toGMTString();
                 $("#logged").css("display", "none");
                 $("#loginForm").css("display", "block");
-                getMainPage();
-                location.hash = "";
                 $('#adminTabLink').css("display", "none");
+                location.hash = "";
+                location.reload();
             },
             error: function(data) {
                 showDanger(data.responseText);
