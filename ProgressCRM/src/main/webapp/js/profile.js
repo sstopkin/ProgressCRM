@@ -80,8 +80,9 @@ function getProfilePage() {
 
                 var value = JSON.parse(data);
                 $("#profileEmail").html(value.email);
-                $("#profileName").html(value.name);
-                $("#profileLName").html(value.lname);
+                $("#profileFName").html(value.fName);
+                $("#profileMName").html(value.mName);
+                $("#profileLName").html(value.lName);
                 $("#profilePoints").html(value.points);
                 plannerGetWorkersTasks();
             },
