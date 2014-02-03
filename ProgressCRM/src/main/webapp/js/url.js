@@ -68,48 +68,48 @@ function parseUrl(str) {
         return;
     }
 
-    if (arr[0] == pathAnnouncementsRent) {
-        helpParseUrl(arr, "announcementsrent");
+    if (arr[0] === pathAnnouncementsRent) {
+        helpParseUrl(uri, arr, "announcementsrent");
         return;
     }
 
-    if (arr[0] == pathAnnouncements) {
-        helpParseUrl(arr, "announcements");
+    if (arr[0] === pathAnnouncements) {
+        helpParseUrl(uri, arr, "announcements");
         return;
     }
 
-    if (arr[0] == pathCustomersRent) {
-        helpParseUrl(arr, "customersrent");
+    if (arr[0] === pathCustomersRent) {
+        helpParseUrl(uri, arr, "customersrent");
         return;
     }
 
-    if (arr[0] == pathAbout) {
+    if (arr[0] === pathAbout) {
         getAboutPage();
         return;
     }
 
-    if (arr[0] == pathHelpDesk) {
+    if (arr[0] === pathHelpDesk) {
         getHelpDeskPage();
         return;
     }
 
-    if (arr[0] == pathCustomers) {
+    if (arr[0] === pathCustomers) {
         getCustomersPage();
         return;
     }
-    if (arr[0] == pathProfile) {
+    if (arr[0] === pathProfile) {
         getProfilePage();
         return;
     }
-    if (arr[0] == pathApartaments) {
-        helpParseUrl(arr, "apartaments");
+    if (arr[0] === pathApartaments) {
+        helpParseUrl(uri, arr, "apartaments");
         return;
     }
-    if (arr[0] == pathCalls) {
+    if (arr[0] === pathCalls) {
         getCallsPage();
         return;
     }
-    if (arr[0] == pathAdmin) {
+    if (arr[0] === pathAdmin) {
         getAdminPage();
         return;
     }
@@ -121,26 +121,26 @@ function trim(str) {
     return str.replace(/"/g, "");
 }
 
-function helpParseUrl(arr, type) {
+function helpParseUrl(uri, arr, type) {
     if (!arr[1]) {
-        if (type == "announcementsrent") {
+        if (type === "announcementsrent") {
             getАnnouncementsRentPage();
             return;
         }
 
-        if (type == "announcements") {
+        if (type === "announcements") {
             getАnnouncementsPage();
             return;
         }
-        if (type == "customersrent") {
+        if (type === "customersrent") {
             getCustomersRentPage();
             return;
         }
-        get404Page();
+        get404Page(uri);
         return;
     }
     else {
-        if ((arr[1] == "view") && (type == "announcementsrent")) {
+        if ((arr[1] === "view") && (type === "announcementsrent")) {
             if (!arr[2]) {
                 showDanger();
                 return;
@@ -149,7 +149,7 @@ function helpParseUrl(arr, type) {
             return;
         }
 
-        if ((arr[1] == "view") && (type == "announcements")) {
+        if ((arr[1] === "view") && (type === "announcements")) {
             if (!arr[2]) {
                 showDanger();
                 return;
@@ -157,7 +157,7 @@ function helpParseUrl(arr, type) {
             getAnnouncementsViewPage(arr[2]);
             return;
         }
-        if ((arr[1] == "view") && (type == "apartaments")) {
+        if ((arr[1] === "view") && (type === "apartaments")) {
             if (!arr[2]) {
                 showDanger();
                 return;
@@ -165,12 +165,34 @@ function helpParseUrl(arr, type) {
             getApartamentViewPage(arr[2]);
             return;
         }
-        
-        if ((arr[1] == "list") && (type == "apartaments"))
+
+        if ((arr[1] === "list") && (type === "apartaments"))
         {
             getApartamentsListPage();
         }
+        get404Page(uri);
+        return;
+    }
+}
 
+function get404Page(uri) {
+    console.log(uri);
+    $.get("404.html", function(data) {
+        $("#mainContainer").html(data);
+        //FIXME
+        $("#currentLocation").text();
+        location.hash = "404";
+    });
+}
+
+$(document).ready(function() {
+    $(window).bind('hashchange', function() {
+        $('#ajaxProgress').css('display', 'none');
+        $("#errorBlock").css("display", "none");
+        checkStatus();
+        parseUrl(location.hash);
+    });
+});
 //        if ((arr[1] == "solve") && (type == "task")) {
 //            if (!arr[2]) {
 //                showDanger();
@@ -215,28 +237,3 @@ function helpParseUrl(arr, type) {
 //            getListByTag(type, afterDecoding, 0);
 //            return;
 //        }
-    }
-    get404Page();
-    return;
-}
-
-function get404Page() {
-    $.get("404.html", function(data) {
-        $("#tags").css("display", "none");
-        $("#mainContainer").html(data);
-        $("#currentLocation").text(location.href);
-    });
-}
-
-$(document).ready(function() {
-    $(window).bind('hashchange', function() {
-        $('#ajaxProgress').css('display', 'none');
-        $("#errorBlock").css("display", "none");
-        checkStatus();
-        parseUrl(location.hash);
-    });
-});
-
-
-
-
