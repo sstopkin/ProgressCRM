@@ -1,8 +1,4 @@
 $(document).ready(function() {
-    $("#profileLink").click(function(e) {
-        e.preventDefault();
-        getProfilePage("profile");
-    });
     $("#chngPwdBtn").click(function() {
         if ($("#chngPassword").val() == $("#chngPasswordCurrent").val()) {
             $("#chngPwdErr").html("Новый пароль не должен совпадать с текущим");
