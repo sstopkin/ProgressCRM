@@ -169,6 +169,7 @@ function helpParseUrl(uri, arr, type) {
         if ((arr[1] === "list") && (type === "apartaments"))
         {
             getApartamentsListPage();
+            return;
         }
         get404Page(uri);
         return;
