@@ -1,7 +1,9 @@
 package org.progress.crm.logic;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "News")
@@ -22,6 +25,22 @@ public class News implements Serializable {
     private Date creationDate;
     private Date lastModify;
     private boolean deleted;
+    private String formattedCreationDate;
+    private String formattedLastModifyDate;
+
+    @Transient
+    public String getFormattedCreationDate() {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+        this.formattedCreationDate = df.format(this.creationDate);
+        return this.formattedCreationDate;
+    }
+
+    @Transient
+    public String getFormattedLastModifyDate() {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+        this.formattedLastModifyDate = df.format(this.lastModify);
+        return this.formattedLastModifyDate;
+    }
 
     public News() {
     }
