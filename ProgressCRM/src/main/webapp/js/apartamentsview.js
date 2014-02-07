@@ -35,7 +35,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                content += "Адрес "
+                content += "Адрес: "
                         + array.cityName + " "
                         + array.streetName + " "
                         + array.houseNumber + " "
@@ -44,11 +44,11 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                content += "Количество комнат " + array.rooms;
+                content += "Количество комнат: " + array.rooms;
                 content += "</p>";
 
                 content += "<p>";
-                content += "Цена = " + array.price;
+                content += "Цена: " + array.price;
                 content += "</p>";
 
                 if (array.MethodOfPurchase_Mortgage) {
@@ -105,16 +105,21 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
                 content += "<p>";
                 content += "Балкон: ";
-                if (array.balcony != 0) {
+                if (array.balcony === 0) {
+                    content += "Нет";
+                }
+                else {
                     content += array.balcony;
                 }
                 content += "</p>";
 
                 content += "<p>";
                 content += "Лоджия: ";
-                if (array.loggia != 0) {
+                if (array.loggia === 0) {
+                    content += "Нет";
+                }
+                else {
                     content += array.loggia;
-
                 }
                 content += "</p>";
 
@@ -250,12 +255,12 @@ function apartamentsEditById(apartamentId) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 $('#TypeOfSales').val(array.typeOfSales);
-                
+
                 $('#apartamentCity').text(array.cityName);
                 $('#apartamentStreet').text(array.streetName);
                 $('#apartamentBuilding').text(array.houseNumber);
                 $('#apartamentBuildingAdd').text(array.buildingNumber);
-                
+
                 $('#Rooms').val(array.rooms);
                 $('#address').text(array.shortAddress);
                 $("#apartamentLan").text(array.apartamentLan);
@@ -274,7 +279,7 @@ function apartamentsEditById(apartamentId) {
                 $('#YearOfConstruction').val(array.yearOfConstruction);
                 $('#Description').val(array.description);
                 $('#IdCustomer').val(array.idCustomer);
-                
+
                 $('#PureSale').prop("checked", array.MethodOfPurchase_PureSale);
                 $('#Mortgage').prop("checked", array.MethodOfPurchase_Mortgage);
                 $('#Exchange').prop("checked", array.MethodOfPurchase_Exchange);
