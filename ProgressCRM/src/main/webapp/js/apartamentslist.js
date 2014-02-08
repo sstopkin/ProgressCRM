@@ -5,7 +5,7 @@ function getApartamentsListPage() {
             url: "api/auth/validate",
             async: false
         }).responseText;
-        if ((permissions == "3") || (permissions == "2")) {
+        if ((permissions === "3") || (permissions === "2")) {
             $("#addApartamentBtn").css("display", "block");
             $("#genApartamentsPriceBtn").css("display", "block");
         } else {
@@ -41,38 +41,6 @@ function getApartamentsListPage() {
                 str += "</thead>";
                 str += "<tbody>";
 
-//IsApproved: false
-//MethodOfPurchase_Exchange: false
-//MethodOfPurchase_Mortgage: false
-//MethodOfPurchase_PureSale: false
-//MethodOfPurchase_Rent: false
-//balcony: 0
-//buildingNumber: ""
-//cityDistrict: 5
-//cityName: "г. Омск"
-//deleted: false
-//description: "текст"
-//floor: 1
-//floors: 5
-//houseNumber: "д. 92"
-//id: 4
-//idCustomer: 1
-//idWorker: 2
-//kladrId: "123"
-//lastModify: "Sep 23, 2013 12:44:16 PM"
-//loggia: 0
-//material: 2
-//price: 123
-//rePplanning: false
-//roomNumber: 1
-//rooms: 3
-//shortAddress: "644089, г. Омск, пр-кт. Мира, д. 92"
-//sizeApartament: 234
-//sizeKitchen: 23
-//sizeLiving: 123
-//streetName: "пр-кт. Мира"
-//typeOfSales: 2
-//yearOfConstruction: 124
                 var flag1 = false;
                 var flag2 = false;
                 var flag3 = false;
@@ -80,7 +48,6 @@ function getApartamentsListPage() {
                 var flag5 = false;
 
                 array.forEach(function(entry) {
-
                     switch (entry.rooms) {
                         case 1:
                             if (flag1 == false) {
@@ -165,4 +132,49 @@ function apartamentsDeleteById(apartamentsId) {
         }
     });
     return false;
+}
+
+function apartamentsEditById(apartamentId) {
+    $.get("apartamentsadd.html", function(data) {
+        $("#mainContainer").html(data);
+        $.ajax({
+            type: "GET",
+            url: "api/apartament/getapartament?id=" + apartamentId,
+            success: function(data) {
+                $("#errorBlock").css("display", "none");
+                var array = JSON.parse(data);
+                $('#TypeOfSales').val(array.typeOfSales);
+
+                $('#apartamentCity').text(array.cityName);
+                $('#apartamentStreet').text(array.streetName);
+                $('#apartamentBuilding').text(array.houseNumber);
+                $('#apartamentBuildingAdd').text(array.buildingNumber);
+
+                $('#Rooms').val(array.rooms);
+                $('#address').text(array.shortAddress);
+                $("#apartamentLan").text(array.apartamentLan);
+                $("#apartamentLon").text(array.apartamentLon);
+                $('#Price').val(array.price);
+                $('#CityDistrict').val(array.cityDistrict);
+                $('#Floor').val(array.floor);
+                $('#Floors').val(array.floors);
+                $('#RoomNumber').val(array.roomNumber);
+                $('#Material').val(array.material);
+                $('#SizeApartament').val(array.sizeApartament);
+                $('#SizeLiving').val(array.sizeLiving);
+                $('#SizeKitchen').val(array.sizeKitchen);
+                $('#Balcony').val(array.balcony);
+                $('#Loggia').val(array.loggia);
+                $('#YearOfConstruction').val(array.yearOfConstruction);
+                $('#Description').val(array.description);
+                $('#IdCustomer').val(array.idCustomer);
+
+                $('#PureSale').prop("checked", array.MethodOfPurchase_PureSale);
+                $('#Mortgage').prop("checked", array.MethodOfPurchase_Mortgage);
+                $('#Exchange').prop("checked", array.MethodOfPurchase_Exchange);
+                $('#Rent').prop("checked", array.MethodOfPurchase_Rent);
+                $('#RePlanning').prop("checked", array.rePplanning);
+            }
+        });
+    });
 }
