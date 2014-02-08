@@ -62,7 +62,7 @@ function addApartament() {
                 token: KLADR_token,
                 key: KLADR_key,
                 value: city.val(),
-                type: $.ui.kladrObjectType.CITY,
+                type: $.ui.kladrObjectType.CITY
             }, function(obj) {
                 if (obj) {
                     city.val(obj.name);
@@ -88,7 +88,7 @@ function addApartament() {
                 token: KLADR_token,
                 key: KLADR_key,
                 value: street.val(),
-                type: $.ui.kladrObjectType.STREET,
+                type: $.ui.kladrObjectType.STREET
             };
 
             var cityObj = city.data("kladr-obj");
@@ -121,7 +121,7 @@ function addApartament() {
                 token: KLADR_token,
                 key: KLADR_key,
                 value: building.val(),
-                type: $.ui.kladrObjectType.BUILDING,
+                type: $.ui.kladrObjectType.BUILDING
             };
 
             var cityObj = city.data("kladr-obj");
@@ -262,7 +262,7 @@ function addApartament() {
                     map.setCenter(position, zoom);
                 });
             }
-        }
+        };
 
 // Обновляет текстовое представление адреса
         var AddressUpdate = function() {
@@ -396,46 +396,6 @@ function addApartament() {
                 $("#errorBlock").css("display", "block");
                 return false;
             }
-            var pursale;
-            $("#PureSale").click(function() {
-                if (document.getElementById("PureSale").checked) {
-                    pursale = true;
-                } else {
-                    pursale = false;
-                }
-            });
-            var mortgage;
-            $("#Mortgage").click(function() {
-                if (document.getElementById("Mortgage").checked) {
-                    mortgage = true;
-                } else {
-                    mortgage = false;
-                }
-            });
-            var exchange;
-            $("#Exchange").click(function() {
-                if (document.getElementById("Exchange").checked) {
-                    exchange = true;
-                } else {
-                    exchange = false;
-                }
-            });
-            var rent;
-            $("#Rent").click(function() {
-                if (document.getElementById("Rent").checked) {
-                    rent = true;
-                } else {
-                    rent = false;
-                }
-            });
-            var replanning;
-            $("#RePlanning").click(function() {
-                if (document.getElementById("RePlanning").checked) {
-                    replanning = true;
-                } else {
-                    replanning = false;
-                }
-            });
             $.ajax({
                 type: "POST",
                 url: "api/apartament/addapartament",
@@ -464,11 +424,11 @@ function addApartament() {
                     loggia: $('#Loggia').val(),
                     yearofconstruction: $('#YearOfConstruction').val(),
                     description: $('#Description').val(),
-                    puresale: pursale,
-                    mortgage: mortgage,
-                    exchange: exchange,
-                    rent: rent,
-                    replanning: replanning,
+                    puresale: $('#PureSale').prop("checked"),
+                    mortgage: $('#Mortgage').prop("checked"),
+                    exchange: $('#Exchange').prop("checked"),
+                    rent: $('#Rent').prop("checked"),
+                    replanning: $('#RePlanning').prop("checked"),
                     idCustomer: $("#IdCustomer").val()
                 }),
                 success: function(data) {
