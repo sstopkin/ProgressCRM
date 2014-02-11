@@ -1,10 +1,12 @@
 package org.progress.crm.controllers;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.faces.convert.BigDecimalConverter;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
@@ -45,8 +47,8 @@ public class ApartamentsController {
                 cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress,
                 apartamentLan, apartamentLon, Integer.valueOf(rooms),
                 Integer.valueOf(price), Integer.valueOf(cityDistrict), Integer.valueOf(floor),
-                Integer.valueOf(floors), Integer.valueOf(roomNumber), Integer.valueOf(material), Integer.valueOf(sizeApartament),
-                Integer.valueOf(sizeLiving), Integer.valueOf(sizeKitchen), Integer.valueOf(balcony),
+                Integer.valueOf(floors), Integer.valueOf(roomNumber), Integer.valueOf(material), new BigDecimal(sizeApartament),
+                new BigDecimal(sizeLiving), new BigDecimal(sizeKitchen), Integer.valueOf(balcony),
                 Integer.valueOf(loggia), Integer.valueOf(yearOfConstruction), description,
                 Boolean.parseBoolean(pureSale), Boolean.parseBoolean(mortgage),
                 Boolean.parseBoolean(exchange), Boolean.parseBoolean(rent),
@@ -85,9 +87,9 @@ public class ApartamentsController {
         apartaments.setMethodOfPurchase_Rent(Boolean.parseBoolean(rent));
         apartaments.setPrice(Integer.valueOf(price));
         apartaments.setRePplanning(Boolean.parseBoolean(rePlanning));
-        apartaments.setSizeApartament(Integer.valueOf(sizeApartament));
-        apartaments.setSizeKitchen(Integer.valueOf(sizeKitchen));
-        apartaments.setSizeLiving(Integer.valueOf(sizeLiving));
+        apartaments.setSizeApartament(new BigDecimal(sizeApartament));
+        apartaments.setSizeKitchen(new BigDecimal(sizeKitchen));
+        apartaments.setSizeLiving(new BigDecimal(sizeLiving));
         apartaments.setTypeOfSales(Integer.valueOf(typeOfSales));
         apartaments.setYearOfConstruction(Integer.valueOf(yearOfConstruction));
         DaoFactory.getApartamentsDao().modifyApartament(session, apartaments);

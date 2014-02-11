@@ -1,6 +1,7 @@
 package org.progress.crm.logic;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,9 +33,9 @@ public class Apartaments implements Serializable {
     private int floors;
     private int roomNumber;
     private int material;
-    private int sizeApartament;
-    private int sizeLiving;
-    private int sizeKitchen;
+    private BigDecimal sizeApartament;
+    private BigDecimal sizeLiving;
+    private BigDecimal sizeKitchen;
     private int balcony;
     private int loggia;
     private int yearOfConstruction;
@@ -58,8 +59,8 @@ public class Apartaments implements Serializable {
     public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber,
             String buildingNumber, String kladrId, String shortAddress, String apartamentLan, String apartamentLon,
             int rooms, int price,
-            int cityDistrict, int floor, int floors, int roomNumber, int material, int sizeApartament,
-            int sizeLiving, int sizeKitchen, int balcony, int loggia, int yearOfConstruction,
+            int cityDistrict, int floor, int floors, int roomNumber, int material, BigDecimal sizeApartament,
+            BigDecimal sizeLiving, BigDecimal sizeKitchen, int balcony, int loggia, int yearOfConstruction,
             String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
             boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning,
             int idWorker, int idCustomer, boolean IsApproved) {
@@ -293,29 +294,29 @@ public class Apartaments implements Serializable {
     }
 
     @Column(name = "SizeApartament")
-    public int getSizeApartament() {
+    public BigDecimal getSizeApartament() {
         return sizeApartament;
     }
 
-    public void setSizeApartament(int sizeApartament) {
+    public void setSizeApartament(BigDecimal sizeApartament) {
         this.sizeApartament = sizeApartament;
     }
 
     @Column(name = "SizeLiving")
-    public int getSizeLiving() {
+    public BigDecimal getSizeLiving() {
         return sizeLiving;
     }
 
-    public void setSizeLiving(int sizeLiving) {
+    public void setSizeLiving(BigDecimal sizeLiving) {
         this.sizeLiving = sizeLiving;
     }
 
     @Column(name = "SizeKitchen")
-    public int getSizeKitchen() {
+    public BigDecimal getSizeKitchen() {
         return sizeKitchen;
     }
 
-    public void setSizeKitchen(int sizeKitchen) {
+    public void setSizeKitchen(BigDecimal sizeKitchen) {
         this.sizeKitchen = sizeKitchen;
     }
 

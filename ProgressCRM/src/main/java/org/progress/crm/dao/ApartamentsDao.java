@@ -1,5 +1,6 @@
 package org.progress.crm.dao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
@@ -15,7 +16,7 @@ public class ApartamentsDao {
             String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress,
             String apartamentLan, String apartamentLon, int rooms,
             int price, int cityDistrict, int floor, int floors, int roomNumber, int material,
-            int sizeApartament, int sizeLiving, int sizeKitchen, int balcony,
+            BigDecimal sizeApartament, BigDecimal sizeLiving, BigDecimal sizeKitchen, int balcony,
             int loggia, int yearOfConstruction, String description,
             boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
             boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent,
