@@ -103,7 +103,7 @@ public class PDF {
 
     private static void createTable(Section subCatPart, List<Apartaments> aparts)
             throws BadElementException, DocumentException, IOException {
-        PdfPTable table = new PdfPTable(6);//3
+        PdfPTable table = new PdfPTable(5);
 
 //        table.setBorderColor(BaseColor.GRAY);
 //        table.setPadding(4);
@@ -133,18 +133,17 @@ public class PDF {
         table.addCell(c1);
         table.setHeaderRows(1);
 
-        c1 = new PdfPCell(new Phrase("Телефон клиента", new Font(tahoma, 14)));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-        table.setHeaderRows(1);
+//        c1 = new PdfPCell(new Phrase("Телефон клиента", new Font(tahoma, 14)));
+//        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//        table.addCell(c1);
+//        table.setHeaderRows(1);
 
         for (int i = 0; i < aparts.size(); i++) {
-            table.addCell(aparts.get(i).getCityName());
-            table.addCell(aparts.get(i).getStreetName());
-            table.addCell(aparts.get(i).getHouseNumber());
-            table.addCell(aparts.get(i).getDescription());
-            table.addCell(String.valueOf(aparts.get(i).getPrice()));
-            //FIXME
+            table.addCell(new Phrase(aparts.get(i).getCityName(),new Font(tahoma, 14)));
+            table.addCell(new Phrase(aparts.get(i).getStreetName(),new Font(tahoma, 14)));
+            table.addCell(new Phrase(aparts.get(i).getHouseNumber(),new Font(tahoma, 14)));
+            table.addCell(new Phrase(aparts.get(i).getDescription(),new Font(tahoma, 14)));
+            table.addCell(new Phrase(String.valueOf(aparts.get(i).getPrice()),new Font(tahoma, 14)));
 //            table.addCell(aparts.get(i).getClientPhone());
         }
 

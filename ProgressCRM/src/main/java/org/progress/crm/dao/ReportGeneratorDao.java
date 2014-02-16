@@ -14,14 +14,14 @@ public class ReportGeneratorDao {
     public File priceGen(Session session, int idWorker) throws CustomException, SQLException {
         List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session);
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
-        String workerName = worker.getlName() + " " + worker.getmName() + " " + worker.getfName();
+        String workerName = worker.getlName() + " " + worker.getfName() + " " + worker.getmName();
         return PDF.GeneratePrice(apartaments, workerName);
     }
 
     public File apartamentsPageGen(Session session, Integer apartamentsId, int idWorker) throws CustomException, SQLException {
         Apartaments apartament = DaoFactory.getApartamentsDao().getApartamentsById(session, apartamentsId);
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
-        String workerName = worker.getlName() + " " + worker.getmName() + " " + worker.getfName();
+        String workerName = worker.getlName() + " " + worker.getfName() + " " + worker.getmName();
         return PDF.GenerateApartamentsPage(apartament, workerName);
     }
 }
