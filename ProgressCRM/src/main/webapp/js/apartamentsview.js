@@ -190,6 +190,7 @@ function getApartamentViewPage(apartamentId) {
                 maps += "<small>";
                 maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
                 maps += "</small>";
+                maps += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-primary pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
 
                 $("#mapApartamentsView").html(maps);
             },

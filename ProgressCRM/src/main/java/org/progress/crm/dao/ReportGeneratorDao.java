@@ -21,7 +21,7 @@ public class ReportGeneratorDao {
     public File apartamentsPageGen(Session session, Integer apartamentsId, int idWorker) throws CustomException, SQLException {
         Apartaments apartament = DaoFactory.getApartamentsDao().getApartamentsById(session, apartamentsId);
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
-        String workerName = worker.getfName() + " " + worker.getmName() + " " + worker.getlName();
+        String workerName = worker.getlName() + " " + worker.getmName() + " " + worker.getfName();
         return PDF.GenerateApartamentsPage(apartament, workerName);
     }
 }
