@@ -14,7 +14,7 @@ public class ReportGeneratorDao {
     public File priceGen(Session session, int idWorker) throws CustomException, SQLException {
         List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session);
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
-        String workerName = worker.getfName() + " " + worker.getmName() + " " + worker.getlName();
+        String workerName = worker.getlName() + " " + worker.getmName() + " " + worker.getfName();
         return PDF.GeneratePrice(apartaments, workerName);
     }
 
