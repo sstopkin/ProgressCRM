@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.faces.convert.BigDecimalConverter;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
