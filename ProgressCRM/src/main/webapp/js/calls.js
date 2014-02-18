@@ -4,6 +4,7 @@ function submitCall() {
         url: "api/calls/addcall",
         data: ({
             id: $("#apartamentsAddCallApartamentId").val(),
+            incomingPhoneNumber: $("#apartamentsAddCallIncomingPhoneNumber").val(),
             description: $('#apartamentsAddCallDescription').val()
         }),
         success: function(data) {

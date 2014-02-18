@@ -27,7 +27,7 @@ public class CallsController {
         return DaoFactory.getCallsDao().getCustomerCallsByApartamentsId(session, Integer.valueOf(apartamentsId));
     }
 
-    public boolean addCallsByApartsId(Session session, String token, String apartamentsId, String description) throws CustomException, SQLException {
+    public boolean addCallsByApartsId(Session session, String token, String apartamentsId, String incomingPhoneNumber, String description) throws CustomException, SQLException {
         if (apartamentsId == null || apartamentsId.equals("")) {
             throw new BadRequestException();
         }
@@ -37,7 +37,7 @@ public class CallsController {
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
 
-        DaoFactory.getCallsDao().addCustomerCall(session, Integer.valueOf(apartamentsId), description, idWorker);
+        DaoFactory.getCallsDao().addCustomerCall(session, Integer.valueOf(apartamentsId), incomingPhoneNumber, description, idWorker);
         return true;
     }
 //

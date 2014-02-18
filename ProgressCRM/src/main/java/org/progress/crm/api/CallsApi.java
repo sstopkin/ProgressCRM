@@ -43,11 +43,12 @@ public class CallsApi {
     @Path("addcall")
     public Response addCustomer(@CookieParam("token") final String token,
             @FormParam("id") final String apartamentsId,
+            @FormParam("incomingPhoneNumber") final String incomingPhoneNumber,
             @FormParam("description") final String description) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = callsController.addCallsByApartsId(session, token, apartamentsId, description);
+                boolean result = callsController.addCallsByApartsId(session, token, apartamentsId, incomingPhoneNumber, description);
                 return ApiHelper.getResponse(result);
             }
         });
