@@ -3,8 +3,8 @@ function submitCall() {
         type: "POST",
         url: "api/calls/addcall",
         data: ({
-            id: $("#submitCallId").val(),
-            description: $('#submitCallDescription').val()
+            id: $("#apartamentsAddCallApartamentId").val(),
+            description: $('#apartamentsAddCallDescription').val()
         }),
         success: function(data) {
             $("#errorBlock").css("display", "none");
