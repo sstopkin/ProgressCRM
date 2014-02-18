@@ -55,7 +55,6 @@ function parseUrl(str) {
     var pathHelpDesk = "helpdesk";
     var pathProfile = "profile";
     var pathApartaments = "apartaments";
-    var pathCalls = "calls";
     var pathAdmin = "admin";
 
     if (!uri.fragment) {
@@ -103,10 +102,6 @@ function parseUrl(str) {
     }
     if (arr[0] === pathApartaments) {
         helpParseUrl(uri, arr, "apartaments");
-        return;
-    }
-    if (arr[0] === pathCalls) {
-        getCallsPage();
         return;
     }
     if (arr[0] === pathAdmin) {

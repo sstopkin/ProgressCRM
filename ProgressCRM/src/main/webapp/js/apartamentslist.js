@@ -33,6 +33,7 @@ function getApartamentsListPage() {
                 str += "<th>Цена</th>";
                 str += "<th>Автор</th>";
                 str += "<th>Дата</th>";
+                str += "<th>Звонок</th>";
                 if (permissions == "3") {
                     str += "<th>Редактировать</th>";
                     str += "<th>Удалить</th>";
@@ -97,6 +98,7 @@ function getApartamentsListPage() {
                         }
                     }
                     str += "<td>" + entry.сreationDate + "</td>";
+                    str += "<td>" + "<button type=\"button\" onclick=\"apartamentsAddCallById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-earphone\"></span></button>" + "</td>";
                     if (permissions == "3") {
                         str += "<td>" + "<button type=\"button\" onclick=\"apartamentsEditById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
                         str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
@@ -177,4 +179,9 @@ function apartamentsEditById(apartamentId) {
             }
         });
     });
+}
+
+function apartamentsAddCallById(apartamentId){
+    $('#apartamentsAddCall').modal('toggle');
+    $('#apartamentsAddCallApartamentId').val(apartamentId);
 }

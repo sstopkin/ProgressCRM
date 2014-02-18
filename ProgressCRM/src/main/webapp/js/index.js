@@ -55,12 +55,6 @@ function getAboutPage() {
     });
 }
 
-function getCallsPage() {
-    $.get("calls.html", function(data) {
-        $("#mainContainer").html(data);
-    });
-}
-
 function getAdminPage() {
     $.get("api/auth/validate", function(data) {
         if (data == "3") {
