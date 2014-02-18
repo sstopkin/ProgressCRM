@@ -225,12 +225,15 @@ function getApartamentViewPage(apartamentId) {
                 str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
                 str += "<thead class='t-header'>Звонки<tr>";
                 str += "<th>Дата</th>";
+                str += "<th>Входящий номер</th>";
                 str += "<th>Комментарий</th>";
                 str += "</tr></thead>";
                 str += "<tbody>";
                 for (var j = 0; j < array.length; ++j) {
                     str += "<tr><td>";
                     str += array[j].date;
+                    str += "</td><td>";
+                    str += array[j].incomingPhoneNumber;
                     str += "</td><td>";
                     str += array[j].description;
                 }

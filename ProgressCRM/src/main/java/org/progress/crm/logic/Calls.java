@@ -17,6 +17,7 @@ public class Calls implements Serializable {
 
     private int id;
     private int apartamentId;
+    private String incomingPhoneNumber;
     private Date date;
     private String description;
     private int idWorker;
@@ -24,9 +25,10 @@ public class Calls implements Serializable {
     public Calls() {
     }
 
-    public Calls(int apartamentId, Date date, String description, int idWorker) {
+    public Calls(int apartamentId, Date date, String incomingPhoneNumber, String description, int idWorker) {
         this.apartamentId = apartamentId;
         this.date = date;
+        this.incomingPhoneNumber = incomingPhoneNumber;
         this.description = description;
         this.idWorker = idWorker;
     }
@@ -40,6 +42,15 @@ public class Calls implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Column(name = "IncomingPhoneNumber")
+    public String getIncomingPhoneNumber() {
+        return incomingPhoneNumber;
+    }
+
+    public void setIncomingPhoneNumber(String incomingPhoneNumber) {
+        this.incomingPhoneNumber = incomingPhoneNumber;
     }
 
     @Column(name = "idWorker")

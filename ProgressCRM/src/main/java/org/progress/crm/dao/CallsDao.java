@@ -12,8 +12,8 @@ import org.progress.crm.logic.DbFields;
 
 public class CallsDao {
 
-    public boolean addCustomerCall(final Session session, final int apartamentId, final String description, final int idWorker) throws SQLException, CustomException {
-        Calls cCall = new Calls(apartamentId, new Date(), description, idWorker);
+    public boolean addCustomerCall(final Session session, final int apartamentId, String incomingPhoneNumber, final String description, final int idWorker) throws SQLException, CustomException {
+        Calls cCall = new Calls(apartamentId, new Date(), incomingPhoneNumber, description, idWorker);
         session.save(cCall);
         return true;
     }
