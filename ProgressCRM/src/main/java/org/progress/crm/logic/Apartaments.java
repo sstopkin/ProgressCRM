@@ -52,13 +52,14 @@ public class Apartaments implements Serializable {
     private boolean IsApproved;
     private int idFilespace;
     private boolean deleted;
+    private int dwellingType;
 
     public Apartaments() {
     }
 
     public Apartaments(int typeOfSales, String cityName, String streetName, String houseNumber,
             String buildingNumber, String kladrId, String shortAddress, String apartamentLan, String apartamentLon,
-            int rooms, int price,
+            int rooms, int dwellingType, int price,
             int cityDistrict, int floor, int floors, int roomNumber, int material, BigDecimal sizeApartament,
             BigDecimal sizeLiving, BigDecimal sizeKitchen, int balcony, int loggia, int yearOfConstruction,
             String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
@@ -99,6 +100,7 @@ public class Apartaments implements Serializable {
         this.rooms = rooms;
         this.roomNumber = roomNumber;
         this.idFilespace = -1;
+        this.dwellingType = dwellingType;
     }
 
     @Column(name = "idFilespace")
@@ -108,6 +110,15 @@ public class Apartaments implements Serializable {
 
     public void setIdFilespace(int idFilespace) {
         this.idFilespace = idFilespace;
+    }
+
+    @Column(name = "dwellingType")
+    public int getDwellingType() {
+        return dwellingType;
+    }
+
+    public void setDwellingType(int dwellingType) {
+        this.dwellingType = dwellingType;
     }
 
     @Column(name = "ApartamentLan")

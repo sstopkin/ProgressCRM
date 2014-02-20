@@ -14,7 +14,7 @@ public class ApartamentsDao {
 
     public int addApartament(final Session session, int typeOfSales, String cityName,
             String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress,
-            String apartamentLan, String apartamentLon, int rooms,
+            String apartamentLan, String apartamentLon, int rooms, int dwellingType,
             int price, int cityDistrict, int floor, int floors, int roomNumber, int material,
             BigDecimal sizeApartament, BigDecimal sizeLiving, BigDecimal sizeKitchen, int balcony,
             int loggia, int yearOfConstruction, String description,
@@ -23,7 +23,7 @@ public class ApartamentsDao {
             boolean rePplanning, int idWorker, int idCustomer, boolean IsApproved) throws CustomException {
         return (int) session.save(new Apartaments(typeOfSales, cityName, streetName,
                 houseNumber, buildingNumber, kladrId, shortAddress, apartamentLan, apartamentLon,
-                rooms, price, cityDistrict, floor,
+                rooms, dwellingType, price, cityDistrict, floor,
                 floors, roomNumber, material, sizeApartament, sizeLiving, sizeKitchen, balcony,
                 loggia, yearOfConstruction, description, MethodOfPurchase_PureSale,
                 MethodOfPurchase_Mortgage, MethodOfPurchase_Exchange, MethodOfPurchase_Rent,
@@ -68,6 +68,6 @@ public class ApartamentsDao {
 //                        add(Restrictions.eq(DbFields.APARTAMENTS.APPROVED, isApproved)).list();
         return session.createCriteria(Apartaments.class).
                 add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false)).
-                addOrder(Order.desc(DbFields.APARTAMENTS.ROOMS)).list();
+                addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS)).list();
     }
 }
