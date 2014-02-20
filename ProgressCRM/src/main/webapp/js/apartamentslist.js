@@ -47,8 +47,31 @@ function getApartamentsListPage() {
                 var flag3 = false;
                 var flag4 = false;
                 var flag5 = false;
+                var flagBarchelor = false;
+                var flagDormitory = false;
+                var flagSubrental = false;
 
                 array.forEach(function(entry) {
+                    switch (entry.dwellingType) {
+                        case 2:
+                            if (flagDormitory == false) {
+                                str += "<tr><td COLSPAN=9><h5><b>Гостинки</b></h5></td></tr>";
+                                flagDormitory = true;
+                            }
+                            break;
+                        case 3:
+                            if (flagBarchelor == false) {
+                                str += "<tr><td COLSPAN=9><h5><b>Малосемейки</b></h5></td></tr>";
+                                flagBarchelor = true;
+                            }
+                            break;
+                        case 4:
+                            if (flagSubrental == false) {
+                                str += "<tr><td COLSPAN=9><h5><b>Подселение</b></h5></td></tr>";
+                                flagSubrental = true;
+                            }
+                            break;
+                    }
                     switch (entry.rooms) {
                         case 1:
                             if (flag1 == false) {
@@ -181,7 +204,7 @@ function apartamentsEditById(apartamentId) {
     });
 }
 
-function apartamentsAddCallById(apartamentId){
+function apartamentsAddCallById(apartamentId) {
     $('#apartamentsAddCall').modal('toggle');
     $('#apartamentsAddCallApartamentId').val(apartamentId);
 }

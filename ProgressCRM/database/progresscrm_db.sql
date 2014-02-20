@@ -190,7 +190,8 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
 `IsApproved` TINYINT(1) NOT NULL DEFAULT false ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 
-`idFilespace` INT DEFAULT -1,
+`idFilespace` INT NOT NULL DEFAULT -1,
+`dwellingType` TINYINT(1) NOT NULL,
 
 -- FOREIGN KEY (idFilespace) REFERENCES Filespaces(id),
 FOREIGN KEY (idWorker) REFERENCES Workers(id),

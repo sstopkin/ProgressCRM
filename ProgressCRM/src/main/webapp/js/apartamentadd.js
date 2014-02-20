@@ -377,6 +377,7 @@ function addApartament() {
         $("#apartamentAddReadyLink").click(function() {
             if (
                     ($('#TypeOfSales').val() == "")
+                    || ($('#TypeOfSales').val() == "")
                     || ($('#Price').val() == "")
                     || ($('#CityDistrict').val() == "")
                     || ($('#Floor').val() == "")
@@ -388,8 +389,7 @@ function addApartament() {
                     || ($('#SizeKitchen').val() == "")
                     || ($('#Balcony').val() == "")
                     || ($('#Loggia').val() == "")
-                    || ($('#YearOfConstruction').val() == "")
-                    || ($('#IdCustomer').val() == "")
+                    || ($('#DwellingType').val() == "")
                     ) {
                 $("#errorBlock").addClass("alert-danger");
                 $("#errorMessage").html("Не все поля заполнены");
@@ -406,6 +406,7 @@ function addApartament() {
                     houseNumber: $('#apartamentBuilding').text(),
                     buildingNumber: $('#apartamentBuildingAdd').text(),
                     rooms: $('#Rooms').val(),
+                    dwellingType: $('#DwellingType').val(),
                     //FIXME!!
                     kladrId: $('#Price').val(),
                     shortAddress: $('#address').text(),
