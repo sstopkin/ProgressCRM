@@ -15,10 +15,10 @@ import org.progress.crm.logic.Apartaments;
 
 @Singleton
 public class ApartamentsController {
-
+    
     @EJB
     AuthenticationManager authManager;
-
+    
     public Apartaments getApartamentById(Session session, String token, String apartamentId) throws CustomException {
         if (apartamentId == null) {
             throw new BadRequestException();
@@ -28,7 +28,7 @@ public class ApartamentsController {
         }
         return DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentId));
     }
-
+    
     public boolean addApartament(Session session, String token, String typeOfSales,
             String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId,
             String shortAddress, String apartamentLan, String apartamentLon, String rooms, String dwellingType,
@@ -42,7 +42,7 @@ public class ApartamentsController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-
+        
         DaoFactory.getApartamentsDao().addApartament(session, Integer.valueOf(typeOfSales),
                 cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress,
                 apartamentLan, apartamentLon, Integer.valueOf(rooms), Integer.valueOf(dwellingType),
@@ -55,9 +55,9 @@ public class ApartamentsController {
                 Boolean.parseBoolean(rePplanning), idWorker, Integer.valueOf(idCustomer), false);
         return true;
     }
-
+    
     public boolean editApartament(Session session, String token, String apartamentsId,
-            String typeOfSales, String price, String cityDistrict, String floor, String floors,
+            String typeOfSales, String rooms, String dwellingType, String price, String cityDistrict, String floor, String floors, String roomNumber,
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
             String pureSale, String mortgage, String exchange, String rent, String rePlanning, String idCustomer) throws CustomException {
@@ -69,7 +69,7 @@ public class ApartamentsController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-
+        
         Apartaments apartaments = DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentsId));
         apartaments.setBalcony(Integer.valueOf(balcony));
         apartaments.setCityDistrict(Integer.valueOf(cityDistrict));
@@ -77,6 +77,9 @@ public class ApartamentsController {
         apartaments.setDescription(description);
         apartaments.setFloor(Integer.valueOf(floor));
         apartaments.setFloors(Integer.valueOf(floors));
+        apartaments.setRooms(Integer.valueOf(rooms));
+        apartaments.setRoomNumber(Integer.valueOf(roomNumber));
+        apartaments.setDwellingType(Integer.valueOf(dwellingType));
         apartaments.setIdWorker(idWorker);
         apartaments.setLastModify(new Date());
         apartaments.setLoggia(Integer.valueOf(loggia));
@@ -95,7 +98,7 @@ public class ApartamentsController {
         DaoFactory.getApartamentsDao().modifyApartament(session, apartaments);
         return true;
     }
-
+    
     public boolean removeApartament(Session session, String token, String apartamentsId) throws CustomException {
         if (apartamentsId == null) {
             throw new BadRequestException();
@@ -105,13 +108,13 @@ public class ApartamentsController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-
+        
         Apartaments apartaments = DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentsId));
         apartaments.setDeleted(true);
         DaoFactory.getApartamentsDao().modifyApartament(session, apartaments);
         return true;
     }
-
+    
     public List<Apartaments> getAllApartament(Session session, String token) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
