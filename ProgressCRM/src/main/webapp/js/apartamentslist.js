@@ -129,7 +129,7 @@ function draw(array, permissions, catName) {
                 break;
         }
         str += "<tr>";
-        str += "<td><a href=\"#apartaments/view/" + entry.id + "\"><b>" + entry.id + "</b></a></td>";
+        str += "<td><a href=\"#apartaments/view/" + entry.id + "\" class=\"btn btn-default\"><b>" + entry.id + "</b></a></td>";
         str += "<td>" + entry.cityName + " "
                 + entry.streetName + " "
                 + entry.houseNumber + " "
@@ -146,7 +146,7 @@ function draw(array, permissions, catName) {
         str += "<td>" + entry.сreationDate + "</td>";
         str += "<td>" + "<button type=\"button\" onclick=\"apartamentsAddCallById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-earphone\"></span></button>" + "</td>";
         if (permissions == "3") {
-            str += "<td>" + "<button type=\"button\" onclick=\"apartamentsEditById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+            str += "<td><a href=\"#apartaments/edit/" + entry.id + "\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></a></td>";
             str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
         }
         str += "</tr>";
@@ -208,15 +208,22 @@ function apartamentsEditById(apartamentId) {
                 $('#YearOfConstruction').val(array.yearOfConstruction);
                 $('#Description').val(array.description);
                 $('#IdCustomer').val(array.idCustomer);
+                $('#DwellingType').val(array.dwellingType);
 
                 $('#PureSale').prop("checked", array.MethodOfPurchase_PureSale);
                 $('#Mortgage').prop("checked", array.MethodOfPurchase_Mortgage);
                 $('#Exchange').prop("checked", array.MethodOfPurchase_Exchange);
                 $('#Rent').prop("checked", array.MethodOfPurchase_Rent);
                 $('#RePlanning').prop("checked", array.rePplanning);
+
+                $("#apartamentEditReadyLink").css("display", "block");
+                $("#apartamentEditReadyLink").click(function() {
+                    alert(edit);
+                });
             }
         });
     });
+
 }
 
 function apartamentsAddCallById(apartamentId) {

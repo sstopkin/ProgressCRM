@@ -27,7 +27,7 @@ public class ApartamentsAPI {
 
     @GET
     @Path("getapartament")
-    public Response getApartamentById(@QueryParam("id") final String id, 
+    public Response getApartamentById(@QueryParam("id") final String id,
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
@@ -123,10 +123,13 @@ public class ApartamentsAPI {
     public Response editApartament(@CookieParam("token") final String token,
             @FormParam("id") final String id,
             @FormParam("typeofsales") final String typeOfSales,
+            @FormParam("rooms") final String rooms,
+            @FormParam("dwellingType") final String dwellingType,
             @FormParam("price") final String price,
             @FormParam("citydistrict") final String cityDistrict,
             @FormParam("floor") final String floor,
             @FormParam("floors") final String floors,
+            @FormParam("roomnumber") final String roomNumber,
             @FormParam("material") final String material,
             @FormParam("sizeapartament") final String sizeApartament,
             @FormParam("sizeliving") final String sizeLiving,
@@ -145,7 +148,7 @@ public class ApartamentsAPI {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 boolean result = apartamentsController.editApartament(session, token, id,
-                        typeOfSales, price, cityDistrict, floor, floors,
+                        typeOfSales, rooms, dwellingType, price, cityDistrict, floor, floors, roomNumber,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
                         pureSale, mortgage, exchange, rent, rePlanning, idCustomer);
