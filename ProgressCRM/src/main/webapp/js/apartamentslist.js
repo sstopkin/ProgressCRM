@@ -155,12 +155,13 @@ function draw(array, permissions, catName) {
 }
 
 function apartamentsDeleteById(apartamentsId) {
+    console.log("apartamentsDeleteById " + apartamentsId);
     $.ajax({
         type: "POST",
         url: "api/apartament/remove",
         data: ({id: apartamentsId}),
         success: function(data) {
-            location.reload();
+            getapartamentsListPage();
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");
@@ -217,43 +218,7 @@ function apartamentsEditById(apartamentId) {
 
                 $("#apartamentEditReadyLink").css("display", "block");
                 $("#apartamentEditReadyLink").click(function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/apartament/editapartament",
-                        data: ({
-                            id: apartamentId,
-                            typeofsales: $('#TypeOfSales').val(),
-                            rooms: $('#Rooms').val(),
-                            dwellingType: $('#DwellingType').val(),
-                            //FIXME!!
-                            price: $('#Price').val(),
-                            citydistrict: $('#CityDistrict').val(),
-                            floor: $('#Floor').val(),
-                            floors: $('#Floors').val(),
-                            roomnumber: $('#RoomNumber').val(),
-                            material: $('#Material').val(),
-                            sizeapartament: $('#SizeApartament').val(),
-                            sizeliving: $('#SizeLiving').val(),
-                            sizekitchen: $('#SizeKitchen').val(),
-                            balcony: $('#Balcony').val(),
-                            loggia: $('#Loggia').val(),
-                            yearofconstruction: $('#YearOfConstruction').val(),
-                            description: $('#Description').val(),
-                            puresale: $('#PureSale').prop("checked"),
-                            mortgage: $('#Mortgage').prop("checked"),
-                            exchange: $('#Exchange').prop("checked"),
-                            rent: $('#Rent').prop("checked"),
-                            replanning: $('#RePlanning').prop("checked"),
-                            idCustomer: $("#IdCustomer").val()
-                        }),
-                        success: function(data) {
-                            document.location.href = "#apartaments/list";
-                            $("#errorBlock").css("display", "none");
-                        },
-                        error: function(data) {
-                            showDanger(data.responseText);
-                        }
-                    });
+                    alert(edit);
                 });
             }
         });

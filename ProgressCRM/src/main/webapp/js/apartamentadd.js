@@ -433,7 +433,7 @@ function addApartament() {
                     idCustomer: $("#IdCustomer").val()
                 }),
                 success: function(data) {
-                    document.location.href = "#apartaments/list";
+                    location.reload();//FIXME
                     $("#errorBlock").css("display", "none");
                 },
                 error: function(data) {
