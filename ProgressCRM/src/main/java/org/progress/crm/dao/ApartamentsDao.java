@@ -20,14 +20,14 @@ public class ApartamentsDao {
             int loggia, int yearOfConstruction, String description,
             boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
             boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent,
-            boolean rePplanning, int idWorker, int idCustomer, boolean IsApproved) throws CustomException {
+            boolean rePplanning, int idWorker, int idWorkerTarget, int idCustomer, int status, boolean IsApproved) throws CustomException {
         return (int) session.save(new Apartaments(typeOfSales, cityName, streetName,
                 houseNumber, buildingNumber, kladrId, shortAddress, apartamentLan, apartamentLon,
                 rooms, dwellingType, price, cityDistrict, floor,
                 floors, roomNumber, material, sizeApartament, sizeLiving, sizeKitchen, balcony,
                 loggia, yearOfConstruction, description, MethodOfPurchase_PureSale,
                 MethodOfPurchase_Mortgage, MethodOfPurchase_Exchange, MethodOfPurchase_Rent,
-                rePplanning, idWorker, idCustomer, IsApproved));
+                rePplanning, idWorker, idWorkerTarget, idCustomer, IsApproved, status));
     }
 
     public boolean setApproveApartamentById(final Session session, final int apartamentId, final boolean flag) throws CustomException {
