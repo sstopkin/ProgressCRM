@@ -36,7 +36,7 @@ public class ApartamentsController {
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
             String pureSale, String mortgage, String exchange, String rent,
-            String rePplanning, String idCustomer) throws CustomException {
+            String rePplanning, String idWorkerTarget, String idCustomer, String status) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -52,7 +52,7 @@ public class ApartamentsController {
                 Integer.valueOf(loggia), Integer.valueOf(yearOfConstruction), description,
                 Boolean.parseBoolean(pureSale), Boolean.parseBoolean(mortgage),
                 Boolean.parseBoolean(exchange), Boolean.parseBoolean(rent),
-                Boolean.parseBoolean(rePplanning), idWorker, Integer.valueOf(idCustomer), false);
+                Boolean.parseBoolean(rePplanning), idWorker, Integer.valueOf(idWorkerTarget), Integer.valueOf(idCustomer), Integer.valueOf(status), false);
         return true;
     }
     
@@ -60,7 +60,7 @@ public class ApartamentsController {
             String typeOfSales, String rooms, String dwellingType, String price, String cityDistrict, String floor, String floors, String roomNumber,
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
-            String pureSale, String mortgage, String exchange, String rent, String rePlanning, String idCustomer) throws CustomException {
+            String pureSale, String mortgage, String exchange, String rent, String rePlanning, String idWorkerTarget, String idCustomer, String status) throws CustomException {
         if (apartamentsId == null) {
             throw new BadRequestException();
         }
@@ -81,6 +81,7 @@ public class ApartamentsController {
         apartaments.setRoomNumber(Integer.valueOf(roomNumber));
         apartaments.setDwellingType(Integer.valueOf(dwellingType));
         apartaments.setIdWorker(idWorker);
+        apartaments.setIdWorkerTarget(Integer.valueOf(idWorkerTarget));
         apartaments.setLastModify(new Date());
         apartaments.setLoggia(Integer.valueOf(loggia));
         apartaments.setMaterial(Integer.valueOf(material));
@@ -95,6 +96,7 @@ public class ApartamentsController {
         apartaments.setSizeLiving(new BigDecimal(sizeLiving));
         apartaments.setTypeOfSales(Integer.valueOf(typeOfSales));
         apartaments.setYearOfConstruction(Integer.valueOf(yearOfConstruction));
+        apartaments.setStatus(Integer.valueOf(status));
         DaoFactory.getApartamentsDao().modifyApartament(session, apartaments);
         return true;
     }

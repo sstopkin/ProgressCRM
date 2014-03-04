@@ -20,6 +20,23 @@ function getApartamentViewPage(apartamentId) {
                 content += "ID = " + array.id;
                 content += "</p>";
 
+                content += "<p>";
+                content += "Статус: ";
+                switch (array.typeOfSales) {
+                    case 1:
+                        content += "В работе";
+                        break;
+                    case 4:
+                        content += "Архив";
+                        break;
+                    case 5:
+                        content += "Не выбран";
+                        break;
+                    default:
+                        content += "";
+                }
+                content += "</p>";
+
 
                 content += "<p>";
                 switch (array.typeOfSales) {
@@ -135,6 +152,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
+                content += "Материал дома: ";
                 switch (array.material) {
                     case 1:
                         content += "Панельный";
@@ -154,11 +172,6 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
 
                 content += "<p>";
-                content += "Описание: " + array.description;
-                content += "</p>";
-
-
-                content += "<p>";
                 content += "Объект добавлен: " + array.сreationDate;
                 content += "</p>";
                 content += "<p>";
@@ -169,7 +182,12 @@ function getApartamentViewPage(apartamentId) {
                     var a = workersList[i];
                     if (array.idWorker == a[0]) {
                         content += "<p>";
-                        content += "Автор: " + a[1] + " " + a[3];
+                        content += "Добавлено: " + a[1] + " " + a[3];
+                        content += "</p>";
+                    }
+                    if (array.idWorkerTarget == a[0]) {
+                        content += "<p>";
+                        content += "Риэлтор: " + a[1] + " " + a[3];
                         content += "</p>";
                     }
                 }
@@ -183,6 +201,10 @@ function getApartamentViewPage(apartamentId) {
                 content += "</p>";
                 content += "<p>";
                 content += "Площадь жилая: " + array.sizeLiving;
+                content += "</p>";
+
+                content += "<p>";
+                content += "Описание: " + array.description;
                 content += "</p>";
 
                 var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";

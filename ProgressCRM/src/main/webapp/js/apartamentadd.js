@@ -373,6 +373,10 @@ function addApartament() {
             map.controls.add('smallZoomControl', {top: 5, left: 5});
         });
 
+        workersList.forEach(function(entry) {
+            $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
+        });
+
         $("#apartamentAddReadyLink").css("display", "inline");
         $("#apartamentAddReadyLink").click(function() {
             if (
@@ -390,6 +394,7 @@ function addApartament() {
                     || ($('#Balcony').val() == "")
                     || ($('#Loggia').val() == "")
                     || ($('#DwellingType').val() == "")
+                    || ($('#ApartamentsIdWorkerTarget').val() == "")
                     ) {
                 $("#errorBlock").addClass("alert-danger");
                 $("#errorMessage").html("Не все поля заполнены");
@@ -430,7 +435,9 @@ function addApartament() {
                     exchange: $('#Exchange').prop("checked"),
                     rent: $('#Rent').prop("checked"),
                     replanning: $('#RePlanning').prop("checked"),
-                    idCustomer: $("#IdCustomer").val()
+                    idWorkerTarget: $("#ApartamentsIdWorkerTarget").val(),
+                    idCustomer: $("#IdCustomer").val(),
+                    status: $("#ApartamentStatus").val()
                 }),
                 success: function(data) {
                     location.reload();//FIXME

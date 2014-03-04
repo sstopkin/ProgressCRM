@@ -78,8 +78,25 @@
                                         <input id="IdCustomer" type="text" class="form-control">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label">Риэлтор</label>
+                                    <div class="controls">
+                                        <select class="form-control" id="ApartamentsIdWorkerTarget">
+                                            <option selected="selected" value="-1"></option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <h4 style="margin-left:50px">Информация о объекте</h4>
+                                    <div class="form-group">
+                                        <label class="control-label">Статус объекта<br></label>
+                                        <select id="ApartamentStatus" class="form-control">
+                                            <option selected="selected" value="-1"></option>
+                                            <option value="1">В работе</option>
+                                            <option value="4">Архив</option>
+                                            <option value="5">Не указан</option>
+                                        </select>
+                                    </div>
                                     <div class="form-group">
                                         <label class="control-label">Тип продажи<br></label>
                                         <select id="TypeOfSales" class="form-control" size="1">

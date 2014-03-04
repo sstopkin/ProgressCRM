@@ -48,11 +48,13 @@ public class Apartaments implements Serializable {
     private Date сreationDate;
     private Date lastModify;
     private int idWorker;
+    private int idWorkerTarget;
     private int idCustomer;
     private boolean IsApproved;
     private int idFilespace;
     private boolean deleted;
     private int dwellingType;
+    private int status;
 
     public Apartaments() {
     }
@@ -64,7 +66,7 @@ public class Apartaments implements Serializable {
             BigDecimal sizeLiving, BigDecimal sizeKitchen, int balcony, int loggia, int yearOfConstruction,
             String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
             boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning,
-            int idWorker, int idCustomer, boolean IsApproved) {
+            int idWorker, int idWorkerTarget, int idCustomer, boolean IsApproved, int status) {
         this.typeOfSales = typeOfSales;
         this.price = price;
         this.cityDistrict = cityDistrict;
@@ -101,6 +103,26 @@ public class Apartaments implements Serializable {
         this.roomNumber = roomNumber;
         this.idFilespace = -1;
         this.dwellingType = dwellingType;
+        this.idWorkerTarget = idWorkerTarget;
+        this.status = status;
+    }
+
+    @Column(name = "idWorkerTarget")
+    public int getIdWorkerTarget() {
+        return idWorkerTarget;
+    }
+
+    public void setIdWorkerTarget(int idWorkerTarget) {
+        this.idWorkerTarget = idWorkerTarget;
+    }
+
+    @Column(name = "status")
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Column(name = "idFilespace")

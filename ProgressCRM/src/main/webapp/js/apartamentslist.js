@@ -31,7 +31,8 @@ function getApartamentsListPage() {
                 str += "<th>Площадь О/К/Ж</th>";
                 str += "<th>Этаж</th>";
                 str += "<th>Цена</th>";
-                str += "<th>Автор</th>";
+                str += "<th>Добавлено</th>";
+                str += "<th>Риэлтор</th>";
                 str += "<th>Дата</th>";
                 str += "<th>Звонок</th>";
                 if (permissions == "3") {
@@ -93,37 +94,37 @@ function draw(array, permissions, catName) {
     var flag4 = false;
     var flag5 = false;
 
-    var str = "<tr><td COLSPAN=10><h5><b>" + catName + "</b></h5></td></tr>";
+    var str = "<tr><td COLSPAN=11><h5><b>" + catName + "</b></h5></td></tr>";
 
     array.forEach(function(entry) {
         switch (entry.rooms) {
             case 1:
                 if (flag1 == false) {
-                    str += "<tr><td COLSPAN=10><h5><b>1-комнатные</b></h5></td></tr>";
+                    str += "<tr><td COLSPAN=11><h5><b>1-комнатные</b></h5></td></tr>";
                     flag1 = true;
                 }
                 break;
             case 2:
                 if (flag2 == false) {
-                    str += "<tr><td COLSPAN=10><h5><b>2-комнатные</b></h5></td></tr>";
+                    str += "<tr><td COLSPAN=11><h5><b>2-комнатные</b></h5></td></tr>";
                     flag2 = true;
                 }
                 break;
             case 3:
                 if (flag3 == false) {
-                    str += "<tr><td COLSPAN=10><h5><b>3-комнатные</b></h5></td></tr>";
+                    str += "<tr><td COLSPAN=11><h5><b>3-комнатные</b></h5></td></tr>";
                     flag3 = true;
                 }
                 break;
             case 4:
                 if (flag4 == false) {
-                    str += "<tr><td COLSPAN=10><h5><b>4-комнатные</b></h5></td></tr>";
+                    str += "<tr><td COLSPAN=11><h5><b>4-комнатные</b></h5></td></tr>";
                     flag4 = true;
                 }
                 break;
             case 5:
                 if (flag5 == false) {
-                    str += "<tr><td COLSPAN=10><h5><b>5-комнатные</b></h5></td></tr>";
+                    str += "<tr><td COLSPAN=11><h5><b>5-комнатные</b></h5></td></tr>";
                     flag5 = true;
                 }
                 break;
@@ -140,6 +141,9 @@ function draw(array, permissions, catName) {
         for (var i = 0; i < workersList.length; ++i) {
             var a = workersList[i];
             if (entry.idWorker == a[0]) {
+                str += "<td>" + a[1] + " " + a[3] + "</td>";
+            }
+            if (entry.idWorkerTarget == a[0]) {
                 str += "<td>" + a[1] + " " + a[3] + "</td>";
             }
         }
@@ -181,6 +185,10 @@ function apartamentsEditById(apartamentId) {
             type: "GET",
             url: "api/apartament/getapartament?id=" + apartamentId,
             success: function(data) {
+                workersList.forEach(function(entry) {
+                    $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
+                });
+
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 $('#TypeOfSales').val(array.typeOfSales);
@@ -208,7 +216,9 @@ function apartamentsEditById(apartamentId) {
                 $('#YearOfConstruction').val(array.yearOfConstruction);
                 $('#Description').val(array.description);
                 $('#IdCustomer').val(array.idCustomer);
+                $('#idWorkerTarget').val(array.idWorkerTarget);
                 $('#DwellingType').val(array.dwellingType);
+                $('#ApartamentStatus').val(array.status);
 
                 $('#PureSale').prop("checked", array.MethodOfPurchase_PureSale);
                 $('#Mortgage').prop("checked", array.MethodOfPurchase_Mortgage);
@@ -218,7 +228,45 @@ function apartamentsEditById(apartamentId) {
 
                 $("#apartamentEditReadyLink").css("display", "block");
                 $("#apartamentEditReadyLink").click(function() {
-                    alert(edit);
+                    $.ajax({
+                        type: "POST",
+                        url: "api/apartament/editapartament",
+                        data: ({
+                            id: apartamentId,
+                            typeofsales: $('#TypeOfSales').val(),
+                            rooms: $('#Rooms').val(),
+                            dwellingType: $('#DwellingType').val(),
+                            //FIXME!!
+                            price: $('#Price').val(),
+                            citydistrict: $('#CityDistrict').val(),
+                            floor: $('#Floor').val(),
+                            floors: $('#Floors').val(),
+                            roomnumber: $('#RoomNumber').val(),
+                            material: $('#Material').val(),
+                            sizeapartament: $('#SizeApartament').val(),
+                            sizeliving: $('#SizeLiving').val(),
+                            sizekitchen: $('#SizeKitchen').val(),
+                            balcony: $('#Balcony').val(),
+                            loggia: $('#Loggia').val(),
+                            yearofconstruction: $('#YearOfConstruction').val(),
+                            description: $('#Description').val(),
+                            puresale: $('#PureSale').prop("checked"),
+                            mortgage: $('#Mortgage').prop("checked"),
+                            exchange: $('#Exchange').prop("checked"),
+                            rent: $('#Rent').prop("checked"),
+                            replanning: $('#RePlanning').prop("checked"),
+                            idCustomer: $("#IdCustomer").val(),
+                            idWorkerTarget: $("#ApartamentsIdWorkerTarget").val(),
+                            status: $("#ApartamentStatus").val()
+                        }),
+                        success: function(data) {
+                            document.location.href = "#apartaments/list";
+                            $("#errorBlock").css("display", "none");
+                        },
+                        error: function(data) {
+                            showDanger(data.responseText);
+                        }
+                    });
                 });
             }
         });

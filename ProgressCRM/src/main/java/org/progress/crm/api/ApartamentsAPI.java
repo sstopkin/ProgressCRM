@@ -102,7 +102,9 @@ public class ApartamentsAPI {
             @FormParam("exchange") final String exchange,
             @FormParam("rent") final String rent,
             @FormParam("replanning") final String rePlanning,
-            @FormParam("idCustomer") final String idCustomer) throws SQLException, CustomException {
+            @FormParam("idWorkerTarget") final String idWorkerTarget,
+            @FormParam("idCustomer") final String idCustomer,
+            @FormParam("status") final String status) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
@@ -112,7 +114,7 @@ public class ApartamentsAPI {
                         price, cityDistrict, floor, floors, roomNumber,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
-                        pureSale, mortgage, exchange, rent, rePlanning, idCustomer);
+                        pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
                 return ApiHelper.getResponse(result);
             }
         });
@@ -143,7 +145,9 @@ public class ApartamentsAPI {
             @FormParam("exchange") final String exchange,
             @FormParam("rent") final String rent,
             @FormParam("replanning") final String rePlanning,
-            @FormParam("idCustomer") final String idCustomer) throws SQLException, CustomException {
+            @FormParam("idWorkerTarget") final String idWorkerTarget,
+            @FormParam("idCustomer") final String idCustomer,
+            @FormParam("status") final String status) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
@@ -151,7 +155,7 @@ public class ApartamentsAPI {
                         typeOfSales, rooms, dwellingType, price, cityDistrict, floor, floors, roomNumber,
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
-                        pureSale, mortgage, exchange, rent, rePlanning, idCustomer);
+                        pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
                 return ApiHelper.getResponse(false);
             }
         });
