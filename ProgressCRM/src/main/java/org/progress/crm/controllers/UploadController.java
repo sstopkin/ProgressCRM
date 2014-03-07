@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
-import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.hibernate.Session;
@@ -18,10 +17,6 @@ import org.progress.crm.exceptions.CustomException;
 
 @Singleton
 public class UploadController {
-
-    private final String UPLOAD_FILE_LOCATION = "/tmp";
-    @EJB
-    AuthenticationManager singleton;
 
     public String getUploadedFileContent(Session session, InputStream uploadedInputStream,
             FormDataContentDisposition fileDetail) throws IOException, CustomException {
@@ -70,20 +65,21 @@ public class UploadController {
         return content;
     }
 
-    public String addPhoto(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail) throws FileNotFoundException, IOException, CustomException {
+    public String uploadFile(Session session, InputStream uploadInputStream, FormDataContentDisposition fileDetail,
+            String path) throws FileNotFoundException, IOException, CustomException {
         String filename = fileDetail.getFileName();
-        String type = filename.substring(filename.lastIndexOf('.') + 1);
+//        String type = filename.substring(filename.lastIndexOf('.') + 1);
         UUID newFileName = UUID.randomUUID();
 
         int read = 0;
         byte[] bytes = new byte[1024];
 
-        File directory = new File(UPLOAD_FILE_LOCATION);
+        File directory = new File(path);
         if (!directory.exists()) {
             directory.mkdirs();
         }
         //fileDetail.getFileName())
-        OutputStream out = new FileOutputStream(new File(directory, newFileName.toString() + type));
+        OutputStream out = new FileOutputStream(new File(directory, filename));
         while ((read = uploadInputStream.read(bytes)) != -1) {
             out.write(bytes, 0, read);
         }
@@ -92,6 +88,6 @@ public class UploadController {
         out.close();
 
 //        apartamentsPhotoController.addApartamentPhoto(session, newFileName.toString(), "test", "1");
-        return "RESP: " + newFileName.toString() + "." + type;
+        return null;
     }
 }

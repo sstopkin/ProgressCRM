@@ -267,6 +267,14 @@ function getApartamentViewPage(apartamentId) {
                 return false;
             }
         });
+        getFileManagerPage();
         $("#apartamentsFeatures").html(content);
     });
+}
+
+function getFileManagerPage() {
+    $.get("fm.html", function(data) {
+        $("#apartamentsFilemanager").html(data);
+    });
+    getFolderList(",tmp");
 }
