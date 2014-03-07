@@ -28,33 +28,16 @@ public class UploadFileServiceApi {
     UploadController uploadController;
 
     @POST
-    @Path("photo")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadBinaryFile(
             @FormDataParam("file") final InputStream uploadedInputStream,
-            @FormDataParam("file") final FormDataContentDisposition fileDetail)
+            @FormDataParam("file") final FormDataContentDisposition fileDetail,
+            @FormDataParam("path") final String path)
             throws CharacterCodingException, IOException, FileNotFoundException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException, FileNotFoundException, IOException {
-                String resp = uploadController.addPhoto(session, uploadedInputStream, fileDetail);
-                return ApiHelper.getResponse(resp);
-            }
-        });
-    }
-
-    @POST
-    @Path("text")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadTextFile(
-            @FormDataParam("file") final InputStream uploadedInputStream,
-            @FormDataParam("file") final FormDataContentDisposition fileDetail)
-            throws CharacterCodingException, IOException, CustomException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException, IOException {
-                String resp = uploadController.getUploadedFileContent(session, uploadedInputStream,
-                        fileDetail);
+                String resp = uploadController.uploadFile(session, uploadedInputStream, fileDetail, path);
                 return ApiHelper.getResponse(resp);
             }
         });

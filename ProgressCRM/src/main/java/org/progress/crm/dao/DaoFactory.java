@@ -61,4 +61,8 @@ public class DaoFactory {
     public static FilespacesDao getFilespacesDao(){
         return new FilespacesDao();
     }
+    
+    public static FileManagerDao getFileManagerDao(){
+        return new FileManagerDao();
+    }
 }
