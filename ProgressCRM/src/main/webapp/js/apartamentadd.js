@@ -1,4 +1,4 @@
-function addApartament() {
+function addApartament(prepare) {
     $.get("apartamentsadd.html", function(data) {
         $("#mainContainer").html(data);
         $("#errorBlock").css("display", "none");
@@ -376,6 +376,8 @@ function addApartament() {
         workersList.forEach(function(entry) {
             $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
+        
+        if(prepare) alert(prepare)
 
         $("#apartamentAddReadyLink").css("display", "inline");
         $("#apartamentAddReadyLink").click(function() {

@@ -1,5 +1,5 @@
-function getCustomersPage() {
-    $.get("customers.html", function(data) {
+function getCustomersListPage() {
+    $.get("customerslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
             url: "api/auth/validate",
@@ -40,10 +40,9 @@ function getCustomersPage() {
                     str += "</a>";
                     str += "<div class=\"media-body\">";
                     str += "<h4 class=\"media-heading\">"
-                    str += "<b>"+ entry.id + "</b> ";
+                    str += "<b>" + entry.id + "</b> ";
                     str += "</h4>";
-                    str +=
-                            +entry.customersAddress + " "
+                    str += entry.customersAddress + " "
                             + entry.customersDayOfBirthday + " "
                             + entry.customersEmail + " "
                             + entry.customersExtra + " "
@@ -111,7 +110,7 @@ function addCustomer() {
         success: function(data) {
             location.reload();//FIXME
             $("#errorBlock").css("display", "none");
-            getCustomersPage();
+            getCustomersListPage();
         },
         error: function(data) {
             showDanger(data.responseText);
