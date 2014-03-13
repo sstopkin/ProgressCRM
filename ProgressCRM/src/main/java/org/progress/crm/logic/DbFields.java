@@ -8,6 +8,7 @@ public class DbFields {
         public final static String APPROVED = "IsApproved";
         public final static String DELETED = "deleted";
         public final static String ROOMS = "rooms";
+        public final static String STATUS = "status";
     }
 
     public class WORKERS {

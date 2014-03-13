@@ -68,6 +68,14 @@ public class ApartamentsDao {
 //                        add(Restrictions.eq(DbFields.APARTAMENTS.APPROVED, isApproved)).list();
         return session.createCriteria(Apartaments.class).
                 add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false)).
+                add(Restrictions.not(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0))).
+                addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS)).list();
+    }
+
+    public List<Apartaments> getAllPrepareApartaments(Session session) throws CustomException {
+        return session.createCriteria(Apartaments.class).
+                add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false)).
+                add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0)).
                 addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS)).list();
     }
 }
