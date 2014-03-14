@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "Customers")
 public class Customers implements Serializable {
 
+    @Expose
     private int id;
     @Expose
     private String customersFname;
@@ -20,14 +21,19 @@ public class Customers implements Serializable {
     private String customersLname;
     @Expose
     private String customersMname;
+    @Expose
     private int customersMonthOfBirthday;
+    @Expose
     private int customersDayOfBirthday;
+    @Expose
     private int customersYearOfBirthday;
+    @Expose
     private int customersSex;
+    @Expose
     private String customersPhone;
+    @Expose
     private String customersEmail;
     private String customersAddress;
-    @Expose
     private String customersExtra;
     private boolean deleted;
 
@@ -138,7 +144,7 @@ public class Customers implements Serializable {
     public void setCustomersEmail(String customersEmail) {
         this.customersEmail = customersEmail;
     }
-    
+
     @Column(name = "customersAddress")
     public String getCustomersAddress() {
         return customersAddress;
