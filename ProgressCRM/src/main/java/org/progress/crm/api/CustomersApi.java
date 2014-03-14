@@ -31,8 +31,21 @@ public class CustomersApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
+                Gson apartamentById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                 String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @GET
+    @Path("getallcustomerfull")
+    public Response getAllCustomersFull(@CookieParam("token") final String token) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson apartamentById = new GsonBuilder().create();
+                String result = apartamentById.toJson(customersController.getAllCustomersFull(session, token));
                 return ApiHelper.getResponse(result);
             }
         });

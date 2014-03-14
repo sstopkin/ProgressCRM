@@ -125,7 +125,7 @@ public class CustomersController {
         }
         return DaoFactory.getCustomersDao().getAllCustomers(session);
     }
-
+    
     public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) throws IsNotAuthenticatedException {
         return DaoFactory.getCustomersDao().getCustomersListByBirthday(session, currentDay);
     }
