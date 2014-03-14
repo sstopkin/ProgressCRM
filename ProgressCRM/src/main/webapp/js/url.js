@@ -93,7 +93,7 @@ function parseUrl(str) {
         return;
     }
     if (arr[0] === pathCustomers) {
-        getCustomersListPage();
+        helpParseUrl(uri, arr, "customers");
         return;
     }
     if (arr[0] === pathProfile) {
@@ -174,6 +174,19 @@ function helpParseUrl(uri, arr, type) {
         if ((arr[1] === "list") && (type === "apartaments"))
         {
             getApartamentsListPage();
+            return;
+        }
+        if ((arr[1] === "list") && (type === "customers"))
+        {
+            getCustomersListPage();
+            return;
+        }
+        if ((arr[1] === "edit") && (type === "customers")) {
+            if (!arr[2]) {
+                showDanger();
+                return;
+            }
+            customersEditById(arr[2]);
             return;
         }
         if ((arr[1] === "list") && (type === "apartamentsprepare"))
