@@ -13,50 +13,60 @@ function getCustomersListPage() {
             $("#genApartamentsPriceBtn").css("display", "none");
         }
         $("#mainContainer").html(data);
-//        $.get("api/auth/author", function(data2) {
-//            userId = data2;
-//        });
         $.ajax({
             type: "GET",
             url: "api/customers/getallcustomer",
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
-                var str = "";
-                array.forEach(function(entry) {
-                    str += "<div class = \"media\">";
+                var str = "<table class=\"table table-bordered\">";
+                str += "<thead>";
+                str += "<tr>";
+                str += "<th>#</th>";
+                str += "<th>ФИО</th>";
+                str += "<th>Телефон</th>";
+                str += "<th>Дата рождения</th>";
+                str += "<th>E-mail</th>";
+                str += "<th>Пол</th>";
+//                str += "<th>Дополнительно</th>";
 //                    if (permissions == "3") {
-//                        str += "<div class=\"btn-toolbar\">";
-//                        str += "<div class=\"btn-group\">";
-//
-//                        str += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.apartaments.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-//
-//                        str += "</div>";
-//                        str += "</div>";
+//                        str += "<th>Редактировать</th>";
+//                        str += "<th>Удалить</th>";
 //                    }
-                    str += "</div>";
-                    str += "<a class = \"pull-left\" href = \"#\">";
-                    str += "<img class=\"media-object\" src=\"images/stern.png\" alt=\"...\">";
-                    str += "</a>";
-                    str += "<div class=\"media-body\">";
-                    str += "<h4 class=\"media-heading\">"
-                    str += "<b>" + entry.id + "</b> ";
-                    str += "</h4>";
-                    str += entry.customersAddress + " "
-                            + entry.customersDayOfBirthday + " "
-                            + entry.customersEmail + " "
-                            + entry.customersExtra + " "
-                            + entry.customersFname + " "
-                            + entry.customersLname + " "
-                            + entry.customersMname + " "
-                            + entry.customersMonthOfBirthday + " "
-                            + entry.customersPhone + " "
-                            + entry.customersSex + " "
-                            + entry.customersYearOfBirthday + " ";
-                    str += "</div>";
-                    str += "</div>";
+                str += "</tr>";
+                str += "</thead>";
+                str += "<tbody>";
+                array.forEach(function(entry) {
+                    str += "<tr>";
+                    str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-default\"><b>" + entry.id + "</b></a></td>";
+                    str += "<td>" + entry.customersFname + " " + entry.customersMname + " " + entry.customersLname + "</td>";
+                    str += "<td>" + entry.customersPhone + "</td>";
+                    str += "<td>" + entry.customersDayOfBirthday + "-" + entry.customersMonthOfBirthday + "-" + entry.customersYearOfBirthday + "</td>";
+                    str += "<td>" + entry.customersEmail + "</td>";
+                    str += "<td>";
+                    switch (entry.customersSex) {
+                        case 1:
+                            str += "Мужской";
+                            break
+                        case 2:
+                            str += "Женский";
+                            break
+                        case 0:
+                            str += "Не указан";
+                            break
+                        default:
+                            str += "Не указан";
+                            break
+                    }
+                    str += "</td>";
+//                    str += "<td>" + entry.entry.customersExtra + "</td>";
+//                    if (permissions == "3") {
+//                        str += "<td><a href=\"#apartaments/edit/" + entry.id + "\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></a></td>";
+//                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+//                    }
+                    str += "</tr>";
                 });
-
+                str += "</tbody>";
                 $("#divCustomersList").html(str);
             },
             error: function(data) {

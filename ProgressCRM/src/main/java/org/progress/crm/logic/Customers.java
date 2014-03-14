@@ -27,6 +27,7 @@ public class Customers implements Serializable {
     private String customersPhone;
     private String customersEmail;
     private String customersAddress;
+    @Expose
     private String customersExtra;
     private boolean deleted;
 
