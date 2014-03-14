@@ -28,11 +28,10 @@ function getCustomersListPage() {
                 str += "<th>Дата рождения</th>";
                 str += "<th>E-mail</th>";
                 str += "<th>Пол</th>";
-//                str += "<th>Дополнительно</th>";
-//                    if (permissions == "3") {
-//                        str += "<th>Редактировать</th>";
-//                        str += "<th>Удалить</th>";
-//                    }
+                if (permissions == "3") {
+                    str += "<th>Редактировать</th>";
+                    str += "<th>Удалить</th>";
+                }
                 str += "</tr>";
                 str += "</thead>";
                 str += "<tbody>";
@@ -59,11 +58,10 @@ function getCustomersListPage() {
                             break
                     }
                     str += "</td>";
-//                    str += "<td>" + entry.entry.customersExtra + "</td>";
-//                    if (permissions == "3") {
-//                        str += "<td><a href=\"#apartaments/edit/" + entry.id + "\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></a></td>";
-//                        str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
-//                    }
+                    if (permissions == "3") {
+                        str += "<td><a href=\"#customers/edit/" + entry.id + "\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></a></td>";
+                        str += "<td>" + "<button type=\"button\" onclick=\"customersDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+                    }
                     str += "</tr>";
                 });
                 str += "</tbody>";
@@ -128,8 +126,8 @@ function addCustomer() {
     });
 }
 
-function editCustomerById(customersId) {
-    console.log("editCustomerById " + customersId);
+function customersEditById(customersId) {
+    alert("editCustomerById " + customersId);
 }
 
 function customersDeleteById(customersId) {
