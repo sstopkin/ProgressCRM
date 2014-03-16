@@ -1,4 +1,5 @@
-var selected_files = []
+var selected_files = [];
+var mainFullPath = "";
 
 function searchAndRemove(array, elt) {
     for (var i = array.length - 1; i >= 0; i--) {
@@ -9,11 +10,11 @@ function searchAndRemove(array, elt) {
 }
 
 function refreshFileList() {
-    getFolderList($('#mainFileManagerFullPathLabel').text());
+    getFolderList(mainFullPath);
 }
 
 function mkDir() {
-    var basePath = $('#mainFileManagerFullPathLabel').text();
+    var basePath = mainFullPath;
     var newFolderName = $('#mainFileManagerNewPathName').val();
     $('#filemanagerCreateFolder').modal('hide');
     $.ajax({
@@ -30,10 +31,10 @@ function mkDir() {
     });
 }
 
-function getUpFolder(){
-    var basePath = $('#mainFileManagerFullPathLabel').text();
-    var a=basePath.split('/');
-    a.splice(-1,1);
+function getUpFolder() {
+    var basePath = mainFullPath;
+    var a = basePath.split('/');
+    a.splice(-1, 1);
     getFolderList(a.toString());
 }
 
@@ -57,7 +58,8 @@ function getFolderList(path) {
         url: "api/fm/getfilelist",
         data: {path: parseFolderRevert(path)},
         success: function(data) {
-            $('#mainFileManagerFullPathLabel').text(parseFolderRevert(path));
+            mainFullPath = parseFolderRevert(path);
+            generateFullPathBreadcrumb(path);
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
             var str = "<table class=\"table table-bordered\">";
@@ -105,11 +107,11 @@ function getFolderList(path) {
 }
 
 function selectFile(object) {
-    selected_files.push($(object).attr("id"))
+    selected_files.push($(object).attr("id"));
 }
 
 function deselectFile(object) {
-    searchAndRemove(selected_files, $(object).attr("id"))
+    searchAndRemove(selected_files, $(object).attr("id"));
 }
 
 function selectCheckboxClick(object) {
@@ -122,7 +124,7 @@ function selectCheckboxClick(object) {
 }
 
 function deleteSelectedFiles() {
-    var basePath=$('#mainFileManagerFullPathLabel').text();
+    var basePath = mainFullPath;
     $.ajax({
         type: "POST",
         url: "api/fm/remove",
@@ -144,4 +146,27 @@ function parseFolder(path) {
 
 function parseFolderRevert(path) {
     return path.replace(/,/g, "\/").replace(/\"/g, "").replace(/ /g, "");
+}
+
+function generateFullPathBreadcrumb(path) {
+    var arr = [];
+    arr = path.split(",");
+    arr.splice(0, 1);
+    var str = "<ol class=\"breadcrumb\">";
+    var stack = [];
+    for (var i = 0; i < arr.length; i++) {
+        stack += "," + arr[i];
+        if (i === arr.length - 1) {
+            str += "<li class=\"active\">";
+            str += arr[i];
+            str += "</li>";
+        }
+        else {
+            str += "<li>";
+            str += "<a onclick=\"getFolderList('" + stack.toString() + "');\">" + arr[i] + "</a>";
+            str += "</li>";
+        }
+    }
+    str += "</ol>";
+    $('#mainFileManagerFullPathLabel').html(str);
 }

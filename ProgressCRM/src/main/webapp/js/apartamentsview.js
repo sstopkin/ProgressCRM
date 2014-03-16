@@ -267,14 +267,28 @@ function getApartamentViewPage(apartamentId) {
                 return false;
             }
         });
-        getFileManagerPage();
+        getFileManagerPage(array.ApartamentUUID);
         $("#apartamentsFeatures").html(content);
     });
 }
 
-function getFileManagerPage() {
-    $.get("fm.html", function(data) {
-        $("#apartamentsFilemanager").html(data);
-    });
-    getFolderList(",tmp");
+function getFileManagerPage(apartamentUUID) {
+    if (apartamentUUID == "") {
+        alert("NULL");
+    }
+    else {
+        $.ajax({
+            type: "GET",
+            url: "api/filespaces/getfilespace?uuid=" + apartamentUUID,
+            async: false,
+            success: function(data) {
+//                $.get("fm.html", function(data) {
+//                    $("#apartamentsFilemanager").html(data);
+//                });
+                alert("data " + data)
+                getFolderList(",tmp");
+
+            }
+        });
+    }
 }

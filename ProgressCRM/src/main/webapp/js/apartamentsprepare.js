@@ -65,19 +65,19 @@ function getApartamentsPrepareListPage() {
                     }
                 });
                 if (barchelorArray.length !== 0) {
-                    str += draw(barchelorArray, permissions, "Малосемейки");
+                    str += drawPrepare(barchelorArray, permissions, "Малосемейки");
                 }
                 if (subrentalArray.length !== 0) {
-                    str += draw(subrentalArray, permissions, "Подселение");
+                    str += drawPrepare(subrentalArray, permissions, "Подселение");
                 }
                 if (dormitoryArray !== 0) {
-                    str += draw(dormitoryArray, permissions, "Гостинки");
+                    str += drawPrepare(dormitoryArray, permissions, "Гостинки");
                 }
                 if (apartsArray !== 0) {
-                    str += draw(apartsArray, permissions, "Квартиры");
+                    str += drawPrepare(apartsArray, permissions, "Квартиры");
                 }
                 str += "</tbody>";
-                $("#divApartamentsList").html(str);
+                $("#divApartamentsPrepareList").html(str);
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -87,7 +87,7 @@ function getApartamentsPrepareListPage() {
     });
 }
 
-function draw(array, permissions, catName) {
+function drawPrepare(array, permissions, catName) {
     var flag1 = false;
     var flag2 = false;
     var flag3 = false;
