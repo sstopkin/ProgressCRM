@@ -45,7 +45,7 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getAllCustomersFull(session, token));
+                String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
                 return ApiHelper.getResponse(result);
             }
         });

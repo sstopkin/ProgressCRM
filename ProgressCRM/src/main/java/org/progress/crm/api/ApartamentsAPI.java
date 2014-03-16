@@ -41,12 +41,25 @@ public class ApartamentsAPI {
 
     @GET
     @Path("getallapartament")
-    public Response getApartamentById(@CookieParam("token") final String token) throws CustomException {
+    public Response getAllApartaments(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(apartamentsController.getAllApartament(session, token));
+                Gson allApartament = new GsonBuilder().create();
+                String result = allApartament.toJson(apartamentsController.getAllApartament(session, token, false));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @GET
+    @Path("getallapartamentзprepare")
+    public Response getAllApartamentsPrepare(@CookieParam("token") final String token) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson allApartament = new GsonBuilder().create();
+                String result = allApartament.toJson(apartamentsController.getAllApartament(session, token, true));
                 return ApiHelper.getResponse(result);
             }
         });

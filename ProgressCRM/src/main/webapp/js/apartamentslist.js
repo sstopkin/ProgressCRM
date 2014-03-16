@@ -181,6 +181,7 @@ function apartamentsDeleteById(apartamentsId) {
 function apartamentsEditById(apartamentId) {
     $.get("apartamentsadd.html", function(data) {
         $("#mainContainer").html(data);
+        mapSet();
         $.ajax({
             type: "GET",
             url: "api/apartament/getapartament?id=" + apartamentId,
