@@ -24,9 +24,9 @@ public class FileManagerDao {
         return result;
     }
 
-    public List getHomeFolder(Session session) {
+    public List getHomeFolder(Session session, String id) {
         List res = new ArrayList();
-        res.add("/tmp");
+        res.add("/tmp/"+id+"/");
         return res;
     }
 

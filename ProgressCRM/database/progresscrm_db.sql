@@ -189,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
   `idFilespace` int(11) NOT NULL DEFAULT '-1',
   `dwellingType` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL,
+  `ApartamentUUID` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idCustomer` (`idCustomer`),
   KEY `idCustomerIndex` (`idWorker`),

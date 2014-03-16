@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "News")
+@Table(name = "Filespaces")
 public class Filespaces implements Serializable {
 
     private int id;

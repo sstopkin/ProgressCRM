@@ -3,6 +3,7 @@ package org.progress.crm.logic;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.TemporalType;
 public class Apartaments implements Serializable {
 
     private int id;
+    private String ApartamentUUID;
     private String cityName;
     private String streetName;
     private String houseNumber;
@@ -105,6 +107,7 @@ public class Apartaments implements Serializable {
         this.dwellingType = dwellingType;
         this.idWorkerTarget = idWorkerTarget;
         this.status = status;
+        this.ApartamentUUID = UUID.randomUUID().toString();
     }
 
     @Column(name = "idWorkerTarget")
@@ -114,6 +117,15 @@ public class Apartaments implements Serializable {
 
     public void setIdWorkerTarget(int idWorkerTarget) {
         this.idWorkerTarget = idWorkerTarget;
+    }
+
+    @Column(name = "ApartamentUUID")
+    public String getApartamentUUID() {
+        return ApartamentUUID;
+    }
+
+    public void setApartamentUUID(String ApartamentUUID) {
+        this.ApartamentUUID = ApartamentUUID;
     }
 
     @Column(name = "status")

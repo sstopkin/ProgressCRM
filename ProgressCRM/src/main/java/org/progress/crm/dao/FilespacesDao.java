@@ -4,9 +4,14 @@ import org.hibernate.Session;
 import org.progress.crm.logic.Filespaces;
 
 public class FilespacesDao {
-    public int createFilespace(Session session, String filespaceName){
-        Filespaces fs=new Filespaces(filespaceName);
+
+    public String createFilespace(Session session, String filespaceName) {
+        Filespaces fs = new Filespaces(filespaceName);
         session.save(fs);
-        return fs.getId();
-    };
+        return fs.getFilespacesUUID();
+    }
+
+    public String getFilespacePathByTargetUUID(Session session, String uuid) {
+        return null;
+    }
 }

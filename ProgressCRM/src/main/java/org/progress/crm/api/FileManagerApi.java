@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.progress.crm.api;
 
 import com.google.gson.Gson;
@@ -18,6 +12,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.progress.crm.controllers.FileManagerController;
@@ -25,10 +20,6 @@ import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
 import org.progress.crm.util.TransactionService;
 
-/**
- *
- * @author best
- */
 @Stateless
 @Path("fm")
 public class FileManagerApi {
@@ -77,12 +68,12 @@ public class FileManagerApi {
 
     @GET
     @Path("gethome")
-    public Response getFolderFileList() throws CustomException {
+    public Response getHomeFolderFileList(@QueryParam("filespaceid") final String id) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson rootFolderFileList = new GsonBuilder().create();
-                String result = rootFolderFileList.toJson(fileManagerController.getHomeFolder(session));
+                String result = rootFolderFileList.toJson(fileManagerController.getHomeFolder(session, id));
                 return ApiHelper.getResponse(result);
             }
         });
