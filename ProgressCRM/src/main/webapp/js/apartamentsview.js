@@ -15,11 +15,9 @@ function getApartamentViewPage(apartamentId) {
                 array = JSON.parse(data);
                 console.log(array.IsApproved);
                 console.log(array.deleted);
-
                 content += "<p>";
                 content += "ID = " + array.id;
                 content += "</p>";
-
                 content += "<p>";
                 content += "Статус: ";
                 switch (array.typeOfSales) {
@@ -36,8 +34,6 @@ function getApartamentViewPage(apartamentId) {
                         content += "";
                 }
                 content += "</p>";
-
-
                 content += "<p>";
                 switch (array.typeOfSales) {
                     case 1:
@@ -50,7 +46,6 @@ function getApartamentViewPage(apartamentId) {
                         content += "";
                 }
                 content += "</p>";
-
                 content += "<p>";
                 content += "Адрес: "
                         + array.cityName + " "
@@ -59,15 +54,12 @@ function getApartamentViewPage(apartamentId) {
                         + array.buildingNumber + " - "
                         + array.roomNumber + " ";
                 content += "</p>";
-
                 content += "<p>";
                 content += "Количество комнат: " + array.rooms;
                 content += "</p>";
-
                 content += "<p>";
                 content += "Цена: " + array.price;
                 content += "</p>";
-
                 if (array.MethodOfPurchase_Mortgage) {
                     content += "<p>";
                     content += "Ипотека";
@@ -98,7 +90,6 @@ function getApartamentViewPage(apartamentId) {
                     content += "Нет";
                 }
                 content += "</p>";
-
                 content += "<p>";
                 switch (array.cityDistrict) {
                     case 1:
@@ -129,7 +120,6 @@ function getApartamentViewPage(apartamentId) {
                     content += array.balcony;
                 }
                 content += "</p>";
-
                 content += "<p>";
                 content += "Лоджия: ";
                 if (array.loggia === 0) {
@@ -139,18 +129,15 @@ function getApartamentViewPage(apartamentId) {
                     content += array.loggia;
                 }
                 content += "</p>";
-
                 content += "<p>";
                 content += "Этажность: " + array.floors;
                 content += "</p>";
                 content += "<p>";
                 content += "Этаж: " + array.floor;
                 content += "</p>";
-
                 content += "<p>";
                 content += "Год постройки дома: " + array.yearOfConstruction;
                 content += "</p>";
-
                 content += "<p>";
                 content += "Материал дома: ";
                 switch (array.material) {
@@ -170,14 +157,12 @@ function getApartamentViewPage(apartamentId) {
                         content += "";
                 }
                 content += "</p>";
-
                 content += "<p>";
                 content += "Объект добавлен: " + array.сreationDate;
                 content += "</p>";
                 content += "<p>";
                 content += "Объект изменен: " + array.lastModify;
                 content += "</p>";
-
                 for (var i = 0; i < workersList.length; ++i) {
                     var a = workersList[i];
                     if (array.idWorker == a[0]) {
@@ -192,7 +177,6 @@ function getApartamentViewPage(apartamentId) {
                     }
                 }
                 console.log(array.kladrId);
-
                 content += "<p>";
                 content += "Площадь общая: " + array.sizeApartament;
                 content += "</p>";
@@ -202,18 +186,15 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "Площадь жилая: " + array.sizeLiving;
                 content += "</p>";
-
                 content += "<p>";
                 content += "Описание: " + array.description;
                 content += "</p>";
-
                 var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
                 maps += "<br/>";
                 maps += "<small>";
                 maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
                 maps += "</small>";
                 maps += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-primary pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
-
                 $("#mapApartamentsView").html(maps);
             },
             error: function(data) {
@@ -228,7 +209,7 @@ function getApartamentViewPage(apartamentId) {
             success: function(data) {
                 var array = JSON.parse(data);
                 content += "<p>";
-                content += "<b>Информация о владельце: </b>";//array.clientDescription
+                content += "<b>Информация о владельце: </b>"; //array.clientDescription
                 content += "</p>";
                 content += array.customersFname + " ";
                 content += array.customersMname + " ";
@@ -282,11 +263,29 @@ function getFileManagerPage(apartamentUUID) {
             url: "api/filespaces/getfilespace?uuid=" + apartamentUUID,
             async: false,
             success: function(data) {
-//                $.get("fm.html", function(data) {
-//                    $("#apartamentsFilemanager").html(data);
-//                });
-                alert("data " + data)
-                getFolderList(",tmp");
+                if (1) {
+                    $.ajax({
+                        type: "POST",
+                        url: "api/filespaces/createfilespace",
+                        data: ({
+                            filespacename: "asd"
+                        }),
+                        success: function(data) {
+                            location.reload(); //FIXME
+                            $("#errorBlock").css("display", "none");
+                        },
+                        error: function(data) {
+                            showDanger(data.responseText);
+                        }
+                    });
+                }
+                else {
+                    $.get("fm.html", function(data) {
+                        $("#apartamentsFilemanager").html(data);
+                    });
+                    alert("data " + data)
+                    getFolderList(",tmp");
+                }
 
             }
         });
