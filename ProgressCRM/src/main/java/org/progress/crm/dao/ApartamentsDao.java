@@ -3,6 +3,7 @@ package org.progress.crm.dao;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -53,9 +54,8 @@ public class ApartamentsDao {
         return (Apartaments) session.get(Apartaments.class, apartamentsId);
     }
 
-    public List<Apartaments> getAllApartaments(Session session) throws CustomException {
+    public List<Apartaments> getAllApartaments(Session session, boolean prepare) throws CustomException {
 //        final String approved, final String tag
-
 //                if (!tag.equals(DaoFactory.UNDEFINED)) {
 ////                    return getCourseListByTag(tag);
 //                }
@@ -66,16 +66,13 @@ public class ApartamentsDao {
 //                boolean isApproved = Boolean.parseBoolean(approved);
 //                return session.createCriteria(Apartaments.class).
 //                        add(Restrictions.eq(DbFields.APARTAMENTS.APPROVED, isApproved)).list();
-        return session.createCriteria(Apartaments.class).
-                add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false)).
-                add(Restrictions.not(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0))).
-                addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS)).list();
-    }
-
-    public List<Apartaments> getAllPrepareApartaments(Session session) throws CustomException {
-        return session.createCriteria(Apartaments.class).
-                add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false)).
-                add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0)).
-                addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS)).list();
+        Criteria cr = session.createCriteria(Apartaments.class).add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
+        if (prepare) {
+            cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0));
+        } else {
+            cr.add(Restrictions.not(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0)));
+        }
+        cr.addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS));
+        return cr.list();
     }
 }
