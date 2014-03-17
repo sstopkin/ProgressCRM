@@ -263,30 +263,35 @@ function getFileManagerPage(apartamentUUID) {
             url: "api/filespaces/getfilespace?uuid=" + apartamentUUID,
             async: false,
             success: function(data) {
-                if (1) {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/filespaces/createfilespace",
-                        data: ({
-                            filespacename: "asd"
-                        }),
-                        success: function(data) {
-                            location.reload(); //FIXME
-                            $("#errorBlock").css("display", "none");
-                        },
-                        error: function(data) {
-                            showDanger(data.responseText);
-                        }
-                    });
-                }
-                else {
-                    $.get("fm.html", function(data) {
-                        $("#apartamentsFilemanager").html(data);
-                    });
-                    alert("data " + data)
-                    getFolderList(",tmp");
-                }
+                $.get("fm.html", function(data) {
+                    $("#apartamentsFilemanager").html(data);
+                });
+                if (!data) {
 
+                }
+//                if (1) {
+//                    $.ajax({
+//                        type: "POST",
+//                        url: "api/filespaces/createfilespace",
+//                        data: ({
+//                            filespacename: "asd"
+//                        }),
+//                        success: function(data) {
+//                            location.reload(); //FIXME
+//                            $("#errorBlock").css("display", "none");
+//                        },
+//                        error: function(data) {
+//                            showDanger(data.responseText);
+//                        }
+//                    });
+//                }
+//                else {
+//                    $.get("fm.html", function(data) {
+//                        $("#apartamentsFilemanager").html(data);
+//                    });
+//                    alert("data " + data)
+//                    getFolderList(",tmp");
+//                }
             }
         });
     }
