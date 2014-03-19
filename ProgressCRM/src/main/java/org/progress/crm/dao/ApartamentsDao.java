@@ -54,6 +54,11 @@ public class ApartamentsDao {
         return (Apartaments) session.get(Apartaments.class, apartamentsId);
     }
 
+    public Apartaments getApartamentsByUUID(final Session session, final String apartamentUUID) throws CustomException {
+        List<Apartaments> list = session.createCriteria(Apartaments.class).add(Restrictions.eq(DbFields.APARTAMENTS.APARTAMENTUUID, apartamentUUID)).list();
+        return list.get(0);
+    }
+
     public List<Apartaments> getAllApartaments(Session session, boolean prepare) throws CustomException {
 //        final String approved, final String tag
 //                if (!tag.equals(DaoFactory.UNDEFINED)) {
