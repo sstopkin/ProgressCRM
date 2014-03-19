@@ -26,13 +26,14 @@ public class FilespacesApi {
 
     @POST
     @Path("createfilespace")
-    public Response createFilespace(@FormParam("filespacename") final String filespaceName) throws CustomException {
+    public Response createFilespace(@FormParam("targetuuid") final String targetUUID,
+            @FormParam("type") final String type) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson rootFolderFileList = new GsonBuilder().create();
                 //FIXME add token
-                String result = rootFolderFileList.toJson(filespacesController.createFilespace(session, filespaceName));
+                String result = rootFolderFileList.toJson(filespacesController.createFilespace(session, targetUUID, type));
                 return ApiHelper.getResponse(result);
             }
         });

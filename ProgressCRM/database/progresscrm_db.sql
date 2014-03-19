@@ -22,7 +22,7 @@ UNIQUE INDEX `EmailIndex` (`Email` ASC) );
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Filespaces` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`FilespacesUUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+`filespacesUUID` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `Name` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
@@ -189,7 +189,8 @@ CREATE TABLE IF NOT EXISTS `progresscrm`.`Apartaments` (
   `idFilespace` int(11) NOT NULL DEFAULT '-1',
   `dwellingType` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `ApartamentUUID` VARCHAR(45) DEFAULT NULL,
+  `apartamentUUID` VARCHAR(45) DEFAULT NULL,
+  `filespaceUUID` VARCHAR(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idCustomer` (`idCustomer`),
   KEY `idCustomerIndex` (`idWorker`),

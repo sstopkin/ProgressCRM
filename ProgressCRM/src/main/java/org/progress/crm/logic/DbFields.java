@@ -9,17 +9,14 @@ public class DbFields {
         public final static String DELETED = "deleted";
         public final static String ROOMS = "rooms";
         public final static String STATUS = "status";
+        public final static String FILESPACEUUID = "filespaceUUID";
+        public final static String APARTAMENTUUID = "apartamentUUID";
     }
 
     public class WORKERS {
 
         public final static String ID = "id";
         public final static String EMAIL = "email";
-    }
-
-    public class APARTAMENTS_PHOTO {
-
-        public final static String APARTAMENTS_ID = "ApartamentsId";
     }
 
     public class CALLS {
@@ -89,16 +86,23 @@ public class DbFields {
         public final static String IDWORKER = "idWorker";
         public final static String DELETED = "deleted";
     }
-    
+
     public class CUSTOMERSRENT {
+
         public final static String DELETED = "deleted";
         public final static String ASSIGNED = "assigned";
         public final static String IDWORKER = "idWorker";
         public final static String CREATIONDATE = "creationDate";
         public final static String STATUS = "status";
     }
-    
+
     public class HELPDESK {
+
         public final static String DELETED = "deleted";
+    }
+
+    public class FILESPACES {
+
+        public final static String FILESPACESUUID = "filespacesUUID";
     }
 }

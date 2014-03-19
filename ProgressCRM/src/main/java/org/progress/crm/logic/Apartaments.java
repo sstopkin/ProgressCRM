@@ -57,6 +57,7 @@ public class Apartaments implements Serializable {
     private boolean deleted;
     private int dwellingType;
     private int status;
+    private String filespaceUUID;
 
     public Apartaments() {
     }
@@ -108,6 +109,7 @@ public class Apartaments implements Serializable {
         this.idWorkerTarget = idWorkerTarget;
         this.status = status;
         this.ApartamentUUID = UUID.randomUUID().toString();
+        this.filespaceUUID = "";
     }
 
     @Column(name = "idWorkerTarget")
@@ -126,6 +128,15 @@ public class Apartaments implements Serializable {
 
     public void setApartamentUUID(String ApartamentUUID) {
         this.ApartamentUUID = ApartamentUUID;
+    }
+
+    @Column(name = "filespaceUUID")
+    public String getFilespaceUUID() {
+        return filespaceUUID;
+    }
+
+    public void setFilespaceUUID(String filespaceUUID) {
+        this.filespaceUUID = filespaceUUID;
     }
 
     @Column(name = "status")

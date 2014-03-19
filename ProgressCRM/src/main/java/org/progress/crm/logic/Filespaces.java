@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 public class Filespaces implements Serializable {
 
     private int id;
-    private String FilespacesUUID;
+    private String filespacesUUID;
     private Date creationDate;
     private String Name;
     private boolean deleted;
@@ -26,7 +26,7 @@ public class Filespaces implements Serializable {
     }
 
     public Filespaces(String Name) {
-        this.FilespacesUUID = UUID.randomUUID().toString();
+        this.filespacesUUID = UUID.randomUUID().toString();
         this.creationDate = new Date();
         this.Name = Name;
         this.deleted = false;
@@ -34,11 +34,11 @@ public class Filespaces implements Serializable {
 
     @Column(name = "FilespacesUUID")
     public String getFilespacesUUID() {
-        return FilespacesUUID;
+        return filespacesUUID;
     }
 
     public void setFilespacesUUID(String FilespacesUUID) {
-        this.FilespacesUUID = FilespacesUUID;
+        this.filespacesUUID = FilespacesUUID;
     }
 
     @Column(name = "Name")
