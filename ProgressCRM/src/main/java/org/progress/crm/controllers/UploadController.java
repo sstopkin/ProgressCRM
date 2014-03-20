@@ -81,11 +81,9 @@ public class UploadController {
         while ((read = uploadInputStream.read(bytes)) != -1) {
             out.write(bytes, 0, read);
         }
-
         out.flush();
         out.close();
 
-//        apartamentsPhotoController.addApartamentPhoto(session, newFileName.toString(), "test", "1");
         return null;
     }
 }
