@@ -171,3 +171,8 @@ function generateFullPathBreadcrumb(path) {
     str += "</ol>";
     $('#mainFileManagerFullPathLabel').html(str);
 }
+
+function uploadFile() {
+    $('#loadContent').submit();
+    $('#filemanagerUploadFile').modal('toggle');
+}
