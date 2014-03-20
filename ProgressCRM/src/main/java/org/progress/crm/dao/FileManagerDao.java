@@ -26,7 +26,7 @@ public class FileManagerDao {
 
     public List getHomeFolder(Session session, String id) {
         List res = new ArrayList();
-        res.add("/tmp/"+id+"/");
+        res.add("/tmp/" + id + "/");
         return res;
     }
 
@@ -85,7 +85,7 @@ public class FileManagerDao {
 
     public List getFolderFileList(Session session, String path) {
         // Directory path here
-        File folder = new File(path);
+        File folder = new File("/tmp" + path);
         File[] listOfFiles = folder.listFiles();
         List result = new ArrayList();
 

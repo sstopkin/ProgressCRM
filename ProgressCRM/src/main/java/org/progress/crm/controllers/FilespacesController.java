@@ -38,7 +38,7 @@ public class FilespacesController {
 //        if (token == null) {
 //            throw new IsNotAuthenticatedException();
 //        }
-        return DaoFactory.getFilespacesDao().getFilespacePathByTargetUUID(session, uuid);
+        return DaoFactory.getFilespacesDao().getFilespacePathByUUID(session, uuid);
     }
 
 }

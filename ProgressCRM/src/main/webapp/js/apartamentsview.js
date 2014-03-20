@@ -248,31 +248,26 @@ function getApartamentViewPage(apartamentId) {
                 return false;
             }
         });
-        getFileManagerPage(array.ApartamentUUID);
+        getFileManagerPage(array.filespaceUUID, array.ApartamentUUID);
         $("#apartamentsFeatures").html(content);
     });
 }
 
-function getFileManagerPage(apartamentUUID) {
-    if (apartamentUUID == "") {
-        alert("NULL");
+function getFileManagerPage(filespaceUUID, ApartamentUUID) {
+    if (filespaceUUID == "") {
+        $("#apartamentsFilemanager").html("<input onclick=\"createApartamentsFilespace('" + ApartamentUUID + "');\" type=\"button\" class=\"btn btn-success pull-right\" value=\"Создать хранилище\" />");
     }
     else {
         $.ajax({
             type: "GET",
-            url: "api/filespaces/getfilespace?uuid=" + apartamentUUID,
+            url: "api/filespaces/getfilespace?uuid=" + filespaceUUID,
             async: false,
             success: function(data) {
                 var str;
-                if (data == "\"[]\"") {
-                    $("#apartamentsFilemanager").html("<input onclick=\"createApartamentsFilespace('" + apartamentUUID + "');\" type=\"button\" class=\"btn btn-success pull-right\" value=\"Создать хранилище\" />");
-                }
-                else {
-                    $.get("fm.html", function(data) {
-                        $("#apartamentsFilemanager").html(data);
-                    });
-                    getFolderList(data);
-                }
+                $.get("fm.html", function(data) {
+                    $("#apartamentsFilemanager").html(data);
+                });
+                getFolderList(data);
             }
         });
     }
