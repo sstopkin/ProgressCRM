@@ -15,9 +15,8 @@ public class FilespacesDao {
         return fs.getFilespacesUUID();
     }
 
-    public String getFilespacePathByTargetUUID(Session session, String uuid) throws CustomException {
-        String filespaceUUID = DaoFactory.getApartamentsDao().getApartamentsByUUID(session, uuid).getFilespaceUUID();
-        List<Filespaces> list = session.createCriteria(Filespaces.class).add(Restrictions.eq(DbFields.FILESPACES.FILESPACESUUID, filespaceUUID)).list();
+    public String getFilespacePathByUUID(Session session, String uuid) throws CustomException {
+        List<Filespaces> list = session.createCriteria(Filespaces.class).add(Restrictions.eq(DbFields.FILESPACES.FILESPACESUUID, uuid)).list();
         return list.get(0).getFilespacesUUID();
     }
 }
