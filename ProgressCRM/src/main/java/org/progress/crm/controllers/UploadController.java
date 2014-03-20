@@ -69,12 +69,10 @@ public class UploadController {
             String path) throws FileNotFoundException, IOException, CustomException {
         String filename = fileDetail.getFileName();
 //        String type = filename.substring(filename.lastIndexOf('.') + 1);
-        UUID newFileName = UUID.randomUUID();
-
         int read = 0;
         byte[] bytes = new byte[1024];
 
-        File directory = new File(path);
+        File directory = new File("/tmp/" + path);
         if (!directory.exists()) {
             directory.mkdirs();
         }
