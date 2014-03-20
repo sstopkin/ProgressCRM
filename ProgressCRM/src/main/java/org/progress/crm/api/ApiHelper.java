@@ -22,8 +22,8 @@ public class ApiHelper {
     }
 
     public static Response getResponse(File f) {
-        Response.ResponseBuilder response = Response.ok((Object) f);
-        response.header("Content-Disposition", "attachment; filename=\"price.pdf\"");
+        Response.ResponseBuilder response = Response.ok((File) f);
+        response.header("Content-Disposition", "attachment; filename=\"" + f.getName() + "\"");
         return response.build();
     }
 

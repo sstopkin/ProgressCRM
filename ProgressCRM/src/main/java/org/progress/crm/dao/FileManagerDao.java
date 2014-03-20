@@ -20,7 +20,7 @@ import org.hibernate.Session;
 public class FileManagerDao {
 
     public File getFileByPath(Session session, String path) {
-        File result = new File("//" + path);
+        File result = new File("//tmp/" + path);
         return result;
     }
 
@@ -31,14 +31,14 @@ public class FileManagerDao {
     }
 
     public boolean mkDir(Session session, String path) {
-        return (new File(path)).mkdir();
+        return (new File("/tmp/" + path)).mkdir();
     }
 
     public boolean removeFile(Session session, String path) {
         String[] parts = path.replaceAll("\"", "").split(",");
         List<String> wordList = Arrays.asList(parts);
         for (String f : wordList) {
-            File file = new File(f);
+            File file = new File("/tmp/" + f);
             if (file.isDirectory()) {
                 try {
                     delete(file);
@@ -85,13 +85,13 @@ public class FileManagerDao {
 
     public List getFolderFileList(Session session, String path) {
         // Directory path here
-        File folder = new File("/tmp" + path);
+        File folder = new File("/tmp/" + path);
         File[] listOfFiles = folder.listFiles();
         List result = new ArrayList();
 
         for (File file : listOfFiles) {
             String lastMfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(folder.lastModified()));
-            result.add(new CustomFile(file.getName(), file.getPath(), lastMfDate, String.valueOf(file.length()), file.isFile()));
+            result.add(new CustomFile(file.getName(), file.getPath().substring(4), lastMfDate, String.valueOf(file.length()), file.isFile()));
         }
         return result;
     }
