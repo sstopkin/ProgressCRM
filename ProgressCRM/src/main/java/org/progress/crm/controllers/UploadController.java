@@ -72,7 +72,7 @@ public class UploadController {
         int read = 0;
         byte[] bytes = new byte[1024];
 
-        File directory = new File("/tmp/" + path);
+        File directory = new File("/crm/" + path);
         if (!directory.exists()) {
             directory.mkdirs();
         }

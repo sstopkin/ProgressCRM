@@ -20,25 +20,25 @@ import org.hibernate.Session;
 public class FileManagerDao {
 
     public File getFileByPath(Session session, String path) {
-        File result = new File("//tmp/" + path);
+        File result = new File("//crm/" + path);
         return result;
     }
 
     public List getHomeFolder(Session session, String id) {
         List res = new ArrayList();
-        res.add("/tmp/" + id + "/");
+        res.add("/crm/" + id + "/");
         return res;
     }
 
     public boolean mkDir(Session session, String path) {
-        return (new File("/tmp/" + path)).mkdir();
+        return (new File("/crm/" + path)).mkdir();
     }
 
     public boolean removeFile(Session session, String path) {
         String[] parts = path.replaceAll("\"", "").split(",");
         List<String> wordList = Arrays.asList(parts);
         for (String f : wordList) {
-            File file = new File("/tmp/" + f);
+            File file = new File("/crm/" + f);
             if (file.isDirectory()) {
                 try {
                     delete(file);
@@ -85,7 +85,7 @@ public class FileManagerDao {
 
     public List getFolderFileList(Session session, String path) {
         // Directory path here
-        File folder = new File("/tmp/" + path);
+        File folder = new File("/crm/" + path);
         File[] listOfFiles = folder.listFiles();
         List result = new ArrayList();
 
