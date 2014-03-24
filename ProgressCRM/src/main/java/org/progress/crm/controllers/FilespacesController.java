@@ -24,7 +24,7 @@ public class FilespacesController {
             session.save(fs);
             aparts.setFilespaceUUID(fs.getFilespacesUUID());
             session.update(aparts);
-            File myPath = new File("/tmp/" + aparts.getFilespaceUUID());
+            File myPath = new File("/crm/" + aparts.getFilespaceUUID());
             myPath.mkdir();
             ret = ",tmp," + aparts.getFilespaceUUID();
         }
