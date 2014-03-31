@@ -7,6 +7,7 @@ import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Apartaments;
+import org.progress.crm.logic.Constants;
 import org.progress.crm.logic.Filespaces;
 
 @Singleton
@@ -24,9 +25,9 @@ public class FilespacesController {
             session.save(fs);
             aparts.setFilespaceUUID(fs.getFilespacesUUID());
             session.update(aparts);
-            File myPath = new File("/crm/" + aparts.getFilespaceUUID());
+            File myPath = new File(Constants.SETTINGS.BASEPATH + aparts.getFilespaceUUID());
             myPath.mkdir();
-            ret = ",tmp," + aparts.getFilespaceUUID();
+            ret = myPath.toString().replace(Constants.SETTINGS.BASEPATH,"");
         }
         return ret;
     }

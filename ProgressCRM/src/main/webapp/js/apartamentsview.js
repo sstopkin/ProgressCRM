@@ -281,7 +281,7 @@ function createApartamentsFilespace(targetuuid) {
             targetuuid: targetuuid,
             type: 1
         }),
-        success: function(data) {
+        success: function() {
             location.reload(); //FIXME
             $("#errorBlock").css("display", "none");
         },
