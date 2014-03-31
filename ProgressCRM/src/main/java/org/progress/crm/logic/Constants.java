@@ -18,4 +18,9 @@ public class Constants {
         public final static int LOGOUTOK = 102;
         public final static int LOGOUTFAIL = 103;
     }
+
+    public class SETTINGS {
+
+        public final static String BASEPATH = "/var/progresscrm/data/";
+    }
 }
