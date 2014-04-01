@@ -79,8 +79,13 @@ function getNews() {
         url: "api/auth/validate",
         async: false
     }).responseText;
+    var str = "";
+    if (permissions == "3") {
+//        <!-- Button trigger modal -->
+        str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#newsModal\" class=\"btn btn-primary pull-right\">Добавить новость</a></div>";
+    }
     $.get("api/news", function(data) {
-        var str = "<table class=\"table\"><tbody>\n";
+        str = "<table class=\"table\"><tbody>\n";
         var list = JSON.parse(data);
         for (var i = 0; i < list.length; ++i) {
             str += "<tr><td>";
@@ -98,7 +103,7 @@ function getNews() {
             for (var it = 0; it < workersList.length; ++it) {
                 var a = workersList[it];
                 if (list[i].idWorker == a[0]) {
-                    str += "<p><i>" + a[3] +" "+ a[1] + "</i></p>";
+                    str += "<p><i>" + a[3] + " " + a[1] + "</i></p>";
                 }
             }
             str += "</div>";
