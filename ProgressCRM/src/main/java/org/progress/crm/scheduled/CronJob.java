@@ -31,7 +31,7 @@ public class CronJob {
 //                "running every minute .. now it's: " + new Date().toString());
 //    }
 //
-    @Schedule(second = "*/5", minute = "*", hour = "*")
+    @Schedule(minute = "*/5", hour = "*")
     public void runEvery10Second() {
         String filename = "/tmp/progresscrm.log";
         try {
