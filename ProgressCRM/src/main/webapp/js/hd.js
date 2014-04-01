@@ -13,6 +13,10 @@ function getHelpDeskPage() {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
+                if (permissions === "3") {
+//                <!-- Button trigger modal -->
+                    str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#myModal\" class=\"btn btn-primary pull-right\">Оставить заявку</a></div>";
+                }
                 array.forEach(function(entry) {
                     str += "<div class = \"media\">";
                     str += "<a class = \"pull-left\" href = \"#\">";

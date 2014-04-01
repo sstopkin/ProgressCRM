@@ -1,17 +1,14 @@
 package org.progress.crm.scheduled;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
-import org.hibernate.Session;
 import org.progress.crm.controllers.CustomersController;
-import org.progress.crm.exceptions.CustomException;
-import org.progress.crm.logic.Customers;
-import org.progress.crm.util.HibernateUtil;
 
 /**
  *
@@ -34,11 +31,17 @@ public class CronJob {
 //                "running every minute .. now it's: " + new Date().toString());
 //    }
 //
-//    @Schedule(second = "*/5", minute = "*", hour = "*")
-//    public void runEvery10Second() {
-//        log.log(Level.INFO,
-//                "running every second .. now it's: " + new Date().toString());
-//    }
+    @Schedule(second = "*/5", minute = "*", hour = "*")
+    public void runEvery10Second() {
+        String filename = "/tmp/progresscrm.log";
+        try {
+            try (FileWriter sw = new FileWriter(filename, true)) {
+                sw.write("log " + new Date().toString() + "\n");
+            }
+        } catch (IOException e) {
+            log.log(Level.INFO, e.getMessage());
+        }
+    }
 //    @Schedule(second = "*/5", minute = "*", hour = "*")
 //    @Schedule(dayOfMonth = "*")
 //    public void runEveryDay() throws CustomException {
