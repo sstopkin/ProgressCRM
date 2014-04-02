@@ -23,7 +23,7 @@ public class CronJob {
     public CronJob() {
     }
 
-    private final Logger log = Logger.getLogger(CronJob.class.getName());
+    private static final Logger log = Logger.getLogger(CronJob.class.getName());
 
 //    @Schedule(minute = "*/1", hour = "*")
 //    public void runEveryMinute() {

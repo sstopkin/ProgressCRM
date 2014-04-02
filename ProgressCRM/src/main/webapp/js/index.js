@@ -85,7 +85,7 @@ function getNews() {
         str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#newsModal\" class=\"btn btn-primary pull-right\">Добавить новость</a></div>";
     }
     $.get("api/news", function(data) {
-        str = "<table class=\"table\"><tbody>\n";
+        str += "<table class=\"table\"><tbody>\n";
         var list = JSON.parse(data);
         for (var i = 0; i < list.length; ++i) {
             str += "<tr><td>";
@@ -113,6 +113,7 @@ function getNews() {
         str += "\n</tbody>\n</table>\n";
         $("#news").html(str);
     });
+
 }
 
 function  editNewsById(id) {
