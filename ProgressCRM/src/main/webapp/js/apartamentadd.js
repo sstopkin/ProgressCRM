@@ -10,8 +10,9 @@ function addApartament(prepare) {
             $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
         $("#apartamentAddReadyLink").css("display", "inline");
-        if (1) {
+        if (prepare == "1") {
             $("#apartamentAddCustomerBlock").css("display", "inline");
+            $("#apartamentAddWorkersBlock").css("display", "inline");
             //price
             $("#apartamentAddReadyLink").click(function() {
                 if (
@@ -84,7 +85,7 @@ function addApartament(prepare) {
                 });
             });
         }
-        else {
+        else if (prepare == "0") {
             //prepare
             $("#apartamentAddReadyLink").click(function() {
                 $.ajax({
@@ -121,8 +122,8 @@ function addApartament(prepare) {
                         exchange: $('#Exchange').prop("checked"),
                         rent: $('#Rent').prop("checked"),
                         replanning: $('#RePlanning').prop("checked"),
-                        idWorkerTarget: $("#ApartamentsIdWorkerTarget").val(),
-                        idCustomer: $("#IdCustomer").val(),
+                        idWorkerTarget: 1,
+                        idCustomer: 1,
                         status: 0
                     }),
                     success: function(data) {
