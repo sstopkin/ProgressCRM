@@ -5,11 +5,14 @@ function addApartament(prepare) {
         $("#mainContainer").html(data);
         $("#errorBlock").css("display", "none");
         mapSet();
+        validateFormApartamentsAddAdditionalData();
         workersList.forEach(function(entry) {
             $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
         $("#apartamentAddReadyLink").css("display", "inline");
         if (1) {
+            $("#apartamentAddCustomerBlock").css("display", "inline");
+            //price
             $("#apartamentAddReadyLink").click(function() {
                 if (
                         ($('#TypeOfSales').val() == "")
@@ -84,28 +87,6 @@ function addApartament(prepare) {
         else {
             //prepare
             $("#apartamentAddReadyLink").click(function() {
-                if (
-                        ($('#TypeOfSales').val() == "")
-                        || ($('#TypeOfSales').val() == "")
-                        || ($('#Price').val() == "")
-                        || ($('#CityDistrict').val() == "")
-                        || ($('#Floor').val() == "")
-                        || ($('#Floors').val() == "")
-                        || ($('#RoomNumber').val() == "")
-                        || ($('#Material').val() == "")
-                        || ($('#SizeApartament').val() == "")
-                        || ($('#SizeLiving').val() == "")
-                        || ($('#SizeKitchen').val() == "")
-                        || ($('#Balcony').val() == "")
-                        || ($('#Loggia').val() == "")
-                        || ($('#DwellingType').val() == "")
-                        || ($('#ApartamentsIdWorkerTarget').val() == "")
-                        ) {
-                    $("#errorBlock").addClass("alert-danger");
-                    $("#errorMessage").html("Не все поля заполнены");
-                    $("#errorBlock").css("display", "block");
-                    return false;
-                }
                 $.ajax({
                     type: "POST",
                     url: "api/apartament/addapartament",
@@ -525,5 +506,28 @@ function mapSet() {
         });
 
         map.controls.add('smallZoomControl', {top: 5, left: 5});
+    });
+}
+
+function validateFormApartamentsAddAdditionalData() {
+    $('#FormApartamentsAddAdditionalData').validate({
+        rules: {
+//            firstname: {
+//                minlength: 3,
+//                maxlength: 15,
+//                required: true
+//            },
+            IdCustomer: {
+                minlength: 3,
+                maxlength: 15,
+                required: true
+            }
+        },
+        highlight: function(element) {
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.form-group').removeClass('has-error');
+        }
     });
 }
