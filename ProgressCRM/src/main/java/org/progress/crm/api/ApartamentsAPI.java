@@ -65,24 +65,6 @@ public class ApartamentsAPI {
         });
     }
 
-//            $.get("api/auth/info", function(data) {
-//            JSON.parse(data, function(key, value) {
-//                if (key == "email")
-//                    $("#profileEmail").html(value);
-//                if (key == "fName")
-//                    $("#profileFName").html(value);
-//                if (key == "lName")
-//                    $("#profileLName").html(value);
-//                if (key == "mName") {
-//                    $("#profileMName").html(value);
-//                }
-//
-//            });
-//        });
-//    @FormParam("idcustomer") final String idCustomer,
-//            @FormParam("idtypeoftransaction") final String idTypeOfTransaction,
-//            @FormParam("idstreet") final String idStreet,
-//            @FormParam("cost") final String cost
     @POST
     @Path("addapartament")
     public Response addApartament(@CookieParam("token") final String token,
