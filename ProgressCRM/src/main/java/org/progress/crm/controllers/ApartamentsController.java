@@ -43,13 +43,27 @@ public class ApartamentsController {
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
 
-        DaoFactory.getApartamentsDao().addApartament(session, Integer.valueOf(typeOfSales),
+        int typeOfSalesInt = typeOfSales.equals("") ? 0 : Integer.valueOf(typeOfSales);
+        int roomsInt = rooms.equals("") ? 0 : Integer.valueOf(rooms);
+        int dwellingTypeInt = dwellingType.equals("-1") ? 0 : Integer.valueOf(dwellingType);
+        int priceInt = price.equals("") ? 0 : Integer.valueOf(price);
+        int cityDistrictInt = cityDistrict.equals("-1") ? 0 : Integer.valueOf(cityDistrict);
+        int floorInt = floor.equals("") ? 0 : Integer.valueOf(floor);
+        int floorsInt = floors.equals("") ? 0 : Integer.valueOf(floors);
+        int roomNumberInt = roomNumber.equals("") ? 0 : Integer.valueOf(roomNumber);
+        int materialInt = material.equals("-1") ? 0 : Integer.valueOf(material);
+        int balconyInt = balcony.equals("-1") ? 0 : Integer.valueOf(balcony);
+        int loggiaInt = loggia.equals("-1") ? 0 : Integer.valueOf(loggia);
+        int yearOfConstructionInt = yearOfConstruction.equals("") ? 0 : Integer.valueOf(yearOfConstruction);
+        BigDecimal sizeApartamentBig = sizeApartament.equals("") ? BigDecimal.ZERO : new BigDecimal(sizeApartament);
+        BigDecimal sizeLivingBig = sizeLiving.equals("") ? BigDecimal.ZERO : new BigDecimal(sizeLiving);
+        BigDecimal sizeKitchenBig = sizeKitchen.equals("") ? BigDecimal.ZERO : new BigDecimal(sizeKitchen);
+
+        DaoFactory.getApartamentsDao().addApartament(session, typeOfSalesInt,
                 cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress,
-                apartamentLan, apartamentLon, Integer.valueOf(rooms), Integer.valueOf(dwellingType),
-                Integer.valueOf(price), Integer.valueOf(cityDistrict), Integer.valueOf(floor),
-                Integer.valueOf(floors), Integer.valueOf(roomNumber), Integer.valueOf(material), new BigDecimal(sizeApartament),
-                new BigDecimal(sizeLiving), new BigDecimal(sizeKitchen), Integer.valueOf(balcony),
-                Integer.valueOf(loggia), Integer.valueOf(yearOfConstruction), description,
+                apartamentLan, apartamentLon, roomsInt, dwellingTypeInt, priceInt, cityDistrictInt, floorInt,
+                floorsInt, roomNumberInt, materialInt, sizeApartamentBig, sizeLivingBig, sizeKitchenBig, balconyInt,
+                loggiaInt, yearOfConstructionInt, description,
                 Boolean.parseBoolean(pureSale), Boolean.parseBoolean(mortgage),
                 Boolean.parseBoolean(exchange), Boolean.parseBoolean(rent),
                 Boolean.parseBoolean(rePplanning), idWorker, Integer.valueOf(idWorkerTarget), Integer.valueOf(idCustomer), Integer.valueOf(status), false);
