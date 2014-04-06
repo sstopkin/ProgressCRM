@@ -14,10 +14,8 @@ function addApartament(prepare) {
             $("#apartamentAddWorkersBlock").css("display", "inline");
             //price
             $("#apartamentAddReadyLink").click(function() {
-                $("#FormApartamentsAddAdditionalData").submit();
                 if (
                         ($('#TypeOfSales').val() == "")
-                        || ($('#TypeOfSales').val() == "")
                         || ($('#Price').val() == "")
                         || ($('#CityDistrict').val() == "")
                         || ($('#Floor').val() == "")
@@ -88,7 +86,16 @@ function addApartament(prepare) {
         else if (prepare == "0") {
             //prepare
             $("#apartamentAddReadyLink").click(function() {
-                $("#FormApartamentsAddAdditionalData").submit();
+                if (
+                        ($('#Price').val() == "")
+                        || ($('#Floor').val() == "")
+                        || ($('#Floors').val() == "")
+                        ) {
+                    $("#errorBlock").addClass("alert-danger");
+                    $("#errorMessage").html("Не все поля заполнены");
+                    $("#errorBlock").css("display", "block");
+                    return false;
+                }
                 $.ajax({
                     type: "POST",
                     url: "api/apartament/addapartament",
@@ -127,7 +134,7 @@ function addApartament(prepare) {
                         idCustomer: 1,
                         status: 0
                     }),
-                    success: function(data) {
+                    success: function() {
                         location.reload();//FIXME
                         $("#errorBlock").css("display", "none");
                     },
