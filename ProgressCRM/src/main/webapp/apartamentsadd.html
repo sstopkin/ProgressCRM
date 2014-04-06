@@ -66,8 +66,8 @@
                 </div>
             </div>
             <div class="tab-pane" id="tab2">
-                <form class="form-horizontal" id="FormApartamentsAddAdditionalData">
-                    <div class="row">
+                <form data-toggle="validator" role="form" class="form-horizontal" id="FormApartamentsAddAdditionalData">
+<!--                    <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div id="apartamentAddCustomerBlock" style="display: none">
@@ -134,7 +134,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Цена<br></label>
                                         <div class="controls">
-                                            <input id="Price" type="text" class="form-control">
+                                            <input id="Price" type="text" class="form-control" name="Price" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -151,19 +151,19 @@
                                     <div class="form-group">
                                         <label class="control-label">Этаж<br></label>
                                         <div class="controls">
-                                            <input id="Floor" type="text" class="form-control">
+                                            <input id="Floor" type="text" class="form-control" name="Floor" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Этажность дома<br></label>
                                         <div class="controls">
-                                            <input id="Floors" type="text" class="form-control">
+                                            <input id="Floors" type="text" class="form-control" name="Floors" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Номер квартиры<br></label>
                                         <div class="controls">
-                                            <input id="RoomNumber" type="text" class="form-control">
+                                            <input id="RoomNumber" type="text" class="form-control" name="RoomNumber">
                                         </div>
                                     </div>                                            
                                     <div class="form-group">
@@ -202,25 +202,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--КОЛОНКА2-->
+                                КОЛОНКА2
                                 <div class="col-md-6">
                                     <h4 style="margin-left:50px">&nbsp;</h4>
                                     <div class="form-group">
                                         <label class="control-label">Площадь общая<br></label>
                                         <div class="controls">
-                                            <input id="SizeApartament" type="text" class="form-control">
+                                            <input id="SizeApartament" type="text" class="form-control" name="SizeApartament">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Пложадь жилая<br></label>
                                         <div class="controls">
-                                            <input id="SizeLiving" type="text" class="form-control">
+                                            <input id="SizeLiving" type="text" class="form-control" name="SizeLiving">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Площадь кухни<br></label>
                                         <div class="controls">
-                                            <input id="SizeKitchen" type="text" class="form-control">
+                                            <input id="SizeKitchen" type="text" class="form-control" name="SizeKitchen">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -250,7 +250,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Год постройки дома<br></label>
                                         <div class="controls">
-                                            <input id="YearOfConstruction" type="text" class="form-control">
+                                            <input id="YearOfConstruction" type="text" class="form-control" name="YearOfConstruction">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -260,10 +260,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label for="inputEmail" class="control-label">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-error="Bruh, that email address is invalid" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary pull-right" id="apartamentAddReadyLink" value="Готово" style="display: none" disabled="disabled"/>
+                        <input type="submit" class="btn btn-primary pull-right" id="apartamentEditReadyLink" value="Сохранить" style="display: none" disabled="disabled"/>
                     </div>
                 </form>
-                <input type="button" class="btn btn-primary pull-right" id="apartamentAddReadyLink" value="Готово" style="display: none"/>
-                <input type="button" class="btn btn-primary pull-right" id="apartamentEditReadyLink" value="Сохранить" style="display: none"/>
             </div>
         </div>
     </div>
