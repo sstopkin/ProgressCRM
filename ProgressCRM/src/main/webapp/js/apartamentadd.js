@@ -5,7 +5,6 @@ function addApartament(prepare) {
         $("#mainContainer").html(data);
         $("#errorBlock").css("display", "none");
         mapSet();
-        validateFormApartamentsAddAdditionalData();
         workersList.forEach(function(entry) {
             $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
@@ -15,6 +14,7 @@ function addApartament(prepare) {
             $("#apartamentAddWorkersBlock").css("display", "inline");
             //price
             $("#apartamentAddReadyLink").click(function() {
+                $("#FormApartamentsAddAdditionalData").submit();
                 if (
                         ($('#TypeOfSales').val() == "")
                         || ($('#TypeOfSales').val() == "")
@@ -88,6 +88,7 @@ function addApartament(prepare) {
         else if (prepare == "0") {
             //prepare
             $("#apartamentAddReadyLink").click(function() {
+                $("#FormApartamentsAddAdditionalData").submit();
                 $.ajax({
                     type: "POST",
                     url: "api/apartament/addapartament",
@@ -507,28 +508,5 @@ function mapSet() {
         });
 
         map.controls.add('smallZoomControl', {top: 5, left: 5});
-    });
-}
-
-function validateFormApartamentsAddAdditionalData() {
-    $('#FormApartamentsAddAdditionalData').validate({
-        rules: {
-//            firstname: {
-//                minlength: 3,
-//                maxlength: 15,
-//                required: true
-//            },
-            IdCustomer: {
-                minlength: 3,
-                maxlength: 15,
-                required: true
-            }
-        },
-        highlight: function(element) {
-            $(element).closest('.form-group').addClass('has-error');
-        },
-        unhighlight: function(element) {
-            $(element).closest('.form-group').removeClass('has-error');
-        }
     });
 }
