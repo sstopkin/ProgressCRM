@@ -87,9 +87,11 @@ function addApartament(prepare) {
             //prepare
             $("#apartamentAddReadyLink").click(function() {
                 if (
-                        ($('#Price').val() == "")
+                        ($('#TypeOfSales').val() == "")
+                        || ($('#Price').val() == "")
                         || ($('#Floor').val() == "")
                         || ($('#Floors').val() == "")
+                        || ($('#DwellingType').val() == "")
                         ) {
                     $("#errorBlock").addClass("alert-danger");
                     $("#errorMessage").html("Не все поля заполнены");
