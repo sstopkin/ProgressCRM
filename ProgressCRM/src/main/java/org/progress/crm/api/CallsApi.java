@@ -27,13 +27,14 @@ public class CallsApi {
 
     @GET
     @Path("getcalls")
-    public Response getCallsByApartamentsId(@QueryParam("id") final String id,
+    public Response getCallsByObjectId(@QueryParam("id") final String id,
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
+//                    FIXME: add type
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(callsController.getCallsByApartsId(session, token, id));
+                String result = apartamentById.toJson(callsController.getCallsByObjectId(session, token, id));
                 return ApiHelper.getResponse(result);
             }
         });
@@ -41,14 +42,16 @@ public class CallsApi {
 
     @POST
     @Path("addcall")
-    public Response addCustomer(@CookieParam("token") final String token,
+    public Response addCall(@CookieParam("token") final String token,
             @FormParam("id") final String apartamentsId,
             @FormParam("incomingPhoneNumber") final String incomingPhoneNumber,
-            @FormParam("description") final String description) throws SQLException, CustomException {
+            @FormParam("description") final String description,
+            //                    FIXME: add type
+            @FormParam("type") final String objectType) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = callsController.addCallsByApartsId(session, token, apartamentsId, incomingPhoneNumber, description);
+                boolean result = callsController.addCallsByObjectId(session, token, apartamentsId, incomingPhoneNumber, description);
                 return ApiHelper.getResponse(result);
             }
         });
