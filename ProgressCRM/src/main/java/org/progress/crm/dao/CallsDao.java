@@ -18,7 +18,7 @@ public class CallsDao {
         return true;
     }
 
-    public List getCustomerCallsByApartamentsId(final Session session, final Integer apartamentsId) throws SQLException, CustomException {
+    public List getCustomerCallsByObjectId(final Session session, final Integer apartamentsId) throws SQLException, CustomException {
         return session.createCriteria(Calls.class)
                 .add(Restrictions.eq(DbFields.CALLS.APARTAMENTSID, apartamentsId))
                 .addOrder(Order.desc(DbFields.CALLS.DATE))
