@@ -65,4 +65,8 @@ public class DaoFactory {
     public static FileManagerDao getFileManagerDao(){
         return new FileManagerDao();
     }
+    
+    public static CommentsDao getCommentsDao(){
+        return new CommentsDao();
+    }
 }
