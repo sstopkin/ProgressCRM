@@ -30,6 +30,25 @@ PRIMARY KEY (`id`) ,
 UNIQUE INDEX `UUIDFilespaceIndex` (`FilespacesUUID` ASC) );
 
 -- -----------------------------------------------------
+-- Table `progresscrm`.`Comments`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Comments` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`idWorker` INT NOT NULL,
+`objectUUID` VARCHAR(45) DEFAULT NULL,
+`text` text,
+`Deleted` tinyint(1) NOT NULL DEFAULT '0',
+`CreationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+FULLTEXT KEY `fulltext` (`text`) ,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+PRIMARY KEY (`id`),
+UNIQUE INDEX `UUIDobjectUUIDIndex` (`objectUUID` ASC))
+ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create fulltext index idx on Comments(text);
+
+-- -----------------------------------------------------
 -- Table `progresscrm`.`Files`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Files` (
