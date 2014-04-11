@@ -13,22 +13,22 @@ import org.progress.crm.exceptions.IsNotAuthenticatedException;
 
 @Singleton
 public class CommentsController {
-    
+
     @EJB
     AuthenticationManager authManager;
-    
-    public List getCommentsByObjectId(Session session, String token, String objectId, String objectType) throws CustomException, SQLException {
-        if (objectId == null || objectType == null) {
+
+    public List getCommentsByObjectUUID(Session session, String token, String objectUUID) throws CustomException, SQLException {
+        if (objectUUID == null || objectUUID.equals("")) {
             throw new BadRequestException();
         }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        return DaoFactory.getCommentsDao().getCommentsByObjectId(session, Integer.valueOf(objectId), Integer.valueOf(objectType));
+        return DaoFactory.getCommentsDao().getCommentsByObjectUUID(session, objectUUID);
     }
-    
-    public boolean addCommentByObjectId(Session session, String token, String objectId, String objectType, String text) throws CustomException, SQLException {
-        if (objectId == null || objectId.equals("")) {
+
+    public boolean addCommentByObjectId(Session session, String token, String objectUUID, String text) throws CustomException, SQLException {
+        if (objectUUID == null || objectUUID.equals("")) {
             throw new BadRequestException();
         }
         if (token == null) {
@@ -36,8 +36,8 @@ public class CommentsController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-        
-        DaoFactory.getCommentsDao().addComment(session, Integer.valueOf(objectId), Integer.valueOf(objectType), text, idWorker);
+
+        DaoFactory.getCommentsDao().addComment(session, objectUUID, text, idWorker);
         return true;
     }
 }

@@ -37,7 +37,7 @@ public class CallsController {
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
 
-        DaoFactory.getCallsDao().addCustomerCall(session, Integer.valueOf(objectId), incomingPhoneNumber, description, idWorker);
+        DaoFactory.getCallsDao().addCustomerCall(session, objectId, incomingPhoneNumber, description, idWorker);
         return true;
     }
 //

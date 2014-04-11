@@ -6,25 +6,25 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
-import org.progress.crm.logic.Calls;
+import org.progress.crm.logic.Comments;
 import org.progress.crm.logic.DbFields;
 
 public class CommentsDao {
 
-    public boolean addComment(final Session session, final int objectId, final int objectType, final String text, final int idWorker) throws SQLException, CustomException {
-//        C cCall = new Calls(apartamentId, new Date(), incomingPhoneNumber, description, idWorker);
-//        session.save(cCall);
+    public boolean addComment(final Session session, final String objectUUID, final String text, final int idWorker) throws SQLException, CustomException {
+        Comments coment=new Comments(idWorker, objectUUID, text);
+        session.save(coment);
         return true;
     }
 
-    public List getCommentsByObjectId(final Session session, final Integer objectId, final Integer objectType) throws SQLException, CustomException {
-        return session.createCriteria(Calls.class)
-                .add(Restrictions.eq(DbFields.CALLS.APARTAMENTSID, objectId))
+    public List getCommentsByObjectUUID(final Session session, final String objectUUID) throws SQLException, CustomException {
+        return session.createCriteria(Comments.class)
+                .add(Restrictions.eq(DbFields.CALLS.APARTAMENTSID, objectUUID))
                 .addOrder(Order.desc(DbFields.CALLS.DATE))
                 .list();
     }
 
-    public List<Calls> getAllComments(final Session session) throws SQLException, CustomException {
-        return session.createCriteria(Calls.class).list();
+    public List<Comments> getAllComments(final Session session) throws SQLException, CustomException {
+        return session.createCriteria(Comments.class).list();
     }
 }

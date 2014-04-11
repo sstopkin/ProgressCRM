@@ -34,12 +34,11 @@ UNIQUE INDEX `UUIDFilespaceIndex` (`FilespacesUUID` ASC) );
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Comments` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `idWorker` INT NOT NULL,
 `objectUUID` VARCHAR(45) DEFAULT NULL,
 `text` text,
-`Deleted` tinyint(1) NOT NULL DEFAULT '0',
-`CreationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 FULLTEXT KEY `fulltext` (`text`) ,
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`),
@@ -237,7 +236,7 @@ INDEX `idWorkerIndex` (`idWorker` ASC));
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Calls` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`ApartamentsId` INT NOT NULL ,
+`objectUUID` INT NOT NULL ,
 `Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `IncomingPhoneNumber` VARCHAR(45) NOT NULL,
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
