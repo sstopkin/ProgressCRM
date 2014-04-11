@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.progress.crm.api;
 
 import com.google.gson.Gson;
@@ -33,15 +27,13 @@ public class CommentsApi {
 
     @GET
     @Path("getcomments")
-    public Response getCommentByObjectId(@QueryParam("id") final String objectId,
-            @QueryParam("type") final String objectType,
+    public Response getCommentByObjectId(@QueryParam("objectUUID") final String objectUUID,
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-//                    FIXME: add type
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson response = new GsonBuilder().create();
-                String result = response.toJson(commentsController.getCommentsByObjectId(session, token, objectId, objectType));
+                String result = response.toJson(commentsController.getCommentsByObjectUUID(session, token, objectUUID));
                 return ApiHelper.getResponse(result);
             }
         });
@@ -50,13 +42,12 @@ public class CommentsApi {
     @POST
     @Path("addcomment")
     public Response addCall(@CookieParam("token") final String token,
-            @FormParam("id") final String objectId,
-            @FormParam("text") final String text,
-            @FormParam("type") final String objectType) throws SQLException, CustomException {
+            @FormParam("objectUUID") final String objectUUID,
+            @FormParam("text") final String text) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = commentsController.addCommentByObjectId(session, token, objectId, objectType, text);
+                boolean result = commentsController.addCommentByObjectId(session, token, objectUUID, text);
                 return ApiHelper.getResponse(result);
             }
         });

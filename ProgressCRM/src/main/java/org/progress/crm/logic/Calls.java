@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 public class Calls implements Serializable {
 
     private int id;
-    private int apartamentId;
+    private String objectUUID;
     private String incomingPhoneNumber;
     private Date date;
     private String description;
@@ -25,8 +25,8 @@ public class Calls implements Serializable {
     public Calls() {
     }
 
-    public Calls(int apartamentId, Date date, String incomingPhoneNumber, String description, int idWorker) {
-        this.apartamentId = apartamentId;
+    public Calls(String objectUUID, Date date, String incomingPhoneNumber, String description, int idWorker) {
+        this.objectUUID = objectUUID;
         this.date = date;
         this.incomingPhoneNumber = incomingPhoneNumber;
         this.description = description;
@@ -71,13 +71,13 @@ public class Calls implements Serializable {
         this.description = description;
     }
 
-    @Column(name = "ApartamentsId")
-    public int getApartamentId() {
-        return apartamentId;
+    @Column(name = "objectUUID")
+    public String getObjectUUID() {
+        return objectUUID;
     }
 
-    public void setApartamentId(int apartamentId) {
-        this.apartamentId = apartamentId;
+    public void setObjectUUID(String objectUUID) {
+        this.objectUUID = objectUUID;
     }
 
     @Column(name = "Date")

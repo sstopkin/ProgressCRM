@@ -31,7 +31,6 @@ public class CallsApi {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-//                    FIXME: add type
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
                 String result = apartamentById.toJson(callsController.getCallsByObjectId(session, token, id));
@@ -43,15 +42,13 @@ public class CallsApi {
     @POST
     @Path("addcall")
     public Response addCall(@CookieParam("token") final String token,
-            @FormParam("id") final String apartamentsId,
+            @FormParam("objectUUID") final String objectUUID,
             @FormParam("incomingPhoneNumber") final String incomingPhoneNumber,
-            @FormParam("description") final String description,
-            //                    FIXME: add type
-            @FormParam("type") final String objectType) throws SQLException, CustomException {
+            @FormParam("description") final String description) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = callsController.addCallsByObjectId(session, token, apartamentsId, incomingPhoneNumber, description);
+                boolean result = callsController.addCallsByObjectId(session, token, objectUUID, incomingPhoneNumber, description);
                 return ApiHelper.getResponse(result);
             }
         });
