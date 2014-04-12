@@ -38,35 +38,27 @@ public class DaoFactory {
         return new AnnouncementsDao();
     }
 
-    public static AnnouncementsCallsDao getAnnouncementsCallsDao() {
-        return new AnnouncementsCallsDao();
-    }
-
     public static AnnouncementsRentDao getAnnouncementsRentDao() {
         return new AnnouncementsRentDao();
-    }
-
-    public static AnnouncementsRentCallsDao getAnnouncementsRentCallsDao() {
-        return new AnnouncementsRentCallsDao();
     }
 
     public static PlannerDao getPlannerDao() {
         return new PlannerDao();
     }
-    
-    public static CustomersRentDao getCustomersRentDao(){
+
+    public static CustomersRentDao getCustomersRentDao() {
         return new CustomersRentDao();
     }
-    
-    public static FilespacesDao getFilespacesDao(){
+
+    public static FilespacesDao getFilespacesDao() {
         return new FilespacesDao();
     }
-    
-    public static FileManagerDao getFileManagerDao(){
+
+    public static FileManagerDao getFileManagerDao() {
         return new FileManagerDao();
     }
-    
-    public static CommentsDao getCommentsDao(){
+
+    public static CommentsDao getCommentsDao() {
         return new CommentsDao();
     }
 }
