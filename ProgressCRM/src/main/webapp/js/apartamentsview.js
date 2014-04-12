@@ -220,7 +220,7 @@ function getApartamentViewPage(apartamentId) {
         });
         $.ajax({
             type: "GET",
-            url: "api/calls/getcalls?id=" + apartamentId,
+            url: "api/calls/getcalls?objectUUID=" + array.ApartamentUUID,
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);

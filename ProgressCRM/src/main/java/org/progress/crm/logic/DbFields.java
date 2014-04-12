@@ -23,7 +23,13 @@ public class DbFields {
 
         public final static String ID = "id";
         public final static String DATE = "date";
-        public final static String APARTAMENTSID = "apartamentId";
+        public final static String OBJECTUUID = "objectUUID";
+    }
+
+    public class COMMENTS {
+
+        public final static String CREATIONDATE = "creationDate";
+        public final static String OBJECTUUID = "objectUUID";
     }
 
     public class NEWS {

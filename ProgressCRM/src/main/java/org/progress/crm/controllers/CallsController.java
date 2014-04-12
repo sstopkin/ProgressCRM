@@ -17,18 +17,18 @@ public class CallsController {
     @EJB
     AuthenticationManager authManager;
 
-    public List getCallsByObjectId(Session session, String token, String objectId) throws CustomException, SQLException {
-        if (objectId == null) {
+    public List getCallsByObjectUUID(Session session, String token, String objectUUID) throws CustomException, SQLException {
+        if (objectUUID == null || objectUUID.equals("")) {
             throw new BadRequestException();
         }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        return DaoFactory.getCallsDao().getCustomerCallsByObjectId(session, Integer.valueOf(objectId));
+        return DaoFactory.getCallsDao().getCustomerCallsByObjectUUID(session, objectUUID);
     }
 
-    public boolean addCallsByObjectId(Session session, String token, String objectId, String incomingPhoneNumber, String description) throws CustomException, SQLException {
-        if (objectId == null || objectId.equals("")) {
+    public boolean addCallsByObjectUUID(Session session, String token, String objectUUID, String incomingPhoneNumber, String description) throws CustomException, SQLException {
+        if (objectUUID == null || objectUUID.equals("")) {
             throw new BadRequestException();
         }
         if (token == null) {
@@ -37,7 +37,7 @@ public class CallsController {
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
 
-        DaoFactory.getCallsDao().addCustomerCall(session, objectId, incomingPhoneNumber, description, idWorker);
+        DaoFactory.getCallsDao().addCustomerCall(session, objectUUID, incomingPhoneNumber, description, idWorker);
         return true;
     }
 //

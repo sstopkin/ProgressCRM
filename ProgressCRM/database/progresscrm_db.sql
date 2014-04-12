@@ -236,14 +236,13 @@ INDEX `idWorkerIndex` (`idWorker` ASC));
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Calls` (
 `id` INT NOT NULL AUTO_INCREMENT ,
-`objectUUID` INT NOT NULL ,
+`objectUUID` VARCHAR(45) DEFAULT NULL,
 `Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `IncomingPhoneNumber` VARCHAR(45) NOT NULL,
 `Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `idWorker` INT NOT NULL ,
-FOREIGN KEY (ApartamentsId) REFERENCES Apartaments(id),
 PRIMARY KEY (`id`) ,
-INDEX `ApartamentsIdIndex` (`ApartamentsId` ASC));
+INDEX `objectUUIDIndex` (`objectUUID` ASC));
 
 -- -----------------------------------------------------
 -- Table `progresscrm`.`News`
