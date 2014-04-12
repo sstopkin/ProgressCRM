@@ -1,6 +1,3 @@
-var map = null;
-var placemark = null;
-var map_created = false;
 function getApartamentViewPage(apartamentId) {
     $.get("apartamentsview.html", function(data) {
         $("#mainContainer").html(data);
@@ -13,8 +10,13 @@ function getApartamentViewPage(apartamentId) {
             success: function(data) {
                 $("#errorBlock").css("display", "none");
                 array = JSON.parse(data);
-                console.log(array.IsApproved);
-                console.log(array.deleted);
+                initMapView(array.apartamentLan, array.apartamentLon,
+                        array.cityName + " "
+                        + array.streetName + " "
+                        + array.houseNumber + " "
+                        + array.buildingNumber + " - "
+                        + array.roomNumber);
+                content += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-primary pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
                 content += "<p>";
                 content += "ID = " + array.id;
                 content += "</p>";
@@ -189,13 +191,6 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "Описание: " + array.description;
                 content += "</p>";
-                var maps = "<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=17&amp;vpsrc=0&amp;output=embed\"></iframe>";
-                maps += "<br/>";
-                maps += "<small>";
-                maps += "<a href = \"http://maps.google.ru/?ie=UTF8&amp;ll=" + array.apartamentLan + "," + array.apartamentLon + "&amp;spn=" + array.apartamentLan + "," + array.apartamentLon + "&amp;z=4&amp;vpsrc=0&amp;source=embed\" style=\"color:#0000FF;text-align:left\"> Просмотреть увеличенную карту</a>";
-                maps += "</small>";
-                maps += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-primary pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
-                $("#mapApartamentsView").html(maps);
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -287,6 +282,73 @@ function createApartamentsFilespace(targetuuid) {
         },
         error: function(data) {
             showDanger(data.responseText);
+        }
+    });
+}
+
+function initMapView(apartamentLan, apartamentLon, address) {
+    var myMap;
+//    <div id="map" style="width: 450px; height: 450px"></div>
+//    $("#mapApartamentsView").html(maps);
+    $('#toggle').bind({
+        click: function() {
+            if (!myMap) {
+                myMap = new ymaps.Map('mapApartamentsView', {
+                    center: [apartamentLan, apartamentLon],
+                    zoom: 15
+                });
+
+                // Для добавления элемента управления на карту
+                // используется поле map.controls.
+                // Это поле содержит ссылку на экземпляр класса map.control.Manager.
+
+                // Добавление элемента в коллекцию производится
+                // с помощью метода add.
+
+                // В метод add можно передать строковый идентификатор
+                // элемента управления и его параметры.
+                myMap.controls
+                        // Кнопка изменения масштаба.
+                        .add('zoomControl', {left: 5, top: 5})
+                        // Список типов карты
+                        .add('typeSelector')
+                        // Стандартный набор кнопок
+                        .add('mapTools', {left: 35, top: 5});
+
+                // Также в метод add можно передать экземпляр класса элемента управления.
+                // Например, панель управления пробками.
+                var trafficControl = new ymaps.control.TrafficControl();
+                myMap.controls
+                        .add(trafficControl);
+                // В конструкторе элемента управления можно задавать расширенные
+                // параметры, например, тип карты в обзорной карте.
+//                            .add(new ymaps.control.MiniMap({
+//                                type: 'yandex#publicMap'
+//                            }));
+
+                /*
+                 // Удаление элементов управления производится через метод remove.
+                 myMap.controls
+                 .remove(trafficControl)
+                 .remove('mapTools');
+                 */
+
+                myPlacemark = new ymaps.Placemark([apartamentLan, apartamentLon], {
+                    // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+                    balloonContentHeader: "",
+                    balloonContentBody: address,
+                    balloonContentFooter: "",
+                    hintContent: ""
+                });
+
+                myMap.geoObjects.add(myPlacemark);
+                $("#toggle").attr('value', 'Скрыть карту');
+            }
+            else {
+                myMap.destroy();// Деструктор карты
+                myMap = null;
+                $("#toggle").attr('value', 'Показать карту снова');
+            }
         }
     });
 }
