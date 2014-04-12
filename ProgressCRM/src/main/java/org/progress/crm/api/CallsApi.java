@@ -27,13 +27,13 @@ public class CallsApi {
 
     @GET
     @Path("getcalls")
-    public Response getCallsByObjectId(@QueryParam("id") final String id,
+    public Response getCallsByObjectId(@QueryParam("objectUUID") final String objectUUID,
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(callsController.getCallsByObjectId(session, token, id));
+                String result = apartamentById.toJson(callsController.getCallsByObjectUUID(session, token, objectUUID));
                 return ApiHelper.getResponse(result);
             }
         });
@@ -48,7 +48,7 @@ public class CallsApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = callsController.addCallsByObjectId(session, token, objectUUID, incomingPhoneNumber, description);
+                boolean result = callsController.addCallsByObjectUUID(session, token, objectUUID, incomingPhoneNumber, description);
                 return ApiHelper.getResponse(result);
             }
         });
