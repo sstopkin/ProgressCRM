@@ -1,4 +1,5 @@
 function getApartamentsListPage() {
+    initSearchForm();
     $.get("apartamentslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
