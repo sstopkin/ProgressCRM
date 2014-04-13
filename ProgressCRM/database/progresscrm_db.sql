@@ -41,8 +41,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Comments` (
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 FULLTEXT KEY `fulltext` (`text`) ,
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
-PRIMARY KEY (`id`),
-UNIQUE INDEX `UUIDobjectUUIDIndex` (`objectUUID` ASC))
+PRIMARY KEY (`id`))
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create fulltext index idx on Comments(text);

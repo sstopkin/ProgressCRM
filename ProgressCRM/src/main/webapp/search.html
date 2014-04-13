@@ -4,47 +4,44 @@
             <div class="col-md-2">
                 <div class="form-group">
                     <label class="control-label">С даты</label>
-                    <input id="customersRentSearchStartDate" type="text" data-date-format="mm-dd-yy" class="form-control">
+                    <input id="mainSearchStartDate" type="text" data-date-format="mm-dd-yy" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">По дату</label>
+                    <input id="mainSearchEndDate" type="text" data-date-format="mm-dd-yy" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Назначено</label>
                     <div class="controls">
-                        <select class="form-control" id="customersRentSearchAssigned"></select>
+                        <select class="form-control" id="mainSearchAssigned"></select>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
                 <div class="form-group">
                     <label class="control-label">Автор</label>
                     <div class="controls">
-                        <select class="form-control" id="customersRentSearchAuthor"></select>
+                        <select class="form-control" id="mainSearchAuthor"></select>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label class="control-label">По дату</label>
-                    <input id="customersRentSearchEndDate" type="text" data-date-format="mm-dd-yy" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label class="control-label">Статус</label>
-                    <div class="controls">
-                        <select class="form-control" id="customersRentSearchStatus"></select>
-                    </div>
+                    <label class="control-label">Содержит</label>
+                    <input id="mainSearchContains" type="text" class="form-control">
                 </div>
+                <!--                <div class="form-group">
+                                    <label class="control-label">Статус</label>
+                                    <div class="controls">
+                                        <select class="form-control" id="customersRentSearchStatus"></select>
+                                    </div>
+                                </div>-->
             </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label class="control-label"></label>
                     <div class="controls">
-                        <input onclick="searchCustomersRent();" type="button" class="btn btn-primary pull-right" value="Поиск">
+                        <input onclick="mainSearchAction();" type="button" class="btn btn-primary pull-right" value="Поиск">
                     </div>
                 </div>
             </div>

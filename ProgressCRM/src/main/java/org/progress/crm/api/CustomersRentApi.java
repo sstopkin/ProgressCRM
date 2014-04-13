@@ -10,7 +10,6 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.progress.crm.controllers.CustomersRentController;
@@ -81,24 +80,6 @@ public class CustomersRentApi {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {
                 boolean result = customersRentController.deleteCustomersRent(session, token, id);
-                return ApiHelper.getResponse(result);
-            }
-        });
-    }
-
-    @GET
-    @Path("search")
-    public Response getCustomersRentListByQuery(@CookieParam("token") final String token,
-            @QueryParam("assigned") final String assigned,
-            @QueryParam("idworker") final String idWorker,
-            @QueryParam("startdate") final String startdate,
-            @QueryParam("enddate") final String enddate,
-            @QueryParam("status") final String status) throws CustomException {//@CookieParam("token") final String token,
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson customers = new GsonBuilder().create();
-                String result = customers.toJson(customersRentController.getCustomersRentListByQuery(session, token, assigned, idWorker, startdate, enddate, status));
                 return ApiHelper.getResponse(result);
             }
         });

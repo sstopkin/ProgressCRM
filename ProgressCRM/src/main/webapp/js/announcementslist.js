@@ -2,23 +2,6 @@ function getАnnouncementsPage() {
     $("#addannouncements").css("display", "none");
     $.get("announcementslist.html", function(data) {
         $("#mainContainer").html(data);
-        var date = new Date();
-        var day = date.getDate();
-        day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-//        $('#announcementsSearchStartDate').val(year + "-" + month + "-" + day);
-        $('#announcementsSearchStartDate').datepicker({
-            format: 'yyyy-mm-dd'
-        });
-//        $('#announcementsSearchEndDate').val(year + "-" + month + "-" + day);
-        $('#announcementsSearchEndDate').datepicker({
-            format: 'yyyy-mm-dd'
-        });
-        $("#announcementsSearchAuthor").append('<option value="">Все</option>');
-        workersList.forEach(function(entry) {
-            $("#announcementsSearchAuthor").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
-        });
         $.ajax({
             type: "GET",
             url: "api/auth",
@@ -138,7 +121,7 @@ function writeToDivAnnouncementsList(data) {
     str += "<tbody>";
     array.forEach(function(entry) {
         str += "<tr>";
-        str += "<td><a href=\"#announcements/view/"+entry.id+"\"\">" + entry.id + "</a></td>";
+        str += "<td><a href=\"#announcements/view/" + entry.id + "\"\">" + entry.id + "</a></td>";
         str += "<td>" + entry.street + "</td>";
         str += "<td>" + entry.houseNumber + "</td>";
         str += "<td>" + entry.rooms + "</td>";

@@ -3,7 +3,6 @@ package org.progress.crm.dao;
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Comments;
@@ -20,7 +19,7 @@ public class CommentsDao {
     public List getCommentsByObjectUUID(final Session session, final String objectUUID) throws SQLException, CustomException {
         return session.createCriteria(Comments.class)
                 .add(Restrictions.eq(DbFields.COMMENTS.OBJECTUUID, objectUUID))
-                .addOrder(Order.desc(DbFields.COMMENTS.CREATIONDATE))
+//                .addOrder(Order.desc(DbFields.COMMENTS.CREATIONDATE))
                 .list();
     }
 

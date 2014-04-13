@@ -43,11 +43,9 @@ function addCallDialog(objectUUID) {
 
 function addCommentDialog(objectUUID) {
     var some_html = "<label class=\"control-label\">ID объекта</label>";
-    some_html += "<input id=\"apartamentsAddCallObjectId\" value=\"" + objectUUID + "\" type=\"text\" class=\"form-control\" disabled>";
-    some_html += "<label class=\"control-label\">Входящий номер</label>";
-    some_html += "<input id=\"apartamentsAddCallIncomingPhoneNumber\" type=\"text\" class=\"form-control\">";
+    some_html += "<input id=\"apartamentsAddCommentObjectId\" value=\"" + objectUUID + "\" type=\"text\" class=\"form-control\" disabled>";
     some_html += "<label class=\"control-label\">Описание</label>";
-    some_html += "<textarea id=\"apartamentsAddCallDescription\" class=\"form-control\"></textarea>";
+    some_html += "<textarea id=\"apartamentsAddCommentText\" class=\"form-control\"></textarea>";
     bootbox.dialog({
         title: "<h4 class=\"modal-title\">Добавить комментарий</h4></div>",
         message: some_html,
@@ -58,11 +56,10 @@ function addCommentDialog(objectUUID) {
                 callback: function() {
                     $.ajax({
                         type: "POST",
-                        url: "api/comment/addcomment",
+                        url: "api/comments/addcomment",
                         data: ({
                             objectUUID: objectUUID,
-                            incomingPhoneNumber: $("#apartamentsAddCallIncomingPhoneNumber").val(),
-                            description: $('#apartamentsAddCallDescription').val()
+                            text: $('#apartamentsAddCommentText').val()
                         }),
                         success: function() {
                             $("#errorBlock").css("display", "none");

@@ -61,4 +61,8 @@ public class DaoFactory {
     public static CommentsDao getCommentsDao() {
         return new CommentsDao();
     }
+
+    public static SearchDao getSearchDao() {
+        return new SearchDao();
+    }
 }
