@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "Calls")
+@Table(name = "Comments")
 public class Comments implements Serializable {
 
     private int id;
@@ -80,7 +80,7 @@ public class Comments implements Serializable {
         this.text = text;
     }
 
-    @Column(name = "CreationDate")
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     public Date getСreationDate() {
         return сreationDate;

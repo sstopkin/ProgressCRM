@@ -243,6 +243,33 @@ function getApartamentViewPage(apartamentId) {
                 return false;
             }
         });
+        $.ajax({
+            type: "GET",
+            url: "api/comments/getcomments?objectUUID=" + array.ApartamentUUID,
+            success: function(data) {
+                $("#errorBlock").css("display", "none");
+                var array = JSON.parse(data);
+                var str = "";
+                str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
+                str += "<thead class='t-header'>Звонки<tr>";
+                str += "<th>Дата</th>";
+                str += "<th>Комментарий</th>";
+                str += "</tr></thead>";
+                str += "<tbody>";
+                for (var j = 0; j < array.length; ++j) {
+                    str += "<tr><td>";
+                    str += array[j].сreationDate;
+                    str += "</td><td>";
+                    str += array[j].text;
+                }
+                str += "\n</tbody>\n</table>\n";
+                $("#workersComments").html(str);
+            },
+            error: function(data) {
+                showDanger(data.responseText);
+                return false;
+            }
+        });
         getFileManagerPage(array.filespaceUUID, array.ApartamentUUID);
         $("#apartamentsFeatures").html(content);
     });

@@ -151,7 +151,7 @@ public class ApartamentsAPI {
                         material, sizeApartament, sizeLiving, sizeKitchen,
                         balcony, loggia, yearOfConstruction, description,
                         pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
-                return ApiHelper.getResponse(false);
+                return ApiHelper.getResponse(result);
             }
         });
     }

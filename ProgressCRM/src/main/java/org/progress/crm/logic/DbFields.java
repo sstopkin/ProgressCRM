@@ -11,6 +11,8 @@ public class DbFields {
         public final static String STATUS = "status";
         public final static String FILESPACEUUID = "filespaceUUID";
         public final static String APARTAMENTUUID = "apartamentUUID";
+        public final static String ASSIGNED = "idWorkerTarget";
+        public final static String IDWORKER = "idWorker";
     }
 
     public class WORKERS {
@@ -28,7 +30,7 @@ public class DbFields {
 
     public class COMMENTS {
 
-        public final static String CREATIONDATE = "creationDate";
+        public final static String CREATIONDATE = "CreationDate";
         public final static String OBJECTUUID = "objectUUID";
     }
 
@@ -37,13 +39,6 @@ public class DbFields {
         public final static String ID = "id";
         public final static String LASTMODIFY = "lastModify";
         public final static String DELETED = "deleted";
-    }
-
-    public class ANNOUNCEMENTSCALLS {
-
-        public final static String ID = "id";
-        public final static String DATE = "creationDate";
-        public final static String ANNOUNCEMENTSID = "announcementsId";
     }
 
     public class ANNOUNCEMENTS {
@@ -74,13 +69,6 @@ public class DbFields {
         public final static String IDWORKER = "idWorker";
         public final static String CREATIONDATE = "creationDate";
         public final static String DELETED = "deleted";
-    }
-
-    public class ANNOUNCEMENTSRENTCALLS {
-
-        public final static String ID = "id";
-        public final static String DATE = "creationDate";
-        public final static String ANNOUNCEMENTSID = "announcementsRentId";
     }
 
     public class PLANNER {

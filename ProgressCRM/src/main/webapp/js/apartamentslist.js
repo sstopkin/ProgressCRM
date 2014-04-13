@@ -1,5 +1,5 @@
 function getApartamentsListPage() {
-    initSearchForm();
+//    initSearchForm();
     $.get("apartamentslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
@@ -149,7 +149,8 @@ function draw(array, permissions, catName) {
             }
         }
         str += "<td>" + entry.сreationDate + "</td>";
-        str += "<td>" + "<button type=\"button\" onclick=\"addCallDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-earphone\"></span></button>" + "</td>";
+        str += "<td>" + "<button type=\"button\" onclick=\"addCallDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-earphone\"></span></button>";
+        str += "<button type=\"button\" onclick=\"addCommentDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-comment\"></span></button>" + "</td>";
         if (permissions == "3") {
             str += "<td><a href=\"#apartaments/edit/" + entry.id + "\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></a></td>";
             str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
