@@ -49,11 +49,11 @@ function addCommentDialog(objectUUID) {
     some_html += "<label class=\"control-label\">Описание</label>";
     some_html += "<textarea id=\"apartamentsAddCallDescription\" class=\"form-control\"></textarea>";
     bootbox.dialog({
-        title: "<h4 class=\"modal-title\">Добавить звонок</h4></div>",
+        title: "<h4 class=\"modal-title\">Добавить комментарий</h4></div>",
         message: some_html,
         buttons: {
             success: {
-                label: "Добавить звонок",
+                label: "Добавить комментарий",
                 className: "btn-success",
                 callback: function() {
                     $.ajax({
@@ -83,4 +83,3 @@ function addCommentDialog(objectUUID) {
         }
     });
 }
-

@@ -1,4 +1,4 @@
-function showPlannerAddTaskModal(taskId, typeId) {
+function addPlannerTaskDialog(objectUUID) {
     var date = new Date();
     var day = date.getDate();
     day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
@@ -8,28 +8,46 @@ function showPlannerAddTaskModal(taskId, typeId) {
         format: 'yyyy-mm-dd'
     });
     $('#plannerAddTaskModalDate').val(year + "-" + month + "-" + day);
-    $("#plannerAddTaskTaskId").val(taskId);
-    $("#plannerAddTaskTypeId").val(typeId);
-    $('#plannerAddTaskModal').modal('show');
-}
 
-function addPlannerTask() {
-    $('#plannerAddTaskModal').modal('toggle');
-    $.ajax({
-        type: "POST",
-        url: "api/planner/addtask",
-        data: ({
-            tasktype: $('#plannerAddTaskTypeId').val(),
-            taskid: $('#plannerAddTaskTaskId').val(),
-            description: $('#plannerAddTaskModalDescription').val(),
-            taskdate: $('#plannerAddTaskModalDate').val()
-        }),
-        success: function(data) {
-            $("#errorBlock").css("display", "none");
-            getАnnouncementsPage();
-        },
-        error: function(data) {
-            showDanger(data.responseText);
+    var some_html = "<label class=\"control-label\">ID объекта</label>";
+    some_html += "<input id=\"apartamentsAddCallObjectId\" value=\"" + objectUUID + "\" type=\"text\" class=\"form-control\" disabled>";
+    some_html += "<label class=\"control-label\">Дата</label>";
+    some_html += "<input id=\"plannerAddTaskModalDate\" type=\"text\" class=\"form-control\">";
+    some_html += "<label class=\"control-label\">Описание</label>";
+    some_html += "<textarea id=\"plannerAddTaskModalDescription\" class=\"form-control\"></textarea>";
+
+    bootbox.dialog({
+        title: "<h4 class=\"modal-title\">Добавить звонок</h4></div>",
+        message: some_html,
+        buttons: {
+            success: {
+                label: "Добавить звонок",
+                className: "btn-success",
+                callback: function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "api/planner/addtask",
+                        data: ({
+                            objectUUID: objectUUID,
+                            incomingPhoneNumber: $("#apartamentsAddCallIncomingPhoneNumber").val(),
+                            description: $('#apartamentsAddCallDescription').val()
+                        }),
+                        success: function() {
+                            $("#errorBlock").css("display", "none");
+                            location.reload();//FIXME
+                        },
+                        error: function(data) {
+                            showDanger(data.responseText);
+                        }
+                    });
+                }
+            },
+            danger: {
+                label: "Отмена",
+                className: "btn-danger",
+                callback: function() {
+                }
+            }
         }
     });
 }
