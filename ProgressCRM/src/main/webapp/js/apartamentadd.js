@@ -516,6 +516,12 @@ function mapSet() {
             zoom: 12
         });
 
-        map.controls.add('smallZoomControl', {top: 5, left: 5});
+        map.controls
+                // Кнопка изменения масштаба.
+                .add('zoomControl', {left: 5, top: 5})
+                // Список типов карты
+                .add('typeSelector')
+                // Стандартный набор кнопок
+                .add('mapTools', {left: 35, top: 5});
     });
 }
