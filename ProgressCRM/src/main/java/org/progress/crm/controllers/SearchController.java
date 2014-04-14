@@ -5,6 +5,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
+import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 
 @Singleton
@@ -13,8 +14,9 @@ public class SearchController {
     @EJB
     AuthenticationManager authManager;
 
-    public List getListByQuery(Session session, String token, String assigned, String idWorker, String startDate, String endDate, String contains, String type)
-            throws IsNotAuthenticatedException {
+    public List getListByQuery(Session session, String token, String assigned, String idWorker,
+            String startDate, String endDate, String contains, String type)
+            throws IsNotAuthenticatedException, CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -39,7 +41,7 @@ public class SearchController {
             assigned_ = Integer.valueOf(assigned);
         }
         return DaoFactory.getSearchDao().searchByQUery(session,
-                assigned_, idWorker_, startDate_, endDate_, type);
+                assigned_, idWorker_, startDate_, endDate_, contains, type);
     }
 
 }

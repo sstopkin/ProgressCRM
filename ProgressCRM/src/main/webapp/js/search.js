@@ -26,6 +26,18 @@ function initSearchForm() {
 }
 
 function mainSearchAction() {
+    var permissions = $.ajax({
+        type: "GET",
+        url: "api/auth/validate",
+        async: false
+    }).responseText;
+    if ((permissions === "3") || (permissions === "2")) {
+        $("#addApartamentBtn").css("display", "block");
+        $("#genApartamentsPriceBtn").css("display", "block");
+    } else {
+        $("#addApartamentBtn").css("display", "none");
+        $("#genApartamentsPriceBtn").css("display", "none");
+    }
     $.ajax({
         type: "GET",
         url: "api/search/search?assigned=" + $("#mainSearchAssigned").val() +
@@ -36,8 +48,7 @@ function mainSearchAction() {
                 "&type=apartaments",
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            var array = JSON.parse(data);
-            writeToDivCustomersRentList(data);
+            drawTable(permissions,data);
         },
         error: function(data) {
             showDanger(data.responseText);
