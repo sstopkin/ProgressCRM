@@ -1,5 +1,4 @@
-function getApartamentsListPage() {
-    initSearchForm();
+function getApartamentsListPage(prepare) {
     $.get("apartamentslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
@@ -13,14 +12,22 @@ function getApartamentsListPage() {
             $("#addApartamentBtn").css("display", "none");
             $("#genApartamentsPriceBtn").css("display", "none");
         }
-        $("#mainContainer").html(data);
+        $("#mainContainer").html("<div id=\"mainSearchContainer\" class=\"container\"></div>" + data);
+        initSearchForm('apartaments');
         var userId;
         $.get("api/auth/author", function(data2) {
             userId = data2;
         });
+        var url = "";
+        if (prepare === true) {
+            url = "api/apartament/getallapartamentзprepare";
+        }
+        else {
+            url = "api/apartament/getallapartament";
+        }
         $.ajax({
             type: "GET",
-            url: "api/apartament/getallapartament",
+            url: url,
             success: function(data) {
                 drawTable(permissions, data);
             },

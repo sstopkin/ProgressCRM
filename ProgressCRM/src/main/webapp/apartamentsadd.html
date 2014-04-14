@@ -7,66 +7,57 @@
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 <div class="add-panel">
-                    <div class="wrp">
-                        <form class="add-panel__request regular__ctrls">
-                            <div class="ffield">
-                                <label class="ffield__lbl">
-                                    Город
-                                </label>
-                                <input name="city" type="text" class="long">
-                                <img src="images/spinner.gif" class="spinner">
-                            </div>
-                            <div class="ffield">
-                                <label class="ffield__lbl">
-                                    Улица
-                                </label>
-                                <input name="street" type="text" class="long">
-                                <img src="images/spinner.gif" class="spinner">
-                            </div>
-                            <div class="ffield">
-                                <label class="ffield__lbl">
-                                    Номер дома
-                                </label>
-                                <input name="building" type="text" class="small">
-
-                                <label class="ffield__lbl2">
-                                    Корпус/строение
-                                </label>
-                                <input name="building-add" type="text" class="small">
-                            </div>
-                            <div class="ffield">
+                    <div class="row ">
+                        <div class="col-md-5"><div id="map" style="width: 450px; height: 450px"></div></div>
+                        <div class="col-md-3">
+                            <form class="regular__ctrls">
+                                <div class="form-group">
+                                    <label class="control-label">Город</label>
+                                    <input name="city" type="text" class="form-control">
+                                    <img src="images/spinner.gif" class="spinner">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Улица</label>
+                                    <input name="street" type="text" class="form-control">
+                                    <img src="images/spinner.gif" class="spinner">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Номер дома</label>
+                                    <input name="building" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Корпус/строение</label>
+                                    <input name="building-add" type="text" class="form-control">
+                                </div>
                                 <label class="ffield__lbl ltooltip"></label>
-                                <div id="map" class="add-panel__map"></div>
-                            </div>
-                        </form>
-                        <div class="addition">
-                            <div class="block">
-                                <p class="title">Выбранный объект</p>
-                                <ul>
-                                    <li id="id" style="display: none;"><span class="name">Код:</span> <span class="value"></span></li>
-                                    <li id="zip" style="display: none;"><span class="name">Почтовый индекс:</span> <span class="value"></span></li>
-                                    <li id="name" style="display: none;"><span class="name">Название:</span> <span class="value"></span></li>                        
-                                    <li id="type" style="display: none;"><span class="name">Тип:</span> <span class="value"></span></li>
-                                    <li id="type_short" style="display: none;"><span class="name">Тип коротко:</span> <span class="value"></span></li>
-                                </ul>
-                            </div>
-                            <div class="block">
-                                <p class="title">Текстовое представление адреса</p>
-                                <p id="address" class="value"></p>      
-                                <p id="zipCode" class="value"></p>
-                                <p id="apartamentCity" class="value"></p>                    
-                                <p id="apartamentStreet" class="value"></p> 
-                                <p id="apartamentBuilding" class="value"></p> 
-                                <p id="apartamentBuildingAdd" class="value"></p> 
-                                <p id="apartamentLan" class="value"></p> 
-                                <p id="apartamentLon" class="value"></p> 
-                            </div>
+
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="title">Выбранный объект</p>
+                            <ul>
+                                <li id="id" style="display: none;"><span class="name">Код:</span> <span class="value"></span></li>
+                                <li id="zip" style="display: none;"><span class="name">Почтовый индекс:</span> <span class="value"></span></li>
+                                <li id="name" style="display: none;"><span class="name">Название:</span> <span class="value"></span></li>                        
+                                <li id="type" style="display: none;"><span class="name">Тип:</span> <span class="value"></span></li>
+                                <li id="type_short" style="display: none;"><span class="name">Тип коротко:</span> <span class="value"></span></li>
+                            </ul>
+
+                            <p class="title">Текстовое представление адреса</p>
+                            <p id="address" class="value"></p>      
+                            <p id="zipCode" class="value"></p>
+                            <p id="apartamentCity" class="value"></p>                    
+                            <p id="apartamentStreet" class="value"></p> 
+                            <p id="apartamentBuilding" class="value"></p> 
+                            <p id="apartamentBuildingAdd" class="value"></p> 
+                            <p id="apartamentLan" class="value"></p> 
+                            <p id="apartamentLon" class="value"></p> 
                         </div>
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="tab2">
-                <form data-toggle="validator" role="form" class="form-horizontal" id="FormApartamentsAddAdditionalData">
+                <form role="form" class="form-horizontal" id="FormApartamentsAddAdditionalData">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">

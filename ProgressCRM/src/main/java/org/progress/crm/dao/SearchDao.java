@@ -37,10 +37,24 @@ public class SearchDao {
                     = lcomments.iterator(); iterator.hasNext();) {
                 Comments comment = (Comments) iterator.next();
 
-                resList.add(DaoFactory.getApartamentsDao().getApartamentsByUUID(session, comment.getObjectUUID()));
+                Apartaments aparts = DaoFactory.getApartamentsDao().getApartamentsByUUID(session, comment.getObjectUUID());
+                if (type.equals("apartamentsprepare")) {
+                    if (aparts.getStatus() == 0) {
+                        resList.add(aparts);
+                    }
+                } else {
+                    if (aparts.getStatus() != 0) {
+                        resList.add(aparts);
+                    }
+                }
             }
         } else {
             Criteria criteria = session.createCriteria(Apartaments.class);
+            if (type.equals("apartamentsprepare")) {
+                criteria.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0));
+            } else {
+                criteria.add(Restrictions.not(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0)));
+            }
             criteria.add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
             resList = criteria.list();
         }

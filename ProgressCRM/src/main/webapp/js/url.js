@@ -191,7 +191,7 @@ function helpParseUrl(uri, arr, type) {
         }
         if ((arr[1] === "list") && (type === "apartamentsprepare"))
         {
-            getApartamentsPrepareListPage();
+            getApartamentsListPage(true);
             return;
         }
         if ((arr[1]) && (type === "filemanager")) {
