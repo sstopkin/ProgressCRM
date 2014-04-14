@@ -1,5 +1,5 @@
 function getApartamentsListPage() {
-//    initSearchForm();
+    initSearchForm();
     $.get("apartamentslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
@@ -22,63 +22,7 @@ function getApartamentsListPage() {
             type: "GET",
             url: "api/apartament/getallapartament",
             success: function(data) {
-                $("#errorBlock").css("display", "none");
-                var array = JSON.parse(data);
-                var str = "<table class=\"table table-bordered\">";
-                str += "<thead>";
-                str += "<tr>";
-                str += "<th>#</th>";
-                str += "<th>Адрес</th>";
-                str += "<th>Площадь О/К/Ж</th>";
-                str += "<th>Этаж</th>";
-                str += "<th>Цена</th>";
-                str += "<th>Добавлено</th>";
-                str += "<th>Риэлтор</th>";
-                str += "<th>Дата</th>";
-                str += "<th>Звонок</th>";
-                if (permissions == "3") {
-                    str += "<th>Редактировать</th>";
-                    str += "<th>Удалить</th>";
-                }
-                str += "</tr>";
-                str += "</thead>";
-                str += "<tbody>";
-
-                var apartsArray = [];
-                var dormitoryArray = [];
-                var barchelorArray = [];
-                var subrentalArray = [];
-
-                array.forEach(function(entry) {
-                    switch (entry.dwellingType) {
-                        case 1:
-                            apartsArray.push(entry);
-                            break;
-                        case 2:
-                            dormitoryArray.push(entry);
-                            break;
-                        case 3:
-                            barchelorArray.push(entry);
-                            break;
-                        case 4:
-                            subrentalArray.push(entry);
-                            break;
-                    }
-                });
-                if (barchelorArray.length !== 0) {
-                    str += draw(barchelorArray, permissions, "Малосемейки");
-                }
-                if (subrentalArray.length !== 0) {
-                    str += draw(subrentalArray, permissions, "Подселение");
-                }
-                if (dormitoryArray !== 0) {
-                    str += draw(dormitoryArray, permissions, "Гостинки");
-                }
-                if (apartsArray !== 0) {
-                    str += draw(apartsArray, permissions, "Квартиры");
-                }
-                str += "</tbody>";
-                $("#divApartamentsList").html(str);
+                drawTable(permissions, data);
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -86,6 +30,66 @@ function getApartamentsListPage() {
             }
         });
     });
+}
+
+function drawTable(permissions, data) {
+    $("#errorBlock").css("display", "none");
+    var array = JSON.parse(data);
+    var str = "<table class=\"table table-bordered\">";
+    str += "<thead>";
+    str += "<tr>";
+    str += "<th>#</th>";
+    str += "<th>Адрес</th>";
+    str += "<th>Площадь О/К/Ж</th>";
+    str += "<th>Этаж</th>";
+    str += "<th>Цена</th>";
+    str += "<th>Добавлено</th>";
+    str += "<th>Риэлтор</th>";
+    str += "<th>Дата</th>";
+    str += "<th>Звонок</th>";
+    if (permissions == "3") {
+        str += "<th>Редактировать</th>";
+        str += "<th>Удалить</th>";
+    }
+    str += "</tr>";
+    str += "</thead>";
+    str += "<tbody>";
+
+    var apartsArray = [];
+    var dormitoryArray = [];
+    var barchelorArray = [];
+    var subrentalArray = [];
+
+    array.forEach(function(entry) {
+        switch (entry.dwellingType) {
+            case 1:
+                apartsArray.push(entry);
+                break;
+            case 2:
+                dormitoryArray.push(entry);
+                break;
+            case 3:
+                barchelorArray.push(entry);
+                break;
+            case 4:
+                subrentalArray.push(entry);
+                break;
+        }
+    });
+    if (barchelorArray.length !== 0) {
+        str += draw(barchelorArray, permissions, "Малосемейки");
+    }
+    if (subrentalArray.length !== 0) {
+        str += draw(subrentalArray, permissions, "Подселение");
+    }
+    if (dormitoryArray !== 0) {
+        str += draw(dormitoryArray, permissions, "Гостинки");
+    }
+    if (apartsArray !== 0) {
+        str += draw(apartsArray, permissions, "Квартиры");
+    }
+    str += "</tbody>";
+    $("#divApartamentsList").html(str);
 }
 
 function draw(array, permissions, catName) {
