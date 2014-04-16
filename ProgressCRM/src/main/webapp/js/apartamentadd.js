@@ -87,11 +87,12 @@ function addApartament(prepare) {
             //prepare
             $("#apartamentAddReadyLink").click(function() {
                 if (
-                        ($('#TypeOfSales').val() == "")
-                        || ($('#Price').val() == "")
-                        || ($('#Floor').val() == "")
-                        || ($('#Floors').val() == "")
-                        || ($('#DwellingType').val() == "")
+//                        ($('#TypeOfSales').val() == "")
+//                        || ($('#Price').val() == "")
+//                        || ($('#Floor').val() == "")
+//                        || ($('#Floors').val() == "")|| 
+                        ($('#DwellingType').val() == "-1") ||
+                        ($('#Rooms').val() == "-1")
                         ) {
                     $("#errorBlock").addClass("alert-danger");
                     $("#errorMessage").html("Не все поля заполнены");
