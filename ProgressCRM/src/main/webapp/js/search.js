@@ -37,13 +37,6 @@ function mainSearchAction(type) {
         url: "api/auth/validate",
         async: false
     }).responseText;
-    if ((permissions === "3") || (permissions === "2")) {
-        $("#addApartamentBtn").css("display", "block");
-        $("#genApartamentsPriceBtn").css("display", "block");
-    } else {
-        $("#addApartamentBtn").css("display", "none");
-        $("#genApartamentsPriceBtn").css("display", "none");
-    }
     $.ajax({
         type: "GET",
         url: "api/search/search?assigned=" + $("#mainSearchAssigned").val() +

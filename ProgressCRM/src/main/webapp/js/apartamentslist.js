@@ -13,16 +13,13 @@ function getApartamentsListPage(prepare) {
             $("#genApartamentsPriceBtn").css("display", "none");
         }
         $("#mainContainer").html("<div id=\"mainSearchContainer\" class=\"container\"></div>" + data);
-        initSearchForm('apartaments');
-        var userId;
-        $.get("api/auth/author", function(data2) {
-            userId = data2;
-        });
         var url = "";
         if (prepare === true) {
+            initSearchForm('apartamentsprepare');
             url = "api/apartament/getallapartamentзprepare";
         }
         else {
+            initSearchForm('apartaments');
             url = "api/apartament/getallapartament";
         }
         $.ajax({

@@ -40,8 +40,12 @@ public class SearchController {
         } else {
             assigned_ = Integer.valueOf(assigned);
         }
-        return DaoFactory.getSearchDao().searchByQUery(session,
-                assigned_, idWorker_, startDate_, endDate_, contains, type);
+        if (type.equals("apartaments") || type.equals("apartamentsprepare")) {
+            return DaoFactory.getApartamentsDao().searchByQUery(session,
+                    assigned_, idWorker_, startDate_, endDate_, contains, type);
+        } else {
+            return null;
+        }
     }
 
 }
