@@ -251,7 +251,7 @@ function getApartamentViewPage(apartamentId) {
                 var array = JSON.parse(data);
                 var str = "";
                 str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
-                str += "<thead class='t-header'>Звонки<tr>";
+                str += "<thead class='t-header'>Комментарии<tr>";
                 str += "<th>Дата</th>";
                 str += "<th>Комментарий</th>";
                 str += "</tr></thead>";
