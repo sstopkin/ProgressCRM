@@ -259,7 +259,7 @@ INDEX `idWorkerIndex` (`idWorker` ASC));
 
 -- NULL user --
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
-	VALUES ('null', 'null','null', 'null', 0, 'null', true, true);
+	VALUES ('Не', '','указан', 'null', 0, 'null', true, true);
 
 -- test users--
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
