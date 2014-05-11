@@ -207,8 +207,8 @@ function getApartamentViewPage(apartamentId) {
                 content += "<b>Информация о владельце: </b>"; //array.clientDescription
                 content += "</p>";
                 content += array.customersFname + " ";
-                content += array.customersMname + " ";
                 content += array.customersLname + " ";
+                content += array.customersMname + " ";
                 content += array.customersPhone + " ";
                 content += "</p>";
             }
