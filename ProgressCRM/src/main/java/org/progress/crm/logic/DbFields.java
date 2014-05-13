@@ -13,6 +13,8 @@ public class DbFields {
         public final static String APARTAMENTUUID = "apartamentUUID";
         public final static String ASSIGNED = "idWorkerTarget";
         public final static String IDWORKER = "idWorker";
+        public final static String IDCUSTOMER = "idCustomer";
+        public final static String CREATIONDATE = "CreationDate";
     }
 
     public class WORKERS {

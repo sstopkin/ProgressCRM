@@ -1,10 +1,15 @@
 package org.progress.crm.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.progress.crm.exceptions.CustomException;
+import org.progress.crm.logic.Apartaments;
 import org.progress.crm.logic.Customers;
+import org.progress.crm.logic.DbFields;
 
 public class CustomersDao {
 
@@ -24,6 +29,16 @@ public class CustomersDao {
 
     public Customers getCustomerById(final Session session, final int customerId) throws CustomException {
         return (Customers) session.get(Customers.class, customerId);
+    }
+
+    public List getCustomerWithInfoById(final Session session, final int customerId) throws CustomException {
+        List res = new ArrayList();
+        res.add((Customers) session.get(Customers.class, customerId));
+        res.add(session.createCriteria(Apartaments.class)
+                .add(Restrictions.eq(DbFields.APARTAMENTS.IDCUSTOMER, customerId))
+                .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
+                .list());
+        return res;
     }
 
     public boolean modifyCustomer(final Session session, final Customers customers) throws CustomException {
@@ -53,4 +68,5 @@ public class CustomersDao {
     public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) {
         return session.createCriteria(Customers.class).list();
     }
+
 }
