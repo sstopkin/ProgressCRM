@@ -36,7 +36,7 @@ public class CustomersDao {
         res.add((Customers) session.get(Customers.class, customerId));
         res.add(session.createCriteria(Apartaments.class)
                 .add(Restrictions.eq(DbFields.APARTAMENTS.IDCUSTOMER, customerId))
-                .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
+//                .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
                 .list());
         return res;
     }
