@@ -31,12 +31,12 @@ public class CustomersDao {
         return (Customers) session.get(Customers.class, customerId);
     }
 
-    public List getCustomerWithInfoById(final Session session, final int customerId) throws CustomException {
+    public List getCustomerObjectsById(final Session session, final int customerId) throws CustomException {
         List res = new ArrayList();
-        res.add((Customers) session.get(Customers.class, customerId));
+        //1st atartaments
         res.add(session.createCriteria(Apartaments.class)
                 .add(Restrictions.eq(DbFields.APARTAMENTS.IDCUSTOMER, customerId))
-//                .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
+                .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
                 .list());
         return res;
     }

@@ -14,7 +14,7 @@ public class DbFields {
         public final static String ASSIGNED = "idWorkerTarget";
         public final static String IDWORKER = "idWorker";
         public final static String IDCUSTOMER = "idCustomer";
-        public final static String CREATIONDATE = "CreationDate";
+        public final static String CREATIONDATE = "сreationDate";
     }
 
     public class WORKERS {

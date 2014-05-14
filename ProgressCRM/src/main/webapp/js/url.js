@@ -189,6 +189,14 @@ function helpParseUrl(uri, arr, type) {
             customersEditById(arr[2]);
             return;
         }
+        if ((arr[1] === "view") && (type === "customers")) {
+            if (!arr[2]) {
+                showDanger();
+                return;
+            }
+            getCustomerViewPage(arr[2]);
+            return;
+        }
         if ((arr[1] === "list") && (type === "apartamentsprepare"))
         {
             getApartamentsListPage(true);
