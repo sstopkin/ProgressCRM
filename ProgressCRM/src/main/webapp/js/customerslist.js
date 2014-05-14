@@ -38,7 +38,7 @@ function getCustomersListPage() {
                 array.forEach(function(entry) {
                     str += "<tr>";
                     str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-default\"><b>" + entry.id + "</b></a></td>";
-                    str += "<td>" + entry.customersFname + " " + entry.customersMname + " " + entry.customersLname + "</td>";
+                    str += "<td>" + entry.customersLname + " " + entry.customersFname + " " + entry.customersMname + "</td>";
                     str += "<td>" + entry.customersPhone + "</td>";
                     str += "<td>" + entry.customersDayOfBirthday + "-" + entry.customersMonthOfBirthday + "-" + entry.customersYearOfBirthday + "</td>";
                     str += "<td>" + entry.customersEmail + "</td>";

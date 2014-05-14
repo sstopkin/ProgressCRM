@@ -23,14 +23,14 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().getCustomerById(session, Integer.valueOf(customerId));
     }
 
-    public List getCustomerWithInfoById(Session session, String token, String customerId) throws CustomException {
+    public List getCustomerObjectsById(Session session, String token, String customerId) throws CustomException {
         if (customerId == null) {
             throw new BadRequestException();
         }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        return DaoFactory.getCustomersDao().getCustomerWithInfoById(session, Integer.valueOf(customerId));
+        return DaoFactory.getCustomersDao().getCustomerObjectsById(session, Integer.valueOf(customerId));
     }
 
     public boolean addCustomer(Session session,
