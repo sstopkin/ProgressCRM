@@ -55,7 +55,6 @@ function parseUrl(str) {
     var pathHelpDesk = "helpdesk";
     var pathProfile = "profile";
     var pathApartaments = "apartaments";
-    var pathApartamentsPrepare = "apartamentsprepare";
     var pathAdmin = "admin";
 
     if (!uri.fragment) {
@@ -102,10 +101,6 @@ function parseUrl(str) {
     }
     if (arr[0] === pathApartaments) {
         helpParseUrl(uri, arr, "apartaments");
-        return;
-    }
-    if (arr[0] === pathApartamentsPrepare) {
-        helpParseUrl(uri, arr, "apartamentsprepare");
         return;
     }
     if (arr[0] === pathAdmin) {
@@ -173,7 +168,21 @@ function helpParseUrl(uri, arr, type) {
         }
         if ((arr[1] === "list") && (type === "apartaments"))
         {
-            getApartamentsListPage();
+            if (!arr[2]) {
+                showDanger();
+                return;
+            }
+            switch (arr[2]) {
+                case "prepare":
+                    getApartamentsListPage(0);
+                    break
+                case "price":
+                    getApartamentsListPage(1);
+                    break
+                case "archive":
+                    getApartamentsListPage(2);
+                    break
+            }
             return;
         }
         if ((arr[1] === "list") && (type === "customers"))
@@ -195,11 +204,6 @@ function helpParseUrl(uri, arr, type) {
                 return;
             }
             getCustomerViewPage(arr[2]);
-            return;
-        }
-        if ((arr[1] === "list") && (type === "apartamentsprepare"))
-        {
-            getApartamentsListPage(true);
             return;
         }
         if ((arr[1]) && (type === "filemanager")) {

@@ -61,13 +61,9 @@ public class ApartamentsDao {
         return list.get(0);
     }
 
-    public List<Apartaments> getAllApartaments(Session session, boolean prepare) throws CustomException {
+    public List<Apartaments> getAllApartaments(Session session, int status) throws CustomException {
         Criteria cr = session.createCriteria(Apartaments.class).add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
-        if (prepare) {
-            cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0));
-        } else {
-            cr.add(Restrictions.not(Restrictions.eq(DbFields.APARTAMENTS.STATUS, 0)));
-        }
+        cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, status));
         cr.addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS));
         return cr.list();
     }
@@ -93,8 +89,7 @@ public class ApartamentsDao {
                     .append("' IN NATURAL LANGUAGE MODE)");
             if (type.equals("apartamentsprepare")) {
                 sql.append(" and Apartaments.status=\"0\"");
-            }
-            else{
+            } else {
                 sql.append(" and Apartaments.status<>\"0\"");
             }
             sql.append(";");

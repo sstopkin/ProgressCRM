@@ -1,4 +1,4 @@
-function getApartamentsListPage(prepare) {
+function getApartamentsListPage(status) {
     $.get("apartamentslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
@@ -13,18 +13,10 @@ function getApartamentsListPage(prepare) {
             $("#genApartamentsPriceBtn").css("display", "none");
         }
         $("#mainContainer").html("<div id=\"mainSearchContainer\" class=\"container\"></div>" + data);
-        var url = "";
-        if (prepare === true) {
-            initSearchForm('apartamentsprepare');
-            url = "api/apartament/getallapartamentзprepare";
-        }
-        else {
-            initSearchForm('apartaments');
-            url = "api/apartament/getallapartament";
-        }
+        initSearchForm('apartaments');
         $.ajax({
             type: "GET",
-            url: url,
+            url: "api/apartament/getallapartament?status="+status,
             success: function(data) {
                 drawTable(permissions, data);
             },
@@ -282,5 +274,4 @@ function apartamentsEditById(apartamentId) {
             }
         });
     });
-
 }
