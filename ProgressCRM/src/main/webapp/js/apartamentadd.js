@@ -1,6 +1,4 @@
-function addApartament(prepare) {
-//0- prepare
-//1- status != 0    
+function addApartament() {
     $.get("apartamentsadd.html", function(data) {
         $("#mainContainer").html(data);
         $("#errorBlock").css("display", "none");
@@ -9,144 +7,91 @@ function addApartament(prepare) {
             $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
         $("#apartamentAddReadyLink").css("display", "inline");
-        if (prepare == "1") {
-            $("#apartamentAddCustomerBlock").css("display", "inline");
-            $("#apartamentAddWorkersBlock").css("display", "inline");
-            //price
-            $("#apartamentAddReadyLink").click(function() {
-                if (
-                        ($('#TypeOfSales').val() == "")
-                        || ($('#Price').val() == "")
-                        || ($('#CityDistrict').val() == "")
-                        || ($('#Floor').val() == "")
-                        || ($('#Floors').val() == "")
-                        || ($('#RoomNumber').val() == "")
-                        || ($('#Material').val() == "")
-                        || ($('#SizeApartament').val() == "")
-                        || ($('#SizeLiving').val() == "")
-                        || ($('#SizeKitchen').val() == "")
-                        || ($('#Balcony').val() == "")
-                        || ($('#Loggia').val() == "")
-                        || ($('#DwellingType').val() == "")
-                        || ($('#ApartamentsIdWorkerTarget').val() == "")
-                        ) {
-                    $("#errorBlock").addClass("alert-danger");
-                    $("#errorMessage").html("Не все поля заполнены");
-                    $("#errorBlock").css("display", "block");
-                    return false;
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "api/apartament/addapartament",
-                    data: ({
-                        typeofsales: $('#TypeOfSales').val(),
-                        cityName: $('#apartamentCity').text(),
-                        streetName: $('#apartamentStreet').text(),
-                        houseNumber: $('#apartamentBuilding').text(),
-                        buildingNumber: $('#apartamentBuildingAdd').text(),
-                        rooms: $('#Rooms').val(),
-                        dwellingType: $('#DwellingType').val(),
-                        //FIXME!!
-                        kladrId: $('#Price').val(),
-                        shortAddress: $('#address').text(),
-                        apartamentLan: $("#apartamentLan").text(),
-                        apartamentLon: $("#apartamentLon").text(),
-                        price: $('#Price').val(),
-                        citydistrict: $('#CityDistrict').val(),
-                        floor: $('#Floor').val(),
-                        floors: $('#Floors').val(),
-                        roomnumber: $('#RoomNumber').val(),
-                        material: $('#Material').val(),
-                        sizeapartament: $('#SizeApartament').val(),
-                        sizeliving: $('#SizeLiving').val(),
-                        sizekitchen: $('#SizeKitchen').val(),
-                        balcony: $('#Balcony').val(),
-                        loggia: $('#Loggia').val(),
-                        yearofconstruction: $('#YearOfConstruction').val(),
-                        description: $('#Description').val(),
-                        puresale: $('#PureSale').prop("checked"),
-                        mortgage: $('#Mortgage').prop("checked"),
-                        exchange: $('#Exchange').prop("checked"),
-                        rent: $('#Rent').prop("checked"),
-                        replanning: $('#RePlanning').prop("checked"),
-                        idWorkerTarget: $("#ApartamentsIdWorkerTarget").val(),
-                        idCustomer: $("#IdCustomer").val(),
-                        status: $("#ApartamentStatus").val()
-                    }),
-                    success: function(data) {
-                        location.reload();//FIXME
-                        $("#errorBlock").css("display", "none");
-                    },
-                    error: function(data) {
-                        showDanger(data.responseText);
-                    }
-                });
-            });
-        }
-        else if (prepare == "0") {
-            //prepare
-            $("#apartamentAddReadyLink").click(function() {
-                if (
+        $("#apartamentAddCustomerBlock").css("display", "inline");
+        $("#apartamentAddWorkersBlock").css("display", "inline");
+        //price
+        $("#apartamentAddReadyLink").click(function() {
+//            if (
+//                    ($('#TypeOfSales').val() == "")
+//                    || ($('#Price').val() == "")
+//                    || ($('#CityDistrict').val() == "")
+//                    || ($('#Floor').val() == "")
+//                    || ($('#Floors').val() == "")
+//                    || ($('#RoomNumber').val() == "")
+//                    || ($('#Material').val() == "")
+//                    || ($('#SizeApartament').val() == "")
+//                    || ($('#SizeLiving').val() == "")
+//                    || ($('#SizeKitchen').val() == "")
+//                    || ($('#Balcony').val() == "")
+//                    || ($('#Loggia').val() == "")
+//                    || ($('#DwellingType').val() == "")
+//                    || ($('#ApartamentsIdWorkerTarget').val() == "")
+//                    ) {
+//                $("#errorBlock").addClass("alert-danger");
+//                $("#errorMessage").html("Не все поля заполнены");
+//                $("#errorBlock").css("display", "block");
+//                return false;
+//            }
+            if (
 //                        ($('#TypeOfSales').val() == "")
 //                        || ($('#Price').val() == "")
 //                        || ($('#Floor').val() == "")
 //                        || ($('#Floors').val() == "")|| 
-                        ($('#DwellingType').val() == "-1") ||
-                        ($('#Rooms').val() == "-1")
-                        ) {
-                    $("#errorBlock").addClass("alert-danger");
-                    $("#errorMessage").html("Не все поля заполнены");
-                    $("#errorBlock").css("display", "block");
-                    return false;
+                    ($('#DwellingType').val() == "-1") ||
+                    ($('#Rooms').val() == "-1")
+                    ) {
+                $("#errorBlock").addClass("alert-danger");
+                $("#errorMessage").html("Не все поля заполнены");
+                $("#errorBlock").css("display", "block");
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "api/apartament/addapartament",
+                data: ({
+                    typeofsales: $('#TypeOfSales').val(),
+                    cityName: $('#apartamentCity').text(),
+                    streetName: $('#apartamentStreet').text(),
+                    houseNumber: $('#apartamentBuilding').text(),
+                    buildingNumber: $('#apartamentBuildingAdd').text(),
+                    rooms: $('#Rooms').val(),
+                    dwellingType: $('#DwellingType').val(),
+                    //FIXME!!
+                    kladrId: $('#Price').val(),
+                    shortAddress: $('#address').text(),
+                    apartamentLan: $("#apartamentLan").text(),
+                    apartamentLon: $("#apartamentLon").text(),
+                    price: $('#Price').val(),
+                    citydistrict: $('#CityDistrict').val(),
+                    floor: $('#Floor').val(),
+                    floors: $('#Floors').val(),
+                    roomnumber: $('#RoomNumber').val(),
+                    material: $('#Material').val(),
+                    sizeapartament: $('#SizeApartament').val(),
+                    sizeliving: $('#SizeLiving').val(),
+                    sizekitchen: $('#SizeKitchen').val(),
+                    balcony: $('#Balcony').val(),
+                    loggia: $('#Loggia').val(),
+                    yearofconstruction: $('#YearOfConstruction').val(),
+                    description: $('#Description').val(),
+                    puresale: $('#PureSale').prop("checked"),
+                    mortgage: $('#Mortgage').prop("checked"),
+                    exchange: $('#Exchange').prop("checked"),
+                    rent: $('#Rent').prop("checked"),
+                    replanning: $('#RePlanning').prop("checked"),
+                    idWorkerTarget: $("#ApartamentsIdWorkerTarget").val(),
+                    idCustomer: $("#IdCustomer").val(),
+                    status: $("#ApartamentStatus").val()
+                }),
+                success: function(data) {
+                    location.reload();//FIXME
+                    $("#errorBlock").css("display", "none");
+                },
+                error: function(data) {
+                    showDanger(data.responseText);
                 }
-                $.ajax({
-                    type: "POST",
-                    url: "api/apartament/addapartament",
-                    data: ({
-                        typeofsales: $('#TypeOfSales').val(),
-                        cityName: $('#apartamentCity').text(),
-                        streetName: $('#apartamentStreet').text(),
-                        houseNumber: $('#apartamentBuilding').text(),
-                        buildingNumber: $('#apartamentBuildingAdd').text(),
-                        rooms: $('#Rooms').val(),
-                        dwellingType: $('#DwellingType').val(),
-                        //FIXME!!
-                        kladrId: $('#Price').val(),
-                        shortAddress: $('#address').text(),
-                        apartamentLan: $("#apartamentLan").text(),
-                        apartamentLon: $("#apartamentLon").text(),
-                        price: $('#Price').val(),
-                        citydistrict: $('#CityDistrict').val(),
-                        floor: $('#Floor').val(),
-                        floors: $('#Floors').val(),
-                        roomnumber: $('#RoomNumber').val(),
-                        material: $('#Material').val(),
-                        sizeapartament: $('#SizeApartament').val(),
-                        sizeliving: $('#SizeLiving').val(),
-                        sizekitchen: $('#SizeKitchen').val(),
-                        balcony: $('#Balcony').val(),
-                        loggia: $('#Loggia').val(),
-                        yearofconstruction: $('#YearOfConstruction').val(),
-                        description: $('#Description').val(),
-                        puresale: $('#PureSale').prop("checked"),
-                        mortgage: $('#Mortgage').prop("checked"),
-                        exchange: $('#Exchange').prop("checked"),
-                        rent: $('#Rent').prop("checked"),
-                        replanning: $('#RePlanning').prop("checked"),
-                        idWorkerTarget: 1,
-                        idCustomer: 1,
-                        status: 0
-                    }),
-                    success: function() {
-                        location.reload();//FIXME
-                        $("#errorBlock").css("display", "none");
-                    },
-                    error: function(data) {
-                        showDanger(data.responseText);
-                    }
-                });
             });
-        }
+        });
     });
 }
 

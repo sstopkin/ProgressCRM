@@ -134,11 +134,11 @@ public class ApartamentsController {
         return true;
     }
 
-    public List<Apartaments> getAllApartament(Session session, String token, boolean prepare) throws CustomException {
+    public List<Apartaments> getAllApartament(Session session, String token, String status) throws CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session, prepare);
+        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session, Integer.valueOf(status));
         return apartaments;
     }
 }
