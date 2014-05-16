@@ -180,7 +180,10 @@ function helpParseUrl(uri, arr, type) {
                     getApartamentsListPage(1);
                     break
                 case "archive":
-                    getApartamentsListPage(2);
+                    getApartamentsListPage(4);
+                    break
+                case "notset":
+                    getApartamentsListPage(5);
                     break
             }
             return;
