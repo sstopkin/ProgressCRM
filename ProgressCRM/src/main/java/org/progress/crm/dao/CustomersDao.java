@@ -32,13 +32,10 @@ public class CustomersDao {
     }
 
     public List getCustomerObjectsById(final Session session, final int customerId) throws CustomException {
-        List res = new ArrayList();
-        //1st atartaments
-        res.add(session.createCriteria(Apartaments.class)
+        return session.createCriteria(Apartaments.class)
                 .add(Restrictions.eq(DbFields.APARTAMENTS.IDCUSTOMER, customerId))
                 .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
-                .list());
-        return res;
+                .list();
     }
 
     public boolean modifyCustomer(final Session session, final Customers customers) throws CustomException {
