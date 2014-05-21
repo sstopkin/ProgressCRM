@@ -13,11 +13,11 @@ function getHelpDeskPage() {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
-                if (permissions === "3") {
-//                <!-- Button trigger modal -->
-                    str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#myModal\" class=\"btn btn-success pull-right\">Оставить заявку</a></div>";
-                }
                 array.forEach(function(entry) {
+                    str += "<div class=\"panel panel-info\">";
+                    str += "<div class=\"panel-heading\">Заявка #" + entry.id + "</div>";
+                    str += "<div class=\"panel-body\">";
+
                     str += "<div class = \"media\">";
                     str += "<a class = \"pull-left\" href = \"#\">";
                     str += "<img class=\"media-object\" src=\"images/apple2.png\" alt=\"...\">";
@@ -43,6 +43,7 @@ function getHelpDeskPage() {
                         }
                     }
 //                    str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
+                    str += "</div>";
                     str += "</div>";
                     str += "</div>";
                 });

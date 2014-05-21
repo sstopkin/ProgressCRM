@@ -14,6 +14,20 @@ function getApartamentsListPage(status) {
         }
         $("#mainContainer").html("<div id=\"mainSearchContainer\" class=\"container\"></div>" + data);
         initSearchForm('apartaments');
+        switch (status) {
+            case 0:
+                $("#apartamentsListHeaderText").html("Прозвон");
+                break;
+            case 1:
+                $("#apartamentsListHeaderText").html("Прайс");
+                break;
+            case 4:
+                $("#apartamentsListHeaderText").html("Архив");
+                break;
+            default:
+                $("#apartamentsListHeaderText").html("");
+                break;
+        }
         $.ajax({
             type: "GET",
             url: "api/apartament/getallapartament?status=" + status,
@@ -184,7 +198,7 @@ function apartamentsEditById(apartamentId) {
                 workersList.forEach(function(entry) {
                     $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
                 });
-                
+
                 $("#apartamentAddCustomerBlock").css("display", "block");
                 $("#apartamentAddWorkersBlock").css("display", "block");
 

@@ -1,24 +1,26 @@
 <div class="container">
-
-    <div class="row">
-        <a data-toggle="modal" href="#customersAddMoadl" class="btn btn-success pull-right">Добавить клиента</a>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div id="divCustomersList"></div>
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+            <span>Клиенты</span>
+        </div>
+        <div class="panel-body">
+            <a data-toggle="modal" href="#customersAddMoadl" class="btn btn-success pull-right">Добавить клиента</a>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div id="divCustomersList" class="container"></div>
+                </div>
             </div>
         </div>
     </div>
-
     <!-- Modal -->
     <div class="modal" id="customersAddMoadl" tabindex="-1" role="dialog" aria-labelledby="customersAddMoadlLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Добавить объявление</h4>
+                    <h4 class="modal-title">Добавить клиента</h4>
                 </div>
                 <div class="modal-body">
                     <ul id="myTab" class="nav nav-tabs">

@@ -80,11 +80,16 @@ function getNews() {
         async: false
     }).responseText;
     var str = "";
-    if (permissions == "3") {
-//        <!-- Button trigger modal -->
-        str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#newsModal\" class=\"btn btn-success pull-right\">Добавить новость</a></div>";
-    }
+
     $.get("api/news", function(data) {
+        str += "<div class=\"panel panel-default\">";
+        str += "<div class=\"panel-heading\">Новости</div>";
+        str += "<div class=\"panel-body\">";
+        if (permissions == "3") {
+            str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#newsModal\" class=\"btn btn-success pull-right\">Добавить новость</a></div>";
+        }
+        str += "</div>";
+
         str += "<table class=\"table\"><tbody>\n";
         var list = JSON.parse(data);
         for (var i = 0; i < list.length; ++i) {
@@ -110,6 +115,8 @@ function getNews() {
             str += "</div>";
             str += "</tr></td>";
         }
+
+        str += "</div>";
         str += "\n</tbody>\n</table>\n";
         $("#news").html(str);
     });
