@@ -28,16 +28,12 @@ function getCustomersListPage() {
                 str += "<th>Дата рождения</th>";
                 str += "<th>E-mail</th>";
                 str += "<th>Пол</th>";
-                if (permissions == "3") {
-                    str += "<th>Редактировать</th>";
-                    str += "<th>Удалить</th>";
-                }
                 str += "</tr>";
                 str += "</thead>";
                 str += "<tbody>";
                 array.forEach(function(entry) {
                     str += "<tr>";
-                    str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-default\"><b>" + entry.id + "</b></a></td>";
+                    str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
                     str += "<td>" + entry.customersLname + " " + entry.customersFname + " " + entry.customersMname + "</td>";
                     str += "<td>" + entry.customersPhone + "</td>";
                     str += "<td>" + entry.customersDayOfBirthday + "-" + entry.customersMonthOfBirthday + "-" + entry.customersYearOfBirthday + "</td>";
@@ -58,10 +54,6 @@ function getCustomersListPage() {
                             break
                     }
                     str += "</td>";
-                    if (permissions == "3") {
-                        str += "<td><a href=\"#customers/edit/" + entry.id + "\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></a></td>";
-                        str += "<td>" + "<button type=\"button\" onclick=\"customersDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
-                    }
                     str += "</tr>";
                 });
                 str += "</tbody>";

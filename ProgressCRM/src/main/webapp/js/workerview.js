@@ -1,22 +1,12 @@
-function getCustomerViewPage(customerId) {
+function getWorkersViewPage(workerId) {
     $.get("customersview.html", function(data) {
         $("#mainContainer").html(data);
-        var permissions = $.ajax({
-            type: "GET",
-            url: "api/auth/validate",
-            async: false
-        }).responseText;
-        var content="";
-        if (permissions == "3") {
-            content += "<a href=\"#customers/edit/" + customerId + "\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pencil\"></span>Редактировать</a>";
-            content += "<button type=\"button\" onclick=\"customersDeleteById(" + customerId + ");\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
-        }
-        content += "<p>";
+        var content = "<p>";
         content += "<b>Общая информация: </b>"; //array.clientDescription
         content += "</p>";
         $.ajax({
             type: "GET",
-            url: "api/customers/getcustomer?id=" + customerId,
+            url: "api/workers/getcustomer?id=" + customerId,
             async: false,
             success: function(data) {
                 var array = JSON.parse(data);

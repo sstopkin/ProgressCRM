@@ -16,9 +16,9 @@ function getApartamentsListPage(status) {
         initSearchForm('apartaments');
         $.ajax({
             type: "GET",
-            url: "api/apartament/getallapartament?status="+status,
+            url: "api/apartament/getallapartament?status=" + status,
             success: function(data) {
-                drawTable(permissions, data);
+                drawTable(data);
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -28,7 +28,7 @@ function getApartamentsListPage(status) {
     });
 }
 
-function drawTable(permissions, data) {
+function drawTable(data) {
     $("#errorBlock").css("display", "none");
     var array = JSON.parse(data);
     var str = "<table class=\"table table-bordered\">";
@@ -43,10 +43,7 @@ function drawTable(permissions, data) {
     str += "<th>Риэлтор</th>";
     str += "<th>Дата</th>";
     str += "<th>Звонок</th>";
-    if (permissions == "3") {
-        str += "<th>Редактировать</th>";
-        str += "<th>Удалить</th>";
-    }
+    str += "<th>Коментарий</th>";
     str += "</tr>";
     str += "</thead>";
     str += "<tbody>";
@@ -73,22 +70,22 @@ function drawTable(permissions, data) {
         }
     });
     if (barchelorArray.length !== 0) {
-        str += draw(barchelorArray, permissions, "Малосемейки");
+        str += draw(barchelorArray, "Малосемейки");
     }
     if (subrentalArray.length !== 0) {
-        str += draw(subrentalArray, permissions, "Подселение");
+        str += draw(subrentalArray, "Подселение");
     }
     if (dormitoryArray !== 0) {
-        str += draw(dormitoryArray, permissions, "Гостинки");
+        str += draw(dormitoryArray, "Гостинки");
     }
     if (apartsArray !== 0) {
-        str += draw(apartsArray, permissions, "Квартиры");
+        str += draw(apartsArray, "Квартиры");
     }
     str += "</tbody>";
     $("#divApartamentsList").html(str);
 }
 
-function draw(array, permissions, catName) {
+function draw(array, catName) {
     var flag1 = false;
     var flag2 = false;
     var flag3 = false;
@@ -131,7 +128,7 @@ function draw(array, permissions, catName) {
                 break;
         }
         str += "<tr>";
-        str += "<td><a href=\"#apartaments/view/" + entry.id + "\" class=\"btn btn-default\"><b>" + entry.id + "</b></a></td>";
+        str += "<td><a href=\"#apartaments/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
         str += "<td>" + entry.cityName + " "
                 + entry.streetName + " "
                 + entry.houseNumber + " "
@@ -149,12 +146,8 @@ function draw(array, permissions, catName) {
             }
         }
         str += "<td>" + entry.сreationDate + "</td>";
-        str += "<td>" + "<button type=\"button\" onclick=\"addCallDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-earphone\"></span></button>";
-        str += "<button type=\"button\" onclick=\"addCommentDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-comment\"></span></button>" + "</td>";
-        if (permissions == "3") {
-            str += "<td><a href=\"#apartaments/edit/" + entry.id + "\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></a></td>";
-            str += "<td>" + "<button type=\"button\" onclick=\"apartamentsDeleteById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
-        }
+        str += "<td>" + "<button type=\"button\" onclick=\"addCallDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-earphone\"></span></button>" + "</td>";
+        str += "<td>" + "<button type=\"button\" onclick=\"addCommentDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-comment\"></span></button>" + "</td>";
         str += "</tr>";
     });
     return str;
@@ -191,6 +184,9 @@ function apartamentsEditById(apartamentId) {
                 workersList.forEach(function(entry) {
                     $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
                 });
+                
+                $("#apartamentAddCustomerBlock").css("display", "block");
+                $("#apartamentAddWorkersBlock").css("display", "block");
 
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);

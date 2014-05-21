@@ -64,7 +64,7 @@ function plannerGetWorkersTasks() {
         success: function(data) {
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
-            var str = "";
+            var str = "Planner";
             array.forEach(function(entry) {
                 str += "<div class = \"media\">";
                 str += "<a class = \"pull-left\" href = \"#\">";

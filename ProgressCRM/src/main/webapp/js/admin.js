@@ -52,7 +52,7 @@
 function getUsersList() {
     $.ajax({
         type: "GET",
-        url: "api/admin/getallusers",
+        url: "api/workers/getallworkers",
         success: function(data) {
             var list = JSON.parse(data);
             var str = "";
@@ -69,7 +69,7 @@ function getUsersList() {
 
             for (var j = 0; j < list.length; ++j) {
                 str += "<tr><td>";
-                str += list[j][0];
+                str += "<a href=\"#workers/view/" + list[j][0] + "\" class=\"btn btn-primary\"><b>" + list[j][0] + "</b></a>";
                 str += "</td><td>";
                 str += list[j][1];
                 str += "</td><td>";

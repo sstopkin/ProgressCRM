@@ -15,7 +15,7 @@ function getHelpDeskPage() {
                 var str = "";
                 if (permissions === "3") {
 //                <!-- Button trigger modal -->
-                    str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#myModal\" class=\"btn btn-primary pull-right\">Оставить заявку</a></div>";
+                    str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#myModal\" class=\"btn btn-success pull-right\">Оставить заявку</a></div>";
                 }
                 array.forEach(function(entry) {
                     str += "<div class = \"media\">";
@@ -26,8 +26,8 @@ function getHelpDeskPage() {
                     str += "<h4 class=\"media-heading\">";
                     str += "<b>";
                     if (permissions === "3") {
-///                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
-                        str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                        str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                        str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
                     }
                     str += entry.request;
                     str += "</b>";

@@ -1,6 +1,11 @@
 function getApartamentViewPage(apartamentId) {
     $.get("apartamentsview.html", function(data) {
         $("#mainContainer").html(data);
+        var permissions = $.ajax({
+            type: "GET",
+            url: "api/auth/validate",
+            async: false
+        }).responseText;
         var content = "";
         var array;
         $.ajax({
@@ -16,7 +21,11 @@ function getApartamentViewPage(apartamentId) {
                         + array.houseNumber + " "
                         + array.buildingNumber + " - "
                         + array.roomNumber);
-                content += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-primary pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
+                content += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-info pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
+                if (permissions == "3") {
+                    content += "<a href=\"#apartaments/edit/" + array.id + "\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pencil\"></span>Редактировать</a>";
+                    content += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + array.id + ");\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
+                }
                 content += "<p>";
                 content += "ID = " + array.id;
                 content += "</p>";

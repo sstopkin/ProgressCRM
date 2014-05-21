@@ -37,35 +37,35 @@ $(document).ready(function() {
 function getProfilePage() {
     $.get("profile.html", function(data) {
         $("#mainContainer").html(data);
-        $('#chngPwd').validate({
-            rules: {
-                oldPassword: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 50
-                },
-                password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 50
-                },
-                password2: {
-                    equalTo: '#chngPassword'
-                }
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-            },
-            success: function(label) {
-                $(label).closest('form').find('.valid').removeClass("invalid");
-            },
-            errorPlacement: function(error, element) {
-                error.text(element.closest('.form-group').find('.help-block'));
-            }
-        });
+//        $('#chngPwd').validate({
+//            rules: {
+//                oldPassword: {
+//                    required: true,
+//                    minlength: 6,
+//                    maxlength: 50
+//                },
+//                password: {
+//                    required: true,
+//                    minlength: 6,
+//                    maxlength: 50
+//                },
+//                password2: {
+//                    equalTo: '#chngPassword'
+//                }
+//            },
+//            highlight: function(element, errorClass, validClass) {
+//                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+//            },
+//            unhighlight: function(element, errorClass, validClass) {
+//                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+//            },
+//            success: function(label) {
+//                $(label).closest('form').find('.valid').removeClass("invalid");
+//            },
+//            errorPlacement: function(error, element) {
+//                error.text(element.closest('.form-group').find('.help-block'));
+//            }
+//        });
         $.ajax({
             type: "GET",
             url: "api/auth/info",
