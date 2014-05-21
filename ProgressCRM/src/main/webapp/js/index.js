@@ -82,7 +82,7 @@ function getNews() {
     var str = "";
     if (permissions == "3") {
 //        <!-- Button trigger modal -->
-        str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#newsModal\" class=\"btn btn-primary pull-right\">Добавить новость</a></div>";
+        str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#newsModal\" class=\"btn btn-success pull-right\">Добавить новость</a></div>";
     }
     $.get("api/news", function(data) {
         str += "<table class=\"table\"><tbody>\n";
@@ -92,8 +92,8 @@ function getNews() {
             str += "<p>" + list[i].lastModify + "</p>";
             str += "<h3><b>";
             if (permissions == "3") {
-                str += "<button type=\"button\" onclick=\"editNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
-                str += "<button type=\"button\" onclick=\"deleteNewsById(" + list[i].id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                str += "<button type=\"button\" onclick=\"deleteNewsById(" + list[i].id + ");\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                str += "<button type=\"button\" onclick=\"editNewsById(" + list[i].id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
             }
             str += list[i].header + "</b>"
             str += "</h3>";

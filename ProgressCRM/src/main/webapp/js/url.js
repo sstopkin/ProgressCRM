@@ -56,6 +56,7 @@ function parseUrl(str) {
     var pathProfile = "profile";
     var pathApartaments = "apartaments";
     var pathAdmin = "admin";
+    var pathWorkers = "workers";
 
     if (!uri.fragment) {
         getMainPage();
@@ -93,6 +94,10 @@ function parseUrl(str) {
     }
     if (arr[0] === pathCustomers) {
         helpParseUrl(uri, arr, "customers");
+        return;
+    }
+    if (arr[0] === pathWorkers) {
+        helpParseUrl(uri, arr, "workers");
         return;
     }
     if (arr[0] === pathProfile) {
@@ -207,6 +212,14 @@ function helpParseUrl(uri, arr, type) {
                 return;
             }
             getCustomerViewPage(arr[2]);
+            return;
+        }
+        if ((arr[1] === "view") && (type === "workers")) {
+            if (!arr[2]) {
+                showDanger();
+                return;
+            }
+            getWorkersViewPage(arr[2]);
             return;
         }
         if ((arr[1]) && (type === "filemanager")) {

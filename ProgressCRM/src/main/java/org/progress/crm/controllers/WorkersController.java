@@ -71,7 +71,7 @@ public class WorkersController {
     }
 
     //do not add token check, it`s guest api
-    public List<Workers> getAllUsers(Session session) throws CustomException, SQLException {
+    public List<Workers> getAllWorkers(Session session) throws CustomException, SQLException {
         List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderByEmail(session);
         List list = new ArrayList();
         for (Workers ws : workers) {
@@ -86,7 +86,7 @@ public class WorkersController {
     }
 
     //with token, it`s admin API
-    public List<Workers> getAllUsersToAdmin(Session session, String token) throws CustomException, SQLException {
+    public List<Workers> getAllWorkersToAdmin(Session session, String token) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }

@@ -1,13 +1,10 @@
 package org.progress.crm.api;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -72,21 +69,6 @@ public class AdminApi {
 //            }
 //        });
 //    }
-
-    @GET
-    @Path("getallusers")
-    public Response getAllUsers(@CookieParam("token") final String token) throws
-            CustomException, SQLException {
-        return TransactionService.runInScope(new Command<Response>() {
-            @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson allUsers = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-                        .create();
-                String result = allUsers.toJson(workersController.getAllUsersToAdmin(session, token));
-                return ApiHelper.getResponse(result);
-            }
-        });
-    }
 
     @POST
     @Path("banuser")
