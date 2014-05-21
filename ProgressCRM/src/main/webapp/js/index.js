@@ -82,42 +82,36 @@ function getNews() {
     var str = "";
 
     $.get("api/news", function(data) {
-        str += "<div class=\"panel panel-default\">";
-        str += "<div class=\"panel-heading\">Новости</div>";
-        str += "<div class=\"panel-body\">";
-        if (permissions == "3") {
-            str += "<div class=\"row\"><a data-toggle=\"modal\" href=\"#newsModal\" class=\"btn btn-success pull-right\">Добавить новость</a></div>";
-        }
-        str += "</div>";
 
-        str += "<table class=\"table\"><tbody>\n";
-        var list = JSON.parse(data);
-        for (var i = 0; i < list.length; ++i) {
-            str += "<tr><td>";
-            str += "<p>" + list[i].lastModify + "</p>";
-            str += "<h3><b>";
+        var array = JSON.parse(data);
+        array.forEach(function(entry) {
+            str += "<div class=\"panel panel-info\">";
+            str += "<div class=\"panel-heading\">#" + entry.id + " | " + "<b>" + entry.header + "</b>" + " | " + entry.lastModify + "</div>";
+            str += "<div class=\"panel-body\">";
+
+            str += "<div class = \"media\">";
+            str += "<a class = \"pull-left\" href = \"#\">";
+            str += "<img class=\"media-object\" src=\"images/apple2.png\">";
+            str += "</a>";
+            str += "<div class=\"media-body\">";
             if (permissions == "3") {
-                str += "<button type=\"button\" onclick=\"deleteNewsById(" + list[i].id + ");\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-                str += "<button type=\"button\" onclick=\"editNewsById(" + list[i].id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
+                str += "<button type=\"button\" onclick=\"deleteNewsById(" + entry.id + ");\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                str += "<button type=\"button\" onclick=\"editNewsById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
             }
-            str += list[i].header + "</b>"
-            str += "</h3>";
-            str += "<div class=\"row\">";
             str += "<div class=\"col-md-7 col-md-offset-1\">";
-            str += "<p>" + list[i].text + "</p>";
+            str += "<p>" + entry.text + "</p>";
             for (var it = 0; it < workersList.length; ++it) {
                 var a = workersList[it];
-                if (list[i].idWorker == a[0]) {
+                if (entry.idWorker == a[0]) {
                     str += "<p><i>" + a[3] + " " + a[1] + "</i></p>";
                 }
             }
             str += "</div>";
             str += "</div>";
-            str += "</tr></td>";
-        }
+            str += "</div>";
+            str += "</div>";
+        });
 
-        str += "</div>";
-        str += "\n</tbody>\n</table>\n";
         $("#news").html(str);
     });
 
