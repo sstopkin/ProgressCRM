@@ -46,6 +46,7 @@ function getHelpDeskPage() {
                     str += "</div>";
                     str += "</div>";
                     str += "</div>";
+                    str += "</div>";
                 });
                 $("#mainHelpDeskContainer").html(str);
             },
