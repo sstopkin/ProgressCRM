@@ -88,17 +88,11 @@ function getNews() {
             str += "<div class=\"panel panel-info\">";
             str += "<div class=\"panel-heading\">#" + entry.id + " | " + "<b>" + entry.header + "</b>" + " | " + entry.lastModify + "</div>";
             str += "<div class=\"panel-body\">";
-
-            str += "<div class = \"media\">";
-            str += "<a class = \"pull-left\" href = \"#\">";
-            str += "<img class=\"media-object\" src=\"images/apple2.png\">";
-            str += "</a>";
             str += "<div class=\"media-body\">";
             if (permissions == "3") {
                 str += "<button type=\"button\" onclick=\"deleteNewsById(" + entry.id + ");\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
                 str += "<button type=\"button\" onclick=\"editNewsById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
             }
-            str += "<div class=\"col-md-7 col-md-offset-1\">";
             str += "<p>" + entry.text + "</p>";
             for (var it = 0; it < workersList.length; ++it) {
                 var a = workersList[it];
