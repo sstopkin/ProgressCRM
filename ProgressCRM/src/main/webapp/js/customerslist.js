@@ -123,13 +123,12 @@ function customersEditById(customersId) {
 }
 
 function customersDeleteById(customersId) {
-    console.log("customersDeleteById " + customersId);
     $.ajax({
         type: "POST",
-        url: "api/customer/remove",
+        url: "api/customers/remove",
         data: ({id: customersId}),
         success: function(data) {
-            getCustomersListPage();
+            document.location.href = "#customers/list";
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");

@@ -173,8 +173,9 @@ function apartamentsDeleteById(apartamentsId) {
         type: "POST",
         url: "api/apartament/remove",
         data: ({id: apartamentsId}),
-        success: function(data) {
-            getapartamentsListPage();
+        success: function() {
+            //FIXME! /list/all
+            document.location.href = "#apartaments/list/price";
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");

@@ -9,7 +9,7 @@ function getCustomerViewPage(customerId) {
         var content="";
         if (permissions == "3") {
             content += "<a href=\"#customers/edit/" + customerId + "\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pencil\"></span>Редактировать</a>";
-            content += "<button type=\"button\" onclick=\"customersDeleteById(" + customerId + ");\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
+            content += "<button type=\"button\" onclick=\"confirmActionDelete('customersDeleteById(" + customerId + ")');\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
         }
         content += "<p>";
         content += "<b>Общая информация: </b>"; //array.clientDescription

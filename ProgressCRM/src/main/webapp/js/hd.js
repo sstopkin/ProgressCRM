@@ -26,7 +26,7 @@ function getHelpDeskPage() {
                     str += "<h4 class=\"media-heading\">";
                     str += "<b>";
                     if (permissions === "3") {
-                        str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                        str += "<button type=\"button\" onclick=\"confirmActionDelete('deleteHelpDeskRequestById(" + entry.id + ")');\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
                         str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
                     }
                     str += entry.request;

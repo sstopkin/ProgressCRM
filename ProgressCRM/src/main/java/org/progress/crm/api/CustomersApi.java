@@ -167,7 +167,7 @@ public class CustomersApi {
     @POST
     @Path("remove")
     public Response removeApartament(@CookieParam("token") final String token,
-            @QueryParam("id") final String id) throws SQLException, CustomException {
+            @FormParam("id") final String id) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws CustomException, SQLException {

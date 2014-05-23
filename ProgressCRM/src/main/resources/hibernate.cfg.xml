@@ -20,14 +20,11 @@
         <property name="hibernate.c3p0.max_statements">0</property>
         <property name="hibernate.c3p0.min_size">10 </property>
         
-        <mapping class="org.progress.crm.logic.Announcements" />
         <mapping class="org.progress.crm.logic.Comments" />
-        <mapping class="org.progress.crm.logic.AnnouncementsRent" />
         <mapping class="org.progress.crm.logic.Apartaments" />
         <mapping class="org.progress.crm.logic.Filespaces" />
         <mapping class="org.progress.crm.logic.Calls" />
         <mapping class="org.progress.crm.logic.Customers" />
-        <mapping class="org.progress.crm.logic.CustomersRent" />
         <mapping class="org.progress.crm.logic.HelpDeskRequest" />
         <mapping class="org.progress.crm.logic.Planner" />
         <mapping class="org.progress.crm.logic.LogService" />
