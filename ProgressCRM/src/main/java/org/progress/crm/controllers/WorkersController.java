@@ -137,4 +137,24 @@ public class WorkersController {
             authManager.logOut(userToken.toString());
         }
     }
+
+    public Workers getWorkerById(Session session, String token, String id) throws IsNotAuthenticatedException, BadRequestException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        if (id == null) {
+            throw new BadRequestException();
+        }
+        return DaoFactory.getWorkersDao().getWorkerById(session, Integer.valueOf(id));
+    }
+
+    public List getWorkerObjectsById(Session session, String token, String id) throws BadRequestException, CustomException {
+        if (id == null) {
+            throw new BadRequestException();
+        }
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        return DaoFactory.getWorkersDao().getWorkerObjectsById(session, Integer.valueOf(id));
+    }
 }

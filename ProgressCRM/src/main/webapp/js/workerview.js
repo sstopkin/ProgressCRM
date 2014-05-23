@@ -6,52 +6,52 @@ function getWorkersViewPage(workerId) {
         content += "</p>";
         $.ajax({
             type: "GET",
-            url: "api/workers/getcustomer?id=" + customerId,
+            url: "api/workers/getworker?id=" + workerId,
             async: false,
             success: function(data) {
-                var array = JSON.parse(data);
-                content += "<p>";
-                content += "ID: " + array.id;
-                content += "</p>";
-                content += "<p>";
-                content += "ФИО: " + array.customersLname + " " + array.customersMname + " " + array.customersFname;
-                content += "</p>";
-                content += "<p>";
-                content += "Адрес: " + array.customersAddress;
-                content += "</p>";
-                content += "<p>";
-                content += "Дата рождения: " + array.customersDayOfBirthday + " " + array.customersMonthOfBirthday + " " + array.customersYearOfBirthday;
-                content += "</p>";
-                content += "<p>";
-                content += "Телефон: " + array.customersPhone;
-                content += "</p>";
-                content += "<p>";
-                content += "E-mail: " + array.customersEmail;
-                content += "</p>";
-                content += "<p>";
-                content += "Пол: ";
-                switch (array.customersSex) {
-                    case "1":
-                        content += "Мужской";
-                        break;
-                    case "2":
-                        content += "Женский";
-                        break;
-                    default:
-                        content += "Не указан";
-                        break;
-                }
-                content += "</p>";
-                content += "<p>";
-                content += "Дополнительно: " + array.customersExtra;
-                content += "</p>";
+//                var array = JSON.parse(data);
+//                content += "<p>";
+//                content += "ID: " + array.id;
+//                content += "</p>";
+//                content += "<p>";
+//                content += "ФИО: " + array.customersLname + " " + array.customersMname + " " + array.customersFname;
+//                content += "</p>";
+//                content += "<p>";
+//                content += "Адрес: " + array.customersAddress;
+//                content += "</p>";
+//                content += "<p>";
+//                content += "Дата рождения: " + array.customersDayOfBirthday + " " + array.customersMonthOfBirthday + " " + array.customersYearOfBirthday;
+//                content += "</p>";
+//                content += "<p>";
+//                content += "Телефон: " + array.customersPhone;
+//                content += "</p>";
+//                content += "<p>";
+//                content += "E-mail: " + array.customersEmail;
+//                content += "</p>";
+//                content += "<p>";
+//                content += "Пол: ";
+//                switch (array.customersSex) {
+//                    case "1":
+//                        content += "Мужской";
+//                        break;
+//                    case "2":
+//                        content += "Женский";
+//                        break;
+//                    default:
+//                        content += "Не указан";
+//                        break;
+//                }
+//                content += "</p>";
+//                content += "<p>";
+//                content += "Дополнительно: " + array.customersExtra;
+//                content += "</p>";
             }
         });
         content += "</p>";
         $("#customersInfo").html(content);
         $.ajax({
             type: "GET",
-            url: "api/customers/getcustomerobjects?id=" + customerId,
+            url: "api/workers/getworkerobjects?id=" + workerId,
             async: false,
             success: function(data) {
                 var array = JSON.parse(data);

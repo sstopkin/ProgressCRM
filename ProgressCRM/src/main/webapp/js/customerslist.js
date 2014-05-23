@@ -108,9 +108,7 @@ function addCustomer() {
             customersExtra: $('#customersExtra').val()
         }),
         success: function(data) {
-            location.reload();//FIXME
-            $("#errorBlock").css("display", "none");
-            getCustomersListPage();
+            document.location.href = "#customers/list";
         },
         error: function(data) {
             showDanger(data.responseText);

@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.progress.crm.controllers.WorkersController;
@@ -18,7 +19,7 @@ import org.progress.crm.util.TransactionService;
 @Stateless
 @Path("workers")
 public class WorkersApi {
-    
+
     @EJB
     WorkersController workersController;
 
@@ -48,6 +49,34 @@ public class WorkersApi {
         });
     }
 
+    @GET
+    @Path("getworker")
+    public Response getWorkerById(@QueryParam("id") final String id,
+            @CookieParam("token") final String token) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson apartamentById = new GsonBuilder().create();
+                String result = apartamentById.toJson(workersController.getWorkerById(session, token, id));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
+    @GET
+    @Path("getworkerobjects")
+    public Response getWorkerObjectsById(@QueryParam("id") final String id,
+            @CookieParam("token") final String token) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws CustomException, SQLException {
+                Gson apartamentById = new GsonBuilder().create();
+                String result = apartamentById.toJson(workersController.getWorkerObjectsById(session, token, id));
+                return ApiHelper.getResponse(result);
+            }
+        });
+    }
+
 //    @GET
 //    @Path("getcustomer")
 //    public Response getCustomerById(@QueryParam("id") final String id,
@@ -61,21 +90,6 @@ public class WorkersApi {
 //            }
 //        });
 //    }
-
-//    @GET
-//    @Path("getcustomerobjects")
-//    public Response getCustomerObjectsById(@QueryParam("id") final String id,
-//            @CookieParam("token") final String token) throws CustomException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                Gson apartamentById = new GsonBuilder().create();
-//                String result = apartamentById.toJson(customersController.getCustomerObjectsById(session, token, id));
-//                return ApiHelper.getResponse(result);
-//            }
-//        });
-//    }
-
 //    @POST
 //    @Path("addcustomer")
 //    public Response addCustomer(@CookieParam("token") final String token,
@@ -173,5 +187,4 @@ public class WorkersApi {
 //            }
 //        });
 //    }
-
 }
