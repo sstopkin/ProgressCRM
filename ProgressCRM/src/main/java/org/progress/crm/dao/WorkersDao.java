@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import org.progress.crm.exceptions.CustomException;
+import org.progress.crm.logic.Apartaments;
 import org.progress.crm.logic.DbFields;
 import org.progress.crm.logic.Workers;
 
@@ -35,10 +38,17 @@ public class WorkersDao {
                 .addOrder(Order.asc(DbFields.WORKERS.EMAIL))
                 .list();
     }
-    
+
     public List<Workers> getAllWorkersOrderById(Session session) throws SQLException {
         return session.createCriteria(Workers.class)
                 .addOrder(Order.asc(DbFields.WORKERS.ID))
+                .list();
+    }
+
+    public List getWorkerObjectsById(final Session session, final int workerId) {
+        return session.createCriteria(Apartaments.class)
+                .add(Restrictions.eq(DbFields.APARTAMENTS.IDWORKER, workerId))
+                .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
                 .list();
     }
 }

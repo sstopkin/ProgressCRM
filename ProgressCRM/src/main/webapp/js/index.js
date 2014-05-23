@@ -61,10 +61,9 @@ function getAdminPage() {
             $.get("admin.html", function(data) {
                 $("#mainContainer").html(data);
                 $("#usersLink").click(getUsersList);
-                $("#verifyTasksLink").click(getUnevaluatedTasks);
-                $("#moderationLink").click(getModerationPage);
+//                $("#verifyTasksLink").click(getUnevaluatedTasks);
+//                $("#moderationLink").click(getModerationPage);
                 getUsersList();
-                showFooterAbout();
             });
         }
         else {
