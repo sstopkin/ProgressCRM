@@ -90,7 +90,7 @@ function getNews() {
             str += "<div class=\"panel-body\">";
             str += "<div class=\"media-body\">";
             if (permissions == "3") {
-                str += "<button type=\"button\" onclick=\"deleteNewsById(" + entry.id + ");\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
+                str += "<button type=\"button\" onclick=\"confirmActionDelete('deleteNewsById(" + entry.id + ")');\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
                 str += "<button type=\"button\" onclick=\"editNewsById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
             }
             str += "<p>" + entry.text + "</p>";
@@ -252,6 +252,32 @@ function getAllWorkersList() {
         error: function(data) {
             showDanger(data.responseText);
             return false;
+        }
+    });
+}
+
+function confirmActionDelete(func) {
+    confirmAction(func, "Вы уверены что хотите удалить?");
+}
+
+function confirmAction(func, text) {
+    bootbox.dialog({
+        message: text,
+        title: "Подтвердверждение действия",
+        buttons: {
+            success: {
+                label: "Подтвердить",
+                className: "btn-success",
+                callback: function() {
+                    eval(func + ';');
+                }
+            },
+            danger: {
+                label: "Отмена",
+                className: "btn-danger",
+                callback: function() {
+                }
+            }
         }
     });
 }

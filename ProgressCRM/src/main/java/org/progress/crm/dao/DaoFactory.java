@@ -34,20 +34,8 @@ public class DaoFactory {
         return new LogServiceDao();
     }
 
-    public static AnnouncementsDao getAnnouncementsDao() {
-        return new AnnouncementsDao();
-    }
-
-    public static AnnouncementsRentDao getAnnouncementsRentDao() {
-        return new AnnouncementsRentDao();
-    }
-
     public static PlannerDao getPlannerDao() {
         return new PlannerDao();
-    }
-
-    public static CustomersRentDao getCustomersRentDao() {
-        return new CustomersRentDao();
     }
 
     public static FilespacesDao getFilespacesDao() {

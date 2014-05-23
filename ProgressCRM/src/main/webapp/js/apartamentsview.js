@@ -24,7 +24,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-info pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
                 if (permissions == "3") {
                     content += "<a href=\"#apartaments/edit/" + array.id + "\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pencil\"></span>Редактировать</a>";
-                    content += "<button type=\"button\" onclick=\"apartamentsDeleteById(" + array.id + ");\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
+                    content += "<button type=\"button\" onclick=\"confirmActionDelete('apartamentsDeleteById(" + array.id + ")');\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
                 }
                 content += "<p>";
                 content += "ID = " + array.id;

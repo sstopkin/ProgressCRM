@@ -14,7 +14,7 @@ import org.progress.crm.logic.Apartaments;
 import org.progress.crm.logic.DbFields;
 
 public class ApartamentsDao {
-
+    
     public int addApartament(final Session session, int typeOfSales, String cityName,
             String streetName, String houseNumber, String buildingNumber, String kladrId, String shortAddress,
             String apartamentLan, String apartamentLon, int rooms, int dwellingType,
@@ -32,42 +32,44 @@ public class ApartamentsDao {
                 MethodOfPurchase_Mortgage, MethodOfPurchase_Exchange, MethodOfPurchase_Rent,
                 rePplanning, idWorker, idWorkerTarget, idCustomer, IsApproved, status));
     }
-
+    
     public boolean setApproveApartamentById(final Session session, final int apartamentId, final boolean flag) throws CustomException {
         Apartaments apartament = getApartamentsById(session, apartamentId);
         apartament.setIsApproved(flag);
         session.update(apartament);
         return true;
     }
-
+    
     public boolean removeApartamentById(final Session session, final int apartamentId) throws CustomException {
         Apartaments apartament = getApartamentsById(session, apartamentId);
-        session.delete(apartament);
+        apartament.setDeleted(true);
+        apartament.setLastModify(new Date());
+        session.update(apartament);
         return true;
     }
-
+    
     public boolean modifyApartament(final Session session, final Apartaments apartament) throws CustomException {
         apartament.setLastModify(new Date());
         session.update(apartament);
         return true;
     }
-
+    
     public Apartaments getApartamentsById(final Session session, final int apartamentsId) throws CustomException {
         return (Apartaments) session.get(Apartaments.class, apartamentsId);
     }
-
+    
     public Apartaments getApartamentsByUUID(final Session session, final String apartamentUUID) throws CustomException {
         List<Apartaments> list = session.createCriteria(Apartaments.class).add(Restrictions.eq(DbFields.APARTAMENTS.APARTAMENTUUID, apartamentUUID)).list();
         return list.get(0);
     }
-
+    
     public List<Apartaments> getAllApartaments(Session session, int status) throws CustomException {
         Criteria cr = session.createCriteria(Apartaments.class).add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
         cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, status));
         cr.addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS));
         return cr.list();
     }
-
+    
     public List searchByQUery(Session session, int assigned, int idWorker, String startDate, String endDate, String contains, String type) throws CustomException {
         List resList = new ArrayList();
 
