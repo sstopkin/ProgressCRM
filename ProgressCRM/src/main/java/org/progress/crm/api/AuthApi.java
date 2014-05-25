@@ -70,9 +70,14 @@ public class AuthApi {
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                String success = authManager.getStatus(session, token);
-                return ApiHelper.getResponse(success);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    String success = authManager.getStatus(session, token);
+                    return ApiHelper.getResponse(success);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

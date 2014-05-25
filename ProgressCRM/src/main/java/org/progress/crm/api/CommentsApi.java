@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -31,10 +33,15 @@ public class CommentsApi {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson response = new GsonBuilder().create();
-                String result = response.toJson(commentsController.getCommentsByObjectUUID(session, token, objectUUID));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson response = new GsonBuilder().create();
+                    String result = response.toJson(commentsController.getCommentsByObjectUUID(session, token, objectUUID));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CommentsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -46,9 +53,14 @@ public class CommentsApi {
             @FormParam("text") final String text) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = commentsController.addCommentByObjectId(session, token, objectUUID, text);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = commentsController.addCommentByObjectId(session, token, objectUUID, text);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CommentsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

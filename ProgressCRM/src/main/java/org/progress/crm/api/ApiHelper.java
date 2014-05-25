@@ -29,7 +29,7 @@ public class ApiHelper {
     }
 
     public static Response getResponse(Exception ex) {
-        return Response.ok(ex.getMessage()).build();
+        return Response.ok(ex.getMessage()).status(500).build();
     }
 
     public static int parseInt(String value) throws CustomException {
