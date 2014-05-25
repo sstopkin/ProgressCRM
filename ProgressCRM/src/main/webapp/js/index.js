@@ -23,11 +23,6 @@ $(document).ready(function() {
             if (workersList == null) {
                 getAllWorkersList();
             }
-            permissions = $.ajax({
-                type: "GET",
-                url: "api/auth/validate",
-                async: false
-            }).responseText;
         },
         error: function(data) {
             $("#loginForm").css("display", "block");

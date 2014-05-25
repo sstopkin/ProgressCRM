@@ -18,14 +18,16 @@ $(document).ready(function() {
                 });
                 $("#loginForm").css("display", "none");
                 $("#logged").css("display", "block");
-                getMainPage();
+                getNewsPage();
                 location.hash = "";
-                $.get("api/auth/validate", function(data3) {
-                    var permissions = data3;
-                    if (permissions == "3") {
-                        $('#adminTabLink').css("display", "block");
-                    }
-                });
+                permissions = $.ajax({
+                    type: "GET",
+                    url: "api/auth/validate",
+                    async: false
+                }).responseText;
+                if (permissions == "3") {
+                    $('#adminTabLink').css("display", "block");
+                }
             },
             error: function(data) {
                 showDanger(data.responseText);
