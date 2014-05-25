@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -31,10 +33,15 @@ public class CallsApi {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(callsController.getCallsByObjectUUID(session, token, objectUUID));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(callsController.getCallsByObjectUUID(session, token, objectUUID));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CallsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -47,9 +54,14 @@ public class CallsApi {
             @FormParam("description") final String description) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = callsController.addCallsByObjectUUID(session, token, objectUUID, incomingPhoneNumber, description);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = callsController.addCallsByObjectUUID(session, token, objectUUID, incomingPhoneNumber, description);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CallsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

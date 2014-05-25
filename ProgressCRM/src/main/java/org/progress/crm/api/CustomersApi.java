@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -30,10 +32,15 @@ public class CustomersApi {
     public Response getAllCustomers(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -43,10 +50,15 @@ public class CustomersApi {
     public Response getAllCustomersFull(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -57,10 +69,15 @@ public class CustomersApi {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getCustomerById(session, token, id));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(customersController.getCustomerById(session, token, id));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -71,10 +88,15 @@ public class CustomersApi {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getCustomerObjectsById(session, token, id));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(customersController.getCustomerObjectsById(session, token, id));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -85,10 +107,15 @@ public class CustomersApi {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getCustomerByString(session, token, str));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(customersController.getCustomerByString(session, token, str));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -110,21 +137,26 @@ public class CustomersApi {
     ) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = customersController.addCustomer(session,
-                        token,
-                        customersFname,
-                        customersLname,
-                        customersMname,
-                        customersMonthOfBirthday,
-                        customersDayOfBirthday,
-                        customersYearOfBirthday,
-                        customersSex,
-                        customersPhone,
-                        customersEmail,
-                        customersAddress,
-                        customersExtra);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = customersController.addCustomer(session,
+                            token,
+                            customersFname,
+                            customersLname,
+                            customersMname,
+                            customersMonthOfBirthday,
+                            customersDayOfBirthday,
+                            customersYearOfBirthday,
+                            customersSex,
+                            customersPhone,
+                            customersEmail,
+                            customersAddress,
+                            customersExtra);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -146,20 +178,25 @@ public class CustomersApi {
     ) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = customersController.editCustomer(session, token, id,
-                        customersFname,
-                        customersLname,
-                        customersMname,
-                        customersMonthOfBirthday,
-                        customersDayOfBirthday,
-                        customersYearOfBirthday,
-                        customersSex,
-                        customersPhone,
-                        customersEmail,
-                        customersAddress,
-                        customersExtra);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = customersController.editCustomer(session, token, id,
+                            customersFname,
+                            customersLname,
+                            customersMname,
+                            customersMonthOfBirthday,
+                            customersDayOfBirthday,
+                            customersYearOfBirthday,
+                            customersSex,
+                            customersPhone,
+                            customersEmail,
+                            customersAddress,
+                            customersExtra);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -170,9 +207,14 @@ public class CustomersApi {
             @FormParam("id") final String id) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = customersController.removeCustomer(session, token, id);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = customersController.removeCustomer(session, token, id);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -183,12 +225,16 @@ public class CustomersApi {
             @QueryParam("query") final String query) throws CustomException {//@CookieParam("token") final String token,
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(customersController.getCustomersListByQuery(session, token, query));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(customersController.getCustomersListByQuery(session, token, query));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
-
 }

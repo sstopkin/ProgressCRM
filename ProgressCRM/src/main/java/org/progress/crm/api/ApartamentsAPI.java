@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -31,10 +33,15 @@ public class ApartamentsAPI {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson apartamentById = new GsonBuilder().create();
-                String result = apartamentById.toJson(apartamentsController.getApartamentById(session, token, id));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(apartamentsController.getApartamentById(session, token, id));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -45,10 +52,15 @@ public class ApartamentsAPI {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson allApartament = new GsonBuilder().create();
-                String result = allApartament.toJson(apartamentsController.getAllApartament(session, token, status));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson allApartament = new GsonBuilder().create();
+                    String result = allApartament.toJson(apartamentsController.getAllApartament(session, token, status));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -90,15 +102,20 @@ public class ApartamentsAPI {
             @FormParam("status") final String status) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = apartamentsController.addApartament(session, token,
-                        typeOfSales, cityName, streetName, houseNumber, buildingNumber,
-                        kladrId, shortAddress, apartamentLan, apartamentLon, rooms, dwellingType,
-                        price, cityDistrict, floor, floors, roomNumber,
-                        material, sizeApartament, sizeLiving, sizeKitchen,
-                        balcony, loggia, yearOfConstruction, description,
-                        pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = apartamentsController.addApartament(session, token,
+                            typeOfSales, cityName, streetName, houseNumber, buildingNumber,
+                            kladrId, shortAddress, apartamentLan, apartamentLon, rooms, dwellingType,
+                            price, cityDistrict, floor, floors, roomNumber,
+                            material, sizeApartament, sizeLiving, sizeKitchen,
+                            balcony, loggia, yearOfConstruction, description,
+                            pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -133,13 +150,18 @@ public class ApartamentsAPI {
             @FormParam("status") final String status) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = apartamentsController.editApartament(session, token, id,
-                        typeOfSales, rooms, dwellingType, price, cityDistrict, floor, floors, roomNumber,
-                        material, sizeApartament, sizeLiving, sizeKitchen,
-                        balcony, loggia, yearOfConstruction, description,
-                        pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = apartamentsController.editApartament(session, token, id,
+                            typeOfSales, rooms, dwellingType, price, cityDistrict, floor, floors, roomNumber,
+                            material, sizeApartament, sizeLiving, sizeKitchen,
+                            balcony, loggia, yearOfConstruction, description,
+                            pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -150,9 +172,14 @@ public class ApartamentsAPI {
             @FormParam("id") final String id) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = apartamentsController.removeApartament(session, token, id);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = apartamentsController.removeApartament(session, token, id);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

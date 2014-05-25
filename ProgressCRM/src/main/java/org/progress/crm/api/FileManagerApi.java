@@ -15,10 +15,6 @@ import javax.ws.rs.core.Response;
 import org.progress.crm.controllers.FileManagerController;
 import org.progress.crm.exceptions.CustomException;
 
-/**
- *
- * @author best
- */
 @Stateless
 @Path("fm")
 public class FileManagerApi {
