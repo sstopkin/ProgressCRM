@@ -92,7 +92,7 @@ public class AuthApi {
             public Response execute(Session session) throws SQLException,
                     NoSuchAlgorithmException {
                 try {
-                    String success = authManager.authUser(session, theEmail, pass);
+                    String success = authManager.authUser(session, theEmail.toLowerCase(), pass);
                     return ApiHelper.getResponse(success);
                 } catch (CustomException ex) {
                     Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
