@@ -6,6 +6,7 @@ var KLADR_token = '51dfe5d42fb2b43e3300006e';
 var KLADR_key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
 var KLADR_parentId = '5500000100000';
 
+var permissions;
 
 var map = null;
 var placemark = null;
@@ -22,9 +23,15 @@ $(document).ready(function() {
             if (workersList == null) {
                 getAllWorkersList();
             }
+            permissions = $.ajax({
+                type: "GET",
+                url: "api/auth/validate",
+                async: false
+            }).responseText;
         },
         error: function(data) {
             $("#loginForm").css("display", "block");
+            showDanger(data.responseText);
         }
     });
     parseUrl(location.href);
@@ -44,6 +51,12 @@ $(document).ready(function() {
 
 function getMainPage() {
     $.get("main.html", function(data) {
+        $("#mainContainer").html(data);
+    });
+}
+
+function getNewsPage() {
+    $.get("news.html", function(data) {
         $("#mainContainer").html(data);
     });
     getNews();
@@ -73,11 +86,6 @@ function getAdminPage() {
 }
 
 function getNews() {
-    var permissions = $.ajax({
-        type: "GET",
-        url: "api/auth/validate",
-        async: false
-    }).responseText;
     var str = "";
 
     $.get("api/news", function(data) {
@@ -174,7 +182,7 @@ function deleteNewsById(newsId) {
         url: "api/news/deletenews",
         data: ({id: newsId}),
         success: function(data) {
-            getMainPage();
+            location.href("#news");
         },
         error: function(data) {
             $("#errorBlock").addClass("alert-danger");
@@ -234,7 +242,6 @@ function customersSearchAction(divName) {
 }
 
 function customersShowModal(divName) {
-    console.log("customersInitModal");
     $('#customerSearchModal').modal('show')
     customersSearchAction(divName);
 }

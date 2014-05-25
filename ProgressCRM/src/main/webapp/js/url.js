@@ -57,6 +57,7 @@ function parseUrl(str) {
     var pathApartaments = "apartaments";
     var pathAdmin = "admin";
     var pathWorkers = "workers";
+    var pathNews = "news";
 
     if (!uri.fragment) {
         getMainPage();
@@ -70,6 +71,11 @@ function parseUrl(str) {
 
     if (arr[0] === pathAnnouncementsRent) {
         helpParseUrl(uri, arr, "announcementsrent");
+        return;
+    }
+
+    if (arr[0] === pathNews) {
+        getNewsPage();
         return;
     }
 
