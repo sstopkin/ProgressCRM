@@ -3,6 +3,7 @@ package org.progress.crm.api;
 import java.io.File;
 import javax.ws.rs.core.Response;
 import org.progress.crm.exceptions.BadRequestException;
+import org.progress.crm.exceptions.CustomException;
 
 public class ApiHelper {
 
@@ -27,7 +28,11 @@ public class ApiHelper {
         return response.build();
     }
 
-    public static int parseInt(String value) throws BadRequestException {
+    public static Response getResponse(Exception ex) {
+        return Response.ok(ex.getMessage()).build();
+    }
+
+    public static int parseInt(String value) throws CustomException {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException ex) {

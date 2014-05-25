@@ -34,7 +34,7 @@ public class HelpDeskController {
         return true;
     }
 
-    public boolean deleteHelpDeskRequest(Session session, String token, String id) throws IsNotAuthenticatedException, SQLException, CustomException {
+    public String deleteHelpDeskRequest(Session session, String token, String id) throws SQLException, CustomException {
         if (id == null) {
             throw new BadRequestException();
         }
@@ -43,7 +43,6 @@ public class HelpDeskController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-        DaoFactory.getHelpDeskDao().deleteHelpDeskRequest(session, idWorker, Integer.valueOf(id));
-        return true;
+        return DaoFactory.getHelpDeskDao().deleteHelpDeskRequest(session, idWorker, Integer.valueOf(id));
     }
 }

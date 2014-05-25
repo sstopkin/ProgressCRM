@@ -1,5 +1,6 @@
 package org.progress.crm.controllers;
 
+import java.sql.SQLException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -16,7 +17,7 @@ public class SearchController {
 
     public List getListByQuery(Session session, String token, String assigned, String idWorker,
             String startDate, String endDate, String contains, String type)
-            throws IsNotAuthenticatedException, CustomException {
+            throws IsNotAuthenticatedException, CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }

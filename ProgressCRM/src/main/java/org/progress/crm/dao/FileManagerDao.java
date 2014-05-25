@@ -13,10 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.progress.crm.logic.Constants;
 
-/**
- *
- * @author best
- */
 public class FileManagerDao {
 
     public File getFileByPath(String path) {

@@ -9,35 +9,35 @@ import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
-import org.progress.crm.exceptions.IsNotAuthenticatedException;
+import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Planner;
 
 @Singleton
 public class PlannerController {
-    
+
     @EJB
     AuthenticationManager authenticationManager;
-    
-    public List<Planner> getTasksByWorker(Session session, String token) throws SQLException, IsNotAuthenticatedException {
+
+    public List<Planner> getTasksByWorker(Session session, String token) throws SQLException, CustomException {
         if (token == null) {
-            throw new IsNotAuthenticatedException();
+            throw new CustomException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
         return DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
     }
-    
-    public List<Planner> getTasks(Session session, String token) throws SQLException, IsNotAuthenticatedException {
+
+    public List<Planner> getTasks(Session session, String token) throws SQLException, CustomException {
         if (token == null) {
-            throw new IsNotAuthenticatedException();
+            throw new CustomException();
         }
         return DaoFactory.getPlannerDao().getTasks(session);
     }
-    
+
     public boolean addTask(Session session, String token, String taskType,
-            String taskId, String taskDescription, String taskDate) throws IsNotAuthenticatedException {
+            String taskId, String taskDescription, String taskDate) throws CustomException, SQLException {
         if (token == null) {
-            throw new IsNotAuthenticatedException();
+            throw new CustomException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
@@ -45,27 +45,27 @@ public class PlannerController {
                 Integer.valueOf(taskType), Integer.valueOf(taskId), taskDescription, new Date());
         return true;
     }
-    
-    public boolean deleteTaskById(Session session, String token, String id) throws IsNotAuthenticatedException, BadRequestException {
+
+    public boolean deleteTaskById(Session session, String token, String id) throws CustomException, BadRequestException, SQLException {
         if (id == null) {
             throw new BadRequestException();
         }
         if (token == null) {
-            throw new IsNotAuthenticatedException();
+            throw new CustomException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
         DaoFactory.getPlannerDao().removeTaskById(session, idWorker, Integer.valueOf(id));
         return true;
     }
-    
+
     public boolean editNewsById(Session session, String token, String plannerId, String taskType,
-            String taskId, String taskDescription, String taskDate) throws IsNotAuthenticatedException, BadRequestException {
+            String taskId, String taskDescription, String taskDate) throws CustomException, BadRequestException {
         if (plannerId == null) {
             throw new BadRequestException();
         }
         if (token == null) {
-            throw new IsNotAuthenticatedException();
+            throw new CustomException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);

@@ -4,14 +4,13 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Session;
-import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Apartaments;
 import org.progress.crm.logic.Workers;
 import org.progress.crm.util.PDF;
 
 public class ReportGeneratorDao {
 
-    public File priceGen(Session session, int idWorker) throws CustomException, SQLException {
+    public File priceGen(Session session, int idWorker) throws SQLException {
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
         String reportAuthorWorkerName = worker.getlName() + " " + worker.getfName() + " " + worker.getmName();
         List<Object> reportContent = session.createSQLQuery("SELECT "
@@ -24,7 +23,7 @@ public class ReportGeneratorDao {
         return PDF.GeneratePrice(reportContent, reportAuthorWorkerName);
     }
 
-    public File apartamentsPageGen(Session session, Integer apartamentsId, int idWorker) throws CustomException, SQLException {
+    public File apartamentsPageGen(Session session, Integer apartamentsId, int idWorker) throws SQLException {
         Apartaments apartament = DaoFactory.getApartamentsDao().getApartamentsById(session, apartamentsId);
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
         String workerName = worker.getlName() + " " + worker.getfName() + " " + worker.getmName();

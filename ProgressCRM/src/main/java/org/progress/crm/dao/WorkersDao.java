@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Apartaments;
 import org.progress.crm.logic.DbFields;
 import org.progress.crm.logic.Workers;
@@ -45,7 +44,7 @@ public class WorkersDao {
                 .list();
     }
 
-    public List getWorkerObjectsById(final Session session, final int workerId) {
+    public List getWorkerObjectsById(final Session session, final int workerId) throws SQLException {
         return session.createCriteria(Apartaments.class)
                 .add(Restrictions.eq(DbFields.APARTAMENTS.IDWORKER, workerId))
                 .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))

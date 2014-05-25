@@ -1,5 +1,6 @@
 package org.progress.crm.controllers;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Singleton;
@@ -13,7 +14,7 @@ import org.progress.crm.logic.Customers;
 @Singleton
 public class CustomersController {
 
-    public Customers getCustomerById(Session session, String token, String customerId) throws CustomException {
+    public Customers getCustomerById(Session session, String token, String customerId) throws CustomException, SQLException {
         if (customerId == null) {
             throw new BadRequestException();
         }
@@ -23,7 +24,7 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().getCustomerById(session, Integer.valueOf(customerId));
     }
 
-    public List getCustomerObjectsById(Session session, String token, String customerId) throws CustomException {
+    public List getCustomerObjectsById(Session session, String token, String customerId) throws CustomException, SQLException {
         if (customerId == null) {
             throw new BadRequestException();
         }
@@ -45,7 +46,7 @@ public class CustomersController {
             String customersPhone,
             String customersEmail,
             String customersAddress,
-            String customersExtra) throws CustomException {
+            String customersExtra) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -64,7 +65,7 @@ public class CustomersController {
         return true;
     }
 
-    public boolean removeCustomer(Session session, String token, String id) throws CustomException {
+    public boolean removeCustomer(Session session, String token, String id) throws CustomException, SQLException {
         if (id == null) {
             throw new BadRequestException();
         }
@@ -75,7 +76,7 @@ public class CustomersController {
         return true;
     }
 
-    public List getCustomerByString(Session session, String token, String str) throws CustomException {
+    public List getCustomerByString(Session session, String token, String str) throws CustomException, SQLException {
         if (str == null) {
             throw new BadRequestException();
         }
@@ -98,7 +99,7 @@ public class CustomersController {
             String customersPhone,
             String customersEmail,
             String customersAddress,
-            String customersExtra) throws CustomException {
+            String customersExtra) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -119,7 +120,7 @@ public class CustomersController {
         return true;
     }
 
-    public List getCustomersListByQuery(Session session, String token, String str) throws CustomException {
+    public List getCustomersListByQuery(Session session, String token, String str) throws CustomException, SQLException {
         if (str == null) {
             throw new BadRequestException();
         }
@@ -129,14 +130,14 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
     }
 
-    public List<Customers> getAllCustomers(Session session, String token) throws IsNotAuthenticatedException {
+    public List<Customers> getAllCustomers(Session session, String token) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         return DaoFactory.getCustomersDao().getAllCustomers(session);
     }
 
-    public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) throws IsNotAuthenticatedException {
+    public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) throws SQLException {
         return DaoFactory.getCustomersDao().getCustomersListByBirthday(session, currentDay);
     }
 }

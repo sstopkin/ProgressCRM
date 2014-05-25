@@ -76,7 +76,7 @@ public class AuthenticationManager {
         if (!pr.getIsActive()) {
             throw new DisabledUserException();
         }
-        
+
         if (pr.getPwdhash().equals(SHA1.sha1(password))) {
             UUID token = UUID.randomUUID();
             tokens.put(token, pr.getId());
@@ -95,7 +95,7 @@ public class AuthenticationManager {
             logServiceController.addEvent(workerId, "", Constants.LOGSERVICEACTIONSCODE.LOGOUTOK);
             tokens.remove(UUID.fromString(token));
             return true;
-        } catch (Exception ex) {
+        } catch (CustomException ex) {
             logServiceController.addEvent(1, "", Constants.LOGSERVICEACTIONSCODE.LOGOUTFAIL);
             throw new BadLogOutException();
         }

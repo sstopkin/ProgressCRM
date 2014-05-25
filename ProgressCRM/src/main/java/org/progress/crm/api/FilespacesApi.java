@@ -3,8 +3,11 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -26,28 +29,38 @@ public class FilespacesApi {
 
     @POST
     @Path("createfilespace")
-    public Response createFilespace(@FormParam("targetuuid") final String targetUUID,
+    public Response createFilespace(@CookieParam("token") final String token, @FormParam("targetuuid") final String targetUUID,
             @FormParam("type") final String type) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson rootFolderFileList = new GsonBuilder().create();
-                //FIXME add token
-                String result = rootFolderFileList.toJson(filespacesController.createFilespace(session, targetUUID, type));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson rootFolderFileList = new GsonBuilder().create();
+                    //FIXME add token
+                    String result = rootFolderFileList.toJson(filespacesController.createFilespace(session, token, targetUUID, type));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(FilespacesApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
 
     @GET
     @Path("getfilespace")
-    public Response getFilespacesByTargetUUID(@QueryParam("uuid") final String uuid) throws CustomException {
+    public Response getFilespacesByTargetUUID(@CookieParam("token") final String token, @QueryParam("uuid") final String uuid) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson rootFolderFileList = new GsonBuilder().create();
-                String result = rootFolderFileList.toJson(filespacesController.getFilespacePathByTargetUUID(session, uuid));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson rootFolderFileList = new GsonBuilder().create();
+                    String result = rootFolderFileList.toJson(filespacesController.getFilespacePathByTargetUUID(session, token, uuid));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(FilespacesApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
