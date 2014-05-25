@@ -6,26 +6,26 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.logic.Calls;
 import org.progress.crm.logic.DbFields;
 
 public class CallsDao {
 
-    public boolean addCustomerCall(final Session session, final String objectUUID, String incomingPhoneNumber, final String description, final int idWorker) throws SQLException, CustomException {
+    public boolean addCustomerCall(final Session session, final String objectUUID,
+            String incomingPhoneNumber, final String description, final int idWorker) throws SQLException {
         Calls cCall = new Calls(objectUUID, new Date(), incomingPhoneNumber, description, idWorker);
         session.save(cCall);
         return true;
     }
 
-    public List getCustomerCallsByObjectUUID(final Session session, final String objectUUID) throws SQLException, CustomException {
+    public List getCustomerCallsByObjectUUID(final Session session, final String objectUUID) throws SQLException {
         return session.createCriteria(Calls.class)
                 .add(Restrictions.eq(DbFields.CALLS.OBJECTUUID, objectUUID))
                 .addOrder(Order.desc(DbFields.CALLS.DATE))
                 .list();
     }
 
-    public List<Calls> getAllCustomerCalls(final Session session) throws SQLException, CustomException {
+    public List<Calls> getAllCustomerCalls(final Session session) throws SQLException {
         List<Calls> list = session.createCriteria(Calls.class).list();
         return list;
     }

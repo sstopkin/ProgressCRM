@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -37,8 +39,14 @@ public class AuthApi {
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                int success = roleController.getPermissions(session, token);
+            public Response execute(Session session) throws SQLException {
+                int success = 0;
+                try {
+                    success = roleController.getPermissions(session, token);
+                } catch (CustomException ex) {
+                    Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
+                    ApiHelper.getResponse(ex);
+                }
                 return ApiHelper.getResponse(success);
             }
         });
@@ -46,9 +54,14 @@ public class AuthApi {
 
     @GET
     @Path("author")
-    public Response validateAuthor(@CookieParam("token") String token)
-            throws SQLException, CustomException {
-        int succes = roleController.getUserIdByToken(token);
+    public Response validateAuthor(@CookieParam("token") String token) throws SQLException {
+        int succes = 0;
+        try {
+            succes = roleController.getUserIdByToken(token);
+        } catch (CustomException ex) {
+            Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
+            ApiHelper.getResponse(ex);
+        }
         return ApiHelper.getResponse(succes);
     }
 
@@ -71,10 +84,15 @@ public class AuthApi {
             SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException,
+            public Response execute(Session session) throws SQLException,
                     NoSuchAlgorithmException {
-                String success = authManager.authUser(session, theEmail, pass);
-                return ApiHelper.getResponse(success);
+                try {
+                    String success = authManager.authUser(session, theEmail, pass);
+                    return ApiHelper.getResponse(success);
+                } catch (CustomException ex) {
+                    Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -92,11 +110,16 @@ public class AuthApi {
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson userProfile = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                String profileJson = userProfile.toJson(workersController
-                        .getProfileInfo(session, token));
-                return ApiHelper.getResponse(profileJson);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson userProfile = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                    String profileJson = userProfile.toJson(workersController
+                            .getProfileInfo(session, token));
+                    return ApiHelper.getResponse(profileJson);
+                } catch (CustomException ex) {
+                    Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -108,9 +131,13 @@ public class AuthApi {
             throws NoSuchAlgorithmException, SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException,
-                    NoSuchAlgorithmException {
-                workersController.changePwd(session, token, oldPwd, newPwd);
+            public Response execute(Session session) throws SQLException, NoSuchAlgorithmException {
+                try {
+                    workersController.changePwd(session, token, oldPwd, newPwd);
+                } catch (CustomException ex) {
+                    Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
+                    ApiHelper.getResponse(ex);
+                }
                 return ApiHelper.getResponse(true);
             }
         });
@@ -122,11 +149,16 @@ public class AuthApi {
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
+            public Response execute(Session session) throws SQLException {
                 Gson allUsersList = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                String profileJson = allUsersList.toJson(workersController
-                        .getAllWorkers(session));
-                return ApiHelper.getResponse(profileJson);
+                try {
+                    String profileJson = allUsersList.toJson(workersController
+                            .getAllWorkers(session));
+                    return ApiHelper.getResponse(profileJson);
+                } catch (CustomException ex) {
+                    Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

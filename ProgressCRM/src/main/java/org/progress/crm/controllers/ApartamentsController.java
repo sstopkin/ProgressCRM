@@ -1,6 +1,7 @@
 package org.progress.crm.controllers;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class ApartamentsController {
     @EJB
     AuthenticationManager authManager;
 
-    public Apartaments getApartamentById(Session session, String token, String apartamentId) throws CustomException {
+    public Apartaments getApartamentById(Session session, String token, String apartamentId) throws CustomException, SQLException {
         if (apartamentId == null) {
             throw new BadRequestException();
         }
@@ -36,7 +37,7 @@ public class ApartamentsController {
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
             String pureSale, String mortgage, String exchange, String rent,
-            String rePplanning, String idWorkerTarget, String idCustomer, String status) throws CustomException {
+            String rePplanning, String idWorkerTarget, String idCustomer, String status) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -75,7 +76,7 @@ public class ApartamentsController {
             String typeOfSales, String rooms, String dwellingType, String price, String cityDistrict, String floor, String floors, String roomNumber,
             String material, String sizeApartament, String sizeLiving, String sizeKitchen,
             String balcony, String loggia, String yearOfConstruction, String description,
-            String pureSale, String mortgage, String exchange, String rent, String rePlanning, String idWorkerTarget, String idCustomer, String status) throws CustomException {
+            String pureSale, String mortgage, String exchange, String rent, String rePlanning, String idWorkerTarget, String idCustomer, String status) throws CustomException, SQLException {
         if (apartamentsId == null) {
             throw new BadRequestException();
         }
@@ -118,7 +119,7 @@ public class ApartamentsController {
         return true;
     }
 
-    public boolean removeApartament(Session session, String token, String apartamentsId) throws CustomException {
+    public boolean removeApartament(Session session, String token, String apartamentsId) throws CustomException, SQLException {
         if (apartamentsId == null) {
             throw new BadRequestException();
         }
@@ -134,7 +135,7 @@ public class ApartamentsController {
         return true;
     }
 
-    public List<Apartaments> getAllApartament(Session session, String token, String status) throws CustomException {
+    public List<Apartaments> getAllApartament(Session session, String token, String status) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }

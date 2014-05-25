@@ -2,6 +2,8 @@ package org.progress.crm.api;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -29,9 +31,14 @@ public class ReportGeneratorAPI {
     public Response getPrice(@CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                File f = reportGeneratorController.getPrice(session, token);
-                return ApiHelper.getResponse(f);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    File f = reportGeneratorController.getPrice(session, token);
+                    return ApiHelper.getResponse(f);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ReportGeneratorAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -43,9 +50,14 @@ public class ReportGeneratorAPI {
             @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                File f = reportGeneratorController.getPriceByApartamentsId(session, token, apartamentId);
-                return ApiHelper.getResponse(f);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    File f = reportGeneratorController.getPriceByApartamentsId(session, token, apartamentId);
+                    return ApiHelper.getResponse(f);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ReportGeneratorAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

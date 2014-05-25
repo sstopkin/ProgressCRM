@@ -31,7 +31,6 @@ public class WorkersController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-
         UUID uuid = UUID.fromString(token);
         if (authManager.isAuthentificated(uuid)) {
             int userId = authManager.getUserIdByToken(uuid);
@@ -138,7 +137,7 @@ public class WorkersController {
         }
     }
 
-    public Workers getWorkerById(Session session, String token, String id) throws IsNotAuthenticatedException, BadRequestException, SQLException {
+    public Workers getWorkerById(Session session, String token, String id) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
@@ -148,7 +147,7 @@ public class WorkersController {
         return DaoFactory.getWorkersDao().getWorkerById(session, Integer.valueOf(id));
     }
 
-    public List getWorkerObjectsById(Session session, String token, String id) throws BadRequestException, CustomException {
+    public List getWorkerObjectsById(Session session, String token, String id) throws CustomException, SQLException {
         if (id == null) {
             throw new BadRequestException();
         }

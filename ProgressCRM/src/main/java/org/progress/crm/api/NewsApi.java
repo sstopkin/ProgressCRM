@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -28,11 +30,16 @@ public class NewsApi {
     public Response news(@CookieParam("token") final String token) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson newsList = new GsonBuilder().create();
-                String newsJson = newsList.toJson(newsController
-                        .getNews(session, token));
-                return ApiHelper.getResponse(newsJson);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson newsList = new GsonBuilder().create();
+                    String newsJson = newsList.toJson(newsController
+                            .getNews(session, token));
+                    return ApiHelper.getResponse(newsJson);
+                } catch (CustomException ex) {
+                    Logger.getLogger(NewsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -43,9 +50,14 @@ public class NewsApi {
             @FormParam("id") final String id) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = newsController.deleteNewsById(session, token, id);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = newsController.deleteNewsById(session, token, id);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(NewsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
@@ -58,9 +70,14 @@ public class NewsApi {
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                boolean result = newsController.addNews(session, token, header, text);
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = newsController.addNews(session, token, header, text);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(NewsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

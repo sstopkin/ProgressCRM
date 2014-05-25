@@ -23,7 +23,6 @@ public class RoleController {
         if (!authManager.isAuthentificated(UUID.fromString(token))) {
             return 0;
         }
-
         int userId = getUserIdByToken(token);
         Workers pr = DaoFactory.getWorkersDao().getWorkerById(session, userId);
         if (pr == null) {

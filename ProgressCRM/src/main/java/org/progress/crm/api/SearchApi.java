@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
@@ -34,10 +36,15 @@ public class SearchApi {
             @QueryParam("type") final String type) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
-            public Response execute(Session session) throws CustomException, SQLException {
-                Gson customers = new GsonBuilder().create();
-                String result = customers.toJson(searchController.getListByQuery(session, token, assigned, idWorker, startdate, enddate, contains, type));
-                return ApiHelper.getResponse(result);
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson customers = new GsonBuilder().create();
+                    String result = customers.toJson(searchController.getListByQuery(session, token, assigned, idWorker, startdate, enddate, contains, type));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(SearchApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }

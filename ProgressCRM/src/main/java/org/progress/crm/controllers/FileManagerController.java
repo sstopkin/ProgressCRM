@@ -5,10 +5,6 @@ import java.util.List;
 import javax.ejb.Singleton;
 import org.progress.crm.dao.DaoFactory;
 
-/**
- *
- * @author best
- */
 @Singleton
 public class FileManagerController {
 

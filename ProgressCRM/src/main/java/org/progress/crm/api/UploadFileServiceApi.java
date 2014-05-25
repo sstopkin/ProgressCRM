@@ -9,6 +9,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.FileNotFoundException;
 import java.nio.charset.CharacterCodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -29,8 +31,13 @@ public class UploadFileServiceApi {
             @FormDataParam("file") final InputStream uploadedInputStream,
             @FormDataParam("file") final FormDataContentDisposition fileDetail,
             @FormDataParam("path") final String path)
-            throws CharacterCodingException, IOException, FileNotFoundException, CustomException {
-        boolean resp = uploadController.uploadFile(uploadedInputStream, fileDetail, path);
-        return ApiHelper.getResponse(resp);
+            throws CharacterCodingException, IOException, FileNotFoundException {
+        try {
+            boolean resp = uploadController.uploadFile(uploadedInputStream, fileDetail, path);
+            return ApiHelper.getResponse(resp);
+        } catch (CustomException ex) {
+            Logger.getLogger(UploadFileServiceApi.class.getName()).log(Level.SEVERE, null, ex);
+            return ApiHelper.getResponse(ex);
+        }
     }
 }
