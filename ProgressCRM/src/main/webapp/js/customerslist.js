@@ -1,4 +1,4 @@
-function getCustomersListPage() {
+function getCustomersListPage(status, statusText) {
     $.get("customerslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
@@ -13,51 +13,12 @@ function getCustomersListPage() {
             $("#genApartamentsPriceBtn").css("display", "none");
         }
         $("#mainContainer").html(data);
+        $("#customersListHeaderText").html(statusText);
         $.ajax({
             type: "GET",
-            url: "api/customers/getallcustomer",
+            url: "api/customers/getallcustomer?status=" + status,
             success: function(data) {
-                $("#errorBlock").css("display", "none");
-                var array = JSON.parse(data);
-                var str = "<table class=\"table table-bordered\">";
-                str += "<thead>";
-                str += "<tr>";
-                str += "<th>#</th>";
-                str += "<th>ФИО</th>";
-                str += "<th>Телефон</th>";
-                str += "<th>Дата рождения</th>";
-                str += "<th>E-mail</th>";
-                str += "<th>Пол</th>";
-                str += "</tr>";
-                str += "</thead>";
-                str += "<tbody>";
-                array.forEach(function(entry) {
-                    str += "<tr>";
-                    str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
-                    str += "<td>" + entry.customersLname + " " + entry.customersFname + " " + entry.customersMname + "</td>";
-                    str += "<td>" + entry.customersPhone + "</td>";
-                    str += "<td>" + entry.customersDayOfBirthday + "-" + entry.customersMonthOfBirthday + "-" + entry.customersYearOfBirthday + "</td>";
-                    str += "<td>" + entry.customersEmail + "</td>";
-                    str += "<td>";
-                    switch (entry.customersSex) {
-                        case 1:
-                            str += "Мужской";
-                            break
-                        case 2:
-                            str += "Женский";
-                            break
-                        case 0:
-                            str += "Не указан";
-                            break
-                        default:
-                            str += "Не указан";
-                            break
-                    }
-                    str += "</td>";
-                    str += "</tr>";
-                });
-                str += "</tbody>";
-                $("#divCustomersList").html(str);
+                drawCustomersListTable(data);
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -65,6 +26,50 @@ function getCustomersListPage() {
             }
         });
     });
+}
+
+function drawCustomersListTable(data) {
+    $("#errorBlock").css("display", "none");
+    var array = JSON.parse(data);
+    var str = "<table class=\"table table-bordered\">";
+    str += "<thead>";
+    str += "<tr>";
+    str += "<th>#</th>";
+    str += "<th>ФИО</th>";
+    str += "<th>Телефон</th>";
+    str += "<th>Дата рождения</th>";
+    str += "<th>E-mail</th>";
+    str += "<th>Пол</th>";
+    str += "</tr>";
+    str += "</thead>";
+    str += "<tbody>";
+    array.forEach(function(entry) {
+        str += "<tr>";
+        str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
+        str += "<td>" + entry.customersLname + " " + entry.customersFname + " " + entry.customersMname + "</td>";
+        str += "<td>" + entry.customersPhone + "</td>";
+        str += "<td>" + entry.customersDayOfBirthday + "-" + entry.customersMonthOfBirthday + "-" + entry.customersYearOfBirthday + "</td>";
+        str += "<td>" + entry.customersEmail + "</td>";
+        str += "<td>";
+        switch (entry.customersSex) {
+            case 1:
+                str += "Мужской";
+                break
+            case 2:
+                str += "Женский";
+                break
+            case 0:
+                str += "Не указан";
+                break
+            default:
+                str += "Не указан";
+                break
+        }
+        str += "</td>";
+        str += "</tr>";
+    });
+    str += "</tbody>";
+    $("#divCustomersList").html(str);
 }
 
 function addCustomer() {
@@ -126,12 +131,10 @@ function customersDeleteById(customersId) {
         url: "api/customers/remove",
         data: ({id: customersId}),
         success: function(data) {
-            document.location.href = "#customers/list";
+            document.location.href = "#customers/list/current";
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }

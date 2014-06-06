@@ -47,7 +47,7 @@ function mainSearchAction(type) {
                 "&type=" + type,
         success: function(data) {
             $("#errorBlock").css("display", "none");
-            drawTable(permissions, data);
+            drawApartamentsListTable(permissions, data);
         },
         error: function(data) {
             showDanger(data.responseText);

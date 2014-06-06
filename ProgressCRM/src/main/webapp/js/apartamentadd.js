@@ -37,12 +37,10 @@ function addApartament() {
 //                        || ($('#Price').val() == "")
 //                        || ($('#Floor').val() == "")
 //                        || ($('#Floors').val() == "")|| 
-                    ($('#DwellingType').val() == "-1") ||
-                    ($('#Rooms').val() == "-1")
+                    ($('#DwellingType').val() == "0") ||
+                    ($('#Rooms').val() == "0")
                     ) {
-                $("#errorBlock").addClass("alert-danger");
-                $("#errorMessage").html("Не все поля заполнены");
-                $("#errorBlock").css("display", "block");
+                showWarning("Не все поля заполнены");
                 return false;
             }
             $.ajax({
@@ -84,8 +82,10 @@ function addApartament() {
                     status: $("#ApartamentStatus").val()
                 }),
                 success: function(data) {
-                    location.reload();//FIXME
-                    $("#errorBlock").css("display", "none");
+                    bootbox.confirm("Объект добавлен", function(result) {
+                        location.reload();//FIXME
+                        $("#errorBlock").css("display", "none");
+                    });
                 },
                 error: function(data) {
                     showDanger(data.responseText);

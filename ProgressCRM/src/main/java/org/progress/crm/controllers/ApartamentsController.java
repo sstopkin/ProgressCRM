@@ -136,6 +136,9 @@ public class ApartamentsController {
     }
 
     public List<Apartaments> getAllApartament(Session session, String token, String status) throws CustomException, SQLException {
+        if (status == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }

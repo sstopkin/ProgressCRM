@@ -90,9 +90,7 @@ function getUsersList() {
             $("#adminContent").html(str);
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }
@@ -109,9 +107,7 @@ function banUser(id) {
             getUsersList();
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }
@@ -128,9 +124,7 @@ function unBanUser(id) {
             getUsersList();
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }

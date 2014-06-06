@@ -85,9 +85,7 @@ function deleteHelpDeskRequestById(hdRequestId) {
             location.reload();
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }

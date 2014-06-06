@@ -27,7 +27,6 @@
         <mapping class="org.progress.crm.logic.Customers" />
         <mapping class="org.progress.crm.logic.HelpDeskRequest" />
         <mapping class="org.progress.crm.logic.Planner" />
-        <mapping class="org.progress.crm.logic.LogService" />
         <mapping class="org.progress.crm.logic.News" />
         <mapping class="org.progress.crm.logic.Workers" />
     </session-factory>

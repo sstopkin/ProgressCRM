@@ -47,9 +47,6 @@ function parseUrl(str) {
     }
     delete uri.source;
 //    ##################
-    var pathAnnouncementsRent = "announcementsrent";
-    var pathCustomersRent = "customersrent";
-    var pathAnnouncements = "announcements";
     var pathAbout = "about";
     var pathCustomers = "customers";
     var pathHelpDesk = "helpdesk";
@@ -69,23 +66,8 @@ function parseUrl(str) {
         return;
     }
 
-    if (arr[0] === pathAnnouncementsRent) {
-        helpParseUrl(uri, arr, "announcementsrent");
-        return;
-    }
-
     if (arr[0] === pathNews) {
         getNewsPage();
-        return;
-    }
-
-    if (arr[0] === pathAnnouncements) {
-        helpParseUrl(uri, arr, "announcements");
-        return;
-    }
-
-    if (arr[0] === pathCustomersRent) {
-        helpParseUrl(uri, arr, "customersrent");
         return;
     }
 
@@ -132,10 +114,6 @@ function helpParseUrl(uri, arr, type) {
             getАnnouncementsRentPage();
             return;
         }
-        if (type === "announcements") {
-            getАnnouncementsPage();
-            return;
-        }
         if (type === "customersrent") {
             getCustomersRentPage();
             return;
@@ -143,82 +121,84 @@ function helpParseUrl(uri, arr, type) {
         get404Page(uri);
         return;
     }
-    else {
-        if ((arr[1] === "view") && (type === "announcementsrent")) {
-            if (!arr[2]) {
-                showDanger();
+    else
+    {
+        if ((type === "apartaments")) {
+            if (arr[1] === "view") {
+                if (!arr[2]) {
+                    showDanger();
+                    return;
+                }
+                getApartamentViewPage(arr[2]);
                 return;
             }
-            getAnnouncementsRentViewPage(arr[2]);
-            return;
-        }
-
-        if ((arr[1] === "view") && (type === "announcements")) {
-            if (!arr[2]) {
-                showDanger();
+            if (arr[1] === "edit") {
+                if (!arr[2]) {
+                    showDanger();
+                    return;
+                }
+                apartamentsEditById(arr[2]);
                 return;
             }
-            getAnnouncementsViewPage(arr[2]);
-            return;
-        }
-        if ((arr[1] === "view") && (type === "apartaments")) {
-            if (!arr[2]) {
-                showDanger();
+            if (arr[1] === "list")
+            {
+                if (!arr[2]) {
+                    showDanger();
+                    return;
+                }
+                switch (arr[2]) {
+                    case "prepare":
+                        getApartamentsListPage(0, "Прозвон");
+                        break
+                    case "price":
+                        getApartamentsListPage(1, "Прайс");
+                        break
+                    case "archive":
+                        getApartamentsListPage(4, "Архив");
+                        break
+                    case "notset":
+                        getApartamentsListPage(5, "Не выбран");
+                        break
+                }
                 return;
             }
-            getApartamentViewPage(arr[2]);
-            return;
         }
-        if ((arr[1] === "edit") && (type === "apartaments")) {
-            if (!arr[2]) {
-                showDanger();
+        if (type === "customers") {
+            if (arr[1] === "list")
+            {
+                if (!arr[2]) {
+                    showDanger();
+                    return;
+                }
+                switch (arr[2]) {
+                    case "current":
+                        getCustomersListPage(0, "Активные");
+                        break
+                    case "archive":
+                        getCustomersListPage(4, "Архив");
+                        break
+                    case "notset":
+                        getCustomersListPage(5, "Не выбран");
+                        break
+                }
                 return;
             }
-            apartamentsEditById(arr[2]);
-            return;
-        }
-        if ((arr[1] === "list") && (type === "apartaments"))
-        {
-            if (!arr[2]) {
-                showDanger();
+            if (arr[1] === "edit") {
+                if (!arr[2]) {
+                    showDanger();
+                    return;
+                }
+                customersEditById(arr[2]);
                 return;
             }
-            switch (arr[2]) {
-                case "prepare":
-                    getApartamentsListPage(0);
-                    break
-                case "price":
-                    getApartamentsListPage(1);
-                    break
-                case "archive":
-                    getApartamentsListPage(4);
-                    break
-                case "notset":
-                    getApartamentsListPage(5);
-                    break
-            }
-            return;
-        }
-        if ((arr[1] === "list") && (type === "customers"))
-        {
-            getCustomersListPage();
-            return;
-        }
-        if ((arr[1] === "edit") && (type === "customers")) {
-            if (!arr[2]) {
-                showDanger();
+            if (arr[1] === "view") {
+                if (!arr[2]) {
+                    showDanger();
+                    return;
+                }
+                getCustomerViewPage(arr[2]);
                 return;
             }
-            customersEditById(arr[2]);
-            return;
-        }
-        if ((arr[1] === "view") && (type === "customers")) {
-            if (!arr[2]) {
-                showDanger();
-                return;
-            }
-            getCustomerViewPage(arr[2]);
-            return;
         }
         if ((arr[1] === "view") && (type === "workers")) {
             if (!arr[2]) {

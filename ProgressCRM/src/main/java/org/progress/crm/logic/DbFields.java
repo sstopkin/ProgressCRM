@@ -17,6 +17,11 @@ public class DbFields {
         public final static String CREATIONDATE = "сreationDate";
     }
 
+    public class CUSTOMERS {
+
+        public final static String DELETED = "deleted";
+    }
+
     public class WORKERS {
 
         public final static String ID = "id";
