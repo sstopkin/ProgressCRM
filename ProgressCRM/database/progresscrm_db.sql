@@ -191,18 +191,6 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Planner` (
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`));
 
--- -----------------------------------------------------
--- Table `progresscrm`.`LogService`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `progresscrm`.`LogService` (
-`id` INT NOT NULL AUTO_INCREMENT ,
-`Date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`idWorker` INT NOT NULL ,
-`ActionCode` INT NOT NULL,
-`Description` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
-PRIMARY KEY (`id`) ,
-INDEX `idWorkerIndex` (`idWorker` ASC));
-
 -- NULL user --
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
 	VALUES ('Не', '','указан', 'null', 0, 'null', true, true);

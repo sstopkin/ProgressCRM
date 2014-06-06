@@ -1,4 +1,4 @@
-function getApartamentsListPage(status) {
+function getApartamentsListPage(status, statusText) {
     $.get("apartamentslist.html", function(data) {
         var permissions = $.ajax({
             type: "GET",
@@ -14,25 +14,12 @@ function getApartamentsListPage(status) {
         }
         $("#mainContainer").html("<div id=\"mainSearchContainer\" class=\"container\"></div>" + data);
         initSearchForm('apartaments');
-        switch (status) {
-            case 0:
-                $("#apartamentsListHeaderText").html("Прозвон");
-                break;
-            case 1:
-                $("#apartamentsListHeaderText").html("Прайс");
-                break;
-            case 4:
-                $("#apartamentsListHeaderText").html("Архив");
-                break;
-            default:
-                $("#apartamentsListHeaderText").html("");
-                break;
-        }
+        $("#apartamentsListHeaderText").html(statusText);
         $.ajax({
             type: "GET",
             url: "api/apartament/getallapartament?status=" + status,
             success: function(data) {
-                drawTable(data);
+                drawApartamentsListTable(data);
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -42,7 +29,7 @@ function getApartamentsListPage(status) {
     });
 }
 
-function drawTable(data) {
+function drawApartamentsListTable(data) {
     $("#errorBlock").css("display", "none");
     var array = JSON.parse(data);
     var str = "<table class=\"table table-bordered\">";
@@ -178,9 +165,7 @@ function apartamentsDeleteById(apartamentsId) {
             document.location.href = "#apartaments/list/price";
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }

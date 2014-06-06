@@ -18,16 +18,12 @@ $(document).ready(function() {
                 });
                 $("#loginForm").css("display", "none");
                 $("#logged").css("display", "block");
-                getNewsPage();
                 location.hash = "";
                 permissions = $.ajax({
                     type: "GET",
                     url: "api/auth/validate",
                     async: false
                 }).responseText;
-                if (permissions == "3") {
-                    $('#adminTabLink').css("display", "block");
-                }
             },
             error: function(data) {
                 showDanger(data.responseText);

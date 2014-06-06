@@ -30,10 +30,6 @@ public class DaoFactory {
         return new NewsDao();
     }
 
-    public static LogServiceDao getLogServiceDao() {
-        return new LogServiceDao();
-    }
-
     public static PlannerDao getPlannerDao() {
         return new PlannerDao();
     }

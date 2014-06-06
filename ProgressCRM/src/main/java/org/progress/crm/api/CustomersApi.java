@@ -29,13 +29,14 @@ public class CustomersApi {
 
     @GET
     @Path("getallcustomer")
-    public Response getAllCustomers(@CookieParam("token") final String token) throws CustomException {
+    public Response getAllCustomers(@QueryParam("status") final String status,
+            @CookieParam("token") final String token) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
                     Gson apartamentById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
+                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token, status));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,7 +54,7 @@ public class CustomersApi {
             public Response execute(Session session) throws SQLException {
                 try {
                     Gson apartamentById = new GsonBuilder().create();
-                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token));
+                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token, "-1"));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);

@@ -130,11 +130,14 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
     }
 
-    public List<Customers> getAllCustomers(Session session, String token) throws CustomException, SQLException {
+    public List<Customers> getAllCustomers(Session session, String token, String status) throws CustomException, SQLException {
+        if (status == null) {
+            throw new BadRequestException();
+        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        return DaoFactory.getCustomersDao().getAllCustomers(session);
+        return DaoFactory.getCustomersDao().getAllCustomers(session, Integer.valueOf(status));
     }
 
     public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) throws SQLException {

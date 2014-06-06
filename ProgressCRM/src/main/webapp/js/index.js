@@ -12,7 +12,6 @@ var map = null;
 var placemark = null;
 var map_created = false;
 $(document).ready(function() {
-    getAllWorkersList();
     $.ajax({
         type: "GET",
         url: "api/auth",
@@ -29,6 +28,14 @@ $(document).ready(function() {
             showDanger(data.responseText);
         }
     });
+    permissions = $.ajax({
+        type: "GET",
+        url: "api/auth/validate",
+        async: false
+    }).responseText;
+    if (permissions == "3") {
+        $('#adminTabLink').css("display", "block");
+    }
     parseUrl(location.href);
     $('#loginForm').keydown(function(event) {
         if (event.which == 13) {
@@ -37,10 +44,6 @@ $(document).ready(function() {
     });
     $("#closeAlert").click(function() {
         $("#errorBlock").css("display", "none");
-    });
-    $("#closeInfo").click(function() {
-        $("#helpInfoBlock").css("display", "none");
-        $('#taskContentHelp').addClass("hiddenHelp");
     });
 });
 
@@ -109,8 +112,9 @@ function getNews() {
         });
 
         $("#news").html(str);
+    }).fail(function(data) {
+        showDanger(data.responseText);
     });
-
 }
 
 function  editNewsById(id) {
@@ -137,15 +141,19 @@ function addNews() {
 }
 
 function showDanger(message) {
-    $("#errorBlock").addClass("alert-danger");
-    $("#errorMessage").html(message);
-    $("#errorBlock").css("display", "block");
+    var some_html = '<div class="bs-callout bs-callout-info">';
+    some_html += '<h4>Ошибка</h4>';
+    some_html += '<p>' + message + '</p>';
+    some_html += '</div>';
+    bootbox.alert(some_html);
 }
 
 function showWarning(message) {
-    $("#errorBlock").addClass("alert-warning");
-    $("#errorMessage").html(message);
-    $("#errorBlock").css("display", "block");
+    var some_html = '<div class="bs-callout bs-callout-info">';
+    some_html += '<h4>Предупреждение</h4>';
+    some_html += '<p>' + message + '</p>';
+    some_html += '</div>';
+    bootbox.alert(some_html);
 }
 
 function checkStatus() {
@@ -166,7 +174,6 @@ function checkStatus() {
         error: function(data) {
             $("#loginForm").css("display", "block");
             $("#logged").css("display", "none");
-//            $('#adminTabLink').css("display", "none");
         }
     });
 }
@@ -180,9 +187,7 @@ function deleteNewsById(newsId) {
             location.href("#news");
         },
         error: function(data) {
-            $("#errorBlock").addClass("alert-danger");
-            $("#errorMessage").html(data.responseText);
-            $("#errorBlock").css("display", "block");
+            showDanger(data.responseText);
             checkStatus();
             return false;
         }

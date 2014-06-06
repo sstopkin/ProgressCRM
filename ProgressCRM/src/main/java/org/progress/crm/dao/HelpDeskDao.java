@@ -3,6 +3,7 @@ package org.progress.crm.dao;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.logic.DbFields;
@@ -28,10 +29,9 @@ public class HelpDeskDao {
     }
 
     public List<HelpDeskRequest> getAllHelpDeskRequests(final Session session) throws SQLException {
-        List<HelpDeskRequest> list = session.createCriteria(HelpDeskRequest.class)
-                .add(Restrictions.eq(DbFields.HELPDESK.DELETED, false))
-                .list();
-        return list;
+        Criteria cr = session.createCriteria(HelpDeskRequest.class)
+                .add(Restrictions.eq(DbFields.HELPDESK.DELETED, false));
+        return cr.list();
     }
 
     public String deleteHelpDeskRequest(Session session, int idWorker, Integer hdId) throws SQLException {
