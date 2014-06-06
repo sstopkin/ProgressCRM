@@ -25,7 +25,7 @@
         <mapping class="org.progress.crm.logic.Filespaces" />
         <mapping class="org.progress.crm.logic.Calls" />
         <mapping class="org.progress.crm.logic.Customers" />
-        <mapping class="org.progress.crm.logic.HelpDeskRequest" />
+        <mapping class="org.progress.crm.logic.HelpDesk" />
         <mapping class="org.progress.crm.logic.Planner" />
         <mapping class="org.progress.crm.logic.News" />
         <mapping class="org.progress.crm.logic.Workers" />
