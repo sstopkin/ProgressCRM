@@ -31,7 +31,7 @@ function getCustomersListPage(status, statusText) {
 function drawCustomersListTable(data) {
     $("#errorBlock").css("display", "none");
     var array = JSON.parse(data);
-    var str = "<table class=\"table table-bordered\">";
+    var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="customersListTable">';
     str += "<thead>";
     str += "<tr>";
     str += "<th>#</th>";
@@ -70,32 +70,19 @@ function drawCustomersListTable(data) {
     });
     str += "</tbody>";
     $("#divCustomersList").html(str);
+    $('#customersListTable').dataTable();
 }
 
 function addCustomer() {
     $('#customersAddMoadl').modal('toggle');
-//    if (
-//                ($('#TypeOfSales').val() == "")
-//                || ($('#Price').val() == "")
-//                || ($('#CityDistrict').val() == "")
-//                || ($('#Floor').val() == "")
-//                || ($('#Floors').val() == "")
-//                || ($('#RoomNumber').val() == "")
-//                || ($('#Material').val() == "")
-//                || ($('#SizeApartament').val() == "")
-//                || ($('#SizeLiving').val() == "")
-//                || ($('#SizeKitchen').val() == "")
-//                || ($('#Balcony').val() == "")
-//                || ($('#Loggia').val() == "")
-//                || ($('#YearOfConstruction').val() == "")
-//                || ($('#Description').val() == "")
-//                || ($('#ClientPhone').val() == "")
-//                ) {
-//            $("#errorBlock").addClass("alert-danger");
-//            $("#errorMessage").html("Не все поля заполнены");
-//            $("#errorBlock").css("display", "block");
-//            return false;
-//        }
+    if ((($('#customersFname').val() == "")
+            || ($('#customersMname').val() == "")
+            || ($('#customersLname').val() == ""))
+            && ($('#customersSex').val() == "")
+            && ($('#customersPhone').val() == "")) {
+        showDanger("Не все поля заполнены")
+        return false;
+    }
     $.ajax({
         type: "POST",
         url: "api/customers/addcustomer",
@@ -113,7 +100,8 @@ function addCustomer() {
             customersExtra: $('#customersExtra').val()
         }),
         success: function(data) {
-            document.location.href = "#customers/list";
+            alert("ok");
+            document.location.href = "#customers/list/current";
         },
         error: function(data) {
             showDanger(data.responseText);

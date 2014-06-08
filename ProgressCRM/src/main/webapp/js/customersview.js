@@ -66,7 +66,7 @@ function getCustomerViewPage(customerId) {
             success: function(data) {
                 var array = JSON.parse(data);
                 var str = "<b>Объекты собственника: </b>"; //array.clientDescription
-                str += "<table class=\"table table-bordered\">";
+                var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="customersViewListTable">';
                 str += "<thead>";
                 str += "<tr>";
                 str += "<th>#</th>";
@@ -103,6 +103,7 @@ function getCustomerViewPage(customerId) {
                 });
                 str += "</tbody>";
                 $("#customersObjects").html(str);
+                $('#customersViewListTable').dataTable();
             }
         });
     });

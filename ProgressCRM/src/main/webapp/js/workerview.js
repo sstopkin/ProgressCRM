@@ -56,7 +56,7 @@ function getWorkersViewPage(workerId) {
             success: function(data) {
                 var array = JSON.parse(data);
                 var str = "<b>Объекты собственника: </b>"; //array.clientDescription
-                str += "<table class=\"table table-bordered\">";
+                str += '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="workerObjectsListTable">';
                 str += "<thead>";
                 str += "<tr>";
                 str += "<th>#</th>";
@@ -93,6 +93,7 @@ function getWorkersViewPage(workerId) {
                 });
                 str += "</tbody>";
                 $("#customersObjects").html(str);
+                $('#workerObjectsListTable').dataTable();
             }
         });
     });

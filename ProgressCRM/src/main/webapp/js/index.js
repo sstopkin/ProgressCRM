@@ -12,6 +12,7 @@ var map = null;
 var placemark = null;
 var map_created = false;
 $(document).ready(function() {
+    getAllWorkersList();
     $.ajax({
         type: "GET",
         url: "api/auth",
@@ -211,7 +212,7 @@ function customersSearchAction(divName) {
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
             var str = "";
-            str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
+            var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="customersSearchListTable">';
             str += "<thead class='t-header'>Звонки<tr>";
             str += "<th>ID</th>";
             str += "<th>Фамилия</th>";
@@ -232,6 +233,7 @@ function customersSearchAction(divName) {
             }
             str += "\n</tbody>\n</table>\n";
             $("#customerSearchResultTable").html(str);
+            $('#filemanagerListTable').dataTable();
             $("#customerSearchResultField").val(divName);
         },
         error: function(data) {
