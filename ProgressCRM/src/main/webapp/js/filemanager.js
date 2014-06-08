@@ -71,7 +71,7 @@ function getFolderList(path) {
             generateFullPathBreadcrumb(path);
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
-            var str = "<table class=\"table table-bordered\">";
+            var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="filemanagerListTable">';
             str += "<thead>";
             str += "<tr>";
             str += "<th></th>";
@@ -101,6 +101,7 @@ function getFolderList(path) {
                 str += "</tr>";
             });
             $("#mainFileManagerFileList").html(str);
+            $('#filemanagerListTable').dataTable();
             $(".file-select").click(function() {
                 selectCheckboxClick(this);
             });

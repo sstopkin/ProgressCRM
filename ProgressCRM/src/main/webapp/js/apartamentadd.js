@@ -7,8 +7,6 @@ function addApartament() {
             $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
         $("#apartamentAddReadyLink").css("display", "inline");
-        $("#apartamentAddCustomerBlock").css("display", "inline");
-        $("#apartamentAddWorkersBlock").css("display", "inline");
         //price
         $("#apartamentAddReadyLink").click(function() {
 //            if (

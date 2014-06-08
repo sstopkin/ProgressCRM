@@ -55,8 +55,7 @@ function getUsersList() {
         url: "api/workers/getallworkers",
         success: function(data) {
             var list = JSON.parse(data);
-            var str = "";
-            str += "<table class=\"table table-hover table-bordered\" style='margin-top:10px; margin-bottom:10px;' >";
+            var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="usersListTable">';
             str += "<thead class='t-header'><tr>";
             str += "<th class=\"col-md-1\">id</th>";
             str += "<th class=\"col-md-1\">Email</th>";
@@ -88,6 +87,7 @@ function getUsersList() {
             }
             str += "</tbody></table>";
             $("#adminContent").html(str);
+            $('#usersListTable').dataTable();
         },
         error: function(data) {
             showDanger(data.responseText);

@@ -229,8 +229,8 @@ function getApartamentViewPage(apartamentId) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
-                str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
-                str += "<thead class='t-header'>Звонки<tr>";
+                var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="callsListTable">';
+                str += "<thead class='t-header'><tr>";
                 str += "<th>Дата</th>";
                 str += "<th>Входящий номер</th>";
                 str += "<th>Комментарий</th>";
@@ -246,6 +246,7 @@ function getApartamentViewPage(apartamentId) {
                 }
                 str += "\n</tbody>\n</table>\n";
                 $("#customersCalls").html(str);
+                $('#callsListTable').dataTable();
             },
             error: function(data) {
                 showDanger(data.responseText);
@@ -259,8 +260,8 @@ function getApartamentViewPage(apartamentId) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
-                str += "<table class=\"table table-striped table-bordered table-condensed\" style='margin-top:10px;'>";
-                str += "<thead class='t-header'>Комментарии<tr>";
+                var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="commentsListTable">';
+                str += "<thead class='t-header'><tr>";
                 str += "<th>Дата</th>";
                 str += "<th>Комментарий</th>";
                 str += "</tr></thead>";
@@ -273,6 +274,7 @@ function getApartamentViewPage(apartamentId) {
                 }
                 str += "\n</tbody>\n</table>\n";
                 $("#workersComments").html(str);
+                $('#commentsListTable').dataTable();
             },
             error: function(data) {
                 showDanger(data.responseText);
