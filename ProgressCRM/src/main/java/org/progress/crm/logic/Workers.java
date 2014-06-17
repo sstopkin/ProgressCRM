@@ -14,6 +14,7 @@ import org.hibernate.annotations.NaturalId;
 @Table(name = "Workers")
 public class Workers implements Serializable {
 
+    @Expose
     private int id;
     @Expose
     private String fName;
