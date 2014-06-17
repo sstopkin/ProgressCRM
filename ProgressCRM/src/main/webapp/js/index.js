@@ -289,3 +289,29 @@ function confirmAction(func, text) {
         }
     });
 }
+
+function getCountData() {
+    $.ajax({
+        type: "GET",
+        url: "api/auth/info",
+        success: function(data) {
+            $("#errorBlock").css("display", "none");
+            $("#tags").css("display", "none");
+            $("#userProfile").css("display", "block");
+
+            var value = JSON.parse(data);
+            $("#apartamentsPrepareCount").html(value.email);
+            $("#apartamentsPriceCount").html(value.fName);
+            $("#apartamentsArchiveCount").html(value.mName);
+            $("#apartamentsNotsetCount").html(value.lName);
+            $("#customersCurrentCount").html(value.lName);
+            $("#customersArchiveCount").html(value.lName);
+            $("#customersNotsetCount").html(value.lName);
+            plannerGetWorkersTasks();
+        },
+        error: function(data) {
+            showDanger(data.responseText);
+            return false;
+        }
+    });
+}

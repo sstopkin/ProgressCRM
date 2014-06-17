@@ -184,11 +184,14 @@ function apartamentsEditById(apartamentId) {
             type: "GET",
             url: "api/apartament/getapartament?id=" + apartamentId,
             success: function(data) {
+                var array = JSON.parse(data);
                 workersList.forEach(function(entry) {
                     $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
                 });
+                $("#ApartamentsIdWorkerTarget").val(array.idWorkerTarget);
+
                 $("#errorBlock").css("display", "none");
-                var array = JSON.parse(data);
+
                 $('#TypeOfSales').val(array.typeOfSales);
 
                 $('#apartamentCity').text(array.cityName);
@@ -258,7 +261,7 @@ function apartamentsEditById(apartamentId) {
                             status: $("#ApartamentStatus").val()
                         }),
                         success: function(data) {
-                            document.location.href = "#apartaments/list";
+                            document.location.href = "#apartaments/view/"+apartamentId;
                             $("#errorBlock").css("display", "none");
                         },
                         error: function(data) {

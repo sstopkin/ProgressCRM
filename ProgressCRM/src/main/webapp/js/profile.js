@@ -79,7 +79,6 @@ function getProfilePage() {
                 $("#profileFName").html(value.fName);
                 $("#profileMName").html(value.mName);
                 $("#profileLName").html(value.lName);
-                $("#profilePoints").html(value.points);
                 plannerGetWorkersTasks();
             },
             error: function(data) {
