@@ -49,89 +49,15 @@ function drawApartamentsListTable(data) {
     str += "</tr>";
     str += "</thead>";
     str += "<tbody>";
-
-//    var apartsArray = [];
-//    var dormitoryArray = [];
-//    var barchelorArray = [];
-//    var subrentalArray = [];
-
-//    array.forEach(function(entry) {
-//        switch (entry.dwellingType) {
-//            case 1:
-//                apartsArray.push(entry);
-//                break;
-//            case 2:
-//                dormitoryArray.push(entry);
-//                break;
-//            case 3:
-//                barchelorArray.push(entry);
-//                break;
-//            case 4:
-//                subrentalArray.push(entry);
-//                break;
-//        }
-//    });
-//    if (barchelorArray.length !== 0) {
-//        str += draw(barchelorArray, "Малосемейки");
-//    }
-//    if (subrentalArray.length !== 0) {
-//        str += draw(subrentalArray, "Подселение");
-//    }
-//    if (dormitoryArray !== 0) {
-//        str += draw(dormitoryArray, "Гостинки");
-//    }
-//    if (apartsArray !== 0) {
-//        str += draw(apartsArray, "Квартиры");
-//    }
-
-    str += draw(array, "");
+    str += draw(array);
     str += "</tbody>";
     $("#divApartamentsList").html(str);
     $('#apartamentsListTable').dataTable();
 }
 
-function draw(array, catName) {
-//    var flag1 = false;
-//    var flag2 = false;
-//    var flag3 = false;
-//    var flag4 = false;
-//    var flag5 = false;
-
-    var str = "";//<tr><td COLSPAN=11><h5><b>" + catName + "</b></h5></td></tr>
-
+function draw(array) {
+    var str = "";
     array.forEach(function(entry) {
-//        switch (entry.rooms) {
-//            case 1:
-//                if (flag1 == false) {
-//                    str += "<tr><td COLSPAN=11><h5><b>1-комнатные</b></h5></td></tr>";
-//                    flag1 = true;
-//                }
-//                break;
-//            case 2:
-//                if (flag2 == false) {
-//                    str += "<tr><td COLSPAN=11><h5><b>2-комнатные</b></h5></td></tr>";
-//                    flag2 = true;
-//                }
-//                break;
-//            case 3:
-//                if (flag3 == false) {
-//                    str += "<tr><td COLSPAN=11><h5><b>3-комнатные</b></h5></td></tr>";
-//                    flag3 = true;
-//                }
-//                break;
-//            case 4:
-//                if (flag4 == false) {
-//                    str += "<tr><td COLSPAN=11><h5><b>4-комнатные</b></h5></td></tr>";
-//                    flag4 = true;
-//                }
-//                break;
-//            case 5:
-//                if (flag5 == false) {
-//                    str += "<tr><td COLSPAN=11><h5><b>5-комнатные</b></h5></td></tr>";
-//                    flag5 = true;
-//                }
-//                break;
-//        }
         str += "<tr>";
         str += "<td><a href=\"#apartaments/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
         str += "<td>" + entry.cityName + " "

@@ -34,7 +34,7 @@ function addApartament() {
 //                        ($('#TypeOfSales').val() == "")
 //                        || ($('#Price').val() == "")
 //                        || ($('#Floor').val() == "")
-//                        || ($('#Floors').val() == "")|| 
+//                        || ($('#Floors').val() == "")||
                     ($('#DwellingType').val() == "0") ||
                     ($('#Rooms').val() == "0")
                     ) {
@@ -81,8 +81,8 @@ function addApartament() {
                 }),
                 success: function(data) {
                     bootbox.confirm("Объект добавлен", function(result) {
-                        location.reload();//FIXME
-                        $("#errorBlock").css("display", "none");
+                        //FIXME! /list/all
+                        document.location.href = "#apartaments/list/price";
                     });
                 },
                 error: function(data) {
