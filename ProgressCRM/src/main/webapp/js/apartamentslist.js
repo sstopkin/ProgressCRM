@@ -37,6 +37,7 @@ function drawApartamentsListTable(data) {
     str += "<tr>";
     str += "<th>#</th>";
     str += '<th>Адрес</th>';
+    str += '<th>Комнат</th>';
     str += "<th>Площадь О/К/Ж</th>";
     str += '<th>Этаж</th>';
     str += '<th>Цена</th>';
@@ -137,15 +138,16 @@ function draw(array, catName) {
                 + entry.streetName + " "
                 + entry.houseNumber + " "
                 + entry.buildingNumber + "</td>";
+        str += "<td>" + entry.rooms + "</td>";
         str += "<td>" + entry.sizeApartament + " / " + entry.sizeKitchen + " / " + entry.sizeLiving + "</td>";
         str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
         str += "<td>" + entry.price + "</td>";
         for (var i = 0; i < workersList.length; ++i) {
             var a = workersList[i];
-            if (entry.idWorker == a[0]) {
+            if (entry.idWorker === a[0]) {
                 str += "<td>" + a[1] + " " + a[3] + "</td>";
             }
-            if (entry.idWorkerTarget == a[0]) {
+            if (entry.idWorkerTarget === a[0]) {
                 str += "<td>" + a[1] + " " + a[3] + "</td>";
             }
         }
@@ -261,7 +263,7 @@ function apartamentsEditById(apartamentId) {
                             status: $("#ApartamentStatus").val()
                         }),
                         success: function(data) {
-                            document.location.href = "#apartaments/view/"+apartamentId;
+                            document.location.href = "#apartaments/view/" + apartamentId;
                             $("#errorBlock").css("display", "none");
                         },
                         error: function(data) {
