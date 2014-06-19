@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.progress.crm.controllers.StatsController;
@@ -32,9 +31,14 @@ public class StatsApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
-                Gson customers = new GsonBuilder().create();
-                String result = customers.toJson(statsController.getCounts(session, token));
-                return ApiHelper.getResponse(result);
+                try {
+                    Gson customers = new GsonBuilder().create();
+                    String result = customers.toJson(statsController.getCounts(session, token));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
             }
         });
     }
