@@ -45,4 +45,8 @@ public class DaoFactory {
     public static CommentsDao getCommentsDao() {
         return new CommentsDao();
     }
+
+    public static StatsDao getStatsDao() {
+        return new StatsDao();
+    }
 }
