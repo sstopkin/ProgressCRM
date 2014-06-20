@@ -7,7 +7,17 @@ import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 
 @Singleton
+//@Lock(LockType.READ)
 public class StatsController {
+
+//    private Map counts;
+//
+//    public StatsController() {
+//        counts = (Map) CacheBuilder.newBuilder()
+//                .maximumSize(1000)
+//                .expireAfterAccess(7, TimeUnit.DAYS)
+//                .build().asMap();
+//    }
 
     public Object getCounts(Session session, String token) throws IsNotAuthenticatedException {
         if (token == null) {
