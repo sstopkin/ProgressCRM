@@ -142,7 +142,7 @@ function addNews() {
 }
 
 function showDanger(message) {
-    var some_html = '<div class="bs-callout bs-callout-info">';
+    var some_html = '<div class="bs-callout bs-callout-danger">';
     some_html += '<h4>Ошибка</h4>';
     some_html += '<p>' + message + '</p>';
     some_html += '</div>';
@@ -150,7 +150,7 @@ function showDanger(message) {
 }
 
 function showWarning(message) {
-    var some_html = '<div class="bs-callout bs-callout-info">';
+    var some_html = '<div class="bs-callout bs-callout-warning">';
     some_html += '<h4>Предупреждение</h4>';
     some_html += '<p>' + message + '</p>';
     some_html += '</div>';
@@ -268,9 +268,12 @@ function confirmActionDelete(func) {
     confirmAction(func, "Вы уверены что хотите удалить?");
 }
 
-function confirmAction(func, text) {
+function confirmAction(func, message) {
+    var some_html = '<div class="bs-callout bs-callout-info">';
+    some_html += '<p>' + message + '</p>';
+    some_html += '</div>';
     bootbox.dialog({
-        message: text,
+        message: some_html,
         title: "Подтвердверждение действия",
         buttons: {
             success: {
