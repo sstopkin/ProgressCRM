@@ -10630,7 +10630,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "<span class=\"glyphicon glyphicon-arrow-left\"></span>",
+				"sNext": "<span class=\"glyphicon glyphicon-arrow-right\"></span>",
 
 
 				/**
@@ -10653,7 +10653,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "<span class=\"glyphicon glyphicon-arrow-right\"></span>",
+				"sPrevious": "<span class=\"glyphicon glyphicon-arrow-left\"></span>",
 			},
 
 			/**
