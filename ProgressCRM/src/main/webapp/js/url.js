@@ -97,7 +97,7 @@ function parseUrl(str) {
         return;
     }
     if (arr[0] === pathAdmin) {
-        getAdminPage();
+        helpParseUrl(uri, arr, "admin");
         return;
     }
     get404Page();
@@ -197,6 +197,16 @@ function helpParseUrl(uri, arr, type) {
                     return;
                 }
                 getCustomerViewPage(arr[2]);
+                return;
+            }
+        }
+        if (type === "admin") {
+            if (arr[1] === "usermanagement") {
+                getAdminPage();
+                return;
+            }
+            if (!arr[1]) {
+                showDanger();
                 return;
             }
         }

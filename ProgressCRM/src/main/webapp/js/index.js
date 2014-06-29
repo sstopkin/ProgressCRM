@@ -72,11 +72,7 @@ function getAdminPage() {
         if (data == "3") {
             $.get("admin.html", function(data) {
                 $("#mainContainer").html(data);
-                $("#usersLink").click(getUsersList);
-//                $("#verifyTasksLink").click(getUnevaluatedTasks);
-//                $("#moderationLink").click(getModerationPage);
-                getUsersList();
-            });
+           });
         }
         else {
             showWarning("У вас недостаточно прав для совершения данного действия");
