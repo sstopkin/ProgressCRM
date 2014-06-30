@@ -102,7 +102,7 @@ function banUser(id) {
         url: "api/admin/banuser",
         data: ({id: id}),
         success: function(data) {
-            getUsersList();
+            getUsersManagementList();
         },
         error: function(data) {
             showDanger(data.responseText);
@@ -119,7 +119,7 @@ function unBanUser(id) {
         url: "api/admin/unbanuser",
         data: ({id: id}),
         success: function(data) {
-            getUsersList();
+            getUsersManagementList();
         },
         error: function(data) {
             showDanger(data.responseText);

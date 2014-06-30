@@ -73,7 +73,7 @@ function getAdminPage() {
             $.get("admin.html", function(data) {
                 $("#mainContainer").html(data);
             });
-            getUsersList();
+            getUsersManagementList();
         }
         else {
             showWarning("У вас недостаточно прав для совершения данного действия");
