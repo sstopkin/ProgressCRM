@@ -46,7 +46,7 @@ public class WorkersDao {
 
     public List getWorkerObjectsById(final Session session, final int workerId) throws SQLException {
         return session.createCriteria(Apartaments.class)
-                .add(Restrictions.eq(DbFields.APARTAMENTS.IDWORKER, workerId))
+                .add(Restrictions.eq(DbFields.APARTAMENTS.ASSIGNED, workerId))
                 .addOrder(Order.desc(DbFields.APARTAMENTS.CREATIONDATE))
                 .list();
     }

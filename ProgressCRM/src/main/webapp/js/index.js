@@ -72,7 +72,8 @@ function getAdminPage() {
         if (data == "3") {
             $.get("admin.html", function(data) {
                 $("#mainContainer").html(data);
-           });
+            });
+            getUsersList();
         }
         else {
             showWarning("У вас недостаточно прав для совершения данного действия");
@@ -313,4 +314,13 @@ function getCountData() {
             return false;
         }
     });
+}
+
+function getWorkersFullNameById(idWorker) {
+    for (var i = 0; i < workersList.length; ++i) {
+        var a = workersList[i];
+        if (idWorker === a[0]) {
+            return a[1] + " " + a[3];
+        }
+    }
 }

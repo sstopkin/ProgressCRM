@@ -36,12 +36,7 @@ function getHelpDeskPage() {
                     str += entry.creationDate;
                     str += "</h5>";
                     str += entry.text;
-                    for (var i = 0; i < workersList.length; ++i) {
-                        var a = workersList[i];
-                        if (entry.idWorker === a[0]) {
-                            str += "<p><i>" + a[1] + " " + a[3] + "</i></p>";
-                        }
-                    }
+                    str += "<p><i>" + getWorkersFullNameById(entry.workerId) + "</i></p>";
 //                    str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
                     str += "</div>";
                     str += "</div>";
