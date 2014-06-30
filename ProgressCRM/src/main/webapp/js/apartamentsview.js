@@ -174,19 +174,12 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "Объект изменен: " + array.lastModify;
                 content += "</p>";
-                for (var i = 0; i < workersList.length; ++i) {
-                    var a = workersList[i];
-                    if (array.idWorker == a[0]) {
-                        content += "<p>";
-                        content += "Добавлено: " + a[1] + " " + a[3];
-                        content += "</p>";
-                    }
-                    if (array.idWorkerTarget == a[0]) {
-                        content += "<p>";
-                        content += "Риэлтор: " + a[1] + " " + a[3];
-                        content += "</p>";
-                    }
-                }
+                content += "<p>";
+                content += "Добавлено: " + getWorkersFullNameById(array.idWorker);
+                content += "</p>";
+                content += "<p>";
+                content += "Риэлтор: " + getWorkersFullNameById(array.idWorkerTarget);
+                content += "</p>";
                 console.log(array.kladrId);
                 content += "<p>";
                 content += "Площадь общая: " + array.sizeApartament;

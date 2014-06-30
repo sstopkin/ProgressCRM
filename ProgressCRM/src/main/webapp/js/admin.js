@@ -1,4 +1,4 @@
-function getUsersList() {
+function getUsersManagementList() {
     $.ajax({
         type: "GET",
         url: "api/workers/getallworkers",

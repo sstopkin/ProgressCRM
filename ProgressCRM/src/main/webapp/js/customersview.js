@@ -6,7 +6,7 @@ function getCustomerViewPage(customerId) {
             url: "api/auth/validate",
             async: false
         }).responseText;
-        var content="";
+        var content = "";
         if (permissions == "3") {
             content += "<a href=\"#customers/edit/" + customerId + "\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pencil\"></span>Редактировать</a>";
             content += "<button type=\"button\" onclick=\"confirmActionDelete('customersDeleteById(" + customerId + ")');\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
@@ -90,15 +90,8 @@ function getCustomerViewPage(customerId) {
                     str += "<td>" + entry.sizeApartament + " / " + entry.sizeKitchen + " / " + entry.sizeLiving + "</td>";
                     str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
                     str += "<td>" + entry.price + "</td>";
-                    for (var i = 0; i < workersList.length; ++i) {
-                        var a = workersList[i];
-                        if (entry.idWorker == a[0]) {
-                            str += "<td>" + a[1] + " " + a[3] + "</td>";
-                        }
-                        if (entry.idWorkerTarget == a[0]) {
-                            str += "<td>" + a[1] + " " + a[3] + "</td>";
-                        }
-                    }
+                    str += "<td>" + getWorkersFullNameById(entry.idWorker) + "</td>";
+                    str += "<td>" + getWorkersFullNameById(entry.idWorkerTarget) + "</td>";
                     str += "<td>" + entry.сreationDate + "</td>";
                 });
                 str += "</tbody>";

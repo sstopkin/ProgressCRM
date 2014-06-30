@@ -68,15 +68,8 @@ function draw(array) {
         str += "<td>" + entry.sizeApartament + " / " + entry.sizeKitchen + " / " + entry.sizeLiving + "</td>";
         str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
         str += "<td>" + entry.price + "</td>";
-        for (var i = 0; i < workersList.length; ++i) {
-            var a = workersList[i];
-            if (entry.idWorker === a[0]) {
-                str += "<td>" + a[1] + " " + a[3] + "</td>";
-            }
-            if (entry.idWorkerTarget === a[0]) {
-                str += "<td>" + a[1] + " " + a[3] + "</td>";
-            }
-        }
+        str += "<td>" + getWorkersFullNameById(entry.idWorker) + "</td>";
+        str += "<td>" + getWorkersFullNameById(entry.idWorkerTarget) + "</td>";
         str += "<td>" + entry.сreationDate + "</td>";
         str += "<td>" + "<button type=\"button\" onclick=\"addCallDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-earphone\"></span></button>" + "</td>";
         str += "<td>" + "<button type=\"button\" onclick=\"addCommentDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-comment\"></span></button>" + "</td>";
