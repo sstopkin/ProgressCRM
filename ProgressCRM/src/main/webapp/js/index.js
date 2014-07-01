@@ -182,7 +182,7 @@ function deleteNewsById(newsId) {
         url: "api/news/deletenews",
         data: ({id: newsId}),
         success: function(data) {
-            location.href("#news");
+            location.reload();
         },
         error: function(data) {
             showDanger(data.responseText);

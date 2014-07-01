@@ -1,8 +1,10 @@
 package org.progress.crm.dao;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +22,48 @@ public class FileManagerDao {
         return result;
     }
 
+    public InputStream getFileInputStreamByPath(String path) throws Exception {
+        FileInputStream fileIs = new FileInputStream(Constants.SETTINGS.BASEPATH + "//" + path);
+        return fileIs;
+    }
+
+//      @GET
+//  @Path("/file")
+//  @Produces("image/png")
+//  public File getFile(){
+//    File samplePDF = new File("c:/temp/distributedmap.png");
+//    return samplePDF;
+//  }
+//
+//  @GET
+//  @Path("/fileis")
+//  @Produces("image/png")
+//  public InputStream getFileInputStream()throws Exception{
+//    FileInputStream fileIs = new FileInputStream("c:/temp/distributedmap.png");
+//    return fileIs;
+//  }
+//
+//  @GET
+//  @Path("/fileso")
+//  @Produces("image/png")
+//  public StreamingOutput getFileStreamingOutput() throws Exception{
+//
+//    return new StreamingOutput() {
+//
+//      @Override
+//      public void write(OutputStream outputStream) throws IOException,
+//          WebApplicationException {
+//        FileInputStream inputStream = new FileInputStream("c:/temp/distributedmap.png");
+//        int nextByte = 0;
+//        while((nextByte  = inputStream.read()) != -1 ){
+//          outputStream.write(nextByte);
+//        }
+//        outputStream.flush();
+//        outputStream.close();
+//        inputStream.close();
+//      }
+//    };
+//  }
     public boolean mkDir(String path) {
         return (new File(Constants.SETTINGS.BASEPATH + path)).mkdir();
     }
@@ -78,8 +122,10 @@ public class FileManagerDao {
         List result = new ArrayList();
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
-                String lastMfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(folder.lastModified()));
-                result.add(new CustomFile(file.getName(), file.getPath().replace(Constants.SETTINGS.BASEPATH, ""), lastMfDate, String.valueOf(file.length()), file.isFile()));
+                String lastMfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(folder.
+                        lastModified()));
+                result.add(new CustomFile(file.getName(), file.getPath().replace(Constants.SETTINGS.BASEPATH, ""),
+                        lastMfDate, String.valueOf(file.length()), file.isFile()));
             }
         }
         return result;

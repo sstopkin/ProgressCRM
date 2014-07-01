@@ -83,6 +83,7 @@ function addApartament() {
                     bootbox.confirm("Объект добавлен", function(result) {
                         //FIXME! /list/all
                         document.location.href = "#apartaments/list/price";
+                        location.reload();
                     });
                 },
                 error: function(data) {

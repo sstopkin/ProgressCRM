@@ -15,7 +15,7 @@
     "use strict";
 
     var options = {
-        events_source: 'bootstrap-calendar.azurewebsites.net',//srv
+        events_source: '/api/planner/all',//srv
         view: 'month',
         tmpl_path: 'js/lib/bootstrap-calendar/tmpls/',
         tmpl_cache: false,
