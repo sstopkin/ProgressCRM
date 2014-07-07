@@ -65,4 +65,15 @@ public class CallsController {
 //        DaoFactory.getCustomersDao().modifyCustomer(session, customers);
 //        return true;
 //    }
+
+    public boolean getCallsAddStats(Session session, String token) throws IsNotAuthenticatedException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authManager.getUserIdByToken(uuid);
+
+        DaoFactory.getCallsDao().getCallsAddStatsList(session);
+        return true;
+    }
 }

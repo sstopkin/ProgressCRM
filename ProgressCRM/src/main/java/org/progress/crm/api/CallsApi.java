@@ -65,4 +65,21 @@ public class CallsApi {
             }
         });
     }
+    
+    @GET
+    @Path("getcallsaddstats")
+    public Response getCallsAddStats(@CookieParam("token") final String token) throws SQLException, CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws SQLException {
+                try {
+                    boolean result = callsController.getCallsAddStats(session, token);
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(CallsApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
+            }
+        });
+    }
 }
