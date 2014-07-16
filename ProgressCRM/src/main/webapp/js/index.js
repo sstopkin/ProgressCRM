@@ -26,7 +26,7 @@ $(document).ready(function() {
         },
         error: function(data) {
             $("#loginForm").css("display", "block");
-            showDanger(data.responseText);
+//            showDanger(data.responseText);
         }
     });
     permissions = $.ajax({
