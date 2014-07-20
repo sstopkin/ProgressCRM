@@ -1,6 +1,9 @@
 package org.progress.crm.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -27,11 +30,49 @@ public class PlannerController {
         return DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
     }
 
-    public List<Planner> getTasks(Session session, String token) throws SQLException, CustomException {
+    public class event {
+
+        public int id;
+        public String title;
+        public String url;
+        public String Class;
+        public String start;
+        public String end;
+
+        public event(int id, String title, String url, String Class, String start, String end) {
+            this.id = id;
+            this.title = title;
+            this.url = url;
+            this.Class = Class;
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    public class succ {
+
+        public String success;
+        public List<event> result;
+
+        public succ() {
+            this.success = "1";
+            this.result = new ArrayList();
+        }
+
+        public void ret() {
+            this.result.add(new event(295, "2", "3", "event-success", "1364320800000", "1364407286400"));
+        }
+    }
+
+    public succ getTasks(Session session, String token) throws SQLException, CustomException {
         if (token == null) {
             throw new CustomException();
         }
-        return DaoFactory.getPlannerDao().getTasks(session);
+        succ s = new succ();
+        s.ret();
+//                .replace("\"Class\"", "\"class\"")
+        //DaoFactory.getPlannerDao().getTasks(session);
+        return s;
     }
 
     public boolean addTask(Session session, String token, String taskType,
