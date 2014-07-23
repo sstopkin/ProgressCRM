@@ -21,15 +21,6 @@ public class PlannerController {
     @EJB
     AuthenticationManager authenticationManager;
 
-    public List<Planner> getTasksByWorker(Session session, String token) throws SQLException, CustomException {
-        if (token == null) {
-            throw new CustomException();
-        }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authenticationManager.getUserIdByToken(uuid);
-        return DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
-    }
-
     public class event {
 
         public int id;
@@ -64,15 +55,29 @@ public class PlannerController {
         }
     }
 
-    public succ getTasks(Session session, String token) throws SQLException, CustomException {
+    public List<Planner> getTasks(Session session, String token) throws SQLException, CustomException {
         if (token == null) {
             throw new CustomException();
         }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authenticationManager.getUserIdByToken(uuid);
+        return DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
+    }
+
+    public succ getTasksByWorker(Session session, String token) throws SQLException, CustomException {
+        if (token == null) {
+            throw new CustomException();
+        }
+        UUID uuid = UUID.fromString(token);
+        int idWorker = authenticationManager.getUserIdByToken(uuid);
+        List tasks=DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
+                
         succ s = new succ();
         s.ret();
-//                .replace("\"Class\"", "\"class\"")
-        //DaoFactory.getPlannerDao().getTasks(session);
+//                
+        
         return s;
+
     }
 
     public boolean addTask(Session session, String token, String taskType,

@@ -17,26 +17,59 @@ public class Planner implements Serializable {
 
     private int id;
     private int idWorker;
-    private int taskType;
+    private String taskClass;
     private int taskId;
+    private String taskTitle;
     private String taskDescription;
     private Date creationDate;
-    private Date taskDate;
+    private Date taskStartDate;
+    private Date taskEndDate;
     private boolean deleted;
-
+    
     public Planner() {
     }
 
-    public Planner(int idWorker, int taskType, int taskId, String taskDescription, Date taskDate) {
+    public Planner(int idWorker, String taskClass, int taskId, String taskTitle, String taskDescription, Date taskStartDate, Date taskEndDate) {
         this.idWorker = idWorker;
-        this.taskType = taskType;
+        this.taskClass = taskClass;
         this.taskId = taskId;
         this.taskDescription = taskDescription;
         this.creationDate = new Date();
-        this.taskDate = taskDate;
+        this.taskStartDate = taskStartDate;
+        this.taskEndDate = taskEndDate;
         this.deleted = false;
+        this.taskTitle = taskTitle;
     }
 
+    @Column(name = "TaskTitle")
+    public String getTaskTitle() {
+        return taskTitle;
+    }
+
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
+    }
+
+    @Column(name = "StartDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getTaskStartDate() {
+        return taskStartDate;
+    }
+
+    public void setTaskStartDate(Date taskStartDate) {
+        this.taskStartDate = taskStartDate;
+    }
+
+    @Column(name = "EndDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getTaskEndDate() {
+        return taskEndDate;
+    }
+
+    public void setTaskEndDate(Date taskEndDate) {
+        this.taskEndDate = taskEndDate;
+    }
+    
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,13 +109,13 @@ public class Planner implements Serializable {
         this.creationDate = creationDate;
     }
 
-    @Column(name = "TaskType")
-    public int getTaskType() {
-        return taskType;
+    @Column(name = "TaskClass")
+    public String getTaskType() {
+        return taskClass;
     }
 
-    public void setTaskType(int taskType) {
-        this.taskType = taskType;
+    public void setTaskType(String taskType) {
+        this.taskClass = taskType;
     }
 
     @Column(name = "TaskId")
@@ -103,13 +136,4 @@ public class Planner implements Serializable {
         this.taskDescription = taskDescription;
     }
 
-    @Column(name = "TaskDate")
-    @Temporal(TemporalType.TIMESTAMP)
-    public Date getTaskDate() {
-        return taskDate;
-    }
-
-    public void setTaskDate(Date taskDate) {
-        this.taskDate = taskDate;
-    }
 }
