@@ -65,8 +65,8 @@ public class PlannerApi {
             public Response execute(Session session) throws SQLException {
                 try {
                     Gson tasksList = new GsonBuilder().create();
-                    String newsJson = tasksList.toJson(plannerController.getTasks(session, token));
-                    return ApiHelper.getResponse(newsJson);
+                    String newsJson = tasksList.toJson(plannerController.getTasksByWorker(session, token));
+                    return ApiHelper.getResponse(newsJson.replace("\"Class\"", "\"class\""));
                 } catch (CustomException ex) {
                     Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);
                     return ApiHelper.getResponse(ex);
