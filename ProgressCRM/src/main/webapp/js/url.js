@@ -47,7 +47,7 @@ function parseUrl(str) {
     }
     delete uri.source;
 //    ##################
-    var pathAbout = "about";
+    var pathPlanner = "planner";
     var pathCustomers = "customers";
     var pathHelpDesk = "helpdesk";
     var pathProfile = "profile";
@@ -71,8 +71,8 @@ function parseUrl(str) {
         return;
     }
 
-    if (arr[0] === pathAbout) {
-        getAboutPage();
+    if (arr[0] === pathPlanner) {
+        getPlannerPage();
         return;
     }
 
