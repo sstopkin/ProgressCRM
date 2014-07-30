@@ -70,25 +70,25 @@ public class PlannerController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        List tasks=DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
-                
+        List tasks = DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
+
         succ s = new succ();
         s.ret();
-//                
-        
+//
+
         return s;
 
     }
 
-    public boolean addTask(Session session, String token, String taskType,
-            String taskId, String taskDescription, String taskDate) throws CustomException, SQLException {
+    public boolean addTask(Session session, String token, String taskClass,
+            String taskId, String taskTitle, String taskDescription, String taskStartDate, String taskEndDate) throws CustomException, SQLException {
         if (token == null) {
             throw new CustomException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        DaoFactory.getPlannerDao().addTask(session, idWorker,
-                Integer.valueOf(taskType), Integer.valueOf(taskId), taskDescription, new Date());
+        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, Integer.valueOf(taskId), taskTitle, taskDescription, null,
+                null);
         return true;
     }
 
