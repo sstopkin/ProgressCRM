@@ -56,7 +56,7 @@ public class PlannerApi {
 //            }
 //        });
 //    }
-//    
+//
     @GET
     @Path("all")
     public Response getAllPlannerTasksByWorker(@CookieParam("token") final String token) throws SQLException, CustomException {
@@ -98,14 +98,18 @@ public class PlannerApi {
     public Response addPlannerTask(@CookieParam("token") final String token,
             @FormParam("tasktype") final String taskType,
             @FormParam("taskid") final String taskId,
-            @FormParam("description") final String description,
-            @FormParam("taskdate") final String taskDate)
+            @FormParam("taskclass") final String taskClass,
+            @FormParam("title") final String taskTitle,
+            @FormParam("description") final String taskDescription,
+            @FormParam("startdate") final String taskStartDate,
+            @FormParam("enddate") final String taskEndDate)
             throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = plannerController.addTask(session, token, taskType, taskId, description, taskDate);
+                    boolean result = plannerController.addTask(session, token, taskClass, taskId, taskTitle,
+                            taskDescription, taskStartDate, taskEndDate);
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);

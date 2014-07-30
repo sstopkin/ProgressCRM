@@ -25,7 +25,7 @@ public class Planner implements Serializable {
     private Date taskStartDate;
     private Date taskEndDate;
     private boolean deleted;
-    
+
     public Planner() {
     }
 
@@ -69,7 +69,7 @@ public class Planner implements Serializable {
     public void setTaskEndDate(Date taskEndDate) {
         this.taskEndDate = taskEndDate;
     }
-    
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -110,11 +110,11 @@ public class Planner implements Serializable {
     }
 
     @Column(name = "TaskClass")
-    public String getTaskType() {
+    public String getTaskClass() {
         return taskClass;
     }
 
-    public void setTaskType(String taskType) {
+    public void setTaskClass(String taskType) {
         this.taskClass = taskType;
     }
 
