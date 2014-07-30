@@ -4,15 +4,19 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
+import org.progress.crm.exceptions.BadLogInException;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
+import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Planner;
 
 @Singleton
@@ -23,14 +27,14 @@ public class PlannerController {
 
     public class event {
 
-        public int id;
+        public String id;
         public String title;
         public String url;
         public String Class;
         public String start;
         public String end;
 
-        public event(int id, String title, String url, String Class, String start, String end) {
+        public event(String id, String title, String url, String Class, String start, String end) {
             this.id = id;
             this.title = title;
             this.url = url;
@@ -50,8 +54,8 @@ public class PlannerController {
             this.result = new ArrayList();
         }
 
-        public void ret() {
-            this.result.add(new event(295, "2", "3", "event-success", "1364320800000", "1364407286400"));
+        public void ret(event e) {
+            this.result.add(e);
         }
     }
 
@@ -66,18 +70,25 @@ public class PlannerController {
 
     public succ getTasksByWorker(Session session, String token) throws SQLException, CustomException {
         if (token == null) {
-            throw new CustomException();
+            throw new IsNotAuthenticatedException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        List tasks = DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
-
+        List<Planner> tasks = DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
         succ s = new succ();
-        s.ret();
-//
 
+//        int id, String title, String url, String Class, String start, String end
+//        new event(295, "2", "3", "event-success", "1364320800000", "1364407286400")
+        Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("Asia/Omsk"));
+        for (Planner obj : tasks) {
+            c.setTime(obj.getTaskStartDate());
+            String startDate = String.valueOf(c.getTimeInMillis());
+            c.setTime(obj.getTaskEndDate());
+            String endDate = String.valueOf(c.getTimeInMillis());
+            s.ret(new event(String.valueOf(obj.getTaskId()), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "url", obj.getTaskClass(), startDate, endDate));
+        }
         return s;
-
     }
 
     public boolean addTask(Session session, String token, String taskClass,
