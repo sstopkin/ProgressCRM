@@ -5,15 +5,6 @@ function getPlannerPage() {
 }
 
 function addPlannerTaskDialog(objectUUID) {
-    var date = new Date();
-    var day = date.getDate();
-    day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    $('#plannerAddTaskModalDate').datepicker({
-        format: 'yyyy-mm-dd'
-    });
-    $('#plannerAddTaskModalDate').val(year + "-" + month + "-" + day);
 
     var some_html = "<label class=\"control-label\">ID объекта</label>";
     some_html += "<input id=\"apartamentsAddCallObjectId\" value=\"" + objectUUID + "\" type=\"text\" class=\"form-control\" disabled>";
@@ -22,7 +13,8 @@ function addPlannerTaskDialog(objectUUID) {
     some_html += "<label class=\"control-label\">Описание</label>";
     some_html += "<textarea id=\"plannerAddTaskModalDescription\" class=\"form-control\"></textarea>";
 
-    bootbox.dialog({
+    var box = bootbox.dialog({
+        show: false,
         title: "<h4 class=\"modal-title\">Добавить звонок</h4></div>",
         message: some_html,
         buttons: {
@@ -56,6 +48,20 @@ function addPlannerTaskDialog(objectUUID) {
             }
         }
     });
+
+    box.on("shown.bs.modal", function() {
+        var date = new Date();
+        var day = date.getDate();
+        day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        $('#plannerAddTaskModalDate').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+        $('#plannerAddTaskModalDate').val(year + "-" + month + "-" + day);
+    });
+
+    box.modal('show');
 }
 
 function plannerGetWorkersTasks() {
