@@ -12,11 +12,19 @@ function initSearchForm(type) {
             var year = date.getFullYear();
 //        $('#announcementsSearchStartDate').val(year + "-" + month + "-" + day);
             $('#mainSearchStartDate').datepicker({
-                format: 'yyyy-mm-dd'
+                format: "yyyy-mm-dd",
+                todayBtn: "linked",
+                language: "ru",
+                autoclose: true,
+                todayHighlight: true
             });
 //        $('#announcementsSearchEndDate').val(year + "-" + month + "-" + day);
             $('#mainSearchEndDate').datepicker({
-                format: 'yyyy-mm-dd'
+                format: "yyyy-mm-dd",
+                todayBtn: "linked",
+                language: "ru",
+                autoclose: true,
+                todayHighlight: true
             });
             $("#mainSearchAuthor").append('<option value="">Все</option>');
             workersList.forEach(function(entry) {
