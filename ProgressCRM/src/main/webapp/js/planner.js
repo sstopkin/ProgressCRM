@@ -56,11 +56,14 @@ function addPlannerTaskDialog(objectUUID) {
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
         $('#plannerAddTaskModalDate').datepicker({
-            format: 'yyyy-mm-dd'
+            format: "yyyy-mm-dd",
+            todayBtn: "linked",
+            language: "ru",
+            autoclose: true,
+            todayHighlight: true
         });
         $('#plannerAddTaskModalDate').val(year + "-" + month + "-" + day);
     });
-
     box.modal('show');
 }
 
