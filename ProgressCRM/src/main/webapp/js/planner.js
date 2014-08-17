@@ -7,9 +7,26 @@ function getPlannerPage() {
 function addPlannerTaskDialog(objectUUID) {
 
     var some_html = "<label class=\"control-label\">ID объекта</label>";
-    some_html += "<input id=\"apartamentsAddCallObjectId\" value=\"" + objectUUID + "\" type=\"text\" class=\"form-control\" disabled>";
-    some_html += "<label class=\"control-label\">Дата</label>";
-    some_html += "<input id=\"plannerAddTaskModalDate\" type=\"text\" class=\"form-control\">";
+    some_html += "<label class=\"control-label\">Тип задачи</label>";
+    some_html += "<input id=\"plannerAddTaskModalTaskType\" type=\"text\" class=\"form-control\">";
+    some_html += "<label class=\"control-label\">Класс задачи</label>";
+    some_html += '<select id="plannerAddTaskModalTaskClass" class="form-control">';
+    some_html += '<option>event-warning</option>';
+    some_html += '<option>event-success</option>';
+    some_html += '<option>event-info</option>';
+    some_html += '<option>event-special</option>';
+    some_html += '<option>event-inverse</option>';
+    some_html += '</select>';
+    some_html += "<label class=\"control-label\">Дата начало</label>";
+    some_html += '<input id="plannerAddTaskModalStratDate" type="text" class="form-control">';
+    some_html += '<div class="input-group bootstrap-timepicker">';
+    some_html += '<input id="timepicker1" type="text" class="input-small">';
+    some_html += '<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>';
+    some_html += '</div>';
+    some_html += "<label class=\"control-label\">Дата конец</label>";
+    some_html += "<input id=\"plannerAddTaskModalEndDate\" type=\"text\" class=\"form-control\">";
+    some_html += "<label class=\"control-label\">Заголовок</label>";
+    some_html += "<input id=\"plannerAddTaskModalTaskTitle\" type=\"text\" class=\"form-control\">";
     some_html += "<label class=\"control-label\">Описание</label>";
     some_html += "<textarea id=\"plannerAddTaskModalDescription\" class=\"form-control\"></textarea>";
 
@@ -26,9 +43,13 @@ function addPlannerTaskDialog(objectUUID) {
                         type: "POST",
                         url: "api/planner/addtask",
                         data: ({
-                            objectUUID: objectUUID,
-                            incomingPhoneNumber: $("#apartamentsAddCallIncomingPhoneNumber").val(),
-                            description: $('#apartamentsAddCallDescription').val()
+                            targetobjectuuid: "",
+                            tasktype: $('#plannerAddTaskModalTaskType').val(),
+                            taskclass: $('#plannerAddTaskModalTaskClass').val(),
+                            title: $('#plannerAddTaskModalTaskTitle').val(),
+                            description: $('#plannerAddTaskModalDescription').val(),
+                            startdate: $('#plannerAddTaskModalStratDate').val(),
+                            enddate: $('#plannerAddTaskModalEndDate').val()
                         }),
                         success: function() {
                             $("#errorBlock").css("display", "none");
@@ -55,14 +76,23 @@ function addPlannerTaskDialog(objectUUID) {
         day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
-        $('#plannerAddTaskModalDate').datepicker({
+        $('#plannerAddTaskModalStratDate').datepicker({
             format: "yyyy-mm-dd",
             todayBtn: "linked",
             language: "ru",
             autoclose: true,
             todayHighlight: true
         });
-        $('#plannerAddTaskModalDate').val(year + "-" + month + "-" + day);
+        $('#plannerAddTaskModalStratDate').val(year + "-" + month + "-" + day);
+        $('#plannerAddTaskModalEndDate').datepicker({
+            format: "yyyy-mm-dd",
+            todayBtn: "linked",
+            language: "ru",
+            autoclose: true,
+            todayHighlight: true
+        });
+        $('#plannerAddTaskModalEndDate').val(year + "-" + month + "-" + day);
+        $('#timepicker1').timepicker();
     });
     box.modal('show');
 }

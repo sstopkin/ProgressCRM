@@ -86,19 +86,19 @@ public class PlannerController {
             String startDate = String.valueOf(c.getTimeInMillis());
             c.setTime(obj.getTaskEndDate());
             String endDate = String.valueOf(c.getTimeInMillis());
-            s.ret(new event(String.valueOf(obj.getTaskId()), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "url", obj.getTaskClass(), startDate, endDate));
+            s.ret(new event(obj.getTargetOjectUUID(), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "url", obj.getTaskClass(), startDate, endDate));
         }
         return s;
     }
 
     public boolean addTask(Session session, String token, String taskClass,
-            String taskId, String taskTitle, String taskDescription, String taskStartDate, String taskEndDate) throws CustomException, SQLException {
+            String targetObjectUUID, String taskTitle, String taskDescription, String taskStartDate, String taskEndDate) throws CustomException, SQLException {
         if (token == null) {
             throw new CustomException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, Integer.valueOf(taskId), taskTitle, taskDescription, null,
+        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, targetObjectUUID, taskTitle, taskDescription, null,
                 null);
         return true;
     }
