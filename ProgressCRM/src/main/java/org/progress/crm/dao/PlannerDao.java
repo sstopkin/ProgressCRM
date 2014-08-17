@@ -27,9 +27,9 @@ public class PlannerDao {
     }
 
     public void addTask(final Session session, final int idWorker, final String taskClass,
-            final int taskId, final String taskTitle, final String taskDescription, final Date taskStartDate,
+            final String targetObjectUUID, final String taskTitle, final String taskDescription, final Date taskStartDate,
             final Date taskEndDate) throws SQLException {
-        session.save(new Planner(idWorker, taskClass, taskId, taskTitle, taskDescription, taskStartDate, taskEndDate));
+        session.save(new Planner(idWorker, taskClass, targetObjectUUID, taskTitle, taskDescription, taskStartDate, taskEndDate));
     }
 
     public Planner getTaskById(final Session session, final int taskId) throws SQLException {
@@ -37,12 +37,12 @@ public class PlannerDao {
     }
 
     public void editTaskById(final Session session, final int plannerId, final int idWorker, final String taskClass,
-            final int taskId, final String taskTitle, final String taskDescription, final Date taskStartDate,
+            final String targetObjectUUID, final String taskTitle, final String taskDescription, final Date taskStartDate,
             final Date taskEndDate) throws SQLException {
         Planner task = getTaskById(session, plannerId);
         task.setIdWorker(idWorker);
         task.setTaskClass(taskClass);
-        task.setTaskId(taskId);
+        task.setTargetOjectUUID(targetObjectUUID);
         task.setTaskTitle(taskTitle);
         task.setTaskDescription(taskDescription);
         task.setTaskStartDate(taskStartDate);

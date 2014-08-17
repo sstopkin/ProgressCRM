@@ -92,7 +92,7 @@ public class PlannerApi {
     @Path("addtask")
     public Response addPlannerTask(@CookieParam("token") final String token,
             @FormParam("tasktype") final String taskType,
-            @FormParam("taskid") final String taskId,
+            @FormParam("targetobjectuuid") final String targetobjectuuid,
             @FormParam("taskclass") final String taskClass,
             @FormParam("title") final String taskTitle,
             @FormParam("description") final String taskDescription,
@@ -103,7 +103,7 @@ public class PlannerApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = plannerController.addTask(session, token, taskClass, taskId, taskTitle,
+                    boolean result = plannerController.addTask(session, token, taskClass, targetobjectuuid, taskTitle,
                             taskDescription, taskStartDate, taskEndDate);
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
