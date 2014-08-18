@@ -34,8 +34,8 @@ public class PlannerController {
         public String start;
         public String end;
 
-        public event(String id, String title, String url, String Class, String start, String end) {
-            this.id = id;
+        public event(int id, String title, String url, String Class, String start, String end) {
+            this.id = String.valueOf(id);
             this.title = title;
             this.url = url;
             this.Class = Class;
@@ -86,7 +86,7 @@ public class PlannerController {
             String startDate = String.valueOf(c.getTimeInMillis());
             c.setTime(obj.getTaskEndDate());
             String endDate = String.valueOf(c.getTimeInMillis());
-            s.ret(new event(obj.getTargetOjectUUID(), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "url", obj.getTaskClass(), startDate, endDate));
+            s.ret(new event(obj.getId(), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "url", obj.getTaskClass(), startDate, endDate));
         }
         return s;
     }
