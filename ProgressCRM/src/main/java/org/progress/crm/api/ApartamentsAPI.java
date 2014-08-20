@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -104,13 +106,43 @@ public class ApartamentsAPI {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = apartamentsController.addApartament(session, token,
-                            typeOfSales, cityName, streetName, houseNumber, buildingNumber,
-                            kladrId, shortAddress, apartamentLan, apartamentLon, rooms, dwellingType,
-                            price, cityDistrict, floor, floors, roomNumber,
-                            material, sizeApartament, sizeLiving, sizeKitchen,
-                            balcony, loggia, yearOfConstruction, description,
-                            pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
+
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("typeOfSales", typeOfSales);
+                    map.put("cityName", cityName);
+                    map.put("streetName", streetName);
+                    map.put("houseNumber", houseNumber);
+                    map.put("buildingNumber", buildingNumber);
+                    map.put("kladrId", kladrId);
+                    map.put("shortAddress", shortAddress);
+                    map.put("apartamentLan", apartamentLan);
+                    map.put("apartamentLon", apartamentLon);
+                    map.put("rooms", rooms);
+                    map.put("dwellingType", dwellingType);
+                    map.put("price", price);
+                    map.put("cityDistrict", cityDistrict);
+                    map.put("floor", floor);
+                    map.put("floors", floors);
+                    map.put("roomNumber", roomNumber);
+                    map.put("material", material);
+                    map.put("sizeApartament", sizeApartament);
+                    map.put("sizeLiving", sizeLiving);
+                    map.put("sizeKitchen", sizeKitchen);
+                    map.put("balcony", balcony);
+                    map.put("loggia", loggia);
+                    map.put("yearOfConstruction", yearOfConstruction);
+                    map.put("description", description);
+                    map.put("pureSale", pureSale);
+                    map.put("mortgage", mortgage);
+                    map.put("exchange", exchange);
+                    map.put("rent", rent);
+                    map.put("rePlanning", rePlanning);
+                    map.put("idWorkerTarget", idWorkerTarget);
+                    map.put("idCustomer", idCustomer);
+                    map.put("status", status);
+
+                    boolean result = apartamentsController.addApartament(session, token, map);
+
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);

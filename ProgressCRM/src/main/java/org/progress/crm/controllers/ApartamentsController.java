@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -13,6 +14,7 @@ import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Apartaments;
+import org.progress.crm.util.ParamUtil;
 
 @Singleton
 public class ApartamentsController {
@@ -30,45 +32,51 @@ public class ApartamentsController {
         return DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentId));
     }
 
-    public boolean addApartament(Session session, String token, String typeOfSales,
-            String cityName, String streetName, String houseNumber, String buildingNumber, String kladrId,
-            String shortAddress, String apartamentLan, String apartamentLon, String rooms, String dwellingType,
-            String price, String cityDistrict, String floor, String floors, String roomNumber,
-            String material, String sizeApartament, String sizeLiving, String sizeKitchen,
-            String balcony, String loggia, String yearOfConstruction, String description,
-            String pureSale, String mortgage, String exchange, String rent,
-            String rePplanning, String idWorkerTarget, String idCustomer, String status) throws CustomException, SQLException {
+    public boolean addApartament(Session session, String token, Map<String, String> map) throws CustomException, SQLException {
+        int typeOfSales = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "typeOfSales");
+        String cityName = map.get("cityName");
+        String streetName = map.get("streetName");
+        String houseNumber = map.get("houseNumber");
+        String buildingNumber = map.get("buildingNumber");
+        String kladrId = map.get("kladrId");
+        String shortAddress = map.get("shortAddress");
+        String apartamentLan = map.get("apartamentLan");
+        String apartamentLon = map.get("apartamentLon");
+        int rooms = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "rooms");
+        int dwellingType = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "dwellingType");
+        int price = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "price");
+        int cityDistrict = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "cityDistrict");
+        int floor = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "floor");
+        int floors = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "floors");
+        int roomNumber = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "roomNumber");
+        int material = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "material");
+        BigDecimal sizeApartament = ParamUtil.getBigDecimalOfNotEmptyParamOrZero(map, "sizeApartament");
+        BigDecimal sizeLiving = ParamUtil.getBigDecimalOfNotEmptyParamOrZero(map, "sizeLiving");
+        BigDecimal sizeKitchen = ParamUtil.getBigDecimalOfNotEmptyParamOrZero(map, "sizeKitchen");
+        int balcony = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "balcony");
+        int loggia = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "loggia");
+        int yearOfConstruction = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "yearOfConstruction");
+        String description = map.get("description");
+        Boolean pureSale = ParamUtil.getNotEmptyBoolean(map, "pureSale");
+        Boolean mortgage = ParamUtil.getNotEmptyBoolean(map, "mortgage");
+        Boolean exchange = ParamUtil.getNotEmptyBoolean(map, "exchange");
+        Boolean rent = ParamUtil.getNotEmptyBoolean(map, "rent");
+        Boolean rePplanning = ParamUtil.getNotEmptyBoolean(map, "rePlanning");
+        int idWorkerTarget = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "idWorkerTarget");
+        int idCustomer = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "idCustomer");
+        int status = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, "status");
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
 
-        int typeOfSalesInt = typeOfSales.equals("") ? 0 : Integer.valueOf(typeOfSales);
-        int roomsInt = rooms.equals("") ? 0 : Integer.valueOf(rooms);
-        int dwellingTypeInt = dwellingType.equals("0") ? 0 : Integer.valueOf(dwellingType);
-        int priceInt = price.equals("") ? 0 : Integer.valueOf(price);
-        int cityDistrictInt = cityDistrict.equals("0") ? 0 : Integer.valueOf(cityDistrict);
-        int floorInt = floor.equals("") ? 0 : Integer.valueOf(floor);
-        int floorsInt = floors.equals("") ? 0 : Integer.valueOf(floors);
-        int roomNumberInt = roomNumber.equals("") ? 0 : Integer.valueOf(roomNumber);
-        int materialInt = material.equals("0") ? 0 : Integer.valueOf(material);
-        int balconyInt = balcony.equals("0") ? 0 : Integer.valueOf(balcony);
-        int loggiaInt = loggia.equals("0") ? 0 : Integer.valueOf(loggia);
-        int statusInt = status.equals("") ? 0 : Integer.valueOf(status);
-        int yearOfConstructionInt = yearOfConstruction.equals("") ? 0 : Integer.valueOf(yearOfConstruction);
-        BigDecimal sizeApartamentBig = sizeApartament.equals("") ? BigDecimal.ZERO : new BigDecimal(sizeApartament);
-        BigDecimal sizeLivingBig = sizeLiving.equals("") ? BigDecimal.ZERO : new BigDecimal(sizeLiving);
-        BigDecimal sizeKitchenBig = sizeKitchen.equals("") ? BigDecimal.ZERO : new BigDecimal(sizeKitchen);
-
-        DaoFactory.getApartamentsDao().addApartament(session, typeOfSalesInt,
+        DaoFactory.getApartamentsDao().addApartament(session, typeOfSales,
                 cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress,
-                apartamentLan, apartamentLon, roomsInt, dwellingTypeInt, priceInt, cityDistrictInt, floorInt,
-                floorsInt, roomNumberInt, materialInt, sizeApartamentBig, sizeLivingBig, sizeKitchenBig, balconyInt,
-                loggiaInt, yearOfConstructionInt, description,
-                Boolean.parseBoolean(pureSale), Boolean.parseBoolean(mortgage),
-                Boolean.parseBoolean(exchange), Boolean.parseBoolean(rent),
-                Boolean.parseBoolean(rePplanning), idWorker, Integer.valueOf(idWorkerTarget), Integer.valueOf(idCustomer), statusInt, false);
+                apartamentLan, apartamentLon, rooms, dwellingType, price, cityDistrict, floor,
+                floors, roomNumber, material, sizeApartament, sizeLiving, sizeKitchen, balcony,
+                loggia, yearOfConstruction, description,
+                pureSale, mortgage, exchange, rent, rePplanning, idWorker, idWorkerTarget, idCustomer, status, false);
         return true;
     }
 
