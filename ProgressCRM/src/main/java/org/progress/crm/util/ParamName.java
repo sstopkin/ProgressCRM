@@ -36,4 +36,6 @@ public class ParamName {
     public final static String ID_CUSTOMER = "idCustomer";
     public final static String STATUS = "status";
 
+    public final static String USER_ID = "userId";
+
 }

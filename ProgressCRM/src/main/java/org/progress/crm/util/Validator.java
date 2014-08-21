@@ -1,6 +1,7 @@
 package org.progress.crm.util;
 
 import java.util.regex.Pattern;
+import org.progress.crm.exceptions.ActionException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.ValidationException;
 
@@ -70,13 +71,13 @@ public class Validator {
 
     public static void validateLength(String paramName, String value) throws CustomException {
         if (value != null && value.length() > 255) {
-            throw new ValidationException("VALUE_TOO_LONG", paramName);
+            throw new ValidationException(ActionException.VALUE_TOO_LONG, paramName);
         }
     }
 
     public static void validateLength(String paramName, String value, int maxLength) throws CustomException {
         if (value != null && value.length() > maxLength) {
-            throw new ValidationException("VALUE_TOO_LONG", paramName);
+            throw new ValidationException(ActionException.VALUE_TOO_LONG, paramName);
         }
     }
 
@@ -101,10 +102,10 @@ public class Validator {
         try {
             colorValue = Integer.parseInt(color, 16);
             if (colorValue < 0x000000 || colorValue > 0xFFFFFF) {
-                throw new ValidationException("INVALID_RGB_COLOR", "");
+                throw new ValidationException(ActionException.INVALID_RGB_COLOR, color);
             }
         } catch (NumberFormatException ex) {
-            throw new ValidationException("INVALID_RGB_COLOR", "");
+            throw new ValidationException(ActionException.INVALID_RGB_COLOR, color);
         }
     }
 

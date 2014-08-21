@@ -3,12 +3,13 @@ package org.progress.crm.controllers;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
-import org.progress.crm.api.ApiHelper;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
@@ -17,6 +18,8 @@ import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.exceptions.PermissionsDeniedException;
 import org.progress.crm.logic.Permissions;
 import org.progress.crm.logic.Workers;
+import org.progress.crm.util.ParamName;
+import org.progress.crm.util.ParamUtil;
 import org.progress.crm.util.SHA1;
 
 @Singleton
@@ -116,14 +119,14 @@ public class WorkersController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        if (id == null) {
-            throw new BadRequestException();
-        }
         if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
             throw new PermissionsDeniedException();
         }
 
-        int userId = ApiHelper.parseInt(id);
+        Map<String, String> map = new HashMap<>();
+        map.put(ParamName.USER_ID, id);
+        int userId = ParamUtil.getNotEmptyInt(map, ParamName.USER_ID);
+
         Workers pr = DaoFactory.getWorkersDao().getWorkerById(session, userId);
         pr.setIsActive(flag);
         updateWorker(session, pr);
