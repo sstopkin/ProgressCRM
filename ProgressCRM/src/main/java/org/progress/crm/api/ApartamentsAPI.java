@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import org.progress.crm.controllers.ApartamentsController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
+import org.progress.crm.util.ParamName;
 import org.progress.crm.util.TransactionService;
 
 @Stateless
@@ -107,39 +108,39 @@ public class ApartamentsAPI {
             public Response execute(Session session) throws SQLException {
                 try {
 
-                    Map<String, String> map = new HashMap<String, String>();
-                    map.put("typeOfSales", typeOfSales);
-                    map.put("cityName", cityName);
-                    map.put("streetName", streetName);
-                    map.put("houseNumber", houseNumber);
-                    map.put("buildingNumber", buildingNumber);
-                    map.put("kladrId", kladrId);
-                    map.put("shortAddress", shortAddress);
-                    map.put("apartamentLan", apartamentLan);
-                    map.put("apartamentLon", apartamentLon);
-                    map.put("rooms", rooms);
-                    map.put("dwellingType", dwellingType);
-                    map.put("price", price);
-                    map.put("cityDistrict", cityDistrict);
-                    map.put("floor", floor);
-                    map.put("floors", floors);
-                    map.put("roomNumber", roomNumber);
-                    map.put("material", material);
-                    map.put("sizeApartament", sizeApartament);
-                    map.put("sizeLiving", sizeLiving);
-                    map.put("sizeKitchen", sizeKitchen);
-                    map.put("balcony", balcony);
-                    map.put("loggia", loggia);
-                    map.put("yearOfConstruction", yearOfConstruction);
-                    map.put("description", description);
-                    map.put("pureSale", pureSale);
-                    map.put("mortgage", mortgage);
-                    map.put("exchange", exchange);
-                    map.put("rent", rent);
-                    map.put("rePlanning", rePlanning);
-                    map.put("idWorkerTarget", idWorkerTarget);
-                    map.put("idCustomer", idCustomer);
-                    map.put("status", status);
+                    Map<String, String> map = new HashMap<>();
+                    map.put(ParamName.TYPE_OF_SALES, typeOfSales);
+                    map.put(ParamName.CITY_NAME, cityName);
+                    map.put(ParamName.STREET_NAME, streetName);
+                    map.put(ParamName.HOUSE_NUMBER, houseNumber);
+                    map.put(ParamName.BUILDING_NUMBER, buildingNumber);
+                    map.put(ParamName.KLADR_ID, kladrId);
+                    map.put(ParamName.SHORT_ADDRESS, shortAddress);
+                    map.put(ParamName.APARTAMENT_LAN, apartamentLan);
+                    map.put(ParamName.APARTAMENT_LON, apartamentLon);
+                    map.put(ParamName.ROOMS, rooms);
+                    map.put(ParamName.DWELLING_TYPE, dwellingType);
+                    map.put(ParamName.PRICE, price);
+                    map.put(ParamName.CITY_DISTRICT, cityDistrict);
+                    map.put(ParamName.FLOOR, floor);
+                    map.put(ParamName.FLOORS, floors);
+                    map.put(ParamName.ROOM_NUMBER, roomNumber);
+                    map.put(ParamName.MATERIAL, material);
+                    map.put(ParamName.SIZE_APARTAMENT, sizeApartament);
+                    map.put(ParamName.SIZE_LIVING, sizeLiving);
+                    map.put(ParamName.SIZE_KITCHEN, sizeKitchen);
+                    map.put(ParamName.BALCONY, balcony);
+                    map.put(ParamName.LOGGIA, loggia);
+                    map.put(ParamName.YEAR_OF_CONSTRUCTION, yearOfConstruction);
+                    map.put(ParamName.DESCRIPTION, description);
+                    map.put(ParamName.PURE_SALE, pureSale);
+                    map.put(ParamName.MORTGAGE, mortgage);
+                    map.put(ParamName.EXCHANGE, exchange);
+                    map.put(ParamName.RENT, rent);
+                    map.put(ParamName.RE_PLANNING, rePlanning);
+                    map.put(ParamName.ID_WORKER_TARGET, idWorkerTarget);
+                    map.put(ParamName.ID_CUSTOMER, idCustomer);
+                    map.put(ParamName.STATUS, status);
 
                     boolean result = apartamentsController.addApartament(session, token, map);
 
@@ -184,11 +185,43 @@ public class ApartamentsAPI {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = apartamentsController.editApartament(session, token, id,
-                            typeOfSales, rooms, dwellingType, price, cityDistrict, floor, floors, roomNumber,
-                            material, sizeApartament, sizeLiving, sizeKitchen,
-                            balcony, loggia, yearOfConstruction, description,
-                            pureSale, mortgage, exchange, rent, rePlanning, idWorkerTarget, idCustomer, status);
+
+                    Map<String, String> map = new HashMap<>();
+                    map.put(ParamName.TYPE_OF_SALES, typeOfSales);
+//                    map.put(ParamName.CITY_NAME, cityName);
+//                    map.put(ParamName.STREET_NAME, streetName);
+//                    map.put(ParamName.HOUSE_NUMBER, houseNumber);
+//                    map.put(ParamName.BUILDING_NUMBER, buildingNumber);
+//                    map.put(ParamName.KLADR_ID, kladrId);
+//                    map.put(ParamName.SHORT_ADDRESS, shortAddress);
+//                    map.put(ParamName.APARTAMENT_LAN, apartamentLan);
+//                    map.put(ParamName.APARTAMENT_LON, apartamentLon);
+                    map.put(ParamName.ROOMS, rooms);
+                    map.put(ParamName.DWELLING_TYPE, dwellingType);
+                    map.put(ParamName.PRICE, price);
+                    map.put(ParamName.CITY_DISTRICT, cityDistrict);
+                    map.put(ParamName.FLOOR, floor);
+                    map.put(ParamName.FLOORS, floors);
+                    map.put(ParamName.ROOM_NUMBER, roomNumber);
+                    map.put(ParamName.MATERIAL, material);
+                    map.put(ParamName.SIZE_APARTAMENT, sizeApartament);
+                    map.put(ParamName.SIZE_LIVING, sizeLiving);
+                    map.put(ParamName.SIZE_KITCHEN, sizeKitchen);
+                    map.put(ParamName.BALCONY, balcony);
+                    map.put(ParamName.LOGGIA, loggia);
+                    map.put(ParamName.YEAR_OF_CONSTRUCTION, yearOfConstruction);
+                    map.put(ParamName.DESCRIPTION, description);
+                    map.put(ParamName.PURE_SALE, pureSale);
+                    map.put(ParamName.MORTGAGE, mortgage);
+                    map.put(ParamName.EXCHANGE, exchange);
+                    map.put(ParamName.RENT, rent);
+                    map.put(ParamName.RE_PLANNING, rePlanning);
+                    map.put(ParamName.ID_WORKER_TARGET, idWorkerTarget);
+                    map.put(ParamName.ID_CUSTOMER, idCustomer);
+                    map.put(ParamName.STATUS, status);
+                    map.put(ParamName.APARTAMENTS_ID, id);
+
+                    boolean result = apartamentsController.editApartament(session, token, map);
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
