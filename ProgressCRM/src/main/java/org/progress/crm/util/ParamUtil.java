@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
+import org.progress.crm.exceptions.ActionException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.ValidationException;
 
@@ -18,7 +19,7 @@ public class ParamUtil {
         try {
             value = new BigDecimal(param);
         } catch (NumberFormatException e) {
-            throw new ValidationException("INCORRECT_DATA_TYPE", name);
+            throw new ValidationException(ActionException.INCORRECT_DATA_TYPE, name);
         }
         return value;
     }
@@ -40,7 +41,7 @@ public class ParamUtil {
         String value = getNotNull(request, name);
 
         if (value.length() == 0) {
-            throw new ValidationException("PARAM_MUST_NOT_BE_EMPTY", name);
+            throw new ValidationException(ActionException.PARAM_MUST_NOT_BE_EMPTY, name);
         }
         return value;
     }
@@ -61,7 +62,7 @@ public class ParamUtil {
         String value = parameters.get(name);
 
         if (value == null) {
-            throw new ValidationException("PARAM_MUST_NOT_BE_NULL", name);
+            throw new ValidationException(ActionException.PARAM_MUST_NOT_BE_NULL, name);
         }
         return value;
     }
@@ -76,7 +77,7 @@ public class ParamUtil {
             if (value.equalsIgnoreCase(Boolean.FALSE.toString())) {
                 result = false;
             } else {
-                throw new ValidationException("INCORRECT_DATA_TYPE", "");
+                throw new ValidationException(ActionException.INCORRECT_DATA_TYPE, "");
             }
         }
 
@@ -91,7 +92,7 @@ public class ParamUtil {
             try {
                 return parseBoolean(value);
             } catch (Exception e) {
-                throw new ValidationException("PARAM_ERROR", paramName + " " + e.getMessage());
+                throw new ValidationException(ActionException.PARAM_ERROR, paramName + " " + e.getMessage());
             }
         }
 
@@ -121,7 +122,7 @@ public class ParamUtil {
         try {
             result = parseBoolean(value);
         } catch (Exception e) {
-            throw new ValidationException("PARAM_ERROR", paramName, e.getMessage());
+            throw new ValidationException(ActionException.PARAM_ERROR, paramName, e.getMessage());
         }
 
         return result;
@@ -136,7 +137,7 @@ public class ParamUtil {
         try {
             result = Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            throw new ValidationException("INCORRECT_DATA_TYPE", name);
+            throw new ValidationException(ActionException.INCORRECT_DATA_TYPE, name);
         }
 
         return result;
@@ -149,7 +150,7 @@ public class ParamUtil {
         int result;
         result = getNotEmptyInt(request, name);
         if (result < 0) {
-            throw new ValidationException("INCORRECT_DATA_TYPE", name);
+            throw new ValidationException(ActionException.INCORRECT_DATA_TYPE, name);
         }
 
         return result;
@@ -162,9 +163,9 @@ public class ParamUtil {
         String value = request.get(name);
 
         if (value == null) {
-            throw new ValidationException("PARAM_MUST_NOT_BE_NULL", name);
+            throw new ValidationException(ActionException.PARAM_MUST_NOT_BE_NULL, name);
         }
-        if(value.equals("")){
+        if (value.equals("")) {
             return 0;
         }
         return getNotNegativeInt(request, name);
@@ -193,7 +194,7 @@ public class ParamUtil {
         Integer result = getInt(parameters, name);
 
         if ((result != null) && ((result < firstValue) || (result > lastValue))) {
-            throw new ValidationException("INVALID_INTEGER_VALUE", name, Integer.toString(firstValue), Integer.toString(lastValue));
+            throw new ValidationException(ActionException.INVALID_INTEGER_VALUE, name, Integer.toString(firstValue), Integer.toString(lastValue));
         }
 
         return result;
@@ -212,8 +213,7 @@ public class ParamUtil {
 
         Integer result = getIntInRange(parameters, name, firstValue, lastValue);
         if (result == null) {
-            throw new ValidationException(
-                    "INVALID_INTEGER_VALUE", name, Integer.toString(firstValue), Integer.toString(lastValue)
+            throw new ValidationException(ActionException.INVALID_INTEGER_VALUE, name, Integer.toString(firstValue), Integer.toString(lastValue)
             );
         }
         return result;
@@ -229,7 +229,7 @@ public class ParamUtil {
             try {
                 result = Long.decode(value);
             } catch (NumberFormatException e) {
-                throw new ValidationException("INCORRECT_DATA_TYPE", name);
+                throw new ValidationException(ActionException.INCORRECT_DATA_TYPE, name);
             }
         }
 
@@ -242,8 +242,7 @@ public class ParamUtil {
         Long result = getLong(parameters, name);
 
         if ((result != null) && ((result < firstValue) || (result > lastValue))) {
-            throw new ValidationException(
-                    "INVALID_LONG_VALUE", name, Long.toString(firstValue), Long.toString(lastValue)
+            throw new ValidationException(ActionException.INVALID_LONG_VALUE, name, Long.toString(firstValue), Long.toString(lastValue)
             );
         }
 
@@ -286,7 +285,7 @@ public class ParamUtil {
             try {
                 result = Double.parseDouble(value);
             } catch (NumberFormatException e) {
-                throw new ValidationException("INCORRECT_DATA_TYPE", name);
+                throw new ValidationException(ActionException.INCORRECT_DATA_TYPE, name);
             }
         }
 
