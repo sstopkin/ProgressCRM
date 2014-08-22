@@ -14,7 +14,7 @@ public class ReportGeneratorDao {
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
         String reportAuthorWorkerName = worker.getlName() + " " + worker.getfName() + " " + worker.getmName();
         List<Object> reportContent = session.createSQLQuery("SELECT "
-                + "Apartaments.id, CityName,StreetName,HouseNumber,BuildingNumber, Floor, Floors, SizeApartament,SizeLiving,SizeKitchen, YearOfConstruction, "
+                + "Apartaments.id, price, CityName,StreetName,HouseNumber,BuildingNumber, Floor, Floors, SizeApartament,SizeLiving,SizeKitchen, YearOfConstruction, "
                 + "FName, MName, Lname, "
                 + "customersFName,customersLName,customersMName, customersPhone "
                 + "FROM progresscrm.Apartaments "
