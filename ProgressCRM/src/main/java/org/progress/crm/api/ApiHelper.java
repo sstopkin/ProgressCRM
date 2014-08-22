@@ -2,8 +2,6 @@ package org.progress.crm.api;
 
 import java.io.File;
 import javax.ws.rs.core.Response;
-import org.progress.crm.exceptions.BadRequestException;
-import org.progress.crm.exceptions.CustomException;
 
 public class ApiHelper {
 
