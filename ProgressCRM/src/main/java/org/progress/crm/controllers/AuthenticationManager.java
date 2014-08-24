@@ -41,7 +41,9 @@ public class AuthenticationManager {
     }
 
     public int getUserIdByToken(UUID token) {
-        return (int) tokens.get(token);
+        int userId;
+        userId = (int) tokens.get(token);
+        return userId;
     }
 
     public UUID getUserTokenById(int id) {

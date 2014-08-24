@@ -11,6 +11,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import org.progress.crm.controllers.ReportGeneratorController;
@@ -28,12 +29,12 @@ public class ReportGeneratorAPI {
     @GET
     @Path("getprice")
     @Produces("application/pdf")
-    public Response getPrice(@CookieParam("token") final String token) throws CustomException {
+    public Response getPrice(@CookieParam("token") final String token, @QueryParam("status") final String status) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    File f = reportGeneratorController.getPrice(session, token);
+                    File f = reportGeneratorController.getPrice(session, token, status);
                     return ApiHelper.getResponse(f);
                 } catch (CustomException ex) {
                     Logger.getLogger(ReportGeneratorAPI.class.getName()).log(Level.SEVERE, null, ex);

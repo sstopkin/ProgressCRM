@@ -21,7 +21,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.List;
 import org.progress.crm.logic.Apartaments;
 
@@ -106,51 +105,53 @@ public class PDF {
             throws BadElementException, DocumentException, IOException {
         PdfPTable table = new PdfPTable(9);
 
-//        table.setBorderColor(BaseColor.GRAY);
-//        table.setPadding(4);
-//        table.setSpacing(4);
-//        table.setBorderWidth(1);
-        PdfPCell c1 = new PdfPCell(new Phrase("id", new Font(tahoma, 14)));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c1.setBorderColor(BaseColor.GRAY);
-        table.addCell(c1);
-        
-        c1 = new PdfPCell(new Phrase("price", new Font(tahoma, 14)));
+        table.setWidthPercentage(100);
+        table.setSpacingBefore(10f);
+        table.setSpacingAfter(10f);
+        float[] columnWidths = {1f, 3f, 5f, 2f, 4f, 1f, 5f, 5f, 4f};
+        table.setWidths(columnWidths);
+
+        PdfPCell c1 = new PdfPCell(new Phrase("ID", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("address", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Цена", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Floor", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Адрес", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("SizeApartament", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Этаж", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("YearOfConstruction", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Площадь", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("workers", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Комнат", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("customers", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Добавил", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("customersPhone", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Клиент", new Font(tahoma, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c1.setBorderColor(BaseColor.GRAY);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Телефон клиента", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
@@ -172,35 +173,34 @@ public class PDF {
             //price 1
             table.addCell(new Phrase(objects[1].toString(), new Font(tahoma, 14)));
             //address 2-5
-            StringBuilder address=new StringBuilder();
+            StringBuilder address = new StringBuilder();
             address.append(objects[2]).append(" ").append(objects[3]).append(" ").append(objects[4]).append(" ").append(objects[5]);
             table.addCell(new Phrase(address.toString(), new Font(tahoma, 14)));
             //floor/floors 6-7
-            StringBuilder floorInfo=new StringBuilder();
+            StringBuilder floorInfo = new StringBuilder();
             floorInfo.append(objects[6].toString()).append(" / ").append(objects[7].toString());
             table.addCell(new Phrase(floorInfo.toString(), new Font(tahoma, 14)));
             //size aparts living kitchen 8-10
-            StringBuilder apartsSize=new StringBuilder();
+            StringBuilder apartsSize = new StringBuilder();
             apartsSize.append(objects[8]).append(" / ").append(objects[9]).append(" / ").append(objects[10]);
             table.addCell(new Phrase(apartsSize.toString(), new Font(tahoma, 14)));
-            //yearOfConstruction 11
+            //rooms 11
             table.addCell(new Phrase(objects[11].toString(), new Font(tahoma, 14)));
             //worker 12-14
-            StringBuilder worker=new StringBuilder();
+            StringBuilder worker = new StringBuilder();
             worker.append(objects[12]).append(" ").append(objects[13]).append(" ").append(objects[14]);
             table.addCell(new Phrase(worker.toString(), new Font(tahoma, 14)));
             //customer 15-17
-            StringBuilder customer=new StringBuilder();
+            StringBuilder customer = new StringBuilder();
             customer.append(objects[15]).append(" ").append(objects[16]).append(" ").append(objects[17]);
             table.addCell(new Phrase(customer.toString(), new Font(tahoma, 14)));
             //customerPhone 18
             table.addCell(new Phrase(objects[18].toString(), new Font(tahoma, 14)));
         }
 
-        Paragraph p = new Paragraph("asdasdasdтекст текст текст", new Font(tahoma, 14));
-
+//        Paragraph p = new Paragraph("asdasdasdтекст текст текст", new Font(tahoma, 14));
         subCatPart.add(table);
-        subCatPart.add(p);
+//        subCatPart.add(p);
     }
 
     private static Document prepareGen() throws FileNotFoundException, IOException, DocumentException {
