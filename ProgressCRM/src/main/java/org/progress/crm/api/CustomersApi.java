@@ -92,7 +92,8 @@ public class CustomersApi {
             public Response execute(Session session) throws SQLException {
                 try {
                     Gson apartamentById = new GsonBuilder().create();
-                    String result = apartamentById.toJson(customersController.getCustomerObjectsById(session, token, id));
+                    String result = apartamentById.
+                            toJson(customersController.getCustomerObjectsById(session, token, id));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -127,9 +128,7 @@ public class CustomersApi {
             @FormParam("customersFname") final String customersFname,
             @FormParam("customersMname") final String customersMname,
             @FormParam("customersLname") final String customersLname,
-            @FormParam("customersYearOfBirthday") final String customersYearOfBirthday,
-            @FormParam("customersMonthOfBirthday") final String customersMonthOfBirthday,
-            @FormParam("customersDayOfBirthday") final String customersDayOfBirthday,
+            @FormParam("customersDateOfBirthday") final String customersDateOfBirthday,
             @FormParam("customersSex") final String customersSex,
             @FormParam("customersEmail") final String customersEmail,
             @FormParam("customersPhone") final String customersPhone,
@@ -145,9 +144,7 @@ public class CustomersApi {
                             customersFname,
                             customersLname,
                             customersMname,
-                            customersMonthOfBirthday,
-                            customersDayOfBirthday,
-                            customersYearOfBirthday,
+                            customersDateOfBirthday,
                             customersSex,
                             customersPhone,
                             customersEmail,
@@ -229,7 +226,8 @@ public class CustomersApi {
             public Response execute(Session session) throws SQLException {
                 try {
                     Gson apartamentById = new GsonBuilder().create();
-                    String result = apartamentById.toJson(customersController.getCustomersListByQuery(session, token, query));
+                    String result = apartamentById.toJson(customersController.getCustomersListByQuery(session, token,
+                            query));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);

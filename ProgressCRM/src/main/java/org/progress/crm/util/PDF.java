@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.progress.crm.logic.Apartaments;
 
 public class PDF {
@@ -38,7 +40,7 @@ public class PDF {
 //            addContent(document);
             return finalyGen(document);
         } catch (DocumentException | IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -46,7 +48,8 @@ public class PDF {
     public static File GenerateApartamentsPage(Apartaments apart, String workerName) {
         try {
             Document document = prepareGen();
-            addMetaData(document, "Карточка объекта " + new Date(), "Карточка объекта", "Карточка объекта", workerName, "ProgressCRM");
+            addMetaData(document, "Карточка объекта " + new Date(), "Карточка объекта", "Карточка объекта", workerName,
+                    "ProgressCRM");
 
             Paragraph subPara = new Paragraph();
             Chapter mainChapter = new Chapter(subPara, 1);
@@ -103,20 +106,25 @@ public class PDF {
 
     private static void createTable(Section subCatPart, List aparts)
             throws BadElementException, DocumentException, IOException {
-        PdfPTable table = new PdfPTable(9);
+        PdfPTable table = new PdfPTable(10);
 
         table.setWidthPercentage(100);
         table.setSpacingBefore(10f);
         table.setSpacingAfter(10f);
-        float[] columnWidths = {1f, 3f, 5f, 2f, 4f, 1f, 5f, 5f, 4f};
+        float[] columnWidths = {1f, 1f, 1f, 2f, 4f, 1f, 5f, 5f, 1f, 4f};
         table.setWidths(columnWidths);
 
-        PdfPCell c1 = new PdfPCell(new Phrase("ID", new Font(tahoma, 14)));
+        PdfPCell c1 = new PdfPCell(new Phrase("Цена", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Цена", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Комнат", new Font(tahoma, 14)));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c1.setBorderColor(BaseColor.GRAY);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("АО", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
@@ -136,66 +144,65 @@ public class PDF {
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Комнат", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Описание", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Добавил", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Контакты собственника", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Клиент", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Год", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Телефон клиента", new Font(tahoma, 14)));
+        c1 = new PdfPCell(new Phrase("Ведущий риэлтор", new Font(tahoma, 14)));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         c1.setBorderColor(BaseColor.GRAY);
         table.addCell(c1);
 
         for (int i = 0; i < aparts.size(); i++) {
-//            List<List<String>> r=(List<ReportPrice>) aparts.get(i);
-//            table.addCell(new Phrase(.get(0).toString(), new Font(tahoma, 14)));
-//            table.addCell(new Phrase(aparts.get(i),new Font(tahoma, 14)));
-//            table.addCell(new Phrase(aparts.get(i),new Font(tahoma, 14)));
-//            table.addCell(new Phrase(aparts.get(i),new Font(tahoma, 14)));
-//            Apartaments a=(Apartaments) aparts.get(i);
-//            String[] stringValues = (String[]) aparts.get(i);
-//            for (String string : stringValues) {
-//                table.addCell(new Phrase(string, new Font(tahoma, 14)));
-//            }
+            //Цена Комнат АО Адрес Этаж Площадь Описание Контакты собственника Год Ведущий риэлтор
+            //id,price,Rooms,CityDistrict,CityName,StreetName,HouseNumber,BuildingNumber,Floor,Floors,SizeApartament,SizeLiving,SizeKitchen,
+            //Description,customersFName,customersLName,customersMName,customersPhone,YearOfConstruction,FName,MName,Lname
             Object[] objects = (Object[]) aparts.get(i);
-            //id
-            table.addCell(new Phrase(objects[0].toString(), new Font(tahoma, 14)));
+            //id 0
+//            table.addCell(new Phrase(objects[0].toString(), new Font(tahoma, 14)));
             //price 1
             table.addCell(new Phrase(objects[1].toString(), new Font(tahoma, 14)));
-            //address 2-5
+            //rooms 2
+            table.addCell(new Phrase(objects[2].toString(), new Font(tahoma, 14)));
+            //CityDistrict 3
+            table.addCell(new Phrase(objects[3].toString(), new Font(tahoma, 14)));
+            //address 4-7
             StringBuilder address = new StringBuilder();
-            address.append(objects[2]).append(" ").append(objects[3]).append(" ").append(objects[4]).append(" ").append(objects[5]);
+            address.append(objects[4]).append(" ").append(objects[5]).append(" ").append(objects[6]).append(" ").append(
+                    objects[7]);
             table.addCell(new Phrase(address.toString(), new Font(tahoma, 14)));
-            //floor/floors 6-7
+            //floor/floors 8-9
             StringBuilder floorInfo = new StringBuilder();
-            floorInfo.append(objects[6].toString()).append(" / ").append(objects[7].toString());
+            floorInfo.append(objects[8].toString()).append(" / ").append(objects[9].toString());
             table.addCell(new Phrase(floorInfo.toString(), new Font(tahoma, 14)));
-            //size aparts living kitchen 8-10
+            //size aparts living kitchen 10-12
             StringBuilder apartsSize = new StringBuilder();
-            apartsSize.append(objects[8]).append(" / ").append(objects[9]).append(" / ").append(objects[10]);
+            apartsSize.append(objects[10]).append(" / ").append(objects[11]).append(" / ").append(objects[12]);
             table.addCell(new Phrase(apartsSize.toString(), new Font(tahoma, 14)));
-            //rooms 11
-            table.addCell(new Phrase(objects[11].toString(), new Font(tahoma, 14)));
-            //worker 12-14
-            StringBuilder worker = new StringBuilder();
-            worker.append(objects[12]).append(" ").append(objects[13]).append(" ").append(objects[14]);
-            table.addCell(new Phrase(worker.toString(), new Font(tahoma, 14)));
-            //customer 15-17
+            //Description 13
+            table.addCell(new Phrase(objects[13].toString(), new Font(tahoma, 14)));
+            //customer 14-17
             StringBuilder customer = new StringBuilder();
-            customer.append(objects[15]).append(" ").append(objects[16]).append(" ").append(objects[17]);
+            customer.append(objects[14]).append(" ").append(objects[15]).append(" ").append(objects[16]).append(" ").
+                    append(objects[17]);
             table.addCell(new Phrase(customer.toString(), new Font(tahoma, 14)));
-            //customerPhone 18
+            //YearOfConstruction 18
             table.addCell(new Phrase(objects[18].toString(), new Font(tahoma, 14)));
+            //worker 19-21
+            StringBuilder worker = new StringBuilder();
+            worker.append(objects[19]).append(" ").append(objects[20]).append(" ").append(objects[21]);
+            table.addCell(new Phrase(worker.toString(), new Font(tahoma, 14)));
         }
 
 //        Paragraph p = new Paragraph("asdasdasdтекст текст текст", new Font(tahoma, 14));

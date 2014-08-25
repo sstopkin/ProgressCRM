@@ -10,6 +10,8 @@ import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Customers;
+import org.progress.crm.util.ParamUtil;
+import org.progress.crm.util.Validator;
 
 @Singleton
 public class CustomersController {
@@ -39,9 +41,7 @@ public class CustomersController {
             String fName,
             String lName,
             String mName,
-            String customersMonthOfBirthday,
-            String customersDayOfBirthday,
-            String customersYearOfBirthday,
+            String customersDateOfBirthday,
             String customersSex,
             String customersPhone,
             String customersEmail,
@@ -53,9 +53,7 @@ public class CustomersController {
         DaoFactory.getCustomersDao().addCustomer(session,
                 fName, lName,
                 mName,
-                Integer.valueOf(customersMonthOfBirthday),
-                Integer.valueOf(customersDayOfBirthday),
-                Integer.valueOf(customersYearOfBirthday),
+                ParamUtil.getDate(null, mName, null),
                 Integer.valueOf(customersSex),
                 customersPhone,
                 customersEmail,

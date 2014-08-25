@@ -48,7 +48,7 @@ function drawCustomersListTable(data) {
         str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
         str += "<td>" + entry.customersLname + " " + entry.customersFname + " " + entry.customersMname + "</td>";
         str += "<td>" + entry.customersPhone + "</td>";
-        str += "<td>" + entry.customersDayOfBirthday + "-" + entry.customersMonthOfBirthday + "-" + entry.customersYearOfBirthday + "</td>";
+        str += "<td>" + entry.customersDateOfBirthday + "</td>";
         str += "<td>" + entry.customersEmail + "</td>";
         str += "<td>";
         switch (entry.customersSex) {
@@ -90,9 +90,7 @@ function addCustomer() {
             customersFname: $('#customersFname').val(),
             customersMname: $('#customersMname').val(),
             customersLname: $('#customersLname').val(),
-            customersYearOfBirthday: $('#customersYearOfBirthday').val(),
-            customersMonthOfBirthday: $('#customersMonthOfBirthday').val(),
-            customersDayOfBirthday: $('#customersDayOfBirthday').val(),
+            customersDateOfBirthday: $('#customersDateOfBirthday').val(),
             customersSex: $('#customersSex').val(),
             customersEmail: $('#customersEmail').val(),
             customersPhone: $('#customersPhone').val(),

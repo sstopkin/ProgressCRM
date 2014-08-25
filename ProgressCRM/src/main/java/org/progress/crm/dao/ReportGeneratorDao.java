@@ -14,14 +14,15 @@ public class ReportGeneratorDao {
         Workers worker = DaoFactory.getWorkersDao().getWorkerById(session, idWorker);
         String reportAuthorWorkerName = worker.getlName() + " " + worker.getfName() + " " + worker.getmName();
 
-        List<Object> reportContent = session.createSQLQuery("SELECT "
-                + "Apartaments.id, price, CityName,StreetName,HouseNumber,BuildingNumber, Floor, Floors, SizeApartament,SizeLiving,SizeKitchen, Rooms, "
-                + "FName, MName, Lname, "
-                + "customersFName,customersLName,customersMName, customersPhone "
-                + "FROM progresscrm.Apartaments "
-                + "LEFT JOIN progresscrm.Workers ON Apartaments.idWorker=Workers.id "
+        List<Object> reportContent = session.createSQLQuery(
+                "SELECT Apartaments.id, price, Rooms, CityDistrict, CityName,StreetName,HouseNumber,BuildingNumber, "
+                + "Floor, Floors, SizeApartament,SizeLiving,SizeKitchen, "
+                + "Description, customersFName,customersLName,customersMName, customersPhone, YearOfConstruction, "
+                + "FName, MName, Lname\n" + "FROM progresscrm.Apartaments "
+                + "LEFT JOIN progresscrm.Workers ON Apartaments.idWorkerTarget=Workers.id "
                 + "LEFT JOIN progresscrm.Customers ON Apartaments.idCustomer=Customers.id "
-                + "WHERE Apartaments.Deleted='0' AND Apartaments.Status='"+status+"' ORDER BY Apartaments.Rooms;").list();
+                + "WHERE Apartaments.Deleted='0' AND Apartaments.Status='" + status + "' ORDER BY Apartaments.Rooms;").
+                list();
         return PDF.GeneratePrice(reportContent, reportAuthorWorkerName);
     }
 

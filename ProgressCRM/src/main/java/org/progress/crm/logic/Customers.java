@@ -2,6 +2,7 @@ package org.progress.crm.logic;
 
 import com.google.gson.annotations.Expose;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,11 +23,7 @@ public class Customers implements Serializable {
     @Expose
     private String customersMname;
     @Expose
-    private int customersMonthOfBirthday;
-    @Expose
-    private int customersDayOfBirthday;
-    @Expose
-    private int customersYearOfBirthday;
+    private Date customersDateOfBirthday;
     @Expose
     private int customersSex;
     @Expose
@@ -38,21 +35,28 @@ public class Customers implements Serializable {
     private boolean deleted;
 
     public Customers(String customersFname, String customersLname, String customersMname,
-            int customersMonthOfBirthday, int customersDayOfBirthday, int customersYearOfBirthday,
+            int customersMonthOfBirthday, Date customersDateOfBirthday, int customersYearOfBirthday,
             int customersSex, String customersPhone, String customersEmail, String customersAddress,
             String customersExtra) {
         this.customersFname = customersFname;
         this.customersLname = customersLname;
         this.customersMname = customersMname;
-        this.customersMonthOfBirthday = customersMonthOfBirthday;
-        this.customersDayOfBirthday = customersDayOfBirthday;
-        this.customersYearOfBirthday = customersYearOfBirthday;
+        this.customersDateOfBirthday = customersDateOfBirthday;
         this.customersSex = customersSex;
         this.customersPhone = customersPhone;
         this.customersEmail = customersEmail;
         this.customersAddress = customersAddress;
         this.customersExtra = customersExtra;
         this.deleted = false;
+    }
+
+    @Column(name = "DateOfBirthday")
+    public Date getCustomersDateOfBirthday() {
+        return customersDateOfBirthday;
+    }
+
+    public void setCustomersDateOfBirthday(Date customersDateOfBirthday) {
+        this.customersDateOfBirthday = customersDateOfBirthday;
     }
 
     @Column(name = "Deleted")
@@ -89,33 +93,6 @@ public class Customers implements Serializable {
 
     public void setCustomersMname(String customersMname) {
         this.customersMname = customersMname;
-    }
-
-    @Column(name = "customersMonthOfBirthday")
-    public int getCustomersMonthOfBirthday() {
-        return customersMonthOfBirthday;
-    }
-
-    public void setCustomersMonthOfBirthday(int customersMonthOfBirthday) {
-        this.customersMonthOfBirthday = customersMonthOfBirthday;
-    }
-
-    @Column(name = "customersDayOfBirthday")
-    public int getCustomersDayOfBirthday() {
-        return customersDayOfBirthday;
-    }
-
-    public void setCustomersDayOfBirthday(int customersDayOfBirthday) {
-        this.customersDayOfBirthday = customersDayOfBirthday;
-    }
-
-    @Column(name = "customersYearOfBirthday")
-    public int getCustomersYearOfBirthday() {
-        return customersYearOfBirthday;
-    }
-
-    public void setCustomersYearOfBirthday(int customersYearOfBirthday) {
-        this.customersYearOfBirthday = customersYearOfBirthday;
     }
 
     @Column(name = "customersSex")

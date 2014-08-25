@@ -41,6 +41,14 @@ function addApartament() {
                 showWarning("Не все поля заполнены");
                 return false;
             }
+            if (
+                    ($('#apartamentCity').text() == "") ||
+                    ($('#apartamentStreet').text() == "") ||
+                    ($('#apartamentBuilding').text() == "")
+                    ) {
+                showWarning("Неправильно заполнен адрес объекта");
+                return false;
+            }
             $.ajax({
                 type: "POST",
                 url: "api/apartament/addapartament",

@@ -17,8 +17,7 @@ public class CustomersDao {
             final String mName, final int customersMonthOfBirthday, final int customersDayOfBirthday,
             final int customersYearOfBirthday, final int customersSex, final String customersPhone,
             final String customersEmail, final String customersAddress, final String customersExtra) throws SQLException {
-        return (int) session.save(new Customers(fName, lName, mName, customersMonthOfBirthday,
-                customersDayOfBirthday, customersYearOfBirthday, customersSex, customersPhone, customersEmail, customersAddress, customersExtra));
+        return (int) session.save(new Customers(fName, lName, mName, customersDateOfBirthday, customersSex, customersPhone, customersEmail, customersAddress, customersExtra));
     }
 
     public boolean removeCustomerById(final Session session, final int customerId) throws SQLException {
@@ -45,7 +44,7 @@ public class CustomersDao {
     }
 
     public List<String> findCustomerByStr(final Session session, final String str) throws SQLException {
-        //FIXME!!!!!    
+        //FIXME!!!!!
 //        List cats = sess.createCriteria(Cat.class)
 //    .add( Restrictions.like("name", "Fritz%") )
 //    .add( Restrictions.between("weight", minWeight, maxWeight) )
@@ -68,6 +67,7 @@ public class CustomersDao {
     }
 
     public List<Customers> getCustomersListByBirthday(Session session, Date currentDay) throws SQLException {
+        //FIXME!!!
         return session.createCriteria(Customers.class).list();
     }
 

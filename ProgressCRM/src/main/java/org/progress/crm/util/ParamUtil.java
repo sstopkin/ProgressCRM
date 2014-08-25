@@ -194,7 +194,8 @@ public class ParamUtil {
         Integer result = getInt(parameters, name);
 
         if ((result != null) && ((result < firstValue) || (result > lastValue))) {
-            throw new ValidationException(ActionException.INVALID_INTEGER_VALUE, name, Integer.toString(firstValue), Integer.toString(lastValue));
+            throw new ValidationException(ActionException.INVALID_INTEGER_VALUE, name, Integer.toString(firstValue),
+                    Integer.toString(lastValue));
         }
 
         return result;
@@ -213,7 +214,8 @@ public class ParamUtil {
 
         Integer result = getIntInRange(parameters, name, firstValue, lastValue);
         if (result == null) {
-            throw new ValidationException(ActionException.INVALID_INTEGER_VALUE, name, Integer.toString(firstValue), Integer.toString(lastValue)
+            throw new ValidationException(ActionException.INVALID_INTEGER_VALUE, name, Integer.toString(firstValue),
+                    Integer.toString(lastValue)
             );
         }
         return result;
@@ -242,7 +244,8 @@ public class ParamUtil {
         Long result = getLong(parameters, name);
 
         if ((result != null) && ((result < firstValue) || (result > lastValue))) {
-            throw new ValidationException(ActionException.INVALID_LONG_VALUE, name, Long.toString(firstValue), Long.toString(lastValue)
+            throw new ValidationException(ActionException.INVALID_LONG_VALUE, name, Long.toString(firstValue), Long.
+                    toString(lastValue)
             );
         }
 
@@ -297,6 +300,26 @@ public class ParamUtil {
 
         getNotEmpty(request, name);
         return getDouble(request, name);
+    }
+
+    public static Date getDate(Map<String, String> parameters, String name, TimeZone memberTz) throws CustomException {
+        String dateStr = parameters.get(name);
+        return getDate(dateStr, TimeZone.getTimeZone("GMT"), name);
+    }
+
+    public static Date getDate(String dateStr, TimeZone memberTz, String paramNameForErrorMessage)
+            throws CustomException {
+        Date result = null;
+        if (Validator.isNotEmpty(dateStr)) {
+            result = parseDate(dateStr, memberTz, paramNameForErrorMessage);
+        }
+        return result;
+    }
+
+    public static Date getNotEmptyDate(Map<String, String> parameters, String name, TimeZone memberTz)
+            throws CustomException {
+        String dateStr = getNotEmpty(parameters, name);
+        return getDate(dateStr, TimeZone.getTimeZone("GMT"), name);
     }
 
 }
