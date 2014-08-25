@@ -3,6 +3,7 @@ package org.progress.crm.controllers;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
@@ -10,8 +11,8 @@ import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Customers;
+import org.progress.crm.util.ParamName;
 import org.progress.crm.util.ParamUtil;
-import org.progress.crm.util.Validator;
 
 @Singleton
 public class CustomersController {
@@ -36,25 +37,26 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().getCustomerObjectsById(session, Integer.valueOf(customerId));
     }
 
-    public boolean addCustomer(Session session,
-            String token,
-            String fName,
-            String lName,
-            String mName,
-            String customersDateOfBirthday,
-            String customersSex,
-            String customersPhone,
-            String customersEmail,
-            String customersAddress,
-            String customersExtra) throws CustomException, SQLException {
+    public boolean addCustomer(Session session, String token, Map<String, String> map) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
+        String fName = map.get(ParamName.CUSTOMERS_FNAME);
+        String lName = map.get(ParamName.CUSTOMERS_LNAME);
+        String mName = map.get(ParamName.CUSTOMERS_MNAME);
+        Date customersDateOfBirthday = ParamUtil.getDate(map, ParamName.CUSTOMERS_DATE_OF_BIRTHDAY, null);
+        int customersSex = ParamUtil.getInt(map, ParamName.CUSTOMERS_SEX);
+        String customersPhone = map.get(ParamName.CUSTOMERS_PHONE);
+        String customersEmail = map.get(ParamName.CUSTOMERS_EMAIL);
+        String customersAddress = map.get(ParamName.CUSTOMERS_ADDRESS);
+        String customersExtra = map.get(ParamName.CUSTOMERS_EXTRA);
+
         DaoFactory.getCustomersDao().addCustomer(session,
-                fName, lName,
+                fName,
+                lName,
                 mName,
-                ParamUtil.getDate(null, mName, null),
-                Integer.valueOf(customersSex),
+                customersDateOfBirthday,
+                customersSex,
                 customersPhone,
                 customersEmail,
                 customersAddress,
@@ -84,35 +86,20 @@ public class CustomersController {
         return DaoFactory.getCustomersDao().findCustomerByStr(session, str);
     }
 
-    public boolean editCustomer(Session session,
-            String token,
-            String id,
-            String fName,
-            String lName,
-            String mName,
-            String customersMonthOfBirthday,
-            String customersDayOfBirthday,
-            String customersYearOfBirthday,
-            String customersSex,
-            String customersPhone,
-            String customersEmail,
-            String customersAddress,
-            String customersExtra) throws CustomException, SQLException {
+    public boolean editCustomer(Session session, String token, Map<String, String> map) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        Customers customers = DaoFactory.getCustomersDao().getCustomerById(session, Integer.valueOf(id));
-        customers.setDeleted(false);
-        customers.setCustomersFname(fName);
-        customers.setCustomersMname(mName);
-        customers.setCustomersLname(lName);
-        customers.setCustomersYearOfBirthday(Integer.valueOf(customersYearOfBirthday));
-        customers.setCustomersDayOfBirthday(Integer.valueOf(customersDayOfBirthday));
-        customers.setCustomersMonthOfBirthday(Integer.valueOf(customersMonthOfBirthday));
-        customers.setCustomersPhone(customersPhone);
-        customers.setCustomersEmail(customersEmail);
-        customers.setCustomersAddress(customersAddress);
-        customers.setCustomersExtra(customersExtra);
+        int customerId = ParamUtil.getInt(map, ParamName.CUSTOMERS_ID);
+        Customers customers = DaoFactory.getCustomersDao().getCustomerById(session, customerId);
+        customers.setCustomersFname(ParamUtil.getNotNull(map, ParamName.CUSTOMERS_FNAME));
+        customers.setCustomersMname(ParamUtil.getNotNull(map, ParamName.CUSTOMERS_MNAME));
+        customers.setCustomersLname(ParamUtil.getNotNull(map, ParamName.CUSTOMERS_LNAME));
+        customers.setCustomersDateOfBirthday(ParamUtil.getDate(map, ParamName.CUSTOMERS_DATE_OF_BIRTHDAY, null));
+        customers.setCustomersPhone(ParamUtil.getNotNull(map, ParamName.CUSTOMERS_PHONE));
+        customers.setCustomersEmail(ParamUtil.getNotNull(map, ParamName.CUSTOMERS_EMAIL));
+        customers.setCustomersAddress(ParamUtil.getNotNull(map, ParamName.CUSTOMERS_ADDRESS));
+        customers.setCustomersExtra(ParamUtil.getNotNull(map, ParamName.CUSTOMERS_EXTRA));
 
         DaoFactory.getCustomersDao().modifyCustomer(session, customers);
         return true;

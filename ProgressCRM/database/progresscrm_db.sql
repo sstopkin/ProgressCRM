@@ -70,14 +70,13 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Customers` (
 `customersLname` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `customersFname` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `customersMname` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
-`customersMonthOfBirthday` INT NOT NULL,
-`customersDayOfBirthday` INT NOT NULL,
-`customersYearOfBirthday` INT NOT NULL,
+`customersDateOfBirthday` TIMESTAMP NOT NULL,
 `customersSex` INT NOT NULL,
 `customersPhone` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `customersEmail` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `customersAddress` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `customersExtra` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 PRIMARY KEY (`id`));
 

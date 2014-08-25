@@ -3,6 +3,8 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -18,6 +20,7 @@ import org.hibernate.Session;
 import org.progress.crm.controllers.CustomersController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
+import org.progress.crm.util.ParamName;
 import org.progress.crm.util.TransactionService;
 
 @Stateless
@@ -139,17 +142,18 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = customersController.addCustomer(session,
-                            token,
-                            customersFname,
-                            customersLname,
-                            customersMname,
-                            customersDateOfBirthday,
-                            customersSex,
-                            customersPhone,
-                            customersEmail,
-                            customersAddress,
-                            customersExtra);
+                    Map<String, String> map = new HashMap<>();
+                    map.put(ParamName.CUSTOMERS_FNAME, customersFname);
+                    map.put(ParamName.CUSTOMERS_LNAME, customersLname);
+                    map.put(ParamName.CUSTOMERS_MNAME, customersMname);
+                    map.put(ParamName.CUSTOMERS_DATE_OF_BIRTHDAY, customersDateOfBirthday);
+                    map.put(ParamName.CUSTOMERS_SEX, customersSex);
+                    map.put(ParamName.CUSTOMERS_PHONE, customersPhone);
+                    map.put(ParamName.CUSTOMERS_EMAIL, customersEmail);
+                    map.put(ParamName.CUSTOMERS_ADDRESS, customersAddress);
+                    map.put(ParamName.CUSTOMERS_EXTRA, customersExtra);
+
+                    boolean result = customersController.addCustomer(session, token, map);
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,13 +165,12 @@ public class CustomersApi {
 
     @POST
     @Path("editcustomer")
-    public Response editCustomer(@CookieParam("token") final String token, @FormParam("id") final String id,
+    public Response editCustomer(@CookieParam("token") final String token,
+            @FormParam("id") final String customerId,
             @FormParam("customersFname") final String customersFname,
             @FormParam("customersMname") final String customersMname,
             @FormParam("customersLname") final String customersLname,
-            @FormParam("customersYearOfBirthday") final String customersYearOfBirthday,
-            @FormParam("customersMonthOfBirthday") final String customersMonthOfBirthday,
-            @FormParam("customersDayOfBirthday") final String customersDayOfBirthday,
+            @FormParam("customersDateOfBirthday") final String customersDateOfBirthday,
             @FormParam("customersSex") final String customersSex,
             @FormParam("customersEmail") final String customersEmail,
             @FormParam("customersPhone") final String customersPhone,
@@ -178,18 +181,19 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = customersController.editCustomer(session, token, id,
-                            customersFname,
-                            customersLname,
-                            customersMname,
-                            customersMonthOfBirthday,
-                            customersDayOfBirthday,
-                            customersYearOfBirthday,
-                            customersSex,
-                            customersPhone,
-                            customersEmail,
-                            customersAddress,
-                            customersExtra);
+                    Map<String, String> map = new HashMap<>();
+                    map.put(ParamName.CUSTOMERS_ID, customerId);
+                    map.put(ParamName.CUSTOMERS_FNAME, customersFname);
+                    map.put(ParamName.CUSTOMERS_LNAME, customersLname);
+                    map.put(ParamName.CUSTOMERS_MNAME, customersMname);
+                    map.put(ParamName.CUSTOMERS_DATE_OF_BIRTHDAY, customersDateOfBirthday);
+                    map.put(ParamName.CUSTOMERS_SEX, customersSex);
+                    map.put(ParamName.CUSTOMERS_PHONE, customersPhone);
+                    map.put(ParamName.CUSTOMERS_EMAIL, customersEmail);
+                    map.put(ParamName.CUSTOMERS_ADDRESS, customersAddress);
+                    map.put(ParamName.CUSTOMERS_EXTRA, customersExtra);
+
+                    boolean result = customersController.editCustomer(session, token, map);
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);

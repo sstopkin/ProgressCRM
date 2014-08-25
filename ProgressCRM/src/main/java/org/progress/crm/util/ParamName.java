@@ -38,4 +38,15 @@ public class ParamName {
 
     public final static String USER_ID = "userId";
 
+    public final static String CUSTOMERS_ID = "customersId";
+    public final static String CUSTOMERS_FNAME = "customersFname";
+    public final static String CUSTOMERS_LNAME = "customersLname";
+    public final static String CUSTOMERS_MNAME = "customersMname";
+    public final static String CUSTOMERS_DATE_OF_BIRTHDAY = "customersDateOfBirthday";
+    public final static String CUSTOMERS_SEX = "customersSex";
+    public final static String CUSTOMERS_PHONE = "customersPhone";
+    public final static String CUSTOMERS_EMAIL = "customersEmail";
+    public final static String CUSTOMERS_ADDRESS = "customersAddress";
+    public final static String CUSTOMERS_EXTRA = "customersExtra";
+
 }
