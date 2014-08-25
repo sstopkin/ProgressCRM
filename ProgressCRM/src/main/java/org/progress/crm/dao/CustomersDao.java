@@ -14,8 +14,7 @@ import org.progress.crm.logic.DbFields;
 public class CustomersDao {
 
     public int addCustomer(final Session session, final String fName, final String lName,
-            final String mName, final int customersMonthOfBirthday, final int customersDayOfBirthday,
-            final int customersYearOfBirthday, final int customersSex, final String customersPhone,
+            final String mName, final Date customersDateOfBirthday, final int customersSex, final String customersPhone,
             final String customersEmail, final String customersAddress, final String customersExtra) throws SQLException {
         return (int) session.save(new Customers(fName, lName, mName, customersDateOfBirthday, customersSex, customersPhone, customersEmail, customersAddress, customersExtra));
     }

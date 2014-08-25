@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Customers")
@@ -33,10 +35,10 @@ public class Customers implements Serializable {
     private String customersAddress;
     private String customersExtra;
     private boolean deleted;
+    private Date сreationDate;
 
     public Customers(String customersFname, String customersLname, String customersMname,
-            int customersMonthOfBirthday, Date customersDateOfBirthday, int customersYearOfBirthday,
-            int customersSex, String customersPhone, String customersEmail, String customersAddress,
+            Date customersDateOfBirthday, int customersSex, String customersPhone, String customersEmail, String customersAddress,
             String customersExtra) {
         this.customersFname = customersFname;
         this.customersLname = customersLname;
@@ -48,9 +50,21 @@ public class Customers implements Serializable {
         this.customersAddress = customersAddress;
         this.customersExtra = customersExtra;
         this.deleted = false;
+        this.сreationDate = new Date();
     }
 
-    @Column(name = "DateOfBirthday")
+    @Column(name = "CreationDate")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getСreationDate() {
+        return сreationDate;
+    }
+
+    public void setСreationDate(Date сreationDate) {
+        this.сreationDate = сreationDate;
+    }
+
+    @Column(name = "customersDateOfBirthday")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getCustomersDateOfBirthday() {
         return customersDateOfBirthday;
     }

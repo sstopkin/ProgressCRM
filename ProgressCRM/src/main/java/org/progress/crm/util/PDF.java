@@ -60,13 +60,12 @@ public class PDF {
 
             Section subCatPart = mainChapter.addSection(subPara);
 
-//        // Now add all this to the document
+            // Now add all this to the document
             document.add(mainChapter);
 
-//            addContent(document);
+            //addContent(document);
             return finalyGen(document);
         } catch (DocumentException | IOException e) {
-            e.printStackTrace();
             return null;
         }
     }
