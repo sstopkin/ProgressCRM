@@ -80,6 +80,7 @@ function addPlannerTaskDialog(objectUUID) {
         var day = date.getDate();
         day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
         var month = date.getMonth() + 1;
+        month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
         var year = date.getFullYear();
         $('#plannerAddTaskModalStratDate').datepicker({
             format: "yyyy-mm-dd",

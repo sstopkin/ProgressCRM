@@ -263,6 +263,9 @@ public class ParamUtil {
             if ((dateStr.length() > 10) && (dateStr.charAt(10) == ' ')) {
                 format = "yyyy-MM-dd HH:mm:ss.S";
             }
+            if ((dateStr.length() == 10)) {
+                format = "yyyy-MM-dd";
+            }
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -304,7 +307,7 @@ public class ParamUtil {
 
     public static Date getDate(Map<String, String> parameters, String name, TimeZone memberTz) throws CustomException {
         String dateStr = parameters.get(name);
-        return getDate(dateStr, TimeZone.getTimeZone("GMT"), name);
+        return getDate(dateStr, TimeZone.getDefault(), name);
     }
 
     public static Date getDate(String dateStr, TimeZone memberTz, String paramNameForErrorMessage)
@@ -319,7 +322,7 @@ public class ParamUtil {
     public static Date getNotEmptyDate(Map<String, String> parameters, String name, TimeZone memberTz)
             throws CustomException {
         String dateStr = getNotEmpty(parameters, name);
-        return getDate(dateStr, TimeZone.getTimeZone("GMT"), name);
+        return getDate(dateStr, TimeZone.getDefault(), name);
     }
 
 }
