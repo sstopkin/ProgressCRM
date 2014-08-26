@@ -74,108 +74,67 @@ function drawCustomersListTable(data) {
 }
 
 function addCustomer() {
-
-    var some_html = '<label class="control-label">Фамилия</label>';
-    some_html += '<div class="controls">';
-    some_html += '<input id="customersLname" type="text" class="form-control" value="">';
-    some_html += '</div>';
-    some_html += '</div>';
-    some_html += '<label class="control-label">Имя</label>';
-    some_html += '<div class="controls">';
-    some_html += '<input id="customersFname" type="text" class="form-control" value="">';
-    some_html += '</div>';
-    some_html += '<label class="control-label">Отчество</label>';
-    some_html += '<div class="controls">';
-    some_html += '<input id="customersMname" type="text" class="form-control" value="">';
-    some_html += '</div>';
-    some_html += '<label class="control-label">Год рождения</label>';
-    some_html += '<div class="controls">';
-    some_html += '<input id="customersDateOfBirthday" type="text" class="form-control" value="0">';
-    some_html += '</div>';
-    some_html += '<label class="control-label">Пол</label>';
-    some_html += '<div class="controls">';
-    some_html += '<select id="customersSex" class="form-control">';
-    some_html += '<option selected="selected" value="0">Не указан</option>';
-    some_html += '<option value="1">Мужской</option>';
-    some_html += '<option value="2">Женский</option>';
-    some_html += '</select>';
-    some_html += '</div>';
-    some_html += '<label class="control-label">E-Mail</label>';
-    some_html += '<div class="controls">';
-    some_html += '<input id="customersEmail" type="text" class="form-control" value="">';
-    some_html += '</div>';
-    some_html += '<label class="control-label">Телефон</label>';
-    some_html += '<div class="controls">';
-    some_html += '<input id="customersPhone" type="text" class="form-control" value="">';
-    some_html += '</div>';
-    some_html += '<label class="control-label">Адрес</label>';
-    some_html += '<div class="controls">';
-    some_html += '<textarea id="customersAddress" class="form-control"></textarea>';
-    some_html += '</div>';
-    some_html += '<label class="control-label">Дополнительно</label>';
-    some_html += '<div class="controls">';
-    some_html += '<textarea id="customersExtra" class="form-control"></textarea>';
-    some_html += '</div>';
-
-    var box = bootbox.dialog({
-        show: false,
-        title: "<h4 class=\"modal-title\">Добавить клиента</h4></div>",
-        message: some_html,
-        buttons: {
-            success: {
-                label: "Добавить клиента",
-                className: "btn-success",
-                callback: function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/customers/addcustomer",
-                        data: ({
-                            customersFname: $('#customersFname').val(),
-                            customersMname: $('#customersMname').val(),
-                            customersLname: $('#customersLname').val(),
-                            customersDateOfBirthday: $('#customersDateOfBirthday').val(),
-                            customersSex: $('#customersSex').val(),
-                            customersEmail: $('#customersEmail').val(),
-                            customersPhone: $('#customersPhone').val(),
-                            customersAddress: $('#customersAddress').val(),
-                            customersExtra: $('#customersExtra').val()
-                        }),
-                        success: function() {
-                            $("#errorBlock").css("display", "none");
-                            location.reload();//FIXME
-                        },
-                        error: function(data) {
-                            showDanger(data.responseText);
-                        }
-                    });
-                }
-            },
-            danger: {
-                label: "Отмена",
-                className: "btn-danger",
-                callback: function() {
+    $.get("/templates/modal_customers.html", function(some_html) {
+        var box = bootbox.dialog({
+            show: false,
+            title: "<h4 class=\"modal-title\">Добавить клиента</h4></div>",
+            message: some_html,
+            buttons: {
+                success: {
+                    label: "Добавить клиента",
+                    className: "btn-success",
+                    callback: function() {
+                        $.ajax({
+                            type: "POST",
+                            url: "api/customers/addcustomer",
+                            data: ({
+                                customersFname: $('#customersFname').val(),
+                                customersMname: $('#customersMname').val(),
+                                customersLname: $('#customersLname').val(),
+                                customersDateOfBirthday: $('#customersDateOfBirthday').val(),
+                                customersSex: $('#customersSex').val(),
+                                customersEmail: $('#customersEmail').val(),
+                                customersPhone: $('#customersPhone').val(),
+                                customersAddress: $('#customersAddress').val(),
+                                customersExtra: $('#customersExtra').val()
+                            }),
+                            success: function() {
+                                $("#errorBlock").css("display", "none");
+                                location.reload();//FIXME
+                            },
+                            error: function(data) {
+                                showDanger(data.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Отмена",
+                    className: "btn-danger",
+                    callback: function() {
+                    }
                 }
             }
-        }
-    });
-
-    box.on("shown.bs.modal", function() {
-        var date = new Date();
-        var day = date.getDate();
-        day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-        var month = date.getMonth() + 1;
-        month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
-        var year = date.getFullYear();
-        $('#customersDateOfBirthday').datepicker({
-            format: "yyyy-mm-dd",
-            todayBtn: "linked",
-            language: "ru",
-            autoclose: true,
-            todayHighlight: true
         });
-        $('#customersDateOfBirthday').val(year + "-" + month + "-" + day);
-    });
-    box.modal('show');
+
+        box.on("shown.bs.modal", function() {
+            var date = new Date();
+            var day = date.getDate();
+            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
+            var month = date.getMonth() + 1;
+            month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
+            var year = date.getFullYear();
+            $('#customersDateOfBirthday').datepicker({
+                format: "yyyy-mm-dd",
+                todayBtn: "linked",
+                language: "ru",
+                autoclose: true,
+                todayHighlight: true
+            });
+            $('#customersDateOfBirthday').val(year + "-" + month + "-" + day);
+        });
+        box.modal('show');
+    }, 'html');
 }
 
 function customersEditById(customersId) {
