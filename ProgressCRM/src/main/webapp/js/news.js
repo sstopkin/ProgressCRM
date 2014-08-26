@@ -36,48 +36,45 @@ function  editNewsById(id) {
 }
 
 function addNews() {
-    var some_html = '<label class="control-label">Заголовок<br></label>';
-    some_html += '<input id="newsHeader" type="text" class="form-control">';
-    some_html += '<label class="control-label">Описание<br></label>';
-    some_html += '<textarea id="newsText" class="form-control"></textarea>';
-
-    var box = bootbox.dialog({
-        show: false,
-        title: "<h4 class=\"modal-title\">Добавить новость</h4></div>",
-        message: some_html,
-        buttons: {
-            success: {
-                label: "Добавить новость",
-                className: "btn-success",
-                callback: function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/news/addnews",
-                        data: ({
-                            header: $('#newsHeader').val(),
-                            text: $('#newsText').val()
-                        }),
-                        success: function() {
-                            $("#errorBlock").css("display", "none");
-                            location.reload();//FIXME
-                        },
-                        error: function(data) {
-                            showDanger(data.responseText);
-                        }
-                    });
-                }
-            },
-            danger: {
-                label: "Отмена",
-                className: "btn-danger",
-                callback: function() {
+    $.get("/templates/modal_news.html", function(some_html) {
+        var box = bootbox.dialog({
+            show: false,
+            title: "<h4 class=\"modal-title\">Добавить новость</h4></div>",
+            message: some_html,
+            buttons: {
+                success: {
+                    label: "Добавить новость",
+                    className: "btn-success",
+                    callback: function() {
+                        $.ajax({
+                            type: "POST",
+                            url: "api/news/addnews",
+                            data: ({
+                                header: $('#newsHeader').val(),
+                                text: $('#newsText').val()
+                            }),
+                            success: function() {
+                                $("#errorBlock").css("display", "none");
+                                location.reload();//FIXME
+                            },
+                            error: function(data) {
+                                showDanger(data.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Отмена",
+                    className: "btn-danger",
+                    callback: function() {
+                    }
                 }
             }
-        }
-    });
+        });
 
 //    box.on("shown.bs.modal", function() {
 //
 //    });
-    box.modal('show');
+        box.modal('show');
+    }, 'html');
 }
