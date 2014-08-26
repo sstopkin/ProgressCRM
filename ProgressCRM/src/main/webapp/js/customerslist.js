@@ -115,7 +115,7 @@ function addCustomer() {
     some_html += '<label class="control-label">Дополнительно</label>';
     some_html += '<div class="controls">';
     some_html += '<textarea id="customersExtra" class="form-control"></textarea>';
-    some_html += '</div>';;
+    some_html += '</div>';
 
     var box = bootbox.dialog({
         show: false,
@@ -164,6 +164,7 @@ function addCustomer() {
         var day = date.getDate();
         day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
         var month = date.getMonth() + 1;
+        month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
         var year = date.getFullYear();
         $('#customersDateOfBirthday').datepicker({
             format: "yyyy-mm-dd",
