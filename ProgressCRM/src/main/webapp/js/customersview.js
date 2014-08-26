@@ -30,7 +30,7 @@ function getCustomerViewPage(customerId) {
                 content += "Адрес: " + array.customersAddress;
                 content += "</p>";
                 content += "<p>";
-                content += "Дата рождения: " + array.customersDayOfBirthday + " " + array.customersMonthOfBirthday + " " + array.customersYearOfBirthday;
+                content += "Дата рождения: " + array.customersDateOfBirthday;
                 content += "</p>";
                 content += "<p>";
                 content += "Телефон: " + array.customersPhone;
