@@ -1,5 +1,5 @@
 function addApartament() {
-    $.get("apartamentsadd.html", function(data) {
+    $.get("/templates/modal_apartaments.html", function(data) {
         $("#mainContainer").html(data);
         $("#errorBlock").css("display", "none");
         mapSet();
@@ -38,7 +38,7 @@ function addApartament() {
                     ($('#DwellingType').val() == "0") ||
                     ($('#Rooms').val() == "0")
                     ) {
-                showWarning("Не все поля заполнены");
+                showWarning("Не заполнены поля: \"Тип жилого помещения\" или \"Кол-во комнат\"");
                 return false;
             }
             if (

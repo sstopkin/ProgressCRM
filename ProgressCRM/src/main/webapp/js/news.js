@@ -32,7 +32,63 @@ function getNews() {
 }
 
 function  editNewsById(id) {
-    alert(editNewsById + " " + id);
+    var array;
+
+    $.get("/templates/modal_news.html", function(some_html) {
+        var box = bootbox.dialog({
+            show: false,
+            title: "<h4 class=\"modal-title\">Редактировать новость</h4></div>",
+            message: some_html,
+            buttons: {
+                success: {
+                    label: "Редактировать новость",
+                    className: "btn-warning",
+                    callback: function() {
+                        $.ajax({
+                            type: "POST",
+                            url: "api/news/addnews",
+                            data: ({
+                                id: id,
+                                header: $('#newsHeader').val(),
+                                text: $('#newsText').val()
+                            }),
+                            success: function() {
+                                $("#errorBlock").css("display", "none");
+                                location.reload();//FIXME
+                            },
+                            error: function(data) {
+                                showDanger(data.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Отмена",
+                    className: "btn-danger",
+                    callback: function() {
+                    }
+                }
+            }
+        });
+
+        box.on("shown.bs.modal", function() {
+            $.ajax({
+                type: "GET",
+                url: "api/news/getnews?id=" + id,
+                success: function(data) {
+                    $("#errorBlock").css("display", "none");
+                    array = JSON.parse(data);
+                    $('#newsHeader').val(array.header);
+                    $('#newsText').val(array.text);
+                },
+                error: function(data) {
+                    showDanger(data.responseText);
+                    return false;
+                }
+            });
+        });
+        box.modal('show');
+    }, 'html');
 }
 
 function addNews() {
