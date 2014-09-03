@@ -30,14 +30,15 @@ function addApartament() {
 //                $("#errorBlock").css("display", "block");
 //                return false;
 //            }
-            if (
-//                        ($('#TypeOfSales').val() == "")
-//                        || ($('#Price').val() == "")
-//                        || ($('#Floor').val() == "")
-//                        || ($('#Floors').val() == "")||
-                    ($('#DwellingType').val() == "0") ||
-                    ($('#Rooms').val() == "0")
-                    ) {
+            if ($('#IdCustomer').val() == "") {
+                showWarning("Не указан ID клиента");
+                return false;
+            }
+            if ($('#ApartamentsIdWorkerTarget').val() == -1) {
+                showWarning("Не назначен риэлтор");
+                return false;
+            }
+            if (($('#DwellingType').val() == "0") || ($('#Rooms').val() == "0")) {
                 showWarning("Не заполнены поля: \"Тип жилого помещения\" или \"Кол-во комнат\"");
                 return false;
             }
