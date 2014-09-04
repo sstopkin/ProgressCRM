@@ -9,27 +9,6 @@ function addApartament() {
         $("#apartamentAddReadyLink").css("display", "inline");
         //price
         $("#apartamentAddReadyLink").click(function() {
-//            if (
-//                    ($('#TypeOfSales').val() == "")
-//                    || ($('#Price').val() == "")
-//                    || ($('#CityDistrict').val() == "")
-//                    || ($('#Floor').val() == "")
-//                    || ($('#Floors').val() == "")
-//                    || ($('#RoomNumber').val() == "")
-//                    || ($('#Material').val() == "")
-//                    || ($('#SizeApartament').val() == "")
-//                    || ($('#SizeLiving').val() == "")
-//                    || ($('#SizeKitchen').val() == "")
-//                    || ($('#Balcony').val() == "")
-//                    || ($('#Loggia').val() == "")
-//                    || ($('#DwellingType').val() == "")
-//                    || ($('#ApartamentsIdWorkerTarget').val() == "")
-//                    ) {
-//                $("#errorBlock").addClass("alert-danger");
-//                $("#errorMessage").html("Не все поля заполнены");
-//                $("#errorBlock").css("display", "block");
-//                return false;
-//            }
             if ($('#IdCustomer').val() == "") {
                 showWarning("Не указан ID клиента");
                 return false;

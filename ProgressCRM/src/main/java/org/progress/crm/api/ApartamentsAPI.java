@@ -248,4 +248,22 @@ public class ApartamentsAPI {
             }
         });
     }
+
+    @GET
+    @Path("genyml")
+    public Response getApartamentsYML() throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson apartamentById = new GsonBuilder().create();
+                    String result = apartamentById.toJson(apartamentsController.getApartamentsYML(session));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
+            }
+        });
+    }
 }

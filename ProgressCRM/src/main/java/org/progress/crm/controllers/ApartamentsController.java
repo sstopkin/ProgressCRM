@@ -1,21 +1,36 @@
 package org.progress.crm.controllers;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Apartaments;
-import org.progress.crm.util.ParamUtil;
 import org.progress.crm.util.ParamName;
+import org.progress.crm.util.ParamUtil;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 @Singleton
 public class ApartamentsController {
@@ -152,5 +167,71 @@ public class ApartamentsController {
         List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session, Integer.
                 valueOf(status));
         return apartaments;
+    }
+
+    public String getApartamentsYML(Session session) throws CustomException, SQLException, TransformerConfigurationException {
+        String res = "";
+        try {
+            List<Apartaments> list = DaoFactory.getApartamentsDao().getAllApartaments(session, Integer.getInteger("1"));
+
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+            // root elements
+            Document doc = docBuilder.newDocument();
+            Element rootElement = doc.createElement("company");
+            doc.appendChild(rootElement);
+
+            // staff elements
+            Element staff = doc.createElement("Staff");
+            rootElement.appendChild(staff);
+
+            // set attribute to staff element
+            Attr attr = doc.createAttribute("id");
+            attr.setValue("1");
+            staff.setAttributeNode(attr);
+
+            // shorten way
+            // staff.setAttribute("id", "1");
+            // firstname elements
+            Element firstname = doc.createElement("firstname");
+            firstname.appendChild(doc.createTextNode("yong"));
+            staff.appendChild(firstname);
+
+            // lastname elements
+            Element lastname = doc.createElement("lastname");
+            lastname.appendChild(doc.createTextNode("mook kim"));
+            staff.appendChild(lastname);
+
+            // nickname elements
+            Element nickname = doc.createElement("nickname");
+            nickname.appendChild(doc.createTextNode("mkyong"));
+            staff.appendChild(nickname);
+
+            // salary elements
+            Element salary = doc.createElement("salary");
+            salary.appendChild(doc.createTextNode("100000"));
+            staff.appendChild(salary);
+
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer;
+            transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result;
+            result = new StreamResult(new File("/tmp/file.xml"));
+
+            // Output to console for testing
+            // StreamResult result = new StreamResult(System.out);
+            transformer.transform(source, result);
+
+            System.out.println("File saved!");
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ApartamentsController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(ApartamentsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+
     }
 }
