@@ -1,5 +1,5 @@
 var type;
-var workersList = null;
+var workersList = "";
 var taskStatusListJSON = "[[0,\"Нет статуса\"],[1,\"Новый\"],[2,\"В работе\"],[3,\"Прогресс\"],[4,\"Заселился\"]]";
 var taskStatusList = null;
 var KLADR_token = '51dfe5d42fb2b43e3300006e';
@@ -12,7 +12,6 @@ var map = null;
 var placemark = null;
 var map_created = false;
 $(document).ready(function() {
-    getAllWorkersList();
     $.ajax({
         type: "GET",
         url: "api/auth",
@@ -20,15 +19,18 @@ $(document).ready(function() {
         success: function(data) {
             $("#profileLink").html(data);
             $("#logged").css("display", "block");
-            if (workersList == null) {
-                getAllWorkersList();
-            }
+            trueAuth();
         },
         error: function(data) {
             $("#loginForm").css("display", "block");
-//            showDanger(data.responseText);
         }
     });
+});
+
+function trueAuth() {
+    if (workersList == "") {
+        getAllWorkersList();
+    }
     permissions = $.ajax({
         type: "GET",
         url: "api/auth/validate",
@@ -46,7 +48,7 @@ $(document).ready(function() {
     $("#closeAlert").click(function() {
         $("#errorBlock").css("display", "none");
     });
-});
+}
 
 function getMainPage() {
     $.get("main.html", function(data) {
