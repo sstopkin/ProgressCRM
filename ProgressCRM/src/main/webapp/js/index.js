@@ -1,7 +1,5 @@
 var type;
 var workersList = "";
-var taskStatusListJSON = "[[0,\"Нет статуса\"],[1,\"Новый\"],[2,\"В работе\"],[3,\"Прогресс\"],[4,\"Заселился\"]]";
-var taskStatusList = null;
 var KLADR_token = '51dfe5d42fb2b43e3300006e';
 var KLADR_key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
 var KLADR_parentId = '5500000100000';
