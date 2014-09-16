@@ -139,6 +139,83 @@ function addCustomer() {
 
 function customersEditById(customersId) {
     alert("editCustomerById " + customersId);
+    $.get("/templates/modal_customers.html", function(some_html) {
+
+        var box = bootbox.dialog({
+            show: false,
+            title: "<h4 class=\"modal-title\">Редактировать клиента</h4></div>",
+            message: some_html,
+            buttons: {
+                success: {
+                    label: "Редактировать клиента",
+                    className: "btn-success",
+                    callback: function() {
+                        $.ajax({
+                            type: "POST",
+                            url: "api/customers/addcustomer",
+                            data: ({
+                                customersFname: $('#customersFname').val(),
+                                customersMname: $('#customersMname').val(),
+                                customersLname: $('#customersLname').val(),
+                                customersDateOfBirthday: $('#customersDateOfBirthday').val(),
+                                customersSex: $('#customersSex').val(),
+                                customersEmail: $('#customersEmail').val(),
+                                customersPhone: $('#customersPhone').val(),
+                                customersAddress: $('#customersAddress').val(),
+                                customersExtra: $('#customersExtra').val()
+                            }),
+                            success: function() {
+                                $("#errorBlock").css("display", "none");
+                                location.reload();//FIXME
+                            },
+                            error: function(data) {
+                                showDanger(data.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Отмена",
+                    className: "btn-danger",
+                    callback: function() {
+                    }
+                }
+            }
+        });
+
+        box.on("shown.bs.modal", function() {
+            $.ajax({
+                type: "GET",
+                url: "api/news/getnews?id=" + id,
+                success: function(data) {
+                    $("#errorBlock").css("display", "none");
+                    array = JSON.parse(data);
+                    $('#newsHeader').val(array.header);
+                    $('#newsText').val(array.text);
+                },
+                error: function(data) {
+                    showDanger(data.responseText);
+                    return false;
+                }
+            });
+
+            var date = new Date();
+            var day = date.getDate();
+            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
+            var month = date.getMonth() + 1;
+            month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
+            var year = date.getFullYear();
+            $('#customersDateOfBirthday').datepicker({
+                format: "yyyy-mm-dd",
+                todayBtn: "linked",
+                language: "ru",
+                autoclose: true,
+                todayHighlight: true
+            });
+            $('#customersDateOfBirthday').val(year + "-" + month + "-" + day);
+        });
+
+    }, 'html');
 }
 
 function customersDeleteById(customersId) {
