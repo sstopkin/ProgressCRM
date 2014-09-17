@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Apartaments")
@@ -48,7 +49,9 @@ public class Apartaments implements Serializable {
     private boolean MethodOfPurchase_Rent;
     private boolean rePplanning;
     private Date сreationDate;
+    private String creationDateStr;
     private Date lastModify;
+    private String lastModifyStr;
     private int idWorker;
     private int idWorkerTarget;
     private int idCustomer;
@@ -110,6 +113,24 @@ public class Apartaments implements Serializable {
         this.status = status;
         this.ApartamentUUID = UUID.randomUUID().toString();
         this.filespaceUUID = "";
+    }
+
+    @Transient
+    public String getCreationDateStr() {
+        return creationDateStr;
+    }
+
+    public void setCreationDateStr(String creationDateStr) {
+        this.creationDateStr = creationDateStr;
+    }
+
+    @Transient
+    public String getLastModifyStr() {
+        return lastModifyStr;
+    }
+
+    public void setLastModifyStr(String lastModifyStr) {
+        this.lastModifyStr = lastModifyStr;
     }
 
     @Column(name = "idWorkerTarget")

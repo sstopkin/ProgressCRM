@@ -38,8 +38,8 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token, status));
+                    Gson allCustomers = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                    String result = allCustomers.toJson(customersController.getAllCustomers(session, token, status));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,8 +56,8 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().create();
-                    String result = apartamentById.toJson(customersController.getAllCustomers(session, token, "-1"));
+                    Gson allCustomersFull = new GsonBuilder().create();
+                    String result = allCustomersFull.toJson(customersController.getAllCustomers(session, token, "-1"));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,8 +75,8 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().create();
-                    String result = apartamentById.toJson(customersController.getCustomerById(session, token, id));
+                    Gson customerById = new GsonBuilder().create();
+                    String result = customerById.toJson(customersController.getCustomerById(session, token, id));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(CustomersApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,8 +94,8 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().create();
-                    String result = apartamentById.
+                    Gson customersObjectsById = new GsonBuilder().create();
+                    String result = customersObjectsById.
                             toJson(customersController.getCustomerObjectsById(session, token, id));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {

@@ -138,9 +138,8 @@ function addCustomer() {
 }
 
 function customersEditById(customersId) {
-    alert("editCustomerById " + customersId);
+    var array;
     $.get("/templates/modal_customers.html", function(some_html) {
-
         var box = bootbox.dialog({
             show: false,
             title: "<h4 class=\"modal-title\">Редактировать клиента</h4></div>",
@@ -152,8 +151,9 @@ function customersEditById(customersId) {
                     callback: function() {
                         $.ajax({
                             type: "POST",
-                            url: "api/customers/addcustomer",
+                            url: "api/customers/editcustomer",
                             data: ({
+                                customersId: customersId,
                                 customersFname: $('#customersFname').val(),
                                 customersMname: $('#customersMname').val(),
                                 customersLname: $('#customersLname').val(),
@@ -184,27 +184,6 @@ function customersEditById(customersId) {
         });
 
         box.on("shown.bs.modal", function() {
-            $.ajax({
-                type: "GET",
-                url: "api/news/getnews?id=" + id,
-                success: function(data) {
-                    $("#errorBlock").css("display", "none");
-                    array = JSON.parse(data);
-                    $('#newsHeader').val(array.header);
-                    $('#newsText').val(array.text);
-                },
-                error: function(data) {
-                    showDanger(data.responseText);
-                    return false;
-                }
-            });
-
-            var date = new Date();
-            var day = date.getDate();
-            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-            var month = date.getMonth() + 1;
-            month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
-            var year = date.getFullYear();
             $('#customersDateOfBirthday').datepicker({
                 format: "yyyy-mm-dd",
                 todayBtn: "linked",
@@ -212,9 +191,39 @@ function customersEditById(customersId) {
                 autoclose: true,
                 todayHighlight: true
             });
-            $('#customersDateOfBirthday').val(year + "-" + month + "-" + day);
-        });
+            $.ajax({
+                type: "GET",
+                url: "api/customers/getcustomer?id=" + customersId,
+                success: function(data) {
+                    array = JSON.parse(data);
+                    console.log(array);
+                    $('#customersFname').val(array.customersFname);
+                    $('#customersMname').val(array.customersMname);
+                    $('#customersLname').val(array.customersLname);
+                    $('#customersDateOfBirthday').val(array.customersDateOfBirthday);
+                    $('#customersSex').val(array.customersSex);
+                    $('#customersEmail').val(array.customersEmail);
+                    $('#customersPhone').val(array.customersPhone);
+                    $('#customersAddress').val(array.customersAddress);
+                    $('#customersExtra').val(array.customersExtra);
+                },
+                error: function(data) {
+                    showDanger(data.responseText);
+                    return false;
+                }
+            });
 
+//            var date = new Date();
+//            var day = date.getDate();
+//            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
+//            var month = date.getMonth() + 1;
+//            month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
+//            var year = date.getFullYear();
+
+//            $('#customersDateOfBirthday').val(year + "-" + month + "-" + day);
+
+        });
+        box.modal('show');
     }, 'html');
 }
 

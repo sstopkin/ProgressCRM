@@ -1,6 +1,5 @@
 package org.progress.crm.api;
 
-import com.google.common.collect.HashBiMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
