@@ -19,6 +19,7 @@ public class Filespaces implements Serializable {
     private int id;
     private String filespacesUUID;
     private Date creationDate;
+    private String сreationDateStr;
     private String Name;
     private boolean deleted;
 
@@ -30,6 +31,14 @@ public class Filespaces implements Serializable {
         this.creationDate = new Date();
         this.Name = Name;
         this.deleted = false;
+    }
+
+    public String getСreationDateStr() {
+        return сreationDateStr;
+    }
+
+    public void setСreationDateStr(String сreationDateStr) {
+        this.сreationDateStr = сreationDateStr;
     }
 
     @Column(name = "FilespacesUUID")

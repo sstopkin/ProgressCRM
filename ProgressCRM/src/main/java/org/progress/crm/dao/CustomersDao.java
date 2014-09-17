@@ -1,15 +1,19 @@
 package org.progress.crm.dao;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.logic.Apartaments;
+import org.progress.crm.logic.Constants;
 import org.progress.crm.logic.Customers;
 import org.progress.crm.logic.DbFields;
+import org.progress.crm.util.ParamName;
 
 public class CustomersDao {
 
@@ -27,7 +31,11 @@ public class CustomersDao {
     }
 
     public Customers getCustomerById(final Session session, final int customerId) throws SQLException {
-        return (Customers) session.get(Customers.class, customerId);
+        Customers c = (Customers) session.get(Customers.class, customerId);
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.SETTINGS.SIMPLE_DATE_FORMAT, Locale.forLanguageTag(Constants.SETTINGS.LOCALE));
+        String result = formatter.format(c.getCustomersDateOfBirthday());
+        c.setCustomersDateOfBirthdayStr(result);
+        return c;
     }
 
     public List getCustomerObjectsById(final Session session, final int customerId) throws SQLException {
@@ -60,7 +68,7 @@ public class CustomersDao {
     public List<Customers> getAllCustomers(Session session, Integer status) throws SQLException {
         Criteria cr = session.createCriteria(Customers.class);
         cr.add(Restrictions.eq(DbFields.CUSTOMERS.DELETED, false));
-                //FIXME!!!!
+        //FIXME!!!!
         //                .add(Restrictions.eq(DbFields.CUSTOMERS, id));
         return cr.list();
     }

@@ -23,24 +23,10 @@ public class News implements Serializable {
     private String header;
     private String text;
     private Date creationDate;
+    private String creationDateStr;
     private Date lastModify;
+    private String lastModifyStr;
     private boolean deleted;
-    private String formattedCreationDate;
-    private String formattedLastModifyDate;
-
-    @Transient
-    public String getFormattedCreationDate() {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        this.formattedCreationDate = df.format(this.creationDate);
-        return this.formattedCreationDate;
-    }
-
-    @Transient
-    public String getFormattedLastModifyDate() {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
-        this.formattedLastModifyDate = df.format(this.lastModify);
-        return this.formattedLastModifyDate;
-    }
 
     public News() {
     }
@@ -52,6 +38,24 @@ public class News implements Serializable {
         this.creationDate = new Date();
         this.lastModify = new Date();
         this.deleted = false;
+    }
+
+    @Transient
+    public String getCreationDateStr() {
+        return creationDateStr;
+    }
+
+    public void setCreationDateStr(String creationDateStr) {
+        this.creationDateStr = creationDateStr;
+    }
+
+    @Transient
+    public String getLastModifyStr() {
+        return lastModifyStr;
+    }
+
+    public void setLastModifyStr(String lastModifyStr) {
+        this.lastModifyStr = lastModifyStr;
     }
 
     @Id

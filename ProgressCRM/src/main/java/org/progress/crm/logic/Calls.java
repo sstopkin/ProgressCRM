@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Calls")
@@ -19,6 +20,7 @@ public class Calls implements Serializable {
     private String objectUUID;
     private String incomingPhoneNumber;
     private Date date;
+    private String dateStr;
     private String description;
     private int idWorker;
 
@@ -31,6 +33,15 @@ public class Calls implements Serializable {
         this.incomingPhoneNumber = incomingPhoneNumber;
         this.description = description;
         this.idWorker = idWorker;
+    }
+
+    @Transient
+    public String getDateStr() {
+        return dateStr;
+    }
+
+    public void setDateStr(String dateStr) {
+        this.dateStr = dateStr;
     }
 
     @Id

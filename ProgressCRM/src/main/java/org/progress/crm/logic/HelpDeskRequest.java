@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "HelpDesk")
@@ -21,7 +22,9 @@ public class HelpDeskRequest implements Serializable {
     private String text;
     private int status;
     private Date creationDate;
+    private String creationDateStr;
     private Date lastModify;
+    private String lastModifyStr;
     private boolean deleted;
 
     public HelpDeskRequest(int idWorker, String request, String text, int status) {
@@ -35,6 +38,24 @@ public class HelpDeskRequest implements Serializable {
     }
 
     public HelpDeskRequest() {
+    }
+
+    @Transient
+    public String getCreationDateStr() {
+        return creationDateStr;
+    }
+
+    public void setCreationDateStr(String creationDateStr) {
+        this.creationDateStr = creationDateStr;
+    }
+
+    @Transient
+    public String getLastModifyStr() {
+        return lastModifyStr;
+    }
+
+    public void setLastModifyStr(String lastModifyStr) {
+        this.lastModifyStr = lastModifyStr;
     }
 
     @Id

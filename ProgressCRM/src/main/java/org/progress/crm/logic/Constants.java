@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.progress.crm.logic;
 
-/**
- *
- * @author best
- */
 public class Constants {
 
     public class LOGSERVICEACTIONSCODE {
@@ -20,6 +11,9 @@ public class Constants {
     }
 
     public class SETTINGS {
+
+        public final static String SIMPLE_DATE_FORMAT = "EEE d MMM yy";
+        public final static String LOCALE = "ru-RU";
 
         public final static String BASEPATH = "/var/progresscrm/data/";
     }
