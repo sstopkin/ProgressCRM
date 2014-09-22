@@ -10,6 +10,14 @@ var map = null;
 var placemark = null;
 var map_created = false;
 $(document).ready(function() {
+    $('#loginForm').keydown(function(event) {
+        if (event.which == 13) {
+            $('#loginBtn').click();
+        }
+    });
+    $("#closeAlert").click(function() {
+        $("#errorBlock").css("display", "none");
+    });
     $.ajax({
         type: "GET",
         url: "api/auth",
@@ -38,14 +46,6 @@ function trueAuth() {
         $('#adminTabLink').css("display", "block");
     }
     parseUrl(location.href);
-    $('#loginForm').keydown(function(event) {
-        if (event.which == 13) {
-            $('#loginBtn').click();
-        }
-    });
-    $("#closeAlert").click(function() {
-        $("#errorBlock").css("display", "none");
-    });
 }
 
 function getMainPage() {

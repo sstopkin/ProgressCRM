@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Comments")
@@ -21,7 +20,6 @@ public class Comments implements Serializable {
     private String objectUUID;
     private String text;
     private Date сreationDate;
-    private String сreationDateStr;
     private boolean deleted;
 
     public Comments() {
@@ -33,15 +31,6 @@ public class Comments implements Serializable {
         this.text = text;
         this.сreationDate = new Date();
         this.deleted = false;
-    }
-
-    @Transient
-    public String getСreationDateStr() {
-        return сreationDateStr;
-    }
-
-    public void setСreationDateStr(String сreationDateStr) {
-        this.сreationDateStr = сreationDateStr;
     }
 
     @Id
