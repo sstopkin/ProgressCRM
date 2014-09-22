@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Customers")
@@ -26,7 +25,6 @@ public class Customers implements Serializable {
     @Expose
     private String customersMname;
     @Expose
-    private String customersDateOfBirthdayStr;
     private Date customersDateOfBirthday;
     @Expose
     private int customersSex;
@@ -55,15 +53,6 @@ public class Customers implements Serializable {
         this.customersExtra = customersExtra;
         this.deleted = false;
         this.сreationDate = new Date();
-    }
-
-    @Transient
-    public String getCustomersDateOfBirthdayStr() {
-        return customersDateOfBirthdayStr;
-    }
-
-    public void setCustomersDateOfBirthdayStr(String customersDateOfBirthdayStr) {
-        this.customersDateOfBirthdayStr = customersDateOfBirthdayStr;
     }
 
     @Column(name = "CreationDate")
