@@ -1,6 +1,14 @@
 package org.progress.crm.api;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import java.io.File;
+import java.util.Date;
 import javax.ws.rs.core.Response;
 
 public class ApiHelper {
@@ -29,5 +37,19 @@ public class ApiHelper {
     public static Response getResponse(Exception ex) {
         return Response.ok(ex.getMessage()).status(500).build();
     }
+
+    public static JsonSerializer<Date> ser = new JsonSerializer<Date>() {
+        @Override
+        public JsonElement serialize(Date t, java.lang.reflect.Type type, JsonSerializationContext jsc) {
+            return t == null ? null : new JsonPrimitive(t.getTime());
+        }
+    };
+
+    public static JsonDeserializer<Date> deser = new JsonDeserializer<Date>() {
+        @Override
+        public Date deserialize(JsonElement je, java.lang.reflect.Type type, JsonDeserializationContext jdc) throws JsonParseException {
+            return je == null ? null : new Date(je.getAsLong());
+        }
+    };
 
 }

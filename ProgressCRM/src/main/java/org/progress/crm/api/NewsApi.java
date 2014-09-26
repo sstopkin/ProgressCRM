@@ -3,6 +3,7 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import static org.progress.crm.api.ApiHelper.ser;
 import org.progress.crm.controllers.NewsController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
@@ -36,7 +38,9 @@ public class NewsApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson newsList = new GsonBuilder().create();
+
+                    Gson newsList = new GsonBuilder().registerTypeAdapter(Date.class, ser)
+                            .create();
                     String newsJson = newsList.toJson(newsController
                             .getNews(session, token));
                     return ApiHelper.getResponse(newsJson);
@@ -120,7 +124,7 @@ public class NewsApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().create();
+                    Gson apartamentById = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     Map<String, String> map = new HashMap<>();
                     map.put(ParamName.NEWS_ID, newsId);
                     String result = apartamentById.toJson(newsController.getNewsById(session, token, map));

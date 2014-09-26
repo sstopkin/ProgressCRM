@@ -36,7 +36,7 @@ public class AdminApi {
 //        return TransactionService.runInScope(new Command<Response>() {
 //            @Override
 //            public Response execute(Session session) throws CustomException, SQLException {
-//                Gson unevaluated = new GsonBuilder().create();
+//                Gson unevaluated = new GsonBuilder().registerTypeAdapter(Date.class, ser)                             .create();
 //                String result = unevaluated.toJson(taskEvaluatedController
 //                        .getNotEvaluatedTasksList(session, token));
 //                return ApiHelper.getResponse(result);
@@ -117,7 +117,7 @@ public class AdminApi {
 //        return TransactionService.runInScope(new Command<Response>() {
 //            @Override
 //            public Response execute(Session session) throws CustomException, SQLException {
-//                Gson courseById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+//                Gson courseById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser)                             .create();
 //                String coursesJson = courseById.toJson(courseController
 //                        .getCoursesForModeration(session, token));
 //                return ApiHelper.getResponse(coursesJson);
@@ -132,7 +132,7 @@ public class AdminApi {
 //        return TransactionService.runInScope(new Command<Response>() {
 //            @Override
 //            public Response execute(Session session) throws CustomException, SQLException {
-//                Gson courseById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+//                Gson courseById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser)                             .create();
 //                String coursesJson = courseById.toJson(taskController
 //                        .getTasksForModeration(session, token));
 //                return ApiHelper.getResponse(coursesJson);

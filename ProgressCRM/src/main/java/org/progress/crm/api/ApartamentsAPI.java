@@ -3,6 +3,7 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import static org.progress.crm.api.ApiHelper.ser;
 import org.progress.crm.controllers.ApartamentsController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
@@ -38,7 +40,7 @@ public class ApartamentsAPI {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().create();
+                    Gson apartamentById = new GsonBuilder().registerTypeAdapter(Date.class, ser)                             .create();
                     String result = apartamentById.toJson(apartamentsController.getApartamentById(session, token, id));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
@@ -57,7 +59,7 @@ public class ApartamentsAPI {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson allApartament = new GsonBuilder().create();
+                    Gson allApartament = new GsonBuilder().registerTypeAdapter(Date.class, ser)                             .create();
                     String result = allApartament.toJson(apartamentsController.getAllApartament(session, token, status));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
@@ -256,7 +258,7 @@ public class ApartamentsAPI {
 //            @Override
 //            public Response execute(Session session) throws SQLException {
 //                try {
-//                    Gson apartamentById = new GsonBuilder().create();
+//                    Gson apartamentById = new GsonBuilder().registerTypeAdapter(Date.class, ser)                             .create();
 //                    String result = apartamentById.toJson(apartamentsController.getApartamentsYML(session));
 //                    return ApiHelper.getResponse(result);
 //                } catch (CustomException ex) {
