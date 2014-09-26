@@ -3,6 +3,7 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -15,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import static org.progress.crm.api.ApiHelper.ser;
 import org.progress.crm.controllers.CommentsController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
@@ -35,7 +37,7 @@ public class CommentsApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson response = new GsonBuilder().create();
+                    Gson response = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     String result = response.toJson(commentsController.getCommentsByObjectUUID(session, token, objectUUID));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {

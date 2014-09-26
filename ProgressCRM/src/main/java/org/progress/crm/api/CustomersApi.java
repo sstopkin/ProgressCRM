@@ -3,6 +3,7 @@ package org.progress.crm.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import static org.progress.crm.api.ApiHelper.ser;
 import org.progress.crm.controllers.CustomersController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
@@ -38,7 +40,7 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson allCustomers = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                    Gson allCustomers = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser).create();
                     String result = allCustomers.toJson(customersController.getAllCustomers(session, token, status));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
@@ -56,7 +58,7 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson allCustomersFull = new GsonBuilder().create();
+                    Gson allCustomersFull = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     String result = allCustomersFull.toJson(customersController.getAllCustomers(session, token, "-1"));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
@@ -75,7 +77,7 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson customerById = new GsonBuilder().create();
+                    Gson customerById = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     String result = customerById.toJson(customersController.getCustomerById(session, token, id));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
@@ -94,7 +96,7 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson customersObjectsById = new GsonBuilder().create();
+                    Gson customersObjectsById = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     String result = customersObjectsById.
                             toJson(customersController.getCustomerObjectsById(session, token, id));
                     return ApiHelper.getResponse(result);
@@ -114,7 +116,7 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().create();
+                    Gson apartamentById = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     String result = apartamentById.toJson(customersController.getCustomerByString(session, token, str));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
@@ -229,7 +231,7 @@ public class CustomersApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().create();
+                    Gson apartamentById = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     String result = apartamentById.toJson(customersController.getCustomersListByQuery(session, token,
                             query));
                     return ApiHelper.getResponse(result);

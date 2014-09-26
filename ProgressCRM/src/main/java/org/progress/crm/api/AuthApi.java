@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -15,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
+import static org.progress.crm.api.ApiHelper.ser;
 import org.progress.crm.controllers.AuthenticationManager;
 import org.progress.crm.controllers.RoleController;
 import org.progress.crm.controllers.WorkersController;
@@ -117,7 +119,7 @@ public class AuthApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson userProfile = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                    Gson userProfile = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser).create();
                     String profileJson = userProfile.toJson(workersController
                             .getProfileInfo(session, token));
                     return ApiHelper.getResponse(profileJson);
@@ -155,7 +157,7 @@ public class AuthApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
-                Gson allUsersList = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                Gson allUsersList = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser).create();
                 try {
                     String profileJson = allUsersList.toJson(workersController
                             .getAllWorkers(session));
