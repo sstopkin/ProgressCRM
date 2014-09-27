@@ -48,7 +48,7 @@ function drawCustomersListTable(data) {
         str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
         str += "<td>" + entry.customersLname + " " + entry.customersFname + " " + entry.customersMname + "</td>";
         str += "<td>" + entry.customersPhone + "</td>";
-        str += "<td>" + entry.customersDateOfBirthday + "</td>";
+        str += "<td>" + timeConverter(entry.customersDateOfBirthday) + "</td>";
         str += "<td>" + entry.customersEmail + "</td>";
         str += "<td>";
         switch (entry.customersSex) {

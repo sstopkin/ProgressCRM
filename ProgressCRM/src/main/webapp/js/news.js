@@ -5,7 +5,7 @@ function getNews() {
         var array = JSON.parse(data);
         array.forEach(function(entry) {
             str += "<div class=\"panel panel-info\">";
-            str += "<div class=\"panel-heading\">#" + entry.id + " | " + "<b>" + entry.header + "</b>" + " | " + entry.lastModify + "</div>";
+            str += "<div class=\"panel-heading\">#" + entry.id + " | " + "<b>" + entry.header + "</b>" + " | " + timeConverter(entry.lastModify) + "</div>";
             str += "<div class=\"panel-body\">";
             str += "<div class=\"media-body\">";
             if (permissions == "3") {
