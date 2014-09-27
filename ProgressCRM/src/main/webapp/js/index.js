@@ -261,3 +261,20 @@ function getWorkersFullNameById(idWorker) {
         }
     }
 }
+
+function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp);
+//    var months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+    var year = a.getFullYear();
+//    var month = months[a.getMonth() - 1];
+    var month = a.getMonth();
+    month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
+    var date = a.getDate();
+    date = (parseInt(date, 10) < 10) ? ('0' + date) : (date);
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+//    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+    return time;
+}

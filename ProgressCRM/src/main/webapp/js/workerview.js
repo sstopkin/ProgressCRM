@@ -82,7 +82,7 @@ function getWorkersViewPage(workerId) {
                     str += "<td>" + entry.price + "</td>";
                     str += "<td>" + getWorkersFullNameById(entry.idWorker) + "</td>";
                     str += "<td>" + getWorkersFullNameById(entry.idWorkerTarget) + "</td>";
-                    str += "<td>" + entry.сreationDate + "</td>";
+                    str += "<td>" + timeConverter(entry.сreationDate) + "</td>";
                 });
                 str += "</tbody>";
                 $("#customersObjects").html(str);
