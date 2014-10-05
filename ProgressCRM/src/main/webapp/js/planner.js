@@ -25,8 +25,8 @@ function addPlannerTaskDialog(objectUUID) {
                                 taskclass: $('#plannerAddTaskModalTaskClass').val(),
                                 title: $('#plannerAddTaskModalTaskTitle').val(),
                                 description: $('#plannerAddTaskModalDescription').val(),
-                                startdate: $('#plannerAddTaskModalStratDate').val() + ' ' + $('#plannerAddTaskModalStratTime').val(),
-                                enddate: $('#plannerAddTaskModalEndDate').val() + ' ' + $('#plannerAddTaskModalEndTime').val()
+                                startdate: getTimeStamp($('#plannerAddTaskModalStratDate').val() + ' ' + $('#plannerAddTaskModalStratTime').val()),
+                                enddate: getTimeStamp($('#plannerAddTaskModalEndDate').val() + ' ' + $('#plannerAddTaskModalEndTime').val())
                             }),
                             success: function() {
                                 $("#errorBlock").css("display", "none");
