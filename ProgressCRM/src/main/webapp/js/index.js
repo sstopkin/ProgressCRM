@@ -278,3 +278,7 @@ function timeConverter(UNIX_timestamp) {
     var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
     return time;
 }
+
+function getTimeStamp(date) {
+    return new Date(date).getTime();
+}
