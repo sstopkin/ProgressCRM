@@ -1,11 +1,8 @@
 package org.progress.crm.controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -13,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
-import org.progress.crm.exceptions.BadLogInException;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
@@ -86,6 +82,7 @@ public class PlannerController {
             String startDate = String.valueOf(c.getTimeInMillis());
             c.setTime(obj.getTaskEndDate());
             String endDate = String.valueOf(c.getTimeInMillis());
+            //FIXME
             s.ret(new event(obj.getId(), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "url", obj.getTaskClass(), startDate, endDate));
         }
         return s;
@@ -98,8 +95,14 @@ public class PlannerController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, targetObjectUUID, taskTitle, taskDescription, null,
-                null);
+        //some time logic
+        Long startDate = Long.parseLong(taskStartDate);
+        Long endDate = Long.parseLong(taskEndDate);
+        if (startDate > endDate) {
+            throw new BadRequestException();
+        }
+        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, targetObjectUUID, taskTitle, taskDescription, new java.util.Date(startDate),
+                new java.util.Date(endDate));
         return true;
     }
 

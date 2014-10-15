@@ -5,11 +5,10 @@ function getPlannerPage() {
 }
 
 function addPlannerTaskDialog(objectUUID) {
-
     $.get("/templates/modal_planner.html", function(some_html) {
         var box = bootbox.dialog({
             show: false,
-            title: "<h4 class=\"modal-title\">Добавить звонок</h4></div>",
+            title: "<h4 class=\"modal-title\">Добавить задачу</h4></div>",
             message: some_html,
             buttons: {
                 success: {
@@ -20,7 +19,7 @@ function addPlannerTaskDialog(objectUUID) {
                             type: "POST",
                             url: "api/planner/addtask",
                             data: ({
-                                targetobjectuuid: "",
+                                targetobjectuuid: $('#plannerAddTaskModalTaskObjectId').val(),
                                 tasktype: $('#plannerAddTaskModalTaskType').val(),
                                 taskclass: $('#plannerAddTaskModalTaskClass').val(),
                                 title: $('#plannerAddTaskModalTaskTitle').val(),
@@ -80,6 +79,7 @@ function addPlannerTaskDialog(objectUUID) {
                 showInputs: false,
                 showMeridian: false
             });
+            $('#plannerAddTaskModalTaskObjectId').val(objectUUID);
         });
         box.modal('show');
     }, 'html');
