@@ -9,6 +9,7 @@
         <ul id="myTab" class="nav nav-tabs">
             <li class="active"><a href="#tab1" data-toggle="tab">Информация</a></li>
             <li class=""><a href="#tab2" data-toggle="tab">Файлы</a></li>
+            <li class=""><a href="#tab3" data-toggle="tab">Задачи</a></li>
         </ul>
         <div class="tabbable">
             <div class="tab-content">
@@ -41,6 +42,14 @@
                 </div>
                 <div class="tab-pane" id="tab2">
                     <div id="apartamentsFilemanager"></div>
+                </div>
+                <div class="tab-pane" id="tab3">
+                    <div class="panel panel-default">
+                        <input type="button" class="btn btn-success pull-right" id="addApartamentTaskBtn" value="Добавить задачу" />
+                        <div id="apartamentsTasksPanel">
+                            <div id="apartamentsTasks"></div>
+                        </div>        
+                    </div>
                 </div>
             </div>
         </div>

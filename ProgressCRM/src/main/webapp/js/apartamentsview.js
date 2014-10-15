@@ -276,6 +276,9 @@ function getApartamentViewPage(apartamentId) {
         });
         getFileManagerPage(array.filespaceUUID, array.ApartamentUUID);
         $("#apartamentsFeatures").html(content);
+        $("#addApartamentTaskBtn").click(function() {
+            addPlannerTaskDialog(array.ApartamentUUID);
+        });
     });
 }
 
