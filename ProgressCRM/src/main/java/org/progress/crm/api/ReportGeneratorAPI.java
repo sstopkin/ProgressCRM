@@ -45,6 +45,27 @@ public class ReportGeneratorAPI {
     }
 
     @GET
+    @Path("getprice/{path:.*}")
+    @Produces("application/force-download")
+    public Response getPrice1(@CookieParam("token") final String token, @PathParam("path") final String path) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws SQLException {
+                File f = null;
+                try {
+                    if (path.equals("price.xml")) {
+                        f = reportGeneratorController.getPrice(session, token, "1");
+                    }
+                    return ApiHelper.getResponse(f);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ReportGeneratorAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
+            }
+        });
+    }
+
+    @GET
     @Path("getapartamentsreport/{id}")
     @Produces("application/pdf")
     public Response getPriceByApartamentsId(@PathParam("id") final String apartamentId,
