@@ -3,8 +3,12 @@ package org.progress.crm.controllers;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
@@ -29,7 +33,18 @@ public class ReportGeneratorController {
         return DaoFactory.getReportGeneratorDao().priceGen(session, idWorker, status);
     }
 
-    public File getPriceByApartamentsId(Session session, String token, String apartamentId) throws CustomException, SQLException {
+    public File getXmlCatalog(Session session) throws IsNotAuthenticatedException, CustomException, SQLException {
+        try {
+            return DaoFactory.getReportGeneratorDao().xmlGen(session);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ReportGeneratorController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(ReportGeneratorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public File getObjectCardByApartamentsId(Session session, String token, String apartamentId) throws CustomException, SQLException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
