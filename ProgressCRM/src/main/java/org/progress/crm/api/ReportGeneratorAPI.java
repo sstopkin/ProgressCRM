@@ -45,16 +45,16 @@ public class ReportGeneratorAPI {
     }
 
     @GET
-    @Path("getprice/{path:.*}")
+    @Path("{path:.*}")
     @Produces("application/force-download")
-    public Response getPrice1(@CookieParam("token") final String token, @PathParam("path") final String path) throws CustomException {
+    public Response getPrice1(@PathParam("path") final String path) throws CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
                 File f = null;
                 try {
                     if (path.equals("price.xml")) {
-                        f = reportGeneratorController.getPrice(session, token, "1");
+                        f = reportGeneratorController.getXmlCatalog(session);
                     }
                     return ApiHelper.getResponse(f);
                 } catch (CustomException ex) {
@@ -74,7 +74,7 @@ public class ReportGeneratorAPI {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    File f = reportGeneratorController.getPriceByApartamentsId(session, token, apartamentId);
+                    File f = reportGeneratorController.getObjectCardByApartamentsId(session, token, apartamentId);
                     return ApiHelper.getResponse(f);
                 } catch (CustomException ex) {
                     Logger.getLogger(ReportGeneratorAPI.class.getName()).log(Level.SEVERE, null, ex);
