@@ -58,6 +58,7 @@ public class Apartaments implements Serializable {
     private int dwellingType;
     private int status;
     private String filespaceUUID;
+    private int isAD;
 
     public Apartaments() {
     }
@@ -69,7 +70,7 @@ public class Apartaments implements Serializable {
             BigDecimal sizeLiving, BigDecimal sizeKitchen, int balcony, int loggia, int yearOfConstruction,
             String description, boolean MethodOfPurchase_PureSale, boolean MethodOfPurchase_Mortgage,
             boolean MethodOfPurchase_Exchange, boolean MethodOfPurchase_Rent, boolean rePplanning,
-            int idWorker, int idWorkerTarget, int idCustomer, boolean IsApproved, int status) {
+            int idWorker, int idWorkerTarget, int idCustomer, boolean IsApproved, int status, int isAD) {
         this.typeOfSales = typeOfSales;
         this.price = price;
         this.cityDistrict = cityDistrict;
@@ -110,6 +111,16 @@ public class Apartaments implements Serializable {
         this.status = status;
         this.ApartamentUUID = UUID.randomUUID().toString();
         this.filespaceUUID = "";
+        this.isAD = isAD;
+    }
+
+    @Column(name = "isAD")
+    public int getIsAD() {
+        return isAD;
+    }
+
+    public void setIsAD(int isAD) {
+        this.isAD = isAD;
     }
 
     @Column(name = "idWorkerTarget")
