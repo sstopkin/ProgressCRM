@@ -1,11 +1,5 @@
-function getPlannerPage() {
-    $.get("planner.html", function(data) {
-        $("#mainContainer").html(data);
-    });
-}
-
 function addPlannerTaskDialog(objectUUID) {
-    $.get("/templates/modal_planner.html", function(some_html) {
+    $.get("/templates/modal_planner.html", function (some_html) {
         var box = bootbox.dialog({
             show: false,
             title: "<h4 class=\"modal-title\">Добавить задачу</h4></div>",
@@ -14,7 +8,7 @@ function addPlannerTaskDialog(objectUUID) {
                 success: {
                     label: "Добавить звонок",
                     className: "btn-success",
-                    callback: function() {
+                    callback: function () {
                         $.ajax({
                             type: "POST",
                             url: "api/planner/addtask",
@@ -27,11 +21,11 @@ function addPlannerTaskDialog(objectUUID) {
                                 startdate: getTimeStamp($('#plannerAddTaskModalStratDate').val() + ' ' + $('#plannerAddTaskModalStratTime').val()),
                                 enddate: getTimeStamp($('#plannerAddTaskModalEndDate').val() + ' ' + $('#plannerAddTaskModalEndTime').val())
                             }),
-                            success: function() {
+                            success: function () {
                                 $("#errorBlock").css("display", "none");
                                 location.reload();//FIXME
                             },
-                            error: function(data) {
+                            error: function (data) {
                                 showDanger(data.responseText);
                             }
                         });
@@ -40,13 +34,13 @@ function addPlannerTaskDialog(objectUUID) {
                 danger: {
                     label: "Отмена",
                     className: "btn-danger",
-                    callback: function() {
+                    callback: function () {
                     }
                 }
             }
         });
 
-        box.on("shown.bs.modal", function() {
+        box.on("shown.bs.modal", function () {
             var date = new Date();
             var day = date.getDate();
             day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
@@ -83,57 +77,4 @@ function addPlannerTaskDialog(objectUUID) {
         });
         box.modal('show');
     }, 'html');
-}
-
-function plannerGetWorkersTasks() {
-//    var permissions = $.ajax({
-//        type: "GET",
-//        url: "api/auth/validate",
-//        async: false
-//    }).responseText;
-//    $.ajax({
-//        type: "GET",
-//        url: "api/planner",
-//        success: function(data) {
-//            $("#errorBlock").css("display", "none");
-//            var array = JSON.parse(data);
-//            var str = "Planner";
-//            array.forEach(function(entry) {
-//                str += "<div class = \"media\">";
-//                str += "<a class = \"pull-left\" href = \"#\">";
-//                str += "<img class=\"media-object\" src=\"images/IT-Icon.png\" alt=\"...\">";
-//                str += "</a>";
-//                str += "<div class=\"media-body\">";
-//                str += "<h6 class=\"media-heading\">";
-//                str += entry.creationDate;
-//                str += "</h4>";
-//                str += "<h4 class=\"media-heading\">";
-//                str += entry.taskDescription;
-//                str += "</h4>";
-//                str += "text";
-//                if (permissions == "3") {
-//                    str += "<div class=\"btn-toolbar\">";
-//                    str += "<div class=\"btn-group\">";
-//                    str += "<button type=\"button\" onclick=\"editHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-pencil\"></span></button>";
-//                    str += "<button type=\"button\" onclick=\"deleteHelpDeskRequestById(" + entry.id + ");\" class=\"btn btn-default\"><span class=\"glyphicon glyphicon-remove\"></span></button>";
-//                    str += "</div>";
-//                    str += "</div>";
-//                }
-//                for (var i = 0; i < workersList.length; ++i) {
-//                    var a = workersList[i];
-//                    if (entry.idWorker == a[0]) {
-//                        str += "<td>" + a[1] + " " + a[3] + "</td>";
-//                    }
-//                }
-//                str += "<a href=\"#\" onclick=\"return alert(\'" + entry.id + " \')\">ссылка</a>";
-//                str += "</div>";
-//                str += "</div>";
-//            });
-//            $("#profilePlannerTasksList").html(str);
-//        },
-//        error: function(data) {
-//            showDanger(data.responseText);
-//            return false;
-//        }
-//    });
 }
