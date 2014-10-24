@@ -1,14 +1,14 @@
 function addApartament() {
-    $.get("/templates/modal_apartaments.html", function(data) {
+    $.get("/templates/modal_apartaments.html", function (data) {
         $("#mainContainer").html(data);
         $("#errorBlock").css("display", "none");
-        mapSet();
-        workersList.forEach(function(entry) {
+        mapInit();
+        workersList.forEach(function (entry) {
             $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
         });
         $("#apartamentAddReadyLink").css("display", "inline");
         //price
-        $("#apartamentAddReadyLink").click(function() {
+        $("#apartamentAddReadyLink").click(function () {
             if ($('#IdCustomer').val() == "") {
                 showWarning("Не указан ID клиента");
                 return false;
@@ -67,14 +67,14 @@ function addApartament() {
                     idCustomer: $("#IdCustomer").val(),
                     status: $("#ApartamentStatus").val()
                 }),
-                success: function(data) {
-                    bootbox.confirm("Объект добавлен", function(result) {
+                success: function (data) {
+                    bootbox.confirm("Объект добавлен", function (result) {
                         //FIXME! /list/all
                         document.location.href = "#apartaments/list/price";
                         location.reload();
                     });
                 },
-                error: function(data) {
+                error: function (data) {
                     showDanger(data.responseText);
                 }
             });
@@ -82,7 +82,7 @@ function addApartament() {
     });
 }
 
-function mapSet() {
+function mapInit() {
     var city = $('[name="city"]');
     var street = $('[name="street"]');
     var building = $('[name="building"]');
@@ -94,7 +94,7 @@ function mapSet() {
         type: $.ui.kladrObjectType.CITY,
         withParents: true,
         label: Label,
-        select: function(event, ui) {
+        select: function (event, ui) {
             city.data("kladr-obj", ui.item.obj);
             city.parent().find('label').text(ui.item.obj.type);
             street.kladr('option', {parentType: $.ui.kladrObjectType.CITY, parentId: ui.item.obj.id});
@@ -111,7 +111,7 @@ function mapSet() {
         key: KLADR_key,
         type: $.ui.kladrObjectType.STREET,
         label: Label,
-        select: function(event, ui) {
+        select: function (event, ui) {
             street.data("kladr-obj", ui.item.obj);
             street.parent().find('label').text(ui.item.obj.type);
             building.kladr('option', {parentType: $.ui.kladrObjectType.STREET, parentId: ui.item.obj.id});
@@ -127,7 +127,7 @@ function mapSet() {
         key: KLADR_key,
         type: $.ui.kladrObjectType.BUILDING,
         label: Label,
-        select: function(event, ui) {
+        select: function (event, ui) {
             building.data("kladr-obj", ui.item.obj);
             Log(ui.item.obj);
             AddressUpdate();
@@ -136,13 +136,13 @@ function mapSet() {
     });
 
 // Проверка корректности названия города (если пользователь ввёл сам, а не выбрал в списке)
-    city.change(function() {
+    city.change(function () {
         $.kladrCheck({
             token: KLADR_token,
             key: KLADR_key,
             value: city.val(),
             type: $.ui.kladrObjectType.CITY
-        }, function(obj) {
+        }, function (obj) {
             if (obj) {
                 city.val(obj.name);
                 city.data("kladr-obj", obj);
@@ -162,7 +162,7 @@ function mapSet() {
     });
 
 // Проверка корректности названия улицы (если пользователь ввёл сам, а не выбрал в списке)
-    street.change(function() {
+    street.change(function () {
         var query = {
             token: KLADR_token,
             key: KLADR_key,
@@ -176,7 +176,7 @@ function mapSet() {
             query['parentId'] = cityObj.id;
         }
 
-        $.kladrCheck(query, function(obj) {
+        $.kladrCheck(query, function (obj) {
             if (obj) {
                 street.val(obj.name);
                 street.data("kladr-obj", obj);
@@ -195,7 +195,7 @@ function mapSet() {
     });
 
 // Проверка названия строения
-    building.change(function() {
+    building.change(function () {
         var query = {
             token: KLADR_token,
             key: KLADR_key,
@@ -215,7 +215,7 @@ function mapSet() {
             query['parentId'] = streetObj.id;
         }
 
-        $.kladrCheck(query, function(obj) {
+        $.kladrCheck(query, function (obj) {
             if (obj && (obj.name == building.val())) {
                 building.val(obj.name);
                 building.data("kladr-obj", obj);
@@ -230,7 +230,7 @@ function mapSet() {
     });
 
 // Проверка названия корпуса
-    buildingAdd.change(function() {
+    buildingAdd.change(function () {
         Log(null);
         AddressUpdate();
         MapUpdate();
@@ -239,21 +239,21 @@ function mapSet() {
     var fields = city.add(street);
 
 // Отображение крутилки при отправке запроса к сервису
-    fields.bind('downloadStart', function() {
+    fields.bind('downloadStart', function () {
         $(this).parent().find('.spinner').show();
     });
 
 // Скрытие крутилки по получении ответа от сервиса
-    fields.bind('downloadStop', function() {
+    fields.bind('downloadStop', function () {
         $(this).parent().find('.spinner').hide();
     });
 
-    fields.keydown(function() {
+    fields.keydown(function () {
         $(this).css('color', 'black');
     });
 
 // Формирует подписи в autocomplete
-    var Label = function(obj, query) {
+    var Label = function (obj, query) {
         var label = '';
 
         var name = obj.name.toLowerCase();
@@ -289,7 +289,7 @@ function mapSet() {
     };
 
 // Обновляет карту
-    var MapUpdate = function() {
+    var MapUpdate = function () {
         var zoom = 12;
         var address = '';
 
@@ -327,8 +327,8 @@ function mapSet() {
 
         if (address && map_created) {
             var geocode = ymaps.geocode(address);
-            geocode.then(function(res) {
-                map.geoObjects.each(function(geoObject) {
+            geocode.then(function (res) {
+                map.geoObjects.each(function (geoObject) {
                     map.geoObjects.remove(geoObject);
                 });
 
@@ -344,7 +344,7 @@ function mapSet() {
     };
 
 // Обновляет текстовое представление адреса
-    var AddressUpdate = function() {
+    var AddressUpdate = function () {
         var address = '';
         var zip = '';
 
@@ -397,7 +397,7 @@ function mapSet() {
     };
 
 // Обновляет лог текущего выбранного объекта
-    var Log = function(obj) {
+    var Log = function (obj) {
         var logId = $('#id');
         if (obj && obj.id) {
             logId.find('.value').text(obj.id);
@@ -439,14 +439,14 @@ function mapSet() {
         }
     }
 
-    ymaps.ready(function() {
+    ymaps.ready(function () {
         if (map_created)
             return;
         map_created = true;
 
         map = new ymaps.Map('map', {
-            center: [55.76, 37.64],
-            zoom: 12
+            center: [54.989342, 73.368212],
+            zoom: 11
         });
 
         map.controls

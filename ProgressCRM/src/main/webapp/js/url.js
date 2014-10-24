@@ -39,7 +39,7 @@ function parseUrl(str) {
         parser = /(?:^|&)([^&=]*)=?([^&]*)/g;
         uri[name] = {};
         query = uri[key[12]] || '';
-        query.replace(parser, function($0, $1, $2) {
+        query.replace(parser, function ($0, $1, $2) {
             if ($1) {
                 uri[name][$1] = $2;
             }
@@ -47,7 +47,6 @@ function parseUrl(str) {
     }
     delete uri.source;
 //    ##################
-    var pathPlanner = "planner";
     var pathCustomers = "customers";
     var pathHelpDesk = "helpdesk";
     var pathProfile = "profile";
@@ -68,11 +67,6 @@ function parseUrl(str) {
 
     if (arr[0] === pathNews) {
         getNewsPage();
-        return;
-    }
-
-    if (arr[0] === pathPlanner) {
-        getPlannerPage();
         return;
     }
 
@@ -233,7 +227,7 @@ function helpParseUrl(uri, arr, type) {
 
 function get404Page(uri) {
     console.log(uri);
-    $.get("404.html", function(data) {
+    $.get("404.html", function (data) {
         $("#mainContainer").html(data);
         //FIXME
         $("#currentLocation").text();
@@ -241,8 +235,8 @@ function get404Page(uri) {
     });
 }
 
-$(document).ready(function() {
-    $(window).bind('hashchange', function() {
+$(document).ready(function () {
+    $(window).bind('hashchange', function () {
         $('#ajaxProgress').css('display', 'none');
         $("#errorBlock").css("display", "none");
         checkStatus();

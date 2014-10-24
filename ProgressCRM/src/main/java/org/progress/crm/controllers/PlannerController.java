@@ -83,7 +83,7 @@ public class PlannerController {
             c.setTime(obj.getTaskEndDate());
             String endDate = String.valueOf(c.getTimeInMillis());
             //FIXME
-            s.ret(new event(obj.getId(), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "url", obj.getTaskClass(), startDate, endDate));
+            s.ret(new event(obj.getId(), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "#", obj.getTaskClass(), startDate, endDate));
         }
         return s;
     }
