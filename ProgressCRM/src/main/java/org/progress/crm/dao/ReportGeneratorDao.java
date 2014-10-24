@@ -18,8 +18,12 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.progress.crm.logic.Apartaments;
+import org.progress.crm.logic.DbFields;
 import org.progress.crm.logic.Workers;
 import org.progress.crm.util.PDF;
 import org.w3c.dom.Attr;
@@ -45,16 +49,16 @@ public class ReportGeneratorDao {
     }
 
     public File xmlGen(Session session) throws SQLException, ParserConfigurationException, TransformerConfigurationException, TransformerException {
-        List<Object> reportContent = session.createSQLQuery(
+        List<Object> apartObjects = session.createSQLQuery(
                 "SELECT Apartaments.id, price, Rooms, CityDistrict, CityName,StreetName,HouseNumber,BuildingNumber, "
                 + "Floor, Floors, SizeApartament,SizeLiving,SizeKitchen, "
                 + "Description, customersFName,customersLName,customersMName, customersPhone, YearOfConstruction, "
                 + "FName, MName, Lname\n" + "FROM progresscrm.Apartaments "
                 + "LEFT JOIN progresscrm.Workers ON Apartaments.idWorkerTarget=Workers.id "
                 + "LEFT JOIN progresscrm.Customers ON Apartaments.idCustomer=Customers.id "
-                + "WHERE Apartaments.Deleted='0' ORDER BY Apartaments.Rooms;").
+                + "WHERE Apartaments.Deleted='0' AND Apartaments.Status='" + 1 + "' AND Apartaments.isAD='" + 1 + "' ORDER BY Apartaments.id;").
                 list();
-//        return PDF.GeneratePrice(reportContent);
+//starting generate
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 //Формат YML в качестве корневого использует элемент <yml_catalog>. 
@@ -136,38 +140,83 @@ public class ReportGeneratorDao {
         shop.appendChild(offers);
 
         //foreach
-        Element offer = yml_catalog.createElement("offer");
-        offers.appendChild(offer);
-        Attr offerId = yml_catalog.createAttribute("id");
-        offerId.setValue("1");
-        offer.setAttributeNode(offerId);
-        Attr available = yml_catalog.createAttribute("available");
-        available.setValue("true");
-        offer.setAttributeNode(available);
+        for (int i = 0; i < apartObjects.size(); i++) {
+            //Цена Комнат АО Адрес Этаж Площадь Описание Контакты собственника Год Ведущий риэлтор
+            //id,price,Rooms,CityDistrict,CityName,StreetName,HouseNumber,BuildingNumber,Floor,Floors,SizeApartament,SizeLiving,SizeKitchen,
+            //Description,customersFName,customersLName,customersMName,customersPhone,YearOfConstruction,FName,MName,Lname
+            Object[] objects = (Object[]) apartObjects.get(i);
 
-        Element price = yml_catalog.createElement("price");
-        price.appendChild(yml_catalog.createTextNode("0"));
-        offer.appendChild(price);
+            Element offer = yml_catalog.createElement("offer");
+            offers.appendChild(offer);
+            Attr offerId = yml_catalog.createAttribute("id");
 
-        Element currencyId = yml_catalog.createElement("currencyId");
-        currencyId.appendChild(yml_catalog.createTextNode("RUR"));
-        offer.appendChild(currencyId);
+            offerId.setValue(objects[0].toString());//id 0
+            offer.setAttributeNode(offerId);
+            Attr available = yml_catalog.createAttribute("available");
+            available.setValue("true");
+            offer.setAttributeNode(available);
 
-        Element categoryId = yml_catalog.createElement("categoryId");
-        categoryId.appendChild(yml_catalog.createTextNode("1"));
-        offer.appendChild(categoryId);
+            Element price = yml_catalog.createElement("price");
+            //price 1
+            price.appendChild(yml_catalog.createTextNode(objects[1].toString()));
+            offer.appendChild(price);
 
-        Element market_category = yml_catalog.createElement("market_category");
-        market_category.appendChild(yml_catalog.createTextNode("804"));
-        offer.appendChild(market_category);
+            Element currencyId = yml_catalog.createElement("currencyId");
+            currencyId.appendChild(yml_catalog.createTextNode("RUR"));
+            offer.appendChild(currencyId);
 
-        Element name = yml_catalog.createElement("name");
-        name.appendChild(yml_catalog.createTextNode("Квартира"));
-        offer.appendChild(name);
+            Element categoryId = yml_catalog.createElement("categoryId");
+            categoryId.appendChild(yml_catalog.createTextNode("1"));
+            offer.appendChild(categoryId);
 
-        Element description = yml_catalog.createElement("description");
-        description.appendChild(yml_catalog.createTextNode("Описание"));
-        offer.appendChild(description);
+            Element market_category = yml_catalog.createElement("market_category");
+            market_category.appendChild(yml_catalog.createTextNode("804"));
+            offer.appendChild(market_category);
+
+            StringBuilder halfDescription = new StringBuilder();
+            //rooms 2
+            halfDescription.append(objects[2].toString());
+            //CityDistrict 3
+            halfDescription.append(objects[3].toString());
+            //address 4-7
+            StringBuilder address = new StringBuilder();
+            address.append(objects[4]).append(" ").append(objects[5]).append(" ").append(objects[6]).append(" ").append(objects[7]);
+            halfDescription.append(address.toString());
+            //floor/floors 8-9
+            StringBuilder floorInfo = new StringBuilder();
+            floorInfo.append(" Этаж ").append(objects[8].toString()).append(" / ").append(objects[9].toString());
+            halfDescription.append(floorInfo.toString());
+            //size apartObjects living kitchen 10-12
+            StringBuilder apartsSize = new StringBuilder();
+            apartsSize.append(" Площадь О/Ж/К ").append(objects[10]).append(" / ").append(objects[11]).append(" / ").append(objects[12]);
+            //YearOfConstruction 18
+            halfDescription.append(" Год постройки: ").append(objects[18].toString()).append(" ");
+
+            halfDescription.append(apartsSize.toString());
+
+            Element name = yml_catalog.createElement("name");
+            name.appendChild(yml_catalog.createTextNode(halfDescription.toString()));
+            offer.appendChild(name);
+
+            StringBuilder fullDescription = new StringBuilder();
+
+//            //customer 14-17
+//            StringBuilder customer = new StringBuilder();
+//            customer.append(objects[14]).append(" ").append(objects[15]).append(" ").append(objects[16]).append(" ").
+//                    append(objects[17]);
+//            fullDescription.append(customer.toString());
+            //Description 13
+            fullDescription.append(objects[13].toString());
+//            //worker 19-21
+//            StringBuilder worker = new StringBuilder();
+//            worker.append(objects[19]).append(" ").append(objects[20]).append(" ").append(objects[21]);
+//            fullDescription.append(worker.toString());
+
+            Element description = yml_catalog.createElement("description");
+            description.appendChild(yml_catalog.createTextNode(fullDescription.toString()));
+            offer.appendChild(description);
+
+        }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer;
@@ -181,7 +230,7 @@ public class ReportGeneratorDao {
         String finalstring = sb.toString();
         System.out.println(finalstring);
 
-        File f = new File("report.xml");
+        File f = new File("price.xml");
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(f));

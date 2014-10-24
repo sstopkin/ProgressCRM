@@ -5,6 +5,7 @@ public class DbFields {
     public class APARTAMENTS {
 
         public final static String ID = "id";
+        public final static String AD = "isAD";
         public final static String APPROVED = "IsApproved";
         public final static String DELETED = "deleted";
         public final static String ROOMS = "rooms";
