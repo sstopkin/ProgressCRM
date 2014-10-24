@@ -1,5 +1,5 @@
 function getApartamentsListPage(status, statusText) {
-    $.get("apartamentslist.html", function(data) {
+    $.get("apartamentslist.html", function (data) {
         var permissions = $.ajax({
             type: "GET",
             url: "api/auth/validate",
@@ -15,16 +15,16 @@ function getApartamentsListPage(status, statusText) {
         $("#mainContainer").html("<div id=\"mainSearchContainer\" class=\"container\"></div>" + data);
 //        initSearchForm('apartaments');
         $("#apartamentsListHeaderText").html(statusText);
-        $("#genApartamentsPriceBtn").click(function() {
+        $("#genApartamentsPriceBtn").click(function () {
             window.location = '/api/report/getprice?status=' + status
         });
         $.ajax({
             type: "GET",
             url: "api/apartament/getallapartament?status=" + status,
-            success: function(data) {
-                drawApartamentsListTable(data);
+            success: function (data) {
+                drawApartamentsListTable(data, status);
             },
-            error: function(data) {
+            error: function (data) {
                 showDanger(data.responseText);
                 return false;
             }
@@ -32,7 +32,7 @@ function getApartamentsListPage(status, statusText) {
     });
 }
 
-function drawApartamentsListTable(data) {
+function drawApartamentsListTable(data, status) {
     $("#errorBlock").css("display", "none");
     var array = JSON.parse(data);
     var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="apartamentsListTable">';
@@ -47,26 +47,30 @@ function drawApartamentsListTable(data) {
     str += "<th>Добавлено</th>";
     str += "<th>Риэлтор</th>";
     str += "<th>Дата</th>";
-    str += "<th>Звонок</th>";
-    str += "<th>Коментарий</th>";
+    str += "<th>Действие</th>";
     str += "</tr>";
     str += "</thead>";
     str += "<tbody>";
-    str += draw(array);
+    str += draw(array, status);
     str += "</tbody>";
     $("#divApartamentsList").html(str);
     $('#apartamentsListTable').dataTable();
 }
 
-function draw(array) {
+function draw(array, status) {
     var str = "";
-    array.forEach(function(entry) {
-        str += "<tr>";
+    array.forEach(function (entry) {
+        if (entry.isAD == '1') {
+            str += '<tr class="success">';
+        }
+        else {
+            str += "<tr>";
+        }
         str += "<td><a href=\"#apartaments/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
-        str += "<td>" + entry.cityName + " "
-                + entry.streetName + " "
+        str += "<td><address>" + entry.cityName + "<br>"
+                + entry.streetName + "<br>"
                 + entry.houseNumber + " "
-                + entry.buildingNumber + "</td>";
+                + entry.buildingNumber + "</address></td>";
         str += "<td>" + entry.rooms + "</td>";
         str += "<td>" + entry.sizeApartament + " / " + entry.sizeKitchen + " / " + entry.sizeLiving + "</td>";
         str += "<td>" + entry.floor + " / " + entry.floors + "</td>";
@@ -74,11 +78,49 @@ function draw(array) {
         str += "<td>" + getWorkersFullNameById(entry.idWorker) + "</td>";
         str += "<td>" + getWorkersFullNameById(entry.idWorkerTarget) + "</td>";
         str += "<td>" + timeConverter(entry.сreationDate) + "</td>";
-        str += "<td>" + "<button type=\"button\" onclick=\"addCallDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-earphone\"></span></button>" + "</td>";
-        str += "<td>" + "<button type=\"button\" onclick=\"addCommentDialog('" + entry.ApartamentUUID + "');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-comment\"></span></button>" + "</td>";
+        str += '<td>';
+        str += '<div class="btn-group">';
+        str += '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">';
+        str += 'Действия <span class="caret"></span>';
+        str += '</button>';
+        str += '<ul class="dropdown-menu" role="menu">';
+        str += '<li><button type=\"button\" onclick=\"addCallDialog(\'' + entry.ApartamentUUID + '\');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-earphone\"></span> Добавить звонок</button></li>';
+        str += '<li class="divider"></li>';
+        str += '<li><button type=\"button\" onclick=\"addCommentDialog(\'' + entry.ApartamentUUID + '\');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-comment\"></span> Добавить комментарий</button></li>';
+        str += '<li class="divider"></li>';
+        if (status == '1') {//Ad for price objects
+            if (entry.isAD == '0') {
+                str += '<li><button type=\"button\" onclick=\"setApartamentsAdState(\'' + entry.id + '\',1);\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-ok\"></span> Добавить рекламу</button></li>';
+            } else {
+                str += '<li><button type=\"button\" onclick=\"setApartamentsAdState(\'' + entry.id + '\',0);\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span> Убрать рекламу</button></li>';
+            }
+        }
+        str += '</ul>';
+        str += '</div>';
+        str += '</td>';
         str += "</tr>";
     });
     return str;
+}
+
+function setApartamentsAdState(apartamentId, state) {
+    $.ajax({
+        type: "POST",
+        url: "api/apartament/ad",
+        data: ({
+            id: apartamentId,
+            state: state
+        }),
+        success: function (data) {
+            getApartamentsListPage(1, "Прайс");
+        },
+        error: function (data) {
+            showDanger(data.responseText);
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
 }
 
 function apartamentsDeleteById(apartamentsId) {
@@ -87,11 +129,11 @@ function apartamentsDeleteById(apartamentsId) {
         type: "POST",
         url: "api/apartament/remove",
         data: ({id: apartamentsId}),
-        success: function() {
+        success: function () {
             //FIXME! /list/all
             document.location.href = "#apartaments/list/price";
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             checkStatus();
             return false;
@@ -101,15 +143,15 @@ function apartamentsDeleteById(apartamentsId) {
 }
 
 function apartamentsEditById(apartamentId) {
-    $.get("apartamentsadd.html", function(data) {
+    $.get("apartamentsadd.html", function (data) {
         $("#mainContainer").html(data);
         mapSet();
         $.ajax({
             type: "GET",
             url: "api/apartament/getapartament?id=" + apartamentId,
-            success: function(data) {
+            success: function (data) {
                 var array = JSON.parse(data);
-                workersList.forEach(function(entry) {
+                workersList.forEach(function (entry) {
                     $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
                 });
                 $("#ApartamentsIdWorkerTarget").val(array.idWorkerTarget);
@@ -152,7 +194,7 @@ function apartamentsEditById(apartamentId) {
                 $('#RePlanning').prop("checked", array.rePplanning);
 
                 $("#apartamentEditReadyLink").css("display", "block");
-                $("#apartamentEditReadyLink").click(function() {
+                $("#apartamentEditReadyLink").click(function () {
                     $.ajax({
                         type: "POST",
                         url: "api/apartament/editapartament",
@@ -184,11 +226,11 @@ function apartamentsEditById(apartamentId) {
                             idWorkerTarget: $("#ApartamentsIdWorkerTarget").val(),
                             status: $("#ApartamentStatus").val()
                         }),
-                        success: function(data) {
+                        success: function (data) {
                             document.location.href = "#apartaments/view/" + apartamentId;
                             $("#errorBlock").css("display", "none");
                         },
-                        error: function(data) {
+                        error: function (data) {
                             showDanger(data.responseText);
                         }
                     });

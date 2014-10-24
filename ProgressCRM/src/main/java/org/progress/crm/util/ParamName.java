@@ -35,6 +35,7 @@ public class ParamName {
     public final static String ID_WORKER_TARGET = "idWorkerTarget";
     public final static String ID_CUSTOMER = "idCustomer";
     public final static String STATUS = "status";
+    public final static String AD = "isAd";
 
     public final static String USER_ID = "userId";
 
