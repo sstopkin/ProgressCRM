@@ -11,39 +11,7 @@
                     <div class="row ">
                         <div class="col-md-5"><div id="map" style="width: 450px; height: 450px"></div></div>
                         <div class="col-md-3">
-                            <form class="regular__ctrls">
-                                <div class="form-group">
-                                    <label class="control-label">Город</label>
-                                    <input name="city" type="text" class="form-control">
-                                    <img src="images/spinner.gif" class="spinner">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Улица</label>
-                                    <input name="street" type="text" class="form-control">
-                                    <img src="images/spinner.gif" class="spinner">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Номер дома</label>
-                                    <input name="building" type="text" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label">Корпус/строение</label>
-                                    <input name="building-add" type="text" class="form-control">
-                                </div>
-                                <label class="ffield__lbl ltooltip"></label>
-                            </form>
-                        </div>
-                        <div class="col-md-4">
-                            <p class="title">Выбранный объект</p>
-                            <ul>
-                                <li id="id" style="display: none;"><span class="name">Код:</span> <span class="value"></span></li>
-                                <li id="zip" style="display: none;"><span class="name">Почтовый индекс:</span> <span class="value"></span></li>
-                                <li id="name" style="display: none;"><span class="name">Название:</span> <span class="value"></span></li>                        
-                                <li id="type" style="display: none;"><span class="name">Тип:</span> <span class="value"></span></li>
-                                <li id="type_short" style="display: none;"><span class="name">Тип коротко:</span> <span class="value"></span></li>
-                            </ul>
-
-                            <p class="title">Текстовое представление адреса</p>
+                            <!--<p class="title">Текстовое представление адреса</p>
                             <p id="address" class="value"></p>      
                             <p id="zipCode" class="value"></p>
                             <p id="apartamentCity" class="value"></p>                    
@@ -51,7 +19,43 @@
                             <p id="apartamentBuilding" class="value"></p> 
                             <p id="apartamentBuildingAdd" class="value"></p> 
                             <p id="apartamentLan" class="value"></p> 
-                            <p id="apartamentLon" class="value"></p> 
+                            <p id="apartamentLon" class="value"></p> -->
+                            <form class="js-form-address">
+                                <div class="form-group">
+                                    <label class="control-label">Регион</label>
+                                    <input name="region" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Район</label>
+                                    <input name="district" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Город</label>
+                                    <input name="city" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Улица</label>
+                                    <input name="street" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Номер дома</label>
+                                    <input name="building" type="text" class="form-control">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="title">Текстовое представление адреса</p>
+                            <p id="address" class="value"></p>                    
+                            <p class="title">Выбранный объект</p>
+                            <ul class="js-log">
+                                <li id="id" style="display: none;"><span class="name">Код:</span> <span class="value"></span></li>
+                                <li id="zip" style="display: none;"><span class="name">Почтовый индекс:</span> <span class="value"></span></li>
+                                <li id="name" style="display: none;"><span class="name">Название:</span> <span class="value"></span></li>                        
+                                <li id="type" style="display: none;"><span class="name">Подпись:</span> <span class="value"></span></li>
+                                <li id="typeShort" style="display: none;"><span class="name">Подпись коротко:</span> <span class="value"></span></li>
+                                <li id="contentType" style="display: none;"><span class="name">Тип объекта:</span> <span class="value"></span>
+                                <li id="okato" style="display: none;"><span class="name">ОКАТО:</span> <span class="value"></span>
+                            </ul>
                         </div>
                     </div>
                 </div>
