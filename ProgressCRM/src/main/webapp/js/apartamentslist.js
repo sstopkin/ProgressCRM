@@ -143,9 +143,9 @@ function apartamentsDeleteById(apartamentsId) {
 }
 
 function apartamentsEditById(apartamentId) {
-    $.get("apartamentsadd.html", function (data) {
+    $.get("/templates/modal_apartaments.html", function (data) {
         $("#mainContainer").html(data);
-        mapSet();
+        mapInit();
         $.ajax({
             type: "GET",
             url: "api/apartament/getapartament?id=" + apartamentId,
@@ -160,10 +160,10 @@ function apartamentsEditById(apartamentId) {
 
                 $('#TypeOfSales').val(array.typeOfSales);
 
-                $('#apartamentCity').text(array.cityName);
-                $('#apartamentStreet').text(array.streetName);
-                $('#apartamentBuilding').text(array.houseNumber);
-                $('#apartamentBuildingAdd').text(array.buildingNumber);
+                $('#apartamentCity').val(array.cityName);
+                $('#apartamentStreet').val(array.streetName);
+                $('#apartamentBuilding').val(array.houseNumber);
+//                $('#apartamentBuildingAdd').text(array.buildingNumber);
 
                 $('#Rooms').val(array.rooms);
                 $('#address').text(array.shortAddress);
@@ -201,6 +201,10 @@ function apartamentsEditById(apartamentId) {
                         data: ({
                             id: apartamentId,
                             typeofsales: $('#TypeOfSales').val(),
+                            cityName: $('#apartamentCity').val(),
+                            streetName: $('#apartamentStreet').val(),
+                            houseNumber: $('#apartamentBuilding').val(),
+                            buildingNumber: "",
                             rooms: $('#Rooms').val(),
                             dwellingType: $('#DwellingType').val(),
                             //FIXME!!

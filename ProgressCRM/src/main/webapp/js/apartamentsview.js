@@ -1,5 +1,5 @@
 function getApartamentViewPage(apartamentId) {
-    $.get("apartamentsview.html", function(data) {
+    $.get("apartamentsview.html", function (data) {
         $("#mainContainer").html(data);
         var permissions = $.ajax({
             type: "GET",
@@ -12,7 +12,7 @@ function getApartamentViewPage(apartamentId) {
             type: "GET",
             url: "api/apartament/getapartament?id=" + apartamentId,
             async: false,
-            success: function(data) {
+            success: function (data) {
                 $("#errorBlock").css("display", "none");
                 array = JSON.parse(data);
                 initMapView(array.apartamentLan, array.apartamentLon,
@@ -194,7 +194,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "Описание: " + array.description;
                 content += "</p>";
             },
-            error: function(data) {
+            error: function (data) {
                 showDanger(data.responseText);
                 return false;
             }
@@ -203,7 +203,7 @@ function getApartamentViewPage(apartamentId) {
             type: "GET",
             url: "api/customers/getcustomer?id=" + array.idCustomer,
             async: false,
-            success: function(data) {
+            success: function (data) {
                 var array = JSON.parse(data);
                 content += "<p>";
                 content += "<b>Информация о владельце: </b>"; //array.clientDescription
@@ -218,7 +218,7 @@ function getApartamentViewPage(apartamentId) {
         $.ajax({
             type: "GET",
             url: "api/calls/getcalls?objectUUID=" + array.ApartamentUUID,
-            success: function(data) {
+            success: function (data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
@@ -241,7 +241,7 @@ function getApartamentViewPage(apartamentId) {
                 $("#customersCalls").html(str);
                 $('#callsListTable').dataTable();
             },
-            error: function(data) {
+            error: function (data) {
                 showDanger(data.responseText);
                 return false;
             }
@@ -249,7 +249,7 @@ function getApartamentViewPage(apartamentId) {
         $.ajax({
             type: "GET",
             url: "api/comments/getcomments?objectUUID=" + array.ApartamentUUID,
-            success: function(data) {
+            success: function (data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
                 var str = "";
@@ -269,14 +269,14 @@ function getApartamentViewPage(apartamentId) {
                 $("#workersComments").html(str);
                 $('#commentsListTable').dataTable();
             },
-            error: function(data) {
+            error: function (data) {
                 showDanger(data.responseText);
                 return false;
             }
         });
         getFileManagerPage(array.filespaceUUID, array.ApartamentUUID);
         $("#apartamentsFeatures").html(content);
-        $("#addApartamentTaskBtn").click(function() {
+        $("#addApartamentTaskBtn").click(function () {
             addPlannerTaskDialog(array.ApartamentUUID);
         });
     });
@@ -291,9 +291,9 @@ function getFileManagerPage(filespaceUUID, ApartamentUUID) {
             type: "GET",
             url: "api/filespaces/getfilespace?uuid=" + filespaceUUID,
             async: false,
-            success: function(data) {
+            success: function (data) {
                 var str;
-                $.get("fm.html", function(data) {
+                $.get("fm.html", function (data) {
                     $("#apartamentsFilemanager").html(data);
                 });
                 getFolderList(data);
@@ -310,11 +310,11 @@ function createApartamentsFilespace(targetuuid) {
             targetuuid: targetuuid,
             type: 1
         }),
-        success: function() {
+        success: function () {
             location.reload(); //FIXME
             $("#errorBlock").css("display", "none");
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
         }
     });
@@ -325,11 +325,11 @@ function initMapView(apartamentLan, apartamentLon, address) {
 //    <div id="map" style="width: 450px; height: 450px"></div>
 //    $("#mapApartamentsView").html(maps);
     $('#toggle').bind({
-        click: function() {
+        click: function () {
             if (!myMap) {
                 myMap = new ymaps.Map('mapApartamentsView', {
                     center: [apartamentLan, apartamentLon],
-                    zoom: 15
+                    zoom: 16
                 });
 
                 // Для добавления элемента управления на карту
@@ -343,11 +343,7 @@ function initMapView(apartamentLan, apartamentLon, address) {
                 // элемента управления и его параметры.
                 myMap.controls
                         // Кнопка изменения масштаба.
-                        .add('zoomControl', {left: 5, top: 5})
-                        // Список типов карты
-                        .add('typeSelector')
-                        // Стандартный набор кнопок
-                        .add('mapTools', {left: 35, top: 5});
+                        .add('zoomControl', {left: 5, top: 5});
 
                 // Также в метод add можно передать экземпляр класса элемента управления.
                 // Например, панель управления пробками.

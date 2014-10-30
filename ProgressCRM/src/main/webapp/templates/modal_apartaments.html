@@ -11,15 +11,6 @@
                     <div class="row ">
                         <div class="col-md-5"><div id="map" style="width: 450px; height: 450px"></div></div>
                         <div class="col-md-3">
-                            <!--<p class="title">Текстовое представление адреса</p>
-                            <p id="address" class="value"></p>      
-                            <p id="zipCode" class="value"></p>
-                            <p id="apartamentCity" class="value"></p>                    
-                            <p id="apartamentStreet" class="value"></p> 
-                            <p id="apartamentBuilding" class="value"></p> 
-                            <p id="apartamentBuildingAdd" class="value"></p> 
-                            <p id="apartamentLan" class="value"></p> 
-                            <p id="apartamentLon" class="value"></p> -->
                             <form class="js-form-address">
                                 <div class="form-group">
                                     <label class="control-label">Регион</label>
@@ -31,15 +22,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Город</label>
-                                    <input name="city" type="text" class="form-control">
+                                    <input name="city" type="text" class="form-control" id="apartamentCity">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Улица</label>
-                                    <input name="street" type="text" class="form-control">
+                                    <input name="street" type="text" class="form-control" id="apartamentStreet">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Номер дома</label>
-                                    <input name="building" type="text" class="form-control">
+                                    <input name="building" type="text" class="form-control" id="apartamentBuilding">
                                 </div>
                             </form>
                         </div>
@@ -55,7 +46,11 @@
                                 <li id="typeShort" style="display: none;"><span class="name">Подпись коротко:</span> <span class="value"></span></li>
                                 <li id="contentType" style="display: none;"><span class="name">Тип объекта:</span> <span class="value"></span>
                                 <li id="okato" style="display: none;"><span class="name">ОКАТО:</span> <span class="value"></span>
+
                             </ul>
+                            <p class="title">Координаты объекта</p>
+                            <p id="apartamentLan" class="value"></p> 
+                            <p id="apartamentLon" class="value"></p>
                         </div>
                     </div>
                 </div>
