@@ -22,9 +22,9 @@ function addApartament() {
                 return false;
             }
             if (
-                    ($('#apartamentCity').text() == "") ||
-                    ($('#apartamentStreet').text() == "") ||
-                    ($('#apartamentBuilding').text() == "")
+                    ($('#apartamentCity').val() == "") ||
+                    ($('#apartamentStreet').val() == "") ||
+                    ($('#apartamentBuilding').val() == "")
                     ) {
                 showWarning("Неправильно заполнен адрес объекта");
                 return false;
@@ -34,10 +34,10 @@ function addApartament() {
                 url: "api/apartament/addapartament",
                 data: ({
                     typeofsales: $('#TypeOfSales').val(),
-                    cityName: $('#apartamentCity').text(),
-                    streetName: $('#apartamentStreet').text(),
-                    houseNumber: $('#apartamentBuilding').text(),
-                    buildingNumber: $('#apartamentBuildingAdd').text(),
+                    cityName: $('#apartamentCity').val(),
+                    streetName: $('#apartamentStreet').val(),
+                    houseNumber: $('#apartamentBuilding').val(),
+                    buildingNumber: "",
                     rooms: $('#Rooms').val(),
                     dwellingType: $('#DwellingType').val(),
                     //FIXME!!
@@ -164,7 +164,7 @@ function mapInit() {
         map_created = true;
 
         map = new ymaps.Map('map', {
-            center: [55.76, 37.64],
+            center: [54.989342, 73.368212],
             zoom: 12,
             controls: []
         });
@@ -215,11 +215,11 @@ function mapInit() {
                             break;
 
                         case $.kladr.type.city:
-                            zoom = 10;
+                            zoom = 12;
                             break;
 
                         case $.kladr.type.street:
-                            zoom = 13;
+                            zoom = 14;
                             break;
 
                         case $.kladr.type.building:
@@ -241,7 +241,8 @@ function mapInit() {
 
                 var position = res.geoObjects.get(0).geometry.getCoordinates(),
                         placemark = new ymaps.Placemark(position, {}, {});
-
+                $("#apartamentLan").text(position[0]);
+                $("#apartamentLon").text(position[1]);
                 map.geoObjects.add(placemark);
                 map.setCenter(position, zoom);
             });
@@ -269,7 +270,6 @@ function mapInit() {
         }
     }
 }
-
 //function mapInit() {
 //    var city = $('[name="city"]');
 //    var street = $('[name="street"]');
