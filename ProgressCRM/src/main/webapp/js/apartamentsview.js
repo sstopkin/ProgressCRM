@@ -276,9 +276,11 @@ function getApartamentViewPage(apartamentId) {
         });
         getFileManagerPage(array.filespaceUUID, array.ApartamentUUID);
         $("#apartamentsFeatures").html(content);
+        getPlannerPage();
         $("#addApartamentTaskBtn").click(function () {
             addPlannerTaskDialog(array.ApartamentUUID);
         });
+
     });
 }
 
@@ -317,6 +319,13 @@ function createApartamentsFilespace(targetuuid) {
         error: function (data) {
             showDanger(data.responseText);
         }
+    });
+}
+
+function getPlannerPage() {
+    $.get("templates/calendar.html", function (data) {
+        $("#apartamentsTasks").html(data);
+        initCalendar('/api/planner/all');
     });
 }
 

@@ -9,26 +9,26 @@ var permissions;
 var map = null;
 var placemark = null;
 var map_created = false;
-$(document).ready(function() {
-    $('#loginForm').keydown(function(event) {
+$(document).ready(function () {
+    $('#loginForm').keydown(function (event) {
         if (event.which == 13) {
             $('#loginBtn').click();
         }
     });
-    $("#closeAlert").click(function() {
+    $("#closeAlert").click(function () {
         $("#errorBlock").css("display", "none");
     });
     $.ajax({
         type: "GET",
         url: "api/auth",
         async: false,
-        success: function(data) {
+        success: function (data) {
             $("#profileLink").html(data);
-            $("#logged").css("display", "block");
+            $("#progresscrm").css("display", "block");
             trueAuth();
         },
-        error: function(data) {
-            $("#loginForm").css("display", "block");
+        error: function (data) {
+            $("#progresscrm_login").css("display", "block");
         }
     });
 });
@@ -49,22 +49,22 @@ function trueAuth() {
 }
 
 function getMainPage() {
-    $.get("main.html", function(data) {
+    $.get("main.html", function (data) {
         $("#mainContainer").html(data);
     });
 }
 
 function getNewsPage() {
-    $.get("news.html", function(data) {
+    $.get("news.html", function (data) {
         $("#mainContainer").html(data);
     });
     getNews();
 }
 
 function getAdminPage() {
-    $.get("api/auth/validate", function(data) {
+    $.get("api/auth/validate", function (data) {
         if (data == "3") {
-            $.get("admin.html", function(data) {
+            $.get("admin.html", function (data) {
                 $("#mainContainer").html(data);
             });
             getUsersManagementList();
@@ -95,10 +95,10 @@ function checkStatus() {
     $.ajax({
         type: "GET",
         url: "api/auth",
-        success: function(data) {
+        success: function (data) {
             $("#profileLink").html(data);
-            $("#logged").css("display", "block");
-            $("#loginForm").css("display", "none");
+            $("#progresscrm").css("display", "block");
+            $("#progresscrm_login").css("display", "none");
 //            $.get("api/auth/validate", function(data3) {
 //                var permissions = data3;
 //                if (permissions == "3") {
@@ -106,9 +106,9 @@ function checkStatus() {
 //                }
 //            });
         },
-        error: function(data) {
-            $("#loginForm").css("display", "block");
-            $("#logged").css("display", "none");
+        error: function (data) {
+            $("#progresscrm_login").css("display", "block");
+            $("#progresscrm").css("display", "none");
         }
     });
 }
@@ -118,10 +118,10 @@ function deleteNewsById(newsId) {
         type: "POST",
         url: "api/news/deletenews",
         data: ({id: newsId}),
-        success: function(data) {
+        success: function (data) {
             location.reload();
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             checkStatus();
             return false;
@@ -142,7 +142,7 @@ function customersSearchAction(divName) {
     $.ajax({
         type: "GET",
         url: "api/customers/search?query=" + $("#customersSearchQuery").val(),
-        success: function(data) {
+        success: function (data) {
             $("#errorBlock").css("display", "none");
             var array = JSON.parse(data);
             var str = "";
@@ -170,7 +170,7 @@ function customersSearchAction(divName) {
             $('#filemanagerListTable').dataTable();
             $("#customerSearchResultField").val(divName);
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             return false;
         }
@@ -187,11 +187,11 @@ function getAllWorkersList() {
         type: "GET",
         url: "api/auth/userslist",
         async: false,
-        success: function(data) {
+        success: function (data) {
             workersList = JSON.parse(data);
             return true;
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             return false;
         }
@@ -213,14 +213,14 @@ function confirmAction(func, message) {
             success: {
                 label: "Подтвердить",
                 className: "btn-success",
-                callback: function() {
+                callback: function () {
                     eval(func + ';');
                 }
             },
             danger: {
                 label: "Отмена",
                 className: "btn-danger",
-                callback: function() {
+                callback: function () {
                 }
             }
         }
@@ -231,7 +231,7 @@ function getCountData() {
     $.ajax({
         type: "GET",
         url: "api/auth/info",
-        success: function(data) {
+        success: function (data) {
             $("#errorBlock").css("display", "none");
             $("#tags").css("display", "none");
             $("#userProfile").css("display", "block");
@@ -246,7 +246,7 @@ function getCountData() {
             $("#customersNotsetCount").html(value.lName);
             plannerGetWorkersTasks();
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             return false;
         }
@@ -281,4 +281,82 @@ function timeConverter(UNIX_timestamp) {
 
 function getTimeStamp(date) {
     return new Date(date).getTime();
+}
+
+function initCalendar(path) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+
+    "use strict";
+
+    var options = {
+        events_source: path, //srv
+        view: 'month',
+        tmpl_path: 'js/lib/bootstrap-calendar/tmpls/',
+        tmpl_cache: false,
+        language: 'ru-RU',
+        first_day: 1,
+        day: today,
+        modal: true,
+        onAfterEventsLoad: function (events) {
+            if (!events) {
+                return;
+            }
+            var list = $('#eventlist');
+            list.html('');
+
+            $.each(events, function (key, val) {
+                $(document.createElement('li'))
+                        .html('<a href="' + val.url + '">' + val.title + '</a>')
+                        .appendTo(list);
+            });
+        },
+        onAfterViewLoad: function (view) {
+            $('.page-header h3').text(this.getTitle());
+            $('.btn-group button').removeClass('active');
+            $('button[data-calendar-view="' + view + '"]').addClass('active');
+        },
+        classes: {
+            months: {
+                general: 'label'
+            }
+        }
+    };
+
+    var calendar = $('#calendar').calendar(options);
+
+
+
+    $('.btn-group button[data-calendar-nav]').each(function () {
+        var $this = $(this);
+        $this.click(function () {
+            calendar.navigate($this.data('calendar-nav'));
+        });
+    });
+
+    $('.btn-group button[data-calendar-view]').each(function () {
+        var $this = $(this);
+        $this.click(function () {
+            calendar.view($this.data('calendar-view'));
+        });
+    });
+
+    $('#events-in-modal').change(function () {
+        var val = $(this).is(':checked') ? $(this).val() : null;
+        calendar.setOptions({modal: val});
+    });
+
+    $('#events-modal .modal-header, #events-modal .modal-footer').click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    });
 }

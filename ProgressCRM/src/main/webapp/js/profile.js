@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    $("#chngPwdBtn").click(function() {
+$(document).ready(function () {
+    $("#chngPwdBtn").click(function () {
         if ($("#chngPassword").val() == $("#chngPasswordCurrent").val()) {
             $("#chngPwdErr").html("Новый пароль не должен совпадать с текущим");
             return false;
@@ -16,14 +16,14 @@ $(document).ready(function() {
                     oldpwd: $("#chngPasswordCurrent").val(),
                     newpwd: $("#chngPassword").val()
                 }),
-                success: function(data) {
+                success: function (data) {
                     $("#chngPasswordCurrent").val("");
                     $("#chngPassword").val("");
                     $("#chngPassword2").val("");
                     $("#chngPwdErr").html("");
                     $("#chngPwdModal").modal("hide");
                 },
-                error: function(data) {
+                error: function (data) {
                     $("#chngPwdErr").html(data.responseText);
                     return false;
                 }
@@ -35,7 +35,7 @@ $(document).ready(function() {
 });
 
 function getProfilePage() {
-    $.get("profile.html", function(data) {
+    $.get("profile.html", function (data) {
         $("#mainContainer").html(data);
 //        $('#chngPwd').validate({
 //            rules: {
@@ -69,7 +69,7 @@ function getProfilePage() {
         $.ajax({
             type: "GET",
             url: "api/auth/info",
-            success: function(data) {
+            success: function (data) {
                 $("#errorBlock").css("display", "none");
                 $("#tags").css("display", "none");
                 $("#userProfile").css("display", "block");
@@ -79,12 +79,15 @@ function getProfilePage() {
                 $("#profileFName").html(value.fName);
                 $("#profileMName").html(value.mName);
                 $("#profileLName").html(value.lName);
-                plannerGetWorkersTasks();
             },
-            error: function(data) {
+            error: function (data) {
                 showDanger(data.responseText);
                 return false;
             }
+        });
+        $.get("templates/calendar.html", function (data) {
+            $("#profileCalendar").html(data);
+            initCalendar('/api/planner/all');
         });
     });
 }
