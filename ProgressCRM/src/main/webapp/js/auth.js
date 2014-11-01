@@ -16,8 +16,8 @@ $(document).ready(function() {
                 $.get("api/auth", function(data2) {
                     $("#profileLink").html(data2);
                 });
-                $("#loginForm").css("display", "none");
-                $("#logged").css("display", "block");
+                $("#progresscrm_login").css("display", "none");
+                $("#progresscrm").css("display", "block");
                 location.hash = "";
                 trueAuth();
             },
@@ -36,8 +36,8 @@ $(document).ready(function() {
                 var cookie_date = new Date();
                 cookie_date.setTime(cookie_date.getTime() - 1);
                 document.cookie = "token=; expires=" + cookie_date.toGMTString();
-                $("#logged").css("display", "none");
-                $("#loginForm").css("display", "block");
+                $("#progresscrm").css("display", "none");
+                $("#progresscrm_login").css("display", "block");
                 $('#adminTabLink').css("display", "none");
                 location.hash = "";
                 location.reload();
