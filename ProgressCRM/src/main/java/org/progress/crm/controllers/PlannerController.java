@@ -3,6 +3,7 @@ package org.progress.crm.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Planner;
+import org.progress.crm.util.ParamUtil;
 
 @Singleton
 public class PlannerController {
@@ -55,22 +57,24 @@ public class PlannerController {
         }
     }
 
-    public List<Planner> getTasks(Session session, String token) throws SQLException, CustomException {
-        if (token == null) {
-            throw new CustomException();
-        }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authenticationManager.getUserIdByToken(uuid);
-        return DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
-    }
+//    public List<Planner> getTasks(Session session, String token) throws SQLException, CustomException {
+//        if (token == null) {
+//            throw new CustomException();
+//        }
+//        UUID uuid = UUID.fromString(token);
+//        int idWorker = authenticationManager.getUserIdByToken(uuid);
+//        return DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
+//    }
 
-    public succ getTasksByWorker(Session session, String token) throws SQLException, CustomException {
+    public succ getTasksByWorker(Session session, String token, String from, String to, String timezone) throws SQLException, CustomException {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        List<Planner> tasks = DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker);
+        Date fromDate = new Date(Long.parseLong(from));
+        Date toDate = new Date(Long.parseLong(to));
+        List<Planner> tasks = DaoFactory.getPlannerDao().getTasksByWorker(session, idWorker, fromDate, toDate);
         succ s = new succ();
 
 //        int id, String title, String url, String Class, String start, String end
@@ -83,7 +87,7 @@ public class PlannerController {
             c.setTime(obj.getTaskEndDate());
             String endDate = String.valueOf(c.getTimeInMillis());
             //FIXME
-            s.ret(new event(obj.getId(), obj.getTaskTitle() + " " + obj.getTaskStartDate().toString(), "#", obj.getTaskClass(), startDate, endDate));
+            s.ret(new event(obj.getId(), obj.getTaskTitle() + " getTasksByWorker " + obj.getTaskStartDate().toString(), "#", obj.getTaskClass(), startDate, endDate));
         }
         return s;
     }

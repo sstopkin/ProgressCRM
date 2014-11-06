@@ -53,8 +53,10 @@ public class DbFields {
 
         public final static String ID = "id";
         public final static String TASKTYPE = "taskType";
+        public final static String TASKTARGETUUID = "targetOjectUUID";
         public final static String CREATIONDATE = "creationDate";
-        public final static String TASKDATE = "taskDate";
+        public final static String TASKSTARTDATE = "taskStartDate";
+        public final static String TASKENDDATE = "taskEndDate";
         public final static String IDWORKER = "idWorker";
         public final static String DELETED = "deleted";
     }
