@@ -13,6 +13,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import static org.progress.crm.api.ApiHelper.ser;
@@ -56,13 +57,17 @@ public class PlannerApi {
 //
     @GET
     @Path("all")
-    public Response getAllPlannerTasksByWorker(@CookieParam("token") final String token) throws SQLException, CustomException {
+    public Response getAllPlannerTasksByWorker(
+            @CookieParam("token") final String token,
+            @QueryParam("from") final String from,
+            @QueryParam("to") final String to,
+            @QueryParam("browser_timezone") final String timezone) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson tasksList = new GsonBuilder().registerTypeAdapter(Date.class, ser)                             .create();
-                    String newsJson = tasksList.toJson(plannerController.getTasksByWorker(session, token));
+                    Gson tasksList = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
+                    String newsJson = tasksList.toJson(plannerController.getTasksByWorker(session, token, from, to, timezone));
                     return ApiHelper.getResponse(newsJson.replace("\"Class\"", "\"class\""));
                 } catch (CustomException ex) {
                     Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);
