@@ -7,7 +7,6 @@ import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.CustomException;
-import org.progress.crm.logic.Permissions;
 import org.progress.crm.logic.Workers;
 
 @Singleton
@@ -29,14 +28,6 @@ public class RoleController {
             return 0;
         }
         return pr.getPermissions();
-    }
-
-    public boolean checkPermissions(Session session, String token, Permissions permissions) throws SQLException, CustomException {
-        int currentPermissions = getPermissions(session, token);
-        if (currentPermissions >= permissions.ordinal()) {
-            return true;
-        }
-        return false;
     }
 
     public int getUserIdByToken(String token) throws SQLException, CustomException {

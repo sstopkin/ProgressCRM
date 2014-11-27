@@ -15,7 +15,33 @@
 ////DataFields id dataTypesId
 ////Roles id roleName
 ////Permissions id accesstype roleNameId dataTypesId
-//
+
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`DataTypes` (
+//  `id` INT NOT NULL AUTO_INCREMENT ,
+//  `typeName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+//  PRIMARY KEY (`id`));
+//  
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`DataFields` (
+//  `id` INT NOT NULL AUTO_INCREMENT ,
+//  `idDataTypes` INT NOT NULL,
+//  FOREIGN KEY (idDataTypes) REFERENCES DataTypes(id),
+//  PRIMARY KEY (`id`));
+//  
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`Roles` (
+//  `id` INT NOT NULL AUTO_INCREMENT ,
+//  `roleName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+//  PRIMARY KEY (`id`));
+//  
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`DataFields` (
+//  `id` INT NOT NULL AUTO_INCREMENT ,
+//  `accessType` INT NOT NULL,
+//  `idRoleName` INT NOT NULL,
+//  `idDataTypes` INT NOT NULL,
+//  FOREIGN KEY (idDataTypes) REFERENCES DataTypes(id),
+//  FOREIGN KEY (idRoleName) REFERENCES Roles(id),
+//  PRIMARY KEY (`id`));
+
+
 //@Entity
 //@Table(name = "Permissions")
 //public class Permissions implements Serializable {

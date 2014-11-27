@@ -2,7 +2,7 @@ function getUsersManagementList() {
     $.ajax({
         type: "GET",
         url: "api/workers/getallworkers",
-        success: function(data) {
+        success: function (data) {
             var list = JSON.parse(data);
             var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="usersListTable">';
             str += "<thead class='t-header'><tr>";
@@ -38,7 +38,7 @@ function getUsersManagementList() {
             $("#adminContent").html(str);
             $('#usersListTable').dataTable();
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             checkStatus();
             return false;
@@ -48,10 +48,10 @@ function getUsersManagementList() {
 }
 
 function getCallsStatsPage() {
-$.ajax({
+    $.ajax({
         type: "GET",
         url: "api/workers/getallworkers",
-        success: function(data) {
+        success: function (data) {
             var list = JSON.parse(data);
             var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="usersListTable">';
             str += "<thead class='t-header'><tr>";
@@ -87,7 +87,7 @@ $.ajax({
             $("#adminContent").html(str);
             $('#usersListTable').dataTable();
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             checkStatus();
             return false;
@@ -101,10 +101,10 @@ function banUser(id) {
         type: "POST",
         url: "api/admin/banuser",
         data: ({id: id}),
-        success: function(data) {
+        success: function (data) {
             getUsersManagementList();
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             checkStatus();
             return false;
@@ -118,16 +118,67 @@ function unBanUser(id) {
         type: "POST",
         url: "api/admin/unbanuser",
         data: ({id: id}),
-        success: function(data) {
+        success: function (data) {
             getUsersManagementList();
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             checkStatus();
             return false;
         }
     });
     return false;
+}
+
+function addUser() {
+    $.get("/templates/modal_adduser.html", function (some_html) {
+        var box = bootbox.dialog({
+            show: false,
+            title: "<h4 class=\"modal-title\">Добавить пользователя</h4></div>",
+            message: some_html,
+            buttons: {
+                success: {
+                    label: "Добавить пользователя",
+                    className: "btn-success",
+                    callback: function () {
+                        if ($('#plannerAddTaskModalTaskObjectId').val() != $('#plannerAddUserModalPassword')) {
+                            showWarning("Пароли не совпадают");
+                            return false;
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: "api/admin/adduser",
+                            data: ({
+                                lname: $('#plannerAddUserModalLName').val(),
+                                fname: $('#plannerAddUserModalFName').val(),
+                                mname: $('#plannerAddUserModalMName').val(),
+                                email: $('#plannerAddUserModalEmail').val(),
+                                password: $('#plannerAddTaskModalDescription').val(),
+                            }),
+                            success: function () {
+                                $("#errorBlock").css("display", "none");
+                                location.reload();//FIXME
+                            },
+                            error: function (data) {
+                                showDanger(data.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Отмена",
+                    className: "btn-danger",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+
+        box.on("shown.bs.modal", function () {
+
+        });
+        box.modal('show');
+    }, 'html');
 }
 
 //function getModerationPage() {

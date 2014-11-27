@@ -16,7 +16,6 @@ import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IncorrectPasswordException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.exceptions.PermissionsDeniedException;
-import org.progress.crm.logic.Permissions;
 import org.progress.crm.logic.Workers;
 import org.progress.crm.util.ParamName;
 import org.progress.crm.util.ParamUtil;
@@ -92,26 +91,26 @@ public class WorkersController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
-            throw new PermissionsDeniedException();
-        } else {
-            List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderById(session);
-            List list = new ArrayList();
-            for (Workers ws : workers) {
-                if (ws.getId() != 1) {
-                    List ll = new ArrayList();
-                    ll.add(ws.getId());
-                    ll.add(ws.getEmail());
-                    ll.add(ws.getlName());
-                    ll.add(ws.getfName());
-                    ll.add(ws.getmName());
-                    ll.add(ws.isDeleted());
-                    ll.add(ws.getIsActive());
-                    list.add(ll);
-                }
+//        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
+//            throw new PermissionsDeniedException();
+//        } else {
+        List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderById(session);
+        List list = new ArrayList();
+        for (Workers ws : workers) {
+            if (ws.getId() != 1) {
+                List ll = new ArrayList();
+                ll.add(ws.getId());
+                ll.add(ws.getEmail());
+                ll.add(ws.getlName());
+                ll.add(ws.getfName());
+                ll.add(ws.getmName());
+                ll.add(ws.isDeleted());
+                ll.add(ws.getIsActive());
+                list.add(ll);
             }
-            return list;
         }
+        return list;
+//        }
     }
 
     public void setActivityUserById(Session session, String token, String id, boolean flag)
@@ -119,9 +118,9 @@ public class WorkersController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
-            throw new PermissionsDeniedException();
-        }
+//        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
+//            throw new PermissionsDeniedException();
+//        }
 
         Map<String, String> map = new HashMap<>();
         map.put(ParamName.USER_ID, id);
