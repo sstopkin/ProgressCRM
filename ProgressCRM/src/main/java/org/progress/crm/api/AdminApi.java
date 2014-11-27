@@ -20,55 +20,6 @@ public class AdminApi {
 
     @EJB
     WorkersController workersController;
-//    @EJB
-//    TaskEvaluatedController taskEvaluatedController;
-//    @EJB
-//    CourseController courseController;
-//    @EJB
-//    TaskController taskController;
-//    @EJB
-//    ScoreController scoreController;
-
-//    @GET
-//    @Path("getunevaluated")
-//    public Response getUnevaluatedTask(@CookieParam("token") final String token)
-//            throws CustomException, SQLException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                Gson unevaluated = new GsonBuilder().registerTypeAdapter(Date.class, ser)                             .create();
-//                String result = unevaluated.toJson(taskEvaluatedController
-//                        .getNotEvaluatedTasksList(session, token));
-//                return ApiHelper.getResponse(result);
-//            }
-//        });
-//    }
-
-//    @POST
-//    @Path("evaluatesuccess")
-//    public Response EvaluateSuccessTask(@CookieParam("token") final String token,
-//            @FormParam("id") final String id) throws CustomException, SQLException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                scoreController.checkTaskByAdmin(session, token, id, true);
-//                return ApiHelper.getResponse(true);
-//            }
-//        });
-//    }
-
-//    @POST
-//    @Path("evaluatefail")
-//    public Response EvaluateFailTask(@CookieParam("token") final String token,
-//            @FormParam("id") final String id) throws CustomException, SQLException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                scoreController.checkTaskByAdmin(session, token, id, false);
-//                return ApiHelper.getResponse(true);
-//            }
-//        });
-//    }
 
     @POST
     @Path("banuser")
@@ -95,48 +46,4 @@ public class AdminApi {
             }
         });
     }
-
-//    @POST
-//    @Path("chngpoints")
-//    public Response changeUserPointsById(@CookieParam("token") final String token,
-//            @FormParam("id") final String id, @FormParam("points") final String points)
-//            throws CustomException, SQLException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                profileController.changeUserPiontsById(session, token, id, points);
-//                return ApiHelper.getResponse(true);
-//            }
-//        });
-//    }
-
-//    @GET
-//    @Path("getnonapprovedcourses")
-//    public Response getNonApprovedCourses(@CookieParam("token") final String token)
-//            throws SQLException, CustomException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                Gson courseById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser)                             .create();
-//                String coursesJson = courseById.toJson(courseController
-//                        .getCoursesForModeration(session, token));
-//                return ApiHelper.getResponse(coursesJson);
-//            }
-//        });
-//    }
-//
-//    @GET
-//    @Path("getnonapprovedtasks")
-//    public Response getNonApprovedTasks(@CookieParam("token") final String token)
-//            throws SQLException, CustomException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws CustomException, SQLException {
-//                Gson courseById = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser)                             .create();
-//                String coursesJson = courseById.toJson(taskController
-//                        .getTasksForModeration(session, token));
-//                return ApiHelper.getResponse(coursesJson);
-//            }
-//        });
-//    }
 }
