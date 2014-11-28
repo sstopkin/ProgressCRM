@@ -27,6 +27,7 @@ public class DbFields {
 
         public final static String ID = "id";
         public final static String EMAIL = "email";
+        public final static String IS_ACTIVE = "isActive";
     }
 
     public class CALLS {

@@ -2,6 +2,7 @@ package org.progress.crm.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -32,16 +33,13 @@ public class WorkersDao {
                 .load();
     }
 
-    public List<Workers> getAllWorkersOrderByEmail(Session session) throws SQLException {
-        return session.createCriteria(Workers.class)
-                .addOrder(Order.asc(DbFields.WORKERS.EMAIL))
-                .list();
-    }
-
-    public List<Workers> getAllWorkersOrderById(Session session) throws SQLException {
-        return session.createCriteria(Workers.class)
-                .addOrder(Order.asc(DbFields.WORKERS.ID))
-                .list();
+    public List<Workers> getAllWorkersOrderById(Session session, boolean active) throws SQLException {
+        Criteria cr = session.createCriteria(Workers.class);
+        if (active) {
+            cr.add(Restrictions.eq(DbFields.WORKERS.IS_ACTIVE, true));
+        }
+        cr.addOrder(Order.asc(DbFields.WORKERS.ID));
+        return cr.list();
     }
 
     public List getWorkerObjectsById(final Session session, final int workerId) throws SQLException {

@@ -13,6 +13,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
@@ -29,32 +30,9 @@ public class PlannerApi {
     @EJB
     PlannerController plannerController;
 
-//    @GET
-//    @Path("all")
-//    public Response getAllPlannerTasks(@CookieParam("token") final String token,
-//            @QueryParam("from") final String from,
-//            @QueryParam("to") final String to,
-//            @QueryParam("browser_timezone") final String timezone) throws SQLException, CustomException {
-//        return TransactionService.runInScope(new Command<Response>() {
-//            @Override
-//            public Response execute(Session session) throws SQLException {
-//                try {
-//                    Gson tasksList = new GsonBuilder().registerTypeAdapter(Date.class, ser)                             .create();
-//                    String newsJson = tasksList.toJson(plannerController.getTasks(session, token));
-////                    return ApiHelper.getResponse(newsJson);
-////from=1362070800000&to=1364749200000&browser_timezone=Asia%2FOmsk
-//                    //1363197600
-//                    //Wed, 13 Mar 2013 18:00:00 GMT
-//
-//                    return ApiHelper.getResponse(responce);
-//                } catch (CustomException ex) {
-//                    Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);
-//                    return ApiHelper.getResponse(ex);
-//                }
-//            }
-//        });
-//    }
-//
+    //from=1362070800000&to=1364749200000&browser_timezone=Asia%2FOmsk
+    //                    //1363197600
+    //                    //Wed, 13 Mar 2013 18:00:00 GMT
     @GET
     @Path("all")
     public Response getAllPlannerTasksByWorker(
@@ -67,7 +45,30 @@ public class PlannerApi {
             public Response execute(Session session) throws SQLException {
                 try {
                     Gson tasksList = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
-                    String newsJson = tasksList.toJson(plannerController.getTasksByWorker(session, token, from, to, timezone));
+                    String newsJson = tasksList.toJson(plannerController.getTasks(session, token, "", from, to, timezone));
+                    return ApiHelper.getResponse(newsJson.replace("\"Class\"", "\"class\""));
+                } catch (CustomException ex) {
+                    Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
+            }
+        });
+    }
+
+    @GET
+    @Path("uuid/{path:.*}")
+    public Response getAllPlannerTasksByWorker(
+            @PathParam("path") final String uuid,
+            @CookieParam("token") final String token,
+            @QueryParam("from") final String from,
+            @QueryParam("to") final String to,
+            @QueryParam("browser_timezone") final String timezone) throws SQLException, CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson tasksList = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
+                    String newsJson = tasksList.toJson(plannerController.getTasks(session, token, uuid, from, to, timezone));
                     return ApiHelper.getResponse(newsJson.replace("\"Class\"", "\"class\""));
                 } catch (CustomException ex) {
                     Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);
