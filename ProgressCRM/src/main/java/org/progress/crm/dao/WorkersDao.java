@@ -10,13 +10,13 @@ import org.progress.crm.logic.DbFields;
 import org.progress.crm.logic.Workers;
 
 public class WorkersDao {
-//FFU
-//    public void addWorker(Session session, final String email, final String fName, final String mName, final String lName, final String pass)
-//            throws SQLException {
-//        Workers pr = new Workers(email, fName, mName, lName, pass);
-//        pr.setPermissions(1);
-//        session.save(pr);
-//    }
+
+    public int addWorker(Session session, final String email, final String fName, final String mName, final String lName, final String pass)
+            throws SQLException {
+        Workers worker = new Workers(email, fName, mName, lName, pass);
+        worker.setPermissions(1);
+        return (int) session.save(worker);
+    }
 
     public void updateWorker(Session session, Workers worker) throws SQLException {
         session.update(worker);
