@@ -12,12 +12,17 @@ import org.progress.crm.logic.Planner;
 
 public class PlannerDao {
 
-    public List<Planner> getTasksByWorker(Session session, int idWorker, Date from, Date to) throws SQLException {
+    public List<Planner> getTasks(Session session, String targetUUID, int idWorker, Date from, Date to) throws SQLException {
         Criteria criteria = session.createCriteria(Planner.class);
         criteria.add(Restrictions.ge(DbFields.PLANNER.TASKSTARTDATE, from));
         criteria.add(Restrictions.ge(DbFields.PLANNER.TASKSTARTDATE, from));
         criteria.add(Restrictions.lt(DbFields.PLANNER.TASKENDDATE, to));
-        criteria.add(Restrictions.eq(DbFields.PLANNER.IDWORKER, idWorker));
+        if (!targetUUID.equals("")) {
+            criteria.add(Restrictions.eq(DbFields.PLANNER.TASKTARGETUUID, targetUUID));
+        }
+        if (idWorker != -1) {
+            criteria.add(Restrictions.eq(DbFields.PLANNER.IDWORKER, idWorker));
+        }
         criteria.add(Restrictions.eq(DbFields.PLANNER.DELETED, false));
         criteria.addOrder(Order.desc(DbFields.PLANNER.CREATIONDATE));
         return criteria.list();

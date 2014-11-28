@@ -74,8 +74,8 @@ public class WorkersController {
     }
 
     //do not add token check, it`s guest api
-    public List<Workers> getAllWorkers(Session session) throws CustomException, SQLException {
-        List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderByEmail(session);
+    public List<Workers> getAllActiveWorkers(Session session) throws CustomException, SQLException {
+        List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderById(session, true);
         List list = new ArrayList();
         for (Workers ws : workers) {
             List ll = new ArrayList();
@@ -96,7 +96,7 @@ public class WorkersController {
 //        if (!roleController.checkPermissions(session, token, Permissions.ADMIN)) {
 //            throw new PermissionsDeniedException();
 //        } else {
-        List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderById(session);
+        List<Workers> workers = DaoFactory.getWorkersDao().getAllWorkersOrderById(session, false);
         List list = new ArrayList();
         for (Workers ws : workers) {
             if (ws.getId() != 1) {

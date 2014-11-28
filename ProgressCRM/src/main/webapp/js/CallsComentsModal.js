@@ -12,7 +12,7 @@ function addCallDialog(objectUUID) {
             success: {
                 label: "Добавить звонок",
                 className: "btn-success",
-                callback: function() {
+                callback: function () {
                     $.ajax({
                         type: "POST",
                         url: "api/calls/addcall",
@@ -21,11 +21,10 @@ function addCallDialog(objectUUID) {
                             incomingPhoneNumber: $("#apartamentsAddCallIncomingPhoneNumber").val(),
                             description: $('#apartamentsAddCallDescription').val()
                         }),
-                        success: function() {
+                        success: function () {
                             $("#errorBlock").css("display", "none");
-                            location.reload();//FIXME
                         },
-                        error: function(data) {
+                        error: function (data) {
                             showDanger(data.responseText);
                         }
                     });
@@ -34,7 +33,7 @@ function addCallDialog(objectUUID) {
             danger: {
                 label: "Отмена",
                 className: "btn-danger",
-                callback: function() {
+                callback: function () {
                 }
             }
         }
@@ -53,7 +52,7 @@ function addCommentDialog(objectUUID) {
             success: {
                 label: "Добавить комментарий",
                 className: "btn-success",
-                callback: function() {
+                callback: function () {
                     $.ajax({
                         type: "POST",
                         url: "api/comments/addcomment",
@@ -61,11 +60,10 @@ function addCommentDialog(objectUUID) {
                             objectUUID: objectUUID,
                             text: $('#apartamentsAddCommentText').val()
                         }),
-                        success: function() {
+                        success: function () {
                             $("#errorBlock").css("display", "none");
-                            location.reload();//FIXME
                         },
-                        error: function(data) {
+                        error: function (data) {
                             showDanger(data.responseText);
                         }
                     });
@@ -74,7 +72,7 @@ function addCommentDialog(objectUUID) {
             danger: {
                 label: "Отмена",
                 className: "btn-danger",
-                callback: function() {
+                callback: function () {
                 }
             }
         }

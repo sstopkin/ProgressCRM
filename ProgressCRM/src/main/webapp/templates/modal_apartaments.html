@@ -46,7 +46,6 @@
                                 <li id="typeShort" style="display: none;"><span class="name">Подпись коротко:</span> <span class="value"></span></li>
                                 <li id="contentType" style="display: none;"><span class="name">Тип объекта:</span> <span class="value"></span>
                                 <li id="okato" style="display: none;"><span class="name">ОКАТО:</span> <span class="value"></span>
-
                             </ul>
                             <p class="title">Координаты объекта</p>
                             <p id="apartamentLan" class="value"></p> 
@@ -56,186 +55,200 @@
                 </div>
             </div>
             <div class="tab-pane" id="tab2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Информация о клиенте</div>
-                    <div class="panel-body">
-                        <input onclick="customersShowModal('IdCustomer');" type="button" class="btn btn-success" value="Выбрать клиента" />
-                        <div id="apartamentAddCustomerBlock">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">ID Клиента<br></label>
-                                    <input id="IdCustomer" type="text" class="form-control" name="IdCustomer" value="1">
-                                </div>
-                            </div>
-                        </div>
-                        <div id="apartamentAddWorkersBlock">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Риэлтор</label>
-                                    <select class="form-control" id="ApartamentsIdWorkerTarget">
-                                        <option selected="selected" value="-1"></option>
-                                    </select>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Информация о клиенте</div>
+                        <div class="panel-body">
+                            <div id="apartamentAddCustomerBlock">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">ID Клиента<br></label>
+                                        <input id="IdCustomer" type="text" class="form-control" name="IdCustomer" value="1">
+                                        <input onclick="customersShowModal('IdCustomer');" type="button" class="btn btn-success" value="Выбрать клиента" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">Информация о объекте</div>
-                    <div class="panel-body">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Статус объекта<br></label>
-                                <select id="ApartamentStatus" class="form-control">
-                                    <option selected="selected" value="5">Не указан</option>
-                                    <option value="0">Прозвон</option>
-                                    <option value="1">В работе</option>
-                                    <option value="4">Архив</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Тип продажи<br></label>
-                                <select id="TypeOfSales" class="form-control" size="1">
-                                    <option selected="selected" value="0"></option>
-                                    <option value="1">Эксклюзивная продажа</option>
-                                    <option value="2">Общая продажа</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Тип жилого помещения<br></label>
-                                <select id="DwellingType" class="form-control">
-                                    <option selected="selected" value="0"></option>
-                                    <option value="1">Квартира</option>
-                                    <option value="2">Гостинка</option>
-                                    <option value="3">Малосемейка</option>
-                                    <option value="4">Подселение</option>
-                                    <option value="5">Другое/Не указан</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Кол-во комнат<br></label>
-                                <select id="Rooms" class="form-control">
-                                    <option selected="selected" value="0"></option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Цена<br></label>
-                                <input id="Price" type="text" class="form-control" name="Price" value="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Административный округ<br></label>
-                                <select id="CityDistrict" class="form-control">
-                                    <option selected="selected" value="0"></option>
-                                    <option value="1">Кировский административный округ</option>
-                                    <option value="2">Ленинский административный округ</option>
-                                    <option value="3">Октябрьский административный округ</option>
-                                    <option value="4">Советский административный округ</option>
-                                    <option value="5">Центральный административный округ</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Этаж<br></label>
-                                <input id="Floor" type="text" class="form-control" name="Floor" value="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Этажность дома<br></label>
-                                <input id="Floors" type="text" class="form-control" name="Floors" value="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Номер квартиры<br></label>
-                                <input id="RoomNumber" type="text" class="form-control" name="RoomNumber" value="0">
-                            </div>                                            
-                            <div class="form-group">
-                                <label class="control-label">Материал дома<br></label>
-                                <select id="Material" class="form-control">
-                                    <option selected="selected" value="0"></option>
-                                    <option value="1">Панельный</option>
-                                    <option value="2">Кирпичный</option>
-                                    <option value="3">Сборный ж/б</option>
-                                    <option value="4">Другое/Не указан</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        <input id="PureSale" type="checkbox" value="true">Чистая продажа</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input id="Rent" type="checkbox" value="true">Аренда</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input id="Mortgage" type="checkbox" value="true">Ипотека</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input id="Exchange" type="checkbox" value="true">Обмен</label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        <input id="RePlanning" type="checkbox" value="true">Перепланировка</label>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Информация о клиенте</div>
+                        <div class="panel-body">
+                            <div id="apartamentAddWorkersBlock">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Риэлтор</label>
+                                        <select class="form-control" id="ApartamentsIdWorkerTarget">
+                                            <option selected="selected" value="-1"></option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Информация о объекте</div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Статус объекта<br></label>
+                                    <select id="ApartamentStatus" class="form-control">
+                                        <option selected="selected" value="5">Не указан</option>
+                                        <option value="0">Прозвон</option>
+                                        <option value="1">В работе</option>
+                                        <option value="4">Архив</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Тип продажи<br></label>
+                                    <select id="TypeOfSales" class="form-control" size="1">
+                                        <option selected="selected" value="0"></option>
+                                        <option value="1">Эксклюзивная продажа</option>
+                                        <option value="2">Общая продажа</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Тип жилого помещения<br></label>
+                                    <select id="DwellingType" class="form-control">
+                                        <option selected="selected" value="0"></option>
+                                        <option value="1">Квартира</option>
+                                        <option value="2">Гостинка</option>
+                                        <option value="3">Малосемейка</option>
+                                        <option value="4">Подселение</option>
+                                        <option value="5">Другое/Не указан</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Кол-во комнат<br></label>
+                                    <select id="Rooms" class="form-control">
+                                        <option selected="selected" value="0"></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Цена<br></label>
+                                    <input id="Price" type="text" class="form-control" name="Price" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Административный округ<br></label>
+                                    <select id="CityDistrict" class="form-control">
+                                        <option selected="selected" value="0"></option>
+                                        <option value="1">Кировский административный округ</option>
+                                        <option value="2">Ленинский административный округ</option>
+                                        <option value="3">Октябрьский административный округ</option>
+                                        <option value="4">Советский административный округ</option>
+                                        <option value="5">Центральный административный округ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Этаж<br></label>
+                                    <input id="Floor" type="text" class="form-control" name="Floor" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Этажность дома<br></label>
+                                    <input id="Floors" type="text" class="form-control" name="Floors" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Номер квартиры<br></label>
+                                    <input id="RoomNumber" type="text" class="form-control" name="RoomNumber" value="0">
+                                </div>                                            
+                                <div class="form-group">
+                                    <label class="control-label">Материал дома<br></label>
+                                    <select id="Material" class="form-control">
+                                        <option selected="selected" value="0"></option>
+                                        <option value="1">Панельный</option>
+                                        <option value="2">Кирпичный</option>
+                                        <option value="3">Сборный ж/б</option>
+                                        <option value="4">Другое/Не указан</option>
+                                    </select>
+                                </div>
+
+                            </div>
 
 
-                        <!--КОЛОНКА2-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Площадь общая<br></label>
-                                <input id="SizeApartament" type="text" class="form-control" name="SizeApartament" value="0">
+                            <!--КОЛОНКА2-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Площадь общая<br></label>
+                                    <input id="SizeApartament" type="text" class="form-control" name="SizeApartament" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Площадь жилая<br></label>
+                                    <input id="SizeLiving" type="text" class="form-control" name="SizeLiving" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Площадь кухни<br></label>
+                                    <input id="SizeKitchen" type="text" class="form-control" name="SizeKitchen" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Кол-во балконов<br></label>
+                                    <select id="Balcony" class="form-control">
+                                        <option selected="selected" value="0"></option>
+                                        <option value="0">Нет</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Кол-во лоджий<br></label>
+                                    <select id="Loggia" class="form-control">
+                                        <option selected="selected" value="0"></option>
+                                        <option value="0">Нет</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Год постройки дома<br></label>
+                                    <input id="YearOfConstruction" type="text" class="form-control" name="YearOfConstruction" value="0">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Описание<br></label>
+                                    <textarea id="Description" class="form-control"></textarea>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label">Площадь жилая<br></label>
-                                <input id="SizeLiving" type="text" class="form-control" name="SizeLiving" value="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Площадь кухни<br></label>
-                                <input id="SizeKitchen" type="text" class="form-control" name="SizeKitchen" value="0">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Кол-во балконов<br></label>
-                                <select id="Balcony" class="form-control">
-                                    <option selected="selected" value="0"></option>
-                                    <option value="0">Нет</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Кол-во лоджий<br></label>
-                                <select id="Loggia" class="form-control">
-                                    <option selected="selected" value="0"></option>
-                                    <option value="0">Нет</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Год постройки дома<br></label>
-                                <input id="YearOfConstruction" type="text" class="form-control" name="YearOfConstruction" value="0">
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Описание<br></label>
-                                <textarea id="Description" class="form-control"></textarea>
+                            <!--КОЛОНКА3-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id="PureSale" type="checkbox" value="true">Чистая продажа</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id="Rent" type="checkbox" value="true">Аренда</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id="Mortgage" type="checkbox" value="true">Ипотека</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id="Exchange" type="checkbox" value="true">Обмен</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input id="RePlanning" type="checkbox" value="true">Перепланировка</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <input type="submit" class="btn btn-success pull-right" id="apartamentAddReadyLink" value="Готово" style="display: none"/>
                             <input type="submit" class="btn btn-success pull-right" id="apartamentEditReadyLink" value="Сохранить" style="display: none"/>

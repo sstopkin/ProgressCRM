@@ -276,7 +276,7 @@ function getApartamentViewPage(apartamentId) {
         });
         getFileManagerPage(array.filespaceUUID, array.ApartamentUUID);
         $("#apartamentsFeatures").html(content);
-        getPlannerPage();
+        getPlannerPage(array.ApartamentUUID);
         $("#addApartamentTaskBtn").click(function () {
             addPlannerTaskDialog(array.ApartamentUUID);
         });
@@ -322,10 +322,10 @@ function createApartamentsFilespace(targetuuid) {
     });
 }
 
-function getPlannerPage() {
+function getPlannerPage(apartementsUUID) {
     $.get("templates/calendar.html", function (data) {
         $("#apartamentsTasks").html(data);
-        initCalendar('/api/planner/all');
+        initCalendar('/api/planner/uuid/'+apartementsUUID);
     });
 }
 

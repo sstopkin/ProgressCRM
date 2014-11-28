@@ -160,7 +160,7 @@ public class AuthApi {
                 Gson allUsersList = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapter(Date.class, ser).create();
                 try {
                     String profileJson = allUsersList.toJson(workersController
-                            .getAllWorkers(session));
+                            .getAllActiveWorkers(session));
                     return ApiHelper.getResponse(profileJson);
                 } catch (CustomException ex) {
                     Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
