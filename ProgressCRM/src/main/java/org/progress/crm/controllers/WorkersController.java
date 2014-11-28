@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
@@ -157,5 +159,22 @@ public class WorkersController {
             throw new IsNotAuthenticatedException();
         }
         return DaoFactory.getWorkersDao().getWorkerObjectsById(session, Integer.valueOf(id));
+    }
+
+    public int addWorker(Session session, String token, Map<String, String> map) throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        String email = map.get(ParamName.WORKER_EMAIL);
+        String workerFName = map.get(ParamName.WORKER_FIRST_NAME);
+        String workerMName = map.get(ParamName.WORKER_MIDDLE_NAME);
+        String workerLName = map.get(ParamName.WORKER_LAST_NAME);
+        String workerPassword = null;
+        try {
+            workerPassword = SHA1.sha1(map.get(ParamName.WORKER_PASSWORD));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(WorkersController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return DaoFactory.getWorkersDao().addWorker(session, email, workerFName, workerMName, workerLName, workerPassword);
     }
 }

@@ -141,10 +141,6 @@ function addUser() {
                     label: "Добавить пользователя",
                     className: "btn-success",
                     callback: function () {
-                        if ($('#plannerAddTaskModalTaskObjectId').val() != $('#plannerAddUserModalPassword')) {
-                            showWarning("Пароли не совпадают");
-                            return false;
-                        }
                         $.ajax({
                             type: "POST",
                             url: "api/admin/adduser",
@@ -153,7 +149,7 @@ function addUser() {
                                 fname: $('#plannerAddUserModalFName').val(),
                                 mname: $('#plannerAddUserModalMName').val(),
                                 email: $('#plannerAddUserModalEmail').val(),
-                                password: $('#plannerAddTaskModalDescription').val(),
+                                password: $('#plannerAddUserModalPassword').val()
                             }),
                             success: function () {
                                 $("#errorBlock").css("display", "none");
