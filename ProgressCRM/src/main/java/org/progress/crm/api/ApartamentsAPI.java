@@ -70,6 +70,25 @@ public class ApartamentsAPI {
         });
     }
 
+    @GET
+    @Path("getallapartamentfull")
+    public Response getAllApartamentsFull(@QueryParam("status") final String status,
+            @CookieParam("token") final String token) throws CustomException {
+        return TransactionService.runInScope(new Command<Response>() {
+            @Override
+            public Response execute(Session session) throws SQLException {
+                try {
+                    Gson allApartament = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
+                    String result = allApartament.toJson(apartamentsController.getAllApartamentFull(session, token, status));
+                    return ApiHelper.getResponse(result);
+                } catch (CustomException ex) {
+                    Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    return ApiHelper.getResponse(ex);
+                }
+            }
+        });
+    }
+
     @POST
     @Path("addapartament")
     public Response addApartament(@CookieParam("token") final String token,

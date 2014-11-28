@@ -150,7 +150,19 @@ public class ApartamentsController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartaments(session, Integer.
+        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartamentsFew(session, Integer.
+                valueOf(status));
+        return apartaments;
+    }
+
+    public List<Apartaments> getAllApartamentFull(Session session, String token, String status) throws CustomException, SQLException {
+        if (status == null) {
+            throw new BadRequestException();
+        }
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartamentsFull(session, Integer.
                 valueOf(status));
         return apartaments;
     }

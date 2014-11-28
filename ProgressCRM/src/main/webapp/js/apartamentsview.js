@@ -10,7 +10,7 @@ function getApartamentViewPage(apartamentId) {
         var array;
         $.ajax({
             type: "GET",
-            url: "api/apartament/getapartament?id=" + apartamentId,
+            url: "api/apartament/getapartamentfull?id=" + apartamentId,
             async: false,
             success: function (data) {
                 $("#errorBlock").css("display", "none");
@@ -325,7 +325,7 @@ function createApartamentsFilespace(targetuuid) {
 function getPlannerPage(apartementsUUID) {
     $.get("templates/calendar.html", function (data) {
         $("#apartamentsTasks").html(data);
-        initCalendar('/api/planner/uuid/'+apartementsUUID);
+        initCalendar('/api/planner/uuid/' + apartementsUUID);
     });
 }
 
@@ -354,11 +354,6 @@ function initMapView(apartamentLan, apartamentLon, address) {
                         // Кнопка изменения масштаба.
                         .add('zoomControl', {left: 5, top: 5});
 
-                // Также в метод add можно передать экземпляр класса элемента управления.
-                // Например, панель управления пробками.
-                var trafficControl = new ymaps.control.TrafficControl();
-                myMap.controls
-                        .add(trafficControl);
                 // В конструкторе элемента управления можно задавать расширенные
                 // параметры, например, тип карты в обзорной карте.
 //                            .add(new ymaps.control.MiniMap({

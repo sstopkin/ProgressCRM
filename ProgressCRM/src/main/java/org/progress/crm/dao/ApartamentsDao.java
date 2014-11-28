@@ -63,7 +63,16 @@ public class ApartamentsDao {
         return list.get(0);
     }
 
-    public List<Apartaments> getAllApartaments(Session session, int status) throws SQLException {
+    public List<Apartaments> getAllApartamentsFew(Session session, int status) throws SQLException {
+        //FIXME
+        Criteria cr = session.createCriteria(Apartaments.class);
+        cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, status));
+        cr.add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
+        cr.addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS));
+        return cr.list();
+    }
+
+    public List<Apartaments> getAllApartamentsFull(Session session, int status) throws SQLException {
         Criteria cr = session.createCriteria(Apartaments.class);
         cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, status));
         cr.add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
