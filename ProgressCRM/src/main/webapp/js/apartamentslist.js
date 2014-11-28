@@ -22,7 +22,9 @@ function getApartamentsListPage(status, statusText) {
             type: "GET",
             url: "api/apartament/getallapartament?status=" + status,
             success: function (data) {
-                drawApartamentsListTable(data, status);
+                var array = JSON.parse(data);
+                drawApartamentsListTable(array, status);
+                drawApartamentsListMap(array, status);
             },
             error: function (data) {
                 showDanger(data.responseText);
@@ -32,9 +34,8 @@ function getApartamentsListPage(status, statusText) {
     });
 }
 
-function drawApartamentsListTable(data, status) {
+function drawApartamentsListTable(array, status) {
     $("#errorBlock").css("display", "none");
-    var array = JSON.parse(data);
     var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="apartamentsListTable">';
     str += "<thead>";
     str += "<tr>";
@@ -103,6 +104,72 @@ function draw(array, status) {
     return str;
 }
 
+function drawApartamentsListMap(array, status) {
+    var myMap;
+    $('#toggleMapApartamentsListView').bind({
+        click: function () {
+            if (!myMap) {
+                myMap = new ymaps.Map('mapApartamentsListView', {
+                    center: [54.989342, 73.368212],
+                    zoom: 11
+                });
+
+                // Для добавления элемента управления на карту
+                // используется поле map.controls.
+                // Это поле содержит ссылку на экземпляр класса map.control.Manager.
+
+                // Добавление элемента в коллекцию производится
+                // с помощью метода add.
+
+                // В метод add можно передать строковый идентификатор
+                // элемента управления и его параметры.
+                myMap.controls
+                        // Кнопка изменения масштаба.
+                        .add('zoomControl', {left: 5, top: 5});
+
+                // В конструкторе элемента управления можно задавать расширенные
+                // параметры, например, тип карты в обзорной карте.
+//                            .add(new ymaps.control.MiniMap({
+//                                type: 'yandex#publicMap'
+//                            }));
+
+                /*
+                 // Удаление элементов управления производится через метод remove.
+                 myMap.controls
+                 .remove(trafficControl)
+                 .remove('mapTools');
+                 */
+
+                array.forEach(function (entry) {
+                    myPlacemark = new ymaps.Placemark([entry.apartamentLan, entry.apartamentLon], {
+                        iconContent: "",
+                        // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+                        balloonContentHeader: "ID " + entry.id,
+                        balloonContentBody: entry.cityName + " "
+                                + entry.streetName + " "
+                                + entry.houseNumber + " "
+                                + entry.buildingNumber + " - "
+                                + entry.roomNumber,
+                        balloonContentFooter: "Этаж " + entry.floor + "/" + entry.floors + ", Цена " + entry.price,
+                        hintContent: entry.cityName + " "
+                                + entry.streetName + " "
+                                + entry.houseNumber + " "
+                                + entry.buildingNumber + " - "
+                                + entry.roomNumber
+                    });
+                    myMap.geoObjects.add(myPlacemark);
+                });
+                $("#toggle").attr('value', 'Скрыть карту');
+            }
+            else {
+                myMap.destroy();// Деструктор карты
+                myMap = null;
+                $("#toggle").attr('value', 'Показать карту снова');
+            }
+        }
+    });
+}
+
 function setApartamentsAdState(apartamentId, state) {
     $.ajax({
         type: "POST",
@@ -155,11 +222,8 @@ function apartamentsEditById(apartamentId) {
                     $("#ApartamentsIdWorkerTarget").append('<option value="' + entry[0] + '">' + entry[1] + " " + entry[2] + " " + entry[3] + '</option>');
                 });
                 $("#ApartamentsIdWorkerTarget").val(array.idWorkerTarget);
-
                 $("#errorBlock").css("display", "none");
-
                 $('#TypeOfSales').val(array.typeOfSales);
-
                 $('#apartamentCity').val(array.cityName);
                 $('#apartamentStreet').val(array.streetName);
                 $('#apartamentBuilding').val(array.houseNumber);
@@ -186,13 +250,11 @@ function apartamentsEditById(apartamentId) {
                 $('#idWorkerTarget').val(array.idWorkerTarget);
                 $('#DwellingType').val(array.dwellingType);
                 $('#ApartamentStatus').val(array.status);
-
                 $('#PureSale').prop("checked", array.MethodOfPurchase_PureSale);
                 $('#Mortgage').prop("checked", array.MethodOfPurchase_Mortgage);
                 $('#Exchange').prop("checked", array.MethodOfPurchase_Exchange);
                 $('#Rent').prop("checked", array.MethodOfPurchase_Rent);
                 $('#RePlanning').prop("checked", array.rePplanning);
-
                 $("#apartamentEditReadyLink").css("display", "block");
                 $("#apartamentEditReadyLink").click(function () {
                     $.ajax({
