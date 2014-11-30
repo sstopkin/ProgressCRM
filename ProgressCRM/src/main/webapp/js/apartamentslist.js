@@ -16,7 +16,7 @@ function getApartamentsListPage(status, statusText) {
 //        initSearchForm('apartaments');
         $("#apartamentsListHeaderText").html(statusText);
         $("#genApartamentsPriceBtn").click(function () {
-            window.location = '/api/report/getprice?status=' + status
+            window.location = '/api/report/getprice?status=' + status;
         });
         $.ajax({
             type: "GET",

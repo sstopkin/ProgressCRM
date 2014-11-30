@@ -10,7 +10,7 @@ function getApartamentViewPage(apartamentId) {
         var array;
         $.ajax({
             type: "GET",
-            url: "api/apartament/getapartamentfull?id=" + apartamentId,
+            url: "api/apartament/getapartament?id=" + apartamentId,
             async: false,
             success: function (data) {
                 $("#errorBlock").css("display", "none");
