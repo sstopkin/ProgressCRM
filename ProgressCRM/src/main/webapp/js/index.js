@@ -274,89 +274,31 @@ function timeConverter(UNIX_timestamp) {
     var hour = a.getHours();
     var min = a.getMinutes();
     var sec = a.getSeconds();
-//    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-    var time = year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
-    return time;
+    return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
 }
 
 function getTimeStamp(date) {
     return new Date(date).getTime();
 }
 
-function initCalendar(path) {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-    today = yyyy + '-' + mm + '-' + dd;
+function initCalendar(data, div) {
+    var date = new Date();
+    var day = date.getDate();
+    day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
+    var month = date.getMonth() + 1;
+    month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
+    var year = date.getFullYear();
 
-    "use strict";
-
-    var options = {
-        events_source: path, //srv
-        view: 'month',
-        tmpl_path: 'js/lib/bootstrap-calendar/tmpls/',
-        tmpl_cache: false,
-        language: 'ru-RU',
-        first_day: 1,
-        day: today,
-        modal: true,
-        onAfterEventsLoad: function (events) {
-            if (!events) {
-                return;
-            }
-            var list = $('#eventlist');
-            list.html('');
-
-            $.each(events, function (key, val) {
-                $(document.createElement('li'))
-                        .html('<a href="' + val.url + '">' + val.title + '</a>')
-                        .appendTo(list);
-            });
+    $(div).fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,basicWeek,basicDay'
         },
-        onAfterViewLoad: function (view) {
-            $('.page-header h3').text(this.getTitle());
-            $('.btn-group button').removeClass('active');
-            $('button[data-calendar-view="' + view + '"]').addClass('active');
-        },
-        classes: {
-            months: {
-                general: 'label'
-            }
-        }
-    };
-
-    var calendar = $('#calendar').calendar(options);
-
-
-
-    $('.btn-group button[data-calendar-nav]').each(function () {
-        var $this = $(this);
-        $this.click(function () {
-            calendar.navigate($this.data('calendar-nav'));
-        });
-    });
-
-    $('.btn-group button[data-calendar-view]').each(function () {
-        var $this = $(this);
-        $this.click(function () {
-            calendar.view($this.data('calendar-view'));
-        });
-    });
-
-    $('#events-in-modal').change(function () {
-        var val = $(this).is(':checked') ? $(this).val() : null;
-        calendar.setOptions({modal: val});
-    });
-
-    $('#events-modal .modal-header, #events-modal .modal-footer').click(function (e) {
-        e.preventDefault();
-        e.stopPropagation();
+        defaultDate: year + "-" + month + "-" + day,
+        editable: false,
+        lang: "ru",
+        eventLimit: true, // allow "more" link when too many events
+        events: data
     });
 }

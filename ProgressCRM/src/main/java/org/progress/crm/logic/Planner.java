@@ -19,11 +19,11 @@ public class Planner implements Serializable {
     private int idWorker;
     private String taskClass;
     private String targetOjectUUID;
-    private String taskTitle;
-    private String taskDescription;
+    private String title;
+    private String description;
     private Date creationDate;
-    private Date taskStartDate;
-    private Date taskEndDate;
+    private Date start;
+    private Date end;
     private boolean deleted;
 
     public Planner() {
@@ -33,41 +33,41 @@ public class Planner implements Serializable {
         this.idWorker = idWorker;
         this.taskClass = taskClass;
         this.targetOjectUUID = targetOjectUUID;
-        this.taskDescription = taskDescription;
+        this.description = taskDescription;
         this.creationDate = new Date();
-        this.taskStartDate = taskStartDate;
-        this.taskEndDate = taskEndDate;
+        this.start = taskStartDate;
+        this.end = taskEndDate;
         this.deleted = false;
-        this.taskTitle = taskTitle;
+        this.title = taskTitle;
     }
 
     @Column(name = "TaskTitle")
     public String getTaskTitle() {
-        return taskTitle;
+        return title;
     }
 
     public void setTaskTitle(String taskTitle) {
-        this.taskTitle = taskTitle;
+        this.title = taskTitle;
     }
 
     @Column(name = "StartDate")
     @Temporal(TemporalType.TIMESTAMP)
     public Date getTaskStartDate() {
-        return taskStartDate;
+        return start;
     }
 
     public void setTaskStartDate(Date taskStartDate) {
-        this.taskStartDate = taskStartDate;
+        this.start = taskStartDate;
     }
 
     @Column(name = "EndDate")
     @Temporal(TemporalType.TIMESTAMP)
     public Date getTaskEndDate() {
-        return taskEndDate;
+        return end;
     }
 
     public void setTaskEndDate(Date taskEndDate) {
-        this.taskEndDate = taskEndDate;
+        this.end = taskEndDate;
     }
 
     @Id
@@ -129,11 +129,11 @@ public class Planner implements Serializable {
 
     @Column(name = "TaskDescription")
     public String getTaskDescription() {
-        return taskDescription;
+        return description;
     }
 
     public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
+        this.description = taskDescription;
     }
 
 }
