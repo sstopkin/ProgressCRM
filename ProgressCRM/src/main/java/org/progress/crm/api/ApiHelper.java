@@ -8,6 +8,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ws.rs.core.Response;
 
@@ -41,7 +42,7 @@ public class ApiHelper {
     public static JsonSerializer<Date> ser = new JsonSerializer<Date>() {
         @Override
         public JsonElement serialize(Date t, java.lang.reflect.Type type, JsonSerializationContext jsc) {
-            return t == null ? null : new JsonPrimitive(t.getTime());
+            return t == null ? null : new JsonPrimitive(new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss").format(t));
         }
     };
 

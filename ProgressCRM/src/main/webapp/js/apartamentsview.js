@@ -32,6 +32,9 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "Статус: ";
                 switch (array.typeOfSales) {
+                    case 0:
+                        content += "Прозвон";
+                        break;
                     case 1:
                         content += "В работе";
                         break;
@@ -42,7 +45,7 @@ function getApartamentViewPage(apartamentId) {
                         content += "Не выбран";
                         break;
                     default:
-                        content += "";
+                        content += array.typeOfSales;
                 }
                 content += "</p>";
                 content += "<p>";
@@ -199,30 +202,33 @@ function getApartamentViewPage(apartamentId) {
                 return false;
             }
         });
-        $.ajax({
-            type: "GET",
-            url: "api/customers/getcustomer?id=" + array.idCustomer,
-            async: false,
-            success: function (data) {
-                var array = JSON.parse(data);
-                content += "<p>";
-                content += "<b>Информация о владельце: </b>"; //array.clientDescription
-                content += "</p>";
-                content += array.customersFname + " ";
-                content += array.customersLname + " ";
-                content += array.customersMname + " ";
-                content += array.customersPhone + " ";
-                content += "</p>";
-            }
-        });
+        if (array.typeOfSales != '0') {
+            $.ajax({
+                type: "GET",
+                url: "api/customers/getcustomer?id=" + array.idCustomer,
+                async: false,
+                success: function (data) {
+                    var array = JSON.parse(data);
+                    content += "<p>";
+                    content += "<b>Информация о владельце: </b>"; //array.clientDescription
+                    content += "</p>";
+                    content += array.customersFname + " ";
+                    content += array.customersLname + " ";
+                    content += array.customersMname + " ";
+                    content += array.customersPhone + " ";
+                    content += "</p>";
+                }
+            });
+        }
+        $("#apartamentsFeatures").html(content);
         $.ajax({
             type: "GET",
             url: "api/calls/getcalls?objectUUID=" + array.ApartamentUUID,
             success: function (data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
-                var str = "";
-                var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="callsListTable">';
+                var str = '<button type=\"button\" onclick=\"addCallDialog(\'' + array.ApartamentUUID + '\');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-earphone\"></span> Добавить звонок</button>';
+                str += '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="callsListTable">';
                 str += "<thead class='t-header'><tr>";
                 str += "<th>Дата</th>";
                 str += "<th>Входящий номер</th>";
@@ -252,8 +258,8 @@ function getApartamentViewPage(apartamentId) {
             success: function (data) {
                 $("#errorBlock").css("display", "none");
                 var array = JSON.parse(data);
-                var str = "";
-                var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="commentsListTable">';
+                var str = '<button type=\"button\" onclick=\"addCommentDialog(\'' + array.ApartamentUUID + '\');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-comment\"></span> Добавить комментарий</button>';
+                str += '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="commentsListTable">';
                 str += "<thead class='t-header'><tr>";
                 str += "<th>Дата</th>";
                 str += "<th>Комментарий</th>";
@@ -275,12 +281,21 @@ function getApartamentViewPage(apartamentId) {
             }
         });
         getFileManagerPage(array.filespaceUUID, array.ApartamentUUID);
-        $("#apartamentsFeatures").html(content);
-        getPlannerPage(array.ApartamentUUID);
+        $.ajax({
+            type: "GET",
+            url: '/api/planner/uuid/' + array.ApartamentUUID,
+            success: function (data) {
+                var array = JSON.parse(data);
+                initCalendar(array, "#apartamentsTasksCalendar");
+            },
+            error: function (data) {
+                showDanger(data.responseText);
+                return false;
+            }
+        });
         $("#addApartamentTaskBtn").click(function () {
             addPlannerTaskDialog(array.ApartamentUUID);
         });
-
     });
 }
 
@@ -319,13 +334,6 @@ function createApartamentsFilespace(targetuuid) {
         error: function (data) {
             showDanger(data.responseText);
         }
-    });
-}
-
-function getPlannerPage(apartementsUUID) {
-    $.get("templates/calendar.html", function (data) {
-        $("#apartamentsTasks").html(data);
-        initCalendar('/api/planner/uuid/' + apartementsUUID);
     });
 }
 
