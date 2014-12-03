@@ -262,43 +262,70 @@ function getWorkersFullNameById(idWorker) {
     }
 }
 
-function timeConverter(UNIX_timestamp) {
+function timeConverter(UNIX_timestamp, short) {
     var a = new Date(UNIX_timestamp);
 //    var months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
     var year = a.getFullYear();
 //    var month = months[a.getMonth() - 1];
-    var month = a.getMonth();
+    var month = a.getMonth() + 1;
     month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
     var date = a.getDate();
     date = (parseInt(date, 10) < 10) ? ('0' + date) : (date);
     var hour = a.getHours();
     var min = a.getMinutes();
     var sec = a.getSeconds();
-    return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+    if (short) {
+        return year + '-' + month + '-' + date;
+    }
+    else {
+        return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+    }
 }
 
 function getTimeStamp(date) {
     return new Date(date).getTime();
 }
 
-function initCalendar(data, div) {
-    var date = new Date();
-    var day = date.getDate();
-    day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-    var month = date.getMonth() + 1;
-    month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
-    var year = date.getFullYear();
+function initCalendar(eventsList, div) {
+    $.get("/templates/calendar.html", function (data) {
+        $(div).html(data);
 
-    $(div).fullCalendar({
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,basicWeek,basicDay'
-        },
-        defaultDate: year + "-" + month + "-" + day,
-        editable: false,
-        lang: "ru",
-        eventLimit: true, // allow "more" link when too many events
-        events: data
+        var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="customersListTable">';
+        str += "<thead>";
+        str += "<tr>";
+        str += "<th>#</th>";
+        str += "<th>Заголовок</th>";
+        str += "<th>Описание</th>";
+        str += "<th>Дата</th>";
+        str += "<th>1</th>";
+        str += "<th>2</th>";
+        str += "</tr>";
+        str += "</thead>";
+        str += "<tbody>";
+        eventsList.forEach(function (entry) {
+            str += "<tr>";
+            str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
+            str += "<td>" + entry.title + "</td>";
+            str += "<td>" + entry.description + "</td>";
+            str += "<td>" + entry.start + " " + entry.end + "</td>";
+            str += "<td>" + "<button type=\"button\" onclick=\"confirmActionDelete('deletePlannerTaskById(" + entry.id + ")');\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
+            str += "<td>" + "<button type=\"button\" onclick=\"editPlannerTaskById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+            str += "</tr>";
+        });
+        str += "</tbody>";
+        $("#fullCalendarList").html(str);
+
+        $('#fullCalendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            },
+            defaultDate: timeConverter(new Date().getTime()),
+            editable: false,
+            lang: "ru",
+            eventLimit: true, // allow "more" link when too many events
+            events: eventsList
+        });
     });
 }

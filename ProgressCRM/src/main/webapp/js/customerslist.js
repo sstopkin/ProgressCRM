@@ -1,5 +1,5 @@
 function getCustomersListPage(status, statusText) {
-    $.get("customerslist.html", function(data) {
+    $.get("customerslist.html", function (data) {
         var permissions = $.ajax({
             type: "GET",
             url: "api/auth/validate",
@@ -17,10 +17,10 @@ function getCustomersListPage(status, statusText) {
         $.ajax({
             type: "GET",
             url: "api/customers/getallcustomer?status=" + status,
-            success: function(data) {
+            success: function (data) {
                 drawCustomersListTable(data);
             },
-            error: function(data) {
+            error: function (data) {
                 showDanger(data.responseText);
                 return false;
             }
@@ -43,7 +43,7 @@ function drawCustomersListTable(data) {
     str += "</tr>";
     str += "</thead>";
     str += "<tbody>";
-    array.forEach(function(entry) {
+    array.forEach(function (entry) {
         str += "<tr>";
         str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
         str += "<td>" + entry.customersLname + " " + entry.customersFname + " " + entry.customersMname + "</td>";
@@ -74,7 +74,7 @@ function drawCustomersListTable(data) {
 }
 
 function addCustomer() {
-    $.get("/templates/modal_customers.html", function(some_html) {
+    $.get("/templates/modal_customers.html", function (some_html) {
         var box = bootbox.dialog({
             show: false,
             title: "<h4 class=\"modal-title\">Добавить клиента</h4></div>",
@@ -83,7 +83,7 @@ function addCustomer() {
                 success: {
                     label: "Добавить клиента",
                     className: "btn-success",
-                    callback: function() {
+                    callback: function () {
                         $.ajax({
                             type: "POST",
                             url: "api/customers/addcustomer",
@@ -98,11 +98,11 @@ function addCustomer() {
                                 customersAddress: $('#customersAddress').val(),
                                 customersExtra: $('#customersExtra').val()
                             }),
-                            success: function() {
+                            success: function () {
                                 $("#errorBlock").css("display", "none");
                                 location.reload();//FIXME
                             },
-                            error: function(data) {
+                            error: function (data) {
                                 showDanger(data.responseText);
                             }
                         });
@@ -111,19 +111,13 @@ function addCustomer() {
                 danger: {
                     label: "Отмена",
                     className: "btn-danger",
-                    callback: function() {
+                    callback: function () {
                     }
                 }
             }
         });
 
-        box.on("shown.bs.modal", function() {
-            var date = new Date();
-            var day = date.getDate();
-            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-            var month = date.getMonth() + 1;
-            month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
-            var year = date.getFullYear();
+        box.on("shown.bs.modal", function () {
             $('#customersDateOfBirthday').datepicker({
                 format: "yyyy-mm-dd",
                 todayBtn: "linked",
@@ -131,7 +125,7 @@ function addCustomer() {
                 autoclose: true,
                 todayHighlight: true
             });
-            $('#customersDateOfBirthday').val(year + "-" + month + "-" + day);
+            $('#customersDateOfBirthday').val(timeConverter(new Date().getTime(), true));
         });
         box.modal('show');
     }, 'html');
@@ -139,7 +133,7 @@ function addCustomer() {
 
 function customersEditById(customersId) {
     var array;
-    $.get("/templates/modal_customers.html", function(some_html) {
+    $.get("/templates/modal_customers.html", function (some_html) {
         var box = bootbox.dialog({
             show: false,
             title: "<h4 class=\"modal-title\">Редактировать клиента</h4></div>",
@@ -148,7 +142,7 @@ function customersEditById(customersId) {
                 success: {
                     label: "Редактировать клиента",
                     className: "btn-success",
-                    callback: function() {
+                    callback: function () {
                         $.ajax({
                             type: "POST",
                             url: "api/customers/editcustomer",
@@ -164,11 +158,11 @@ function customersEditById(customersId) {
                                 customersAddress: $('#customersAddress').val(),
                                 customersExtra: $('#customersExtra').val()
                             }),
-                            success: function() {
+                            success: function () {
                                 $("#errorBlock").css("display", "none");
                                 location.reload();//FIXME
                             },
-                            error: function(data) {
+                            error: function (data) {
                                 showDanger(data.responseText);
                             }
                         });
@@ -177,13 +171,13 @@ function customersEditById(customersId) {
                 danger: {
                     label: "Отмена",
                     className: "btn-danger",
-                    callback: function() {
+                    callback: function () {
                     }
                 }
             }
         });
 
-        box.on("shown.bs.modal", function() {
+        box.on("shown.bs.modal", function () {
             $('#customersDateOfBirthday').datepicker({
                 format: "yyyy-mm-dd",
                 todayBtn: "linked",
@@ -194,7 +188,7 @@ function customersEditById(customersId) {
             $.ajax({
                 type: "GET",
                 url: "api/customers/getcustomer?id=" + customersId,
-                success: function(data) {
+                success: function (data) {
                     array = JSON.parse(data);
                     console.log(array);
                     $('#customersFname').val(array.customersFname);
@@ -207,21 +201,11 @@ function customersEditById(customersId) {
                     $('#customersAddress').val(array.customersAddress);
                     $('#customersExtra').val(array.customersExtra);
                 },
-                error: function(data) {
+                error: function (data) {
                     showDanger(data.responseText);
                     return false;
                 }
             });
-
-//            var date = new Date();
-//            var day = date.getDate();
-//            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-//            var month = date.getMonth() + 1;
-//            month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
-//            var year = date.getFullYear();
-
-//            $('#customersDateOfBirthday').val(year + "-" + month + "-" + day);
-
         });
         box.modal('show');
     }, 'html');
@@ -232,10 +216,10 @@ function customersDeleteById(customersId) {
         type: "POST",
         url: "api/customers/remove",
         data: ({id: customersId}),
-        success: function(data) {
+        success: function (data) {
             document.location.href = "#customers/list/current";
         },
-        error: function(data) {
+        error: function (data) {
             showDanger(data.responseText);
             checkStatus();
             return false;

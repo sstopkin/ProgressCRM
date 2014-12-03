@@ -41,12 +41,6 @@ function addPlannerTaskDialog(objectUUID) {
         });
 
         box.on("shown.bs.modal", function () {
-            var date = new Date();
-            var day = date.getDate();
-            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-            var month = date.getMonth() + 1;
-            month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
-            var year = date.getFullYear();
             $('#plannerAddTaskModalStratDate').datepicker({
                 format: "yyyy-mm-dd",
                 todayBtn: "linked",
@@ -54,7 +48,7 @@ function addPlannerTaskDialog(objectUUID) {
                 autoclose: true,
                 todayHighlight: true
             });
-            $('#plannerAddTaskModalStratDate').val(year + "-" + month + "-" + day);
+            $('#plannerAddTaskModalStratDate').val(timeConverter(new Date().getTime(), true));
             $('#plannerAddTaskModalEndDate').datepicker({
                 format: "yyyy-mm-dd",
                 todayBtn: "linked",
@@ -62,7 +56,7 @@ function addPlannerTaskDialog(objectUUID) {
                 autoclose: true,
                 todayHighlight: true
             });
-            $('#plannerAddTaskModalEndDate').val(year + "-" + month + "-" + day);
+            $('#plannerAddTaskModalEndDate').val(timeConverter(new Date().getTime(), true));
             $('#plannerAddTaskModalStratTime').timepicker({
                 minuteStep: 5,
                 showInputs: false,

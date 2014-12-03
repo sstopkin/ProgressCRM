@@ -2,11 +2,6 @@ function getАnnouncementsRentPage() {
     $("#addannouncementsRent").css("display", "none");
     $.get("announcementsrentlist.html", function(data) {
         $("#mainContainer").html(data);
-        var date = new Date();
-        var day = date.getDate();
-        day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
         $('#announcementsRentSearchStartDate').datepicker({
             format: 'yyyy-mm-dd'
         });
