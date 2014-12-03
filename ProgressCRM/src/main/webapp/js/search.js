@@ -5,12 +5,7 @@ function initSearchForm(type) {
     else {
         $.get("search.html", function(data) {
             $("#mainSearchContainer").html(data);
-            var date = new Date();
-            var day = date.getDate();
-            day = (parseInt(day, 10) < 10) ? ('0' + day) : (day);
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-//        $('#announcementsSearchStartDate').val(year + "-" + month + "-" + day);
+//        $('#announcementsSearchStartDate').val(year + "-" + month + "-" + day);timeConverter(new Date().getTime(), true)
             $('#mainSearchStartDate').datepicker({
                 format: "yyyy-mm-dd",
                 todayBtn: "linked",
@@ -18,7 +13,7 @@ function initSearchForm(type) {
                 autoclose: true,
                 todayHighlight: true
             });
-//        $('#announcementsSearchEndDate').val(year + "-" + month + "-" + day);
+//        $('#announcementsSearchEndDate').val(year + "-" + month + "-" + day);timeConverter(new Date().getTime(), true)
             $('#mainSearchEndDate').datepicker({
                 format: "yyyy-mm-dd",
                 todayBtn: "linked",
