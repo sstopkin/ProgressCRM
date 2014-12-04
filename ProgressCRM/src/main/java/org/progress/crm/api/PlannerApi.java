@@ -70,7 +70,7 @@ public class PlannerApi {
     }
 
     @POST
-    @Path("deletetask")
+    @Path("remove")
     public Response deletePlannerTasks(@CookieParam("token") final String token,
             @FormParam("id") final String id) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {

@@ -41,14 +41,8 @@ public class PlannerController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        //some time logic
-        Long startDate = Long.parseLong(taskStartDate);
-        Long endDate = Long.parseLong(taskEndDate);
-        if (startDate > endDate) {
-            throw new BadRequestException();
-        }
-        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, targetObjectUUID, taskTitle, taskDescription, new java.util.Date(startDate),
-                new java.util.Date(endDate));
+        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, targetObjectUUID, taskTitle, taskDescription, new java.util.Date(taskStartDate),
+                new java.util.Date(taskEndDate));
         return true;
     }
 

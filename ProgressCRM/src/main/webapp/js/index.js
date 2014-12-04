@@ -290,7 +290,7 @@ function initCalendar(eventsList, div) {
     $.get("/templates/calendar.html", function (data) {
         $(div).html(data);
 
-        var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="customersListTable">';
+        var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="plannerTaskListTable">';
         str += "<thead>";
         str += "<tr>";
         str += "<th>#</th>";
@@ -314,14 +314,16 @@ function initCalendar(eventsList, div) {
         });
         str += "</tbody>";
         $("#fullCalendarList").html(str);
+        $('#plannerTaskListTable').dataTable();
 
         $('#fullCalendar').fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,basicWeek,basicDay'
+                right: 'month,agendaWeek,agendaDay'
             },
             defaultDate: timeConverter(new Date().getTime()),
+            businessHours: true,
             editable: false,
             lang: "ru",
             eventLimit: true, // allow "more" link when too many events
