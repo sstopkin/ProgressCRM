@@ -72,3 +72,21 @@ function addPlannerTaskDialog(objectUUID) {
         box.modal('show');
     }, 'html');
 }
+
+function deletePlannerTaskById(customersId) {
+    $.ajax({
+        type: "POST",
+        url: "api/planner/remove",
+        data: ({id: customersId}),
+        success: function (data) {
+//            document.location.href = "#profile/list/current";
+            location.reload();
+        },
+        error: function (data) {
+            showDanger(data.responseText);
+            checkStatus();
+            return false;
+        }
+    });
+    return false;
+}
