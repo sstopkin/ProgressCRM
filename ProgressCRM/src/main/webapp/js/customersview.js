@@ -30,7 +30,7 @@ function getCustomerViewPage(customerId) {
                 content += "Адрес: " + array.customersAddress;
                 content += "</p>";
                 content += "<p>";
-                content += "Дата рождения: " + timeConverter(array.customersDateOfBirthday);
+                content += "Дата рождения: " + timeConverter(array.customersDateOfBirthday,'human');
                 content += "</p>";
                 content += "<p>";
                 content += "Телефон: " + array.customersPhone;
@@ -92,7 +92,7 @@ function getCustomerViewPage(customerId) {
                     str += "<td>" + entry.price + "</td>";
                     str += "<td>" + getWorkersFullNameById(entry.idWorker) + "</td>";
                     str += "<td>" + getWorkersFullNameById(entry.idWorkerTarget) + "</td>";
-                    str += "<td>" + timeConverter(entry.сreationDate) + "</td>";
+                    str += "<td>" + timeConverter(entry.сreationDate,'human') + "</td>";
                 });
                 str += "</tbody>";
                 $("#customersObjects").html(str);

@@ -172,10 +172,10 @@ function getApartamentViewPage(apartamentId) {
                 }
                 content += "</p>";
                 content += "<p>";
-                content += "Объект добавлен: " + timeConverter(array.сreationDate);
+                content += "Объект добавлен: " + timeConverter(array.сreationDate,'human');
                 content += "</p>";
                 content += "<p>";
-                content += "Объект изменен: " + timeConverter(array.lastModify);
+                content += "Объект изменен: " + timeConverter(array.lastModify,'human');
                 content += "</p>";
                 content += "<p>";
                 content += "Добавлено: " + getWorkersFullNameById(array.idWorker);
@@ -237,7 +237,7 @@ function getApartamentViewPage(apartamentId) {
                 str += "<tbody>";
                 for (var j = 0; j < array.length; ++j) {
                     str += "<tr><td>";
-                    str += timeConverter(array[j].date);
+                    str += timeConverter(array[j].date,'human');
                     str += "</td><td>";
                     str += array[j].incomingPhoneNumber;
                     str += "</td><td>";
@@ -267,7 +267,7 @@ function getApartamentViewPage(apartamentId) {
                 str += "<tbody>";
                 for (var j = 0; j < array.length; ++j) {
                     str += "<tr><td>";
-                    str += timeConverter(array[j].сreationDate);
+                    str += timeConverter(array[j].сreationDate,'human');
                     str += "</td><td>";
                     str += array[j].text;
                 }
