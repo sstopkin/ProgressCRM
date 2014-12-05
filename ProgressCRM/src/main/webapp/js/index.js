@@ -279,6 +279,9 @@ function timeConverter(UNIX_timestamp, param) {
         case 'human':
             var month = months[a.getMonth() - 1];
             return date + '-' + month + '-' + year + ' ' + hour + ':' + min;
+        case 'human-short':
+            var month = months[a.getMonth() - 1];
+            return date + '-' + month + '-' + year;
         case 'full':
             return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
         default:
