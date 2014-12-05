@@ -33,7 +33,7 @@ function getHelpDeskPage() {
                     str += "</b>";
                     str += "</h4>";
                     str += "<h5 class=\"media-heading\">";
-                    str += timeConverter(entry.creationDate);
+                    str += timeConverter(entry.creationDate,'human');
                     str += "</h5>";
                     str += entry.text;
                     str += "<p><i>" + getWorkersFullNameById(entry.workerId) + "</i></p>";

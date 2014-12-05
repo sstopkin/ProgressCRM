@@ -124,10 +124,10 @@ public class NewsApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    Gson apartamentById = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
+                    Gson newsById = new GsonBuilder().registerTypeAdapter(Date.class, ser).create();
                     Map<String, String> map = new HashMap<>();
                     map.put(ParamName.NEWS_ID, newsId);
-                    String result = apartamentById.toJson(newsController.getNewsById(session, token, map));
+                    String result = newsById.toJson(newsController.getNewsById(session, token, map));
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(ApartamentsAPI.class.getName()).log(Level.SEVERE, null, ex);

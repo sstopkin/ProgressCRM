@@ -60,4 +60,5 @@ public class ParamName {
     public final static String NEWS_HEADER = "newsHeader";
     public final static String NEWS_TEXT = "newsText";
 
+    public final static String PLANNER_ID = "plannerTaskId";
 }

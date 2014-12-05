@@ -1,11 +1,11 @@
 function getNews() {
     var str = "";
-    $.get("api/news", function(data) {
+    $.get("api/news", function (data) {
 
         var array = JSON.parse(data);
-        array.forEach(function(entry) {
+        array.forEach(function (entry) {
             str += "<div class=\"panel panel-info\">";
-            str += "<div class=\"panel-heading\">#" + entry.id + " | " + "<b>" + entry.header + "</b>" + " | " + timeConverter(entry.lastModify) + "</div>";
+            str += "<div class=\"panel-heading\">#" + entry.id + " | " + "<b>" + entry.header + "</b>" + " | " + timeConverter(entry.lastModify, 'human') + "</div>";
             str += "<div class=\"panel-body\">";
             str += "<div class=\"media-body\">";
             if (permissions == "3") {
@@ -26,7 +26,7 @@ function getNews() {
         });
 
         $("#news").html(str);
-    }).fail(function(data) {
+    }).fail(function (data) {
         showDanger(data.responseText);
     });
 }
@@ -34,7 +34,7 @@ function getNews() {
 function  editNewsById(id) {
     var array;
 
-    $.get("/templates/modal_news.html", function(some_html) {
+    $.get("/templates/modal_news.html", function (some_html) {
         var box = bootbox.dialog({
             show: false,
             title: "<h4 class=\"modal-title\">Редактировать новость</h4></div>",
@@ -43,20 +43,20 @@ function  editNewsById(id) {
                 success: {
                     label: "Редактировать новость",
                     className: "btn-warning",
-                    callback: function() {
+                    callback: function () {
                         $.ajax({
                             type: "POST",
-                            url: "api/news/addnews",
+                            url: "api/news/editnews",
                             data: ({
                                 id: id,
                                 header: $('#newsHeader').val(),
                                 text: $('#newsText').val()
                             }),
-                            success: function() {
+                            success: function () {
                                 $("#errorBlock").css("display", "none");
                                 location.reload();//FIXME
                             },
-                            error: function(data) {
+                            error: function (data) {
                                 showDanger(data.responseText);
                             }
                         });
@@ -65,23 +65,23 @@ function  editNewsById(id) {
                 danger: {
                     label: "Отмена",
                     className: "btn-danger",
-                    callback: function() {
+                    callback: function () {
                     }
                 }
             }
         });
 
-        box.on("shown.bs.modal", function() {
+        box.on("shown.bs.modal", function () {
             $.ajax({
                 type: "GET",
                 url: "api/news/getnews?id=" + id,
-                success: function(data) {
+                success: function (data) {
                     $("#errorBlock").css("display", "none");
                     array = JSON.parse(data);
                     $('#newsHeader').val(array.header);
                     $('#newsText').val(array.text);
                 },
-                error: function(data) {
+                error: function (data) {
                     showDanger(data.responseText);
                     return false;
                 }
@@ -92,7 +92,7 @@ function  editNewsById(id) {
 }
 
 function addNews() {
-    $.get("/templates/modal_news.html", function(some_html) {
+    $.get("/templates/modal_news.html", function (some_html) {
         var box = bootbox.dialog({
             show: false,
             title: "<h4 class=\"modal-title\">Добавить новость</h4></div>",
@@ -101,7 +101,7 @@ function addNews() {
                 success: {
                     label: "Добавить новость",
                     className: "btn-success",
-                    callback: function() {
+                    callback: function () {
                         $.ajax({
                             type: "POST",
                             url: "api/news/addnews",
@@ -109,11 +109,11 @@ function addNews() {
                                 header: $('#newsHeader').val(),
                                 text: $('#newsText').val()
                             }),
-                            success: function() {
+                            success: function () {
                                 $("#errorBlock").css("display", "none");
                                 location.reload();//FIXME
                             },
-                            error: function(data) {
+                            error: function (data) {
                                 showDanger(data.responseText);
                             }
                         });
@@ -122,7 +122,7 @@ function addNews() {
                 danger: {
                     label: "Отмена",
                     className: "btn-danger",
-                    callback: function() {
+                    callback: function () {
                     }
                 }
             }

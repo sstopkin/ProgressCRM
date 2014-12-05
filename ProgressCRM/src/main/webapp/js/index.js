@@ -1,8 +1,5 @@
 var type;
 var workersList = "";
-var KLADR_token = '51dfe5d42fb2b43e3300006e';
-var KLADR_key = '86a2c2a06f1b2451a87d05512cc2c3edfdf41969';
-var KLADR_parentId = '5500000100000';
 
 var permissions;
 
@@ -262,72 +259,33 @@ function getWorkersFullNameById(idWorker) {
     }
 }
 
-function timeConverter(UNIX_timestamp, short) {
+function timeConverter(UNIX_timestamp, param) {
     var a = new Date(UNIX_timestamp);
-//    var months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
     var year = a.getFullYear();
-//    var month = months[a.getMonth() - 1];
+    var months = ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
     var month = a.getMonth() + 1;
     month = (parseInt(month, 10) < 10) ? ('0' + month) : (month);
     var date = a.getDate();
     date = (parseInt(date, 10) < 10) ? ('0' + date) : (date);
     var hour = a.getHours();
+    hour = (parseInt(hour, 10) < 10) ? ('0' + hour) : (hour);
     var min = a.getMinutes();
+    min = (parseInt(min, 10) < 10) ? ('0' + min) : (min);
     var sec = a.getSeconds();
-    if (short) {
-        return year + '-' + month + '-' + date;
-    }
-    else {
-        return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+    sec = (parseInt(sec, 10) < 10) ? ('0' + sec) : (sec);
+    switch (param) {
+        case 'short':
+            return year + '-' + month + '-' + date;
+        case 'human':
+            var month = months[a.getMonth() - 1];
+            return date + '-' + month + '-' + year + ' ' + hour + ':' + min;
+        case 'full':
+            return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
+        default:
+            return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;
     }
 }
 
 function getTimeStamp(date) {
     return new Date(date).getTime();
-}
-
-function initCalendar(eventsList, div) {
-    $.get("/templates/calendar.html", function (data) {
-        $(div).html(data);
-
-        var str = '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="plannerTaskListTable">';
-        str += "<thead>";
-        str += "<tr>";
-        str += "<th>#</th>";
-        str += "<th>Заголовок</th>";
-        str += "<th>Описание</th>";
-        str += "<th>Дата</th>";
-        str += "<th>1</th>";
-        str += "<th>2</th>";
-        str += "</tr>";
-        str += "</thead>";
-        str += "<tbody>";
-        eventsList.forEach(function (entry) {
-            str += "<tr>";
-            str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
-            str += "<td>" + entry.title + "</td>";
-            str += "<td>" + entry.description + "</td>";
-            str += "<td>" + entry.start + " " + entry.end + "</td>";
-            str += "<td>" + "<button type=\"button\" onclick=\"confirmActionDelete('deletePlannerTaskById(" + entry.id + ")');\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
-            str += "<td>" + "<button type=\"button\" onclick=\"editPlannerTaskById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
-            str += "</tr>";
-        });
-        str += "</tbody>";
-        $("#fullCalendarList").html(str);
-        $('#plannerTaskListTable').dataTable();
-
-        $('#fullCalendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            defaultDate: timeConverter(new Date().getTime()),
-            businessHours: true,
-            editable: false,
-            lang: "ru",
-            eventLimit: true, // allow "more" link when too many events
-            events: eventsList
-        });
-    });
 }

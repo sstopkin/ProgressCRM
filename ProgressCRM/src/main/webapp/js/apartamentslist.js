@@ -78,7 +78,7 @@ function draw(array, status) {
         str += "<td>" + entry.price + "</td>";
         str += "<td>" + getWorkersFullNameById(entry.idWorker) + "</td>";
         str += "<td>" + getWorkersFullNameById(entry.idWorkerTarget) + "</td>";
-        str += "<td>" + timeConverter(entry.сreationDate) + "</td>";
+        str += "<td>" + timeConverter(entry.сreationDate, 'human') + "</td>";
         str += '<td>';
         str += '<div class="btn-group">';
         str += '<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">';
