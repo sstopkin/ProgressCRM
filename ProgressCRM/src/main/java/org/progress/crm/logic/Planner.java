@@ -17,7 +17,7 @@ public class Planner implements Serializable {
 
     private int id;
     private int idWorker;
-    private String taskClass;
+    private String color;
     private String targetOjectUUID;
     private String title;
     private String description;
@@ -29,9 +29,9 @@ public class Planner implements Serializable {
     public Planner() {
     }
 
-    public Planner(int idWorker, String taskClass, String targetOjectUUID, String taskTitle, String taskDescription, Date taskStartDate, Date taskEndDate) {
+    public Planner(int idWorker, String taskColor, String targetOjectUUID, String taskTitle, String taskDescription, Date taskStartDate, Date taskEndDate) {
         this.idWorker = idWorker;
-        this.taskClass = taskClass;
+        this.color = taskColor;
         this.targetOjectUUID = targetOjectUUID;
         this.description = taskDescription;
         this.creationDate = new Date();
@@ -110,12 +110,12 @@ public class Planner implements Serializable {
     }
 
     @Column(name = "TaskClass")
-    public String getTaskClass() {
-        return taskClass;
+    public String getColor() {
+        return color;
     }
 
-    public void setTaskClass(String taskType) {
-        this.taskClass = taskType;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @Column(name = "TaskTargetObjectUUID")

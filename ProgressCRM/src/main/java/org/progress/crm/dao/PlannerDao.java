@@ -44,17 +44,7 @@ public class PlannerDao {
         return (Planner) session.get(Planner.class, taskId);
     }
 
-    public void editTaskById(final Session session, final int plannerId, final int idWorker, final String taskClass,
-            final String targetObjectUUID, final String taskTitle, final String taskDescription, final Date taskStartDate,
-            final Date taskEndDate) throws SQLException {
-        Planner task = getTaskById(session, plannerId);
-        task.setIdWorker(idWorker);
-        task.setTaskClass(taskClass);
-        task.setTargetOjectUUID(targetObjectUUID);
-        task.setTaskTitle(taskTitle);
-        task.setTaskDescription(taskDescription);
-        task.setTaskStartDate(taskStartDate);
-        task.setTaskEndDate(taskEndDate);
+    public void editTaskById(final Session session, final Planner task) throws SQLException {
         session.update(task);
     }
 

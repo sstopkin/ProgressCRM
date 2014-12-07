@@ -306,6 +306,7 @@ public class ParamUtil {
     }
 
     public static Date getDate(Map<String, String> parameters, String name, TimeZone memberTz) throws CustomException {
+        //FIXME improve users TimeZone
         String dateStr = parameters.get(name);
         return getDate(dateStr, TimeZone.getDefault(), name);
     }
@@ -325,4 +326,17 @@ public class ParamUtil {
         return getDate(dateStr, TimeZone.getDefault(), name);
     }
 
+    public static String getRGBColor(String color) throws ValidationException {
+        
+        int colorValue = 0;
+        try {
+            colorValue = Integer.parseInt(color.substring(1), 16);
+            if (colorValue < 0x000000 || colorValue > 0xFFFFFF) {
+                throw new ValidationException(ActionException.INVALID_RGB_COLOR, color);
+            }
+        } catch (NumberFormatException ex) {
+            throw new ValidationException(ActionException.INVALID_INTEGER_VALUE, color);
+        }
+        return color;
+    }
 }

@@ -116,7 +116,7 @@ public class PlannerApi {
     public Response addPlannerTask(@CookieParam("token") final String token,
             @FormParam("tasktype") final String taskType,
             @FormParam("targetobjectuuid") final String targetobjectuuid,
-            @FormParam("taskclass") final String taskClass,
+            @FormParam("taskcolor") final String taskColor,
             @FormParam("title") final String taskTitle,
             @FormParam("description") final String taskDescription,
             @FormParam("startdate") final String taskStartDate,
@@ -126,8 +126,17 @@ public class PlannerApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = plannerController.addTask(session, token, taskClass, targetobjectuuid, taskTitle,
-                            taskDescription, taskStartDate, taskEndDate);
+                    //FIXME add tasktype field
+                     Map<String, String> map = new HashMap<>();
+                    //FIXME add tasktype field
+                    map.put(ParamName.PLANNER_TASK_TYPE, taskType);
+                    map.put(ParamName.PLANNER_TASK_COLOR, taskColor);
+                    map.put(ParamName.PLANNER_TASK_TITLE, taskTitle);
+                    map.put(ParamName.PLANNER_TASK_DESCRIPTION, taskDescription);
+                    map.put(ParamName.PLANNER_TARGET_OBJECT_UUID, targetobjectuuid);
+                    map.put(ParamName.PLANNER_TASK_START_DATE, taskStartDate);
+                    map.put(ParamName.PLANNER_TASK_END_DATE, taskEndDate);
+                    boolean result = plannerController.addTask(session, token, map);
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -143,7 +152,7 @@ public class PlannerApi {
             @FormParam("id") final String id,
             @FormParam("tasktype") final String taskType,
             @FormParam("targetobjectuuid") final String targetobjectuuid,
-            @FormParam("taskclass") final String taskClass,
+            @FormParam("taskcolor") final String taskColor,
             @FormParam("title") final String taskTitle,
             @FormParam("description") final String taskDescription,
             @FormParam("startdate") final String taskStartDate,
@@ -153,8 +162,18 @@ public class PlannerApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    boolean result = plannerController.editTaskById(session, token, id, taskClass, targetobjectuuid, taskTitle,
-                            taskDescription, taskStartDate, taskEndDate);
+                    Map<String, String> map = new HashMap<>();
+                    //FIXME add tasktype field
+                    map.put(ParamName.PLANNER_ID, id);
+                    map.put(ParamName.PLANNER_TASK_TYPE, taskType);
+                    map.put(ParamName.PLANNER_TASK_COLOR, taskColor);
+                    map.put(ParamName.PLANNER_TASK_TITLE, taskTitle);
+                    map.put(ParamName.PLANNER_TASK_DESCRIPTION, taskDescription);
+                    map.put(ParamName.PLANNER_TARGET_OBJECT_UUID, targetobjectuuid);
+                    map.put(ParamName.PLANNER_TASK_START_DATE, taskStartDate);
+                    map.put(ParamName.PLANNER_TASK_END_DATE, taskEndDate);
+
+                    boolean result = plannerController.editTaskById(session, token, map);
                     return ApiHelper.getResponse(result);
                 } catch (CustomException ex) {
                     Logger.getLogger(PlannerApi.class.getName()).log(Level.SEVERE, null, ex);
