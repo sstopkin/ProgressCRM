@@ -3,6 +3,7 @@
     <head>
         <title>ProgerssCRM</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/custom.css" rel="stylesheet" type="text/css">
         <!-- Bootstrap -->
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
@@ -70,16 +71,25 @@
         <script src='js/lib/fullcalendar-2.2.3/lib/moment.min.js'></script>
         <script src='js/lib/fullcalendar-2.2.3/fullcalendar.min.js'></script>
         <script src='js/lib/fullcalendar-2.2.3/lang-all.js'></script>
-        
+
         <!--https://github.com/tkrotoff/jquery-simplecolorpicker-->
         <link rel="stylesheet" href="js/lib/jquery-simplecolorpicker/jquery.simplecolorpicker.css">
         <link rel="stylesheet" href="js/lib/jquery-simplecolorpicker/jquery.simplecolorpicker-regularfont.css">
         <link rel="stylesheet" href="js/lib/jquery-simplecolorpicker/jquery.simplecolorpicker-glyphicons.css">
         <link rel="stylesheet" href="js/lib/jquery-simplecolorpicker/jquery.simplecolorpicker-fontawesome.css">
         <script src="js/lib/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+
+        <!--http://js.oktell.ru/webpanel/-->
+        <link rel="stylesheet" href="js/lib/oktell-panel/oktell-panel.css" />
+        <script type='text/javascript' charset='utf-8' src='js/lib/oktell-panel/oktell.min.js'></script>
+        <script type='text/javascript' charset='utf-8' src='js/lib/oktell-panel/oktell-voice.min.js'></script>
+        <script type='text/javascript' charset='utf-8' src='js/lib/oktell-panel/oktell-panel.min.js'></script>
+
+        <!--http://fontawesome.io/-->
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
     </head>
 
-    <body>
+    <body style="overflow-y:scroll;">
         <div id="progresscrm_login" style="display: none">
 
             <div class="container">
@@ -99,15 +109,15 @@
                 </div>
             </div>
         </div>
-        <div id="progresscrm" style="display: none">
+        <div class="clearfix" id="progresscrm" style="display: none">
             <iframe id="contentFrame" name="contentFrame" style="display: none;"></iframe>
             <div class="container">
                 <div class=" header navbar navbar-inverse" style="margin-bottom:0px">
                     <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
                         <ul id="mainPageTab" class="nav navbar-nav">
-                            <li id="newsTabLink"><a href="#news" id="newsLink">Новости</a></li>
+                            <li><a href="#news" id="newsLink"><i class="fa fa-newspaper-o"></i><span class="custom_text_after_icon">Новости</span></a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Объекты<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-home"></i><span class="custom_text_after_icon">Объекты</span><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#apartaments/list/prepare">Прозвон<span id="apartamentsPrepareCount" class="badge pull-right"></span></a></li>
                                     <li class="divider"></li>
@@ -119,7 +129,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Клиенты<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><span class="custom_text_after_icon">Клиенты</span><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#customers/list/current">Активные<span id="customersCurrentCount" class="badge pull-right"></span></a></li>
                                     <li class="divider"></li>
@@ -128,9 +138,10 @@
                                     <li><a href="#customers/list/notset">Не выбран<span id="customersNotsetCount" class="badge pull-right"></span></a></li>
                                 </ul>
                             </li>
-                            <li id="helpDeskTabLink"><a href="#helpdesk" id="helpDeskLink">HelpDesk</a></li>
+                            <li><a href="#planner" id="plannerLink"><i class="fa fa-calendar"></i><span class="custom_text_after_icon">Задачи</span></a></li>
+                            <li><a href="#helpdesk" id="helpDeskLink"><i class="fa fa-question"></i><span class="custom_text_after_icon">HelpDesk</span></a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i><span class="custom_text_after_icon">Администрирование</span><b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#admin/usermanagement">Управление пользователями<span id="customersCurrentCount" class="badge pull-right"></span></a></li>
                                     <li class="divider"></li>
@@ -150,7 +161,7 @@
                                                 </form>-->
                         <form class="navbar-form navbar-right" name="logged" id="logged">
                             <a href="#profile" id="profileLink"></a>
-                            <button type="button" class="btn btn-default" id="logoutBtn">Выйти</button>
+                            <button type="button" class="btn btn-primary" id="logoutBtn"><i class="fa fa-power-off"></i><span class="custom_text_after_icon">Выйти</span></button>
                         </form>
                     </nav>
                 </div>

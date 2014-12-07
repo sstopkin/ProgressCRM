@@ -85,18 +85,45 @@ function getProfilePage() {
                 return false;
             }
         });
+    });
+}
 
-        $.ajax({
-            type: "GET",
-            url: 'api/planner/all',
-            success: function (data) {
-                var array = JSON.parse(data);
-                initCalendar(array, "#plannerTasksCalendar");
-            },
-            error: function (data) {
-                showDanger(data.responseText);
-                return false;
+function runOktellClient() {
+    //    Пример подключения к серверу Oktell при помощи oktell.js
+    // дополнительные параметры подключения смотрите в документации oktell.js
+    oktell.connect({
+        url: [$('#oktellServerAddress').val()], // ip-адрес вашего сервера Oktell ['']
+        login: $('#oktellUserLogin').val(), // необходимо подставить логин текущего пользователя
+        oktellVoice: false, // используем веб-телефон Oktell-voice.js
+        password: $('#oktellUserPassword').val(), // необходимо подставить пароль пользователя
+        callback: function (data) {
+            if (data.result) {
+                alert("ok");
             }
-        });
+        }
+    });
+    // Пример инициализации oktell-panel.js
+    $.oktellPanel({
+        oktell: window.oktell, // можно задать ссылку на объект Oktell.js
+        oktellVoice: window.oktellVoice, // можно задать ссылку на объект Oktell-voice.js
+        dynamic: false, // если true, то панель не скрывается для окна шириной больше 1200px;
+        // если false, то панель скрывается для любой ширины окна
+        position: 'right', // положение панели, возможные варианты 'right' и 'left'
+        ringtone: 'path/to/ringtone.mp3', // путь до мелодии вызова
+        debug: false, // логирование в консоль
+        lang: 'ru', // язык панели, также поддерживаются английский 'en' и чешский 'cz'
+        showAvatar: false, // показывать аватары пользователей в списке
+        hideOnDisconnect: true, // скрывать панель при разрывае соединения с сервером Oktell
+        useNotifies: true, // показывать webkit уведомления при входящем вызове
+        container: false, // DOMElement или jQuery элемент, который нужно использовать как контейнер.
+        useSticky: true, // использовать залипающие заголовки;
+        // на мобильных устройствах и при использовании контейнера (параметр container)
+        // не используются.
+        useNativeScroll: true, // использовать нативный скролл для списка.
+        // на мобильных устройствах и при использовании контейнера (параметр container)
+        // всегда используется нативный скролл.
+        withoutPermissionsPopup: false, // не использовать попап для запросов доступа к микрофону
+        withoutCallPopup: false, // не использовать попап для входящих вызовов
+        withoutError: false // не показывать ошибки соединения с сервером Oktell
     });
 }

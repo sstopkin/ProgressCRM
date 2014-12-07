@@ -42,7 +42,7 @@ function drawApartamentsListTable(array, status) {
     str += "<th>#</th>";
     str += '<th>Адрес</th>';
     str += '<th>Комнат</th>';
-    str += "<th>Площадь О/К/Ж</th>";
+    str += "<th>Площадь<br>О/К/Ж</th>";
     str += '<th>Этаж</th>';
     str += '<th>Цена</th>';
     str += "<th>Добавлено</th>";
@@ -67,7 +67,7 @@ function draw(array, status) {
         else {
             str += "<tr>";
         }
-        str += "<td><a href=\"#apartaments/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
+        str += '<td><a href="#apartaments/view/' + entry.id + '" class="btn btn-primary"><b>' + entry.id + '</b></a></td>';
         str += "<td><address>" + entry.cityName + "<br>"
                 + entry.streetName + "<br>"
                 + entry.houseNumber + " "

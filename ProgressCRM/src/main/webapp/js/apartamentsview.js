@@ -226,7 +226,7 @@ function getApartamentViewPage(apartamentId) {
             url: "api/calls/getcalls?objectUUID=" + array.ApartamentUUID,
             success: function (data) {
                 $("#errorBlock").css("display", "none");
-                var array = JSON.parse(data);
+                var callsData = JSON.parse(data);
                 var str = '<button type=\"button\" onclick=\"addCallDialog(\'' + array.ApartamentUUID + '\');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-earphone\"></span> Добавить звонок</button>';
                 str += '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="callsListTable">';
                 str += "<thead class='t-header'><tr>";
@@ -235,13 +235,13 @@ function getApartamentViewPage(apartamentId) {
                 str += "<th>Комментарий</th>";
                 str += "</tr></thead>";
                 str += "<tbody>";
-                for (var j = 0; j < array.length; ++j) {
+                for (var j = 0; j < callsData.length; ++j) {
                     str += "<tr><td>";
-                    str += timeConverter(array[j].date,'human');
+                    str += timeConverter(callsData[j].date,'human');
                     str += "</td><td>";
-                    str += array[j].incomingPhoneNumber;
+                    str += callsData[j].incomingPhoneNumber;
                     str += "</td><td>";
-                    str += array[j].description;
+                    str += callsData[j].description;
                 }
                 str += "\n</tbody>\n</table>\n";
                 $("#customersCalls").html(str);
@@ -257,7 +257,7 @@ function getApartamentViewPage(apartamentId) {
             url: "api/comments/getcomments?objectUUID=" + array.ApartamentUUID,
             success: function (data) {
                 $("#errorBlock").css("display", "none");
-                var array = JSON.parse(data);
+                var commentsData = JSON.parse(data);
                 var str = '<button type=\"button\" onclick=\"addCommentDialog(\'' + array.ApartamentUUID + '\');\" class=\"btn btn-success\"><span class=\"glyphicon glyphicon-comment\"></span> Добавить комментарий</button>';
                 str += '<table class="table table-striped table-bordered" cellspacing="0" width="100%" id="commentsListTable">';
                 str += "<thead class='t-header'><tr>";
@@ -265,11 +265,11 @@ function getApartamentViewPage(apartamentId) {
                 str += "<th>Комментарий</th>";
                 str += "</tr></thead>";
                 str += "<tbody>";
-                for (var j = 0; j < array.length; ++j) {
+                for (var j = 0; j < commentsData.length; ++j) {
                     str += "<tr><td>";
-                    str += timeConverter(array[j].сreationDate,'human');
+                    str += timeConverter(commentsData[j].сreationDate,'human');
                     str += "</td><td>";
-                    str += array[j].text;
+                    str += commentsData[j].text;
                 }
                 str += "\n</tbody>\n</table>\n";
                 $("#workersComments").html(str);

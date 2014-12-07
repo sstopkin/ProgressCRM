@@ -253,3 +253,21 @@ function initCalendar(eventsList, div) {
         });
     });
 }
+
+function  getPlannerPage() {
+    $.get("planner.html", function (data) {
+        $("#mainContainer").html(data);
+        $.ajax({
+            type: "GET",
+            url: 'api/planner/all',
+            success: function (data) {
+                var array = JSON.parse(data);
+                initCalendar(array, "#plannerTasksCalendar");
+            },
+            error: function (data) {
+                showDanger(data.responseText);
+                return false;
+            }
+        });
+    });
+}

@@ -54,6 +54,7 @@ function parseUrl(str) {
     var pathAdmin = "admin";
     var pathWorkers = "workers";
     var pathNews = "news";
+    var pathPlanner = "planner";
 
     if (!uri.fragment) {
         getMainPage();
@@ -67,6 +68,10 @@ function parseUrl(str) {
 
     if (arr[0] === pathNews) {
         getNewsPage();
+        return;
+    }
+    if (arr[0] === pathPlanner) {
+        getPlannerPage();
         return;
     }
 
