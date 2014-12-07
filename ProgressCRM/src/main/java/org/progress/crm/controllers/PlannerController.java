@@ -1,6 +1,7 @@
 package org.progress.crm.controllers;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -32,17 +33,21 @@ public class PlannerController {
         return tasks;
     }
 
-    public boolean addTask(Session session, String token, String taskClass,
-            String targetObjectUUID, String taskTitle, String taskDescription, String taskStartDate, String taskEndDate) throws CustomException, SQLException {
+    public boolean addTask(Session session, String token, Map<String, String> map) throws CustomException, SQLException {
         if (token == null) {
             throw new CustomException();
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        Long startDate = Long.parseLong(taskStartDate);
-        Long endDate = Long.parseLong(taskEndDate);
-        DaoFactory.getPlannerDao().addTask(session, idWorker, taskClass, targetObjectUUID, taskTitle, taskDescription, new java.util.Date(startDate),
-                new java.util.Date(endDate));
+
+        String targetObjectUUID = ParamUtil.getNotNull(map, ParamName.PLANNER_TARGET_OBJECT_UUID);
+        String taskTitle = ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_TITLE);
+        String taskDescription = ParamUtil.getNotEmpty(map, ParamName.PLANNER_TASK_DESCRIPTION);
+        String taskColor = ParamUtil.getRGBColor(ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_COLOR));
+        Date taskStartDate = new Date(Long.parseLong(ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_START_DATE)));
+        Date taskEndDate = new Date(Long.parseLong(ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_END_DATE)));
+        DaoFactory.getPlannerDao().addTask(session, idWorker, taskColor, targetObjectUUID, taskTitle, taskDescription, taskStartDate,
+                taskEndDate);
         return true;
     }
 
@@ -67,8 +72,8 @@ public class PlannerController {
         return DaoFactory.getPlannerDao().getTaskById(session, taskId);
     }
 
-    public boolean editTaskById(Session session, String token, String id, String taskClass, String targetobjectuuid, String taskTitle, String taskDescription, String taskStartDate, String taskEndDate) throws BadRequestException, CustomException {
-        if (id == null) {
+    public boolean editTaskById(Session session, String token, Map<String, String> map) throws BadRequestException, CustomException, SQLException {
+        if (map.get(ParamName.PLANNER_ID) == null) {
             throw new BadRequestException();
         }
         if (token == null) {
@@ -76,9 +81,21 @@ public class PlannerController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
-        //FIXME
-//        DaoFactory.getPlannerDao().editTaskById(session, Integer.valueOf(plannerId),
-//                idWorker, Integer.valueOf(taskType), Integer.valueOf(taskId), taskDescription, taskDate);
+
+        int plannerId = ParamUtil.getNotEmptyInt(map, ParamName.PLANNER_ID);
+        Planner task = DaoFactory.getPlannerDao().getTaskById(session, Integer.valueOf(plannerId));
+
+        Date taskStartDate = new Date(Long.parseLong(ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_START_DATE)));
+        Date taskEndDate = new Date(Long.parseLong(ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_END_DATE)));
+        
+        task.setTargetOjectUUID(ParamUtil.getNotNull(map, ParamName.PLANNER_TARGET_OBJECT_UUID));
+        task.setTaskTitle(ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_TITLE));
+        task.setTaskDescription(ParamUtil.getNotEmpty(map, ParamName.PLANNER_TASK_DESCRIPTION));
+        task.setColor(ParamUtil.getRGBColor(ParamUtil.getNotNull(map, ParamName.PLANNER_TASK_COLOR)));
+        task.setTaskStartDate(taskStartDate);
+        task.setTaskEndDate(taskEndDate);
+
+        DaoFactory.getPlannerDao().editTaskById(session, task);
         return true;
     }
 }

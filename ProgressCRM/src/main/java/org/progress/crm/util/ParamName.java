@@ -61,4 +61,11 @@ public class ParamName {
     public final static String NEWS_TEXT = "newsText";
 
     public final static String PLANNER_ID = "plannerTaskId";
+    public final static String PLANNER_TARGET_OBJECT_UUID = "plannerTargetObjectUUID";
+    public final static String PLANNER_TASK_TYPE = "plannerTaskType";
+    public final static String PLANNER_TASK_COLOR = "plannerTaskColor";
+    public final static String PLANNER_TASK_TITLE = "plannerTaskTitle";
+    public final static String PLANNER_TASK_DESCRIPTION = "plannerTaskDescription";
+    public final static String PLANNER_TASK_START_DATE = "plannerTaskStartDate";
+    public final static String PLANNER_TASK_END_DATE = "plannerTaskEndDate";
 }

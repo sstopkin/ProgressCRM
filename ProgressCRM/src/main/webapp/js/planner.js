@@ -15,7 +15,7 @@ function addPlannerTaskDialog(objectUUID) {
                             data: ({
                                 targetobjectuuid: $('#plannerAddTaskModalTaskObjectId').val(),
                                 tasktype: $('#plannerAddTaskModalTaskType').val(),
-                                taskclass: $('#plannerAddTaskModalTaskClass').val(),
+                                taskcolor: $('select[name="plannerColorPickerList"]').val(),
                                 title: $('#plannerAddTaskModalTaskTitle').val(),
                                 description: $('#plannerAddTaskModalDescription').val(),
                                 startdate: getTimeStamp($('#plannerAddTaskModalStratDate').val() + ' ' + $('#plannerAddTaskModalStratTime').val()),
@@ -67,6 +67,7 @@ function addPlannerTaskDialog(objectUUID) {
                 showMeridian: false
             });
             $('#plannerAddTaskModalTaskObjectId').val(objectUUID);
+            $('select[name="plannerColorPickerList"]').simplecolorpicker({theme: 'glyphicons'});
         });
         box.modal('show');
     }, 'html');
@@ -91,7 +92,7 @@ function editPlannerTaskDialog(id) {
                                 id: array.id,
                                 targetobjectuuid: $('#plannerAddTaskModalTaskObjectId').val(),
                                 tasktype: $('#plannerAddTaskModalTaskType').val(),
-                                taskclass: $('#plannerAddTaskModalTaskClass').val(),
+                                taskcolor: $('select[name="plannerColorPickerList"]').val(),
                                 title: $('#plannerAddTaskModalTaskTitle').val(),
                                 description: $('#plannerAddTaskModalDescription').val(),
                                 startdate: getTimeStamp($('#plannerAddTaskModalStratDate').val() + ' ' + $('#plannerAddTaskModalStratTime').val()),
@@ -151,11 +152,14 @@ function editPlannerTaskDialog(id) {
                         showInputs: false,
                         showMeridian: false
                     });
+                    $('select[name="plannerColorPickerList"]').val(array.color);
+                    $('select[name="plannerColorPickerList"]').simplecolorpicker({theme: 'glyphicons'});
                     $('#plannerAddTaskModalStratDate').val(array.start.slice(0, 10));
                     $('#plannerAddTaskModalStratTime').val(array.start.slice(11, 16));
                     $('#plannerAddTaskModalEndDate').val(array.end.slice(0, 10));
                     $('#plannerAddTaskModalEndTime').val(array.end.slice(11, 16));
                     $('#plannerAddTaskModalTaskObjectId').val(array.targetOjectUUID);
+
                 },
                 error: function (data) {
                     showDanger(data.responseText);
