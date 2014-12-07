@@ -73,7 +73,7 @@ function addPlannerTaskDialog(objectUUID) {
     }, 'html');
 }
 
-function editPlannerTaskDialog(id) {
+function editPlannerTaskById(id) {
     var array;
     $.get("/templates/modal_planner.html", function (some_html) {
         var box = bootbox.dialog({
@@ -218,17 +218,17 @@ function initCalendar(eventsList, div) {
         $("#fullCalendarList").html(str);
         $('#plannerTaskListTable').dataTable();
         $('#fullCalendar').fullCalendar({
-            dayClick: function () {
-                alert('a day has been clicked!');
-                $('#fullCalendar').fullCalendar('next');
-            },
+//            dayClick: function () {
+//                alert('a day has been clicked!');
+//                $('#fullCalendar').fullCalendar('next');
+//            },
             eventClick: function (calEvent, jsEvent, view) {
-                editPlannerTaskDialog(calEvent.id);
+                editPlannerTaskById(calEvent.id);
 //                alert('Event: ' + calEvent.id);
 //                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 //                alert('View: ' + view.name);
                 // change the border color just for fun
-                $(this).css('border-color', 'red');
+//                $(this).css('border-color', 'red');
             },
             header: {
                 left: 'prevYear,prev,today,next,nextYear',
