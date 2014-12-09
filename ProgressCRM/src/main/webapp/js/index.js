@@ -20,7 +20,7 @@ $(document).ready(function () {
         url: "api/auth",
         async: false,
         success: function (data) {
-            $("#profileLink").html(data);
+            $("#navbarUsername").html(data);
             $("#progresscrm").css("display", "block");
             trueAuth();
         },
@@ -93,7 +93,7 @@ function checkStatus() {
         type: "GET",
         url: "api/auth",
         success: function (data) {
-            $("#profileLink").html(data);
+            $("#navbarUsername").html(data);
             $("#progresscrm").css("display", "block");
             $("#progresscrm_login").css("display", "none");
 //            $.get("api/auth/validate", function(data3) {
