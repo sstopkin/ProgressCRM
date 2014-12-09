@@ -115,7 +115,7 @@ function runOktellClient() {
         showAvatar: false, // показывать аватары пользователей в списке
         hideOnDisconnect: true, // скрывать панель при разрывае соединения с сервером Oktell
         useNotifies: true, // показывать webkit уведомления при входящем вызове
-        container: false, // DOMElement или jQuery элемент, который нужно использовать как контейнер.
+        container: $('#oktellContainer'), //false DOMElement или jQuery элемент, который нужно использовать как контейнер.
         useSticky: true, // использовать залипающие заголовки;
         // на мобильных устройствах и при использовании контейнера (параметр container)
         // не используются.

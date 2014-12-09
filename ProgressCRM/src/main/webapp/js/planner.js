@@ -199,8 +199,7 @@ function initCalendar(eventsList, div) {
         str += "<th>Заголовок</th>";
         str += "<th>Описание</th>";
         str += "<th>Дата</th>";
-        str += "<th>1</th>";
-        str += "<th>2</th>";
+        str += "<th>Действия</th>";
         str += "</tr>";
         str += "</thead>";
         str += "<tbody>";
@@ -209,9 +208,8 @@ function initCalendar(eventsList, div) {
             str += "<td><a href=\"#customers/view/" + entry.id + "\" class=\"btn btn-primary\"><b>" + entry.id + "</b></a></td>";
             str += "<td>" + entry.title + "</td>";
             str += "<td>" + entry.description + "</td>";
-            str += "<td>" + entry.start + " " + entry.end + "</td>";
-            str += "<td>" + "<button type=\"button\" onclick=\"confirmActionDelete('deletePlannerTaskById(" + entry.id + ")');\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
-            str += "<td>" + "<button type=\"button\" onclick=\"editPlannerTaskById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "</td>";
+            str += "<td>" + "С: " + timeConverter(entry.start, 'human') + " По: " + timeConverter(entry.end, 'human') + "</td>";
+            str += "<td>" + "<button type=\"button\" onclick=\"editPlannerTaskById(" + entry.id + ");\" class=\"btn btn-warning pull-right\"><span class=\"glyphicon glyphicon-pencil\"></span></button>" + "<button type=\"button\" onclick=\"confirmActionDelete('deletePlannerTaskById(" + entry.id + ")');\" class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-remove\"></span></button>" + "</td>";
             str += "</tr>";
         });
         str += "</tbody>";
