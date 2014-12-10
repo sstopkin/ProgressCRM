@@ -193,9 +193,24 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Planner` (
 FOREIGN KEY (idWorker) REFERENCES Workers(id),
 PRIMARY KEY (`id`));
 
+-- -----------------------------------------------------
+-- Table `progresscrm`.`Settings`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Settings` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`idWorker` INT NOT NULL,
+`parameter` VARCHAR(45) DEFAULT NULL,
+`value` VARCHAR(45) DEFAULT NULL,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+PRIMARY KEY (`id`));
+
 -- NULL user --
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
 	VALUES ('Не', '','указан', 'null', 0, 'null', true, true);
+
+-- SETTINGS --
+INSERT INTO progresscrm.Settings (idWorker, parameter, value)
+	VALUES ('1', 'oktell.server.address','');
 
 -- test users--
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 

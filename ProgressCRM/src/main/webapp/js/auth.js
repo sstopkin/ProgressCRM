@@ -40,7 +40,6 @@ function logOut() {
             document.cookie = "token=; expires=" + cookie_date.toGMTString();
             $("#progresscrm").css("display", "none");
             $("#progresscrm_login").css("display", "block");
-            $('#adminTabLink').css("display", "none");
             location.hash = "";
             location.reload();
         },

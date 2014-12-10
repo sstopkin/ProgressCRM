@@ -29,5 +29,6 @@
         <mapping class="org.progress.crm.logic.Planner" />
         <mapping class="org.progress.crm.logic.News" />
         <mapping class="org.progress.crm.logic.Workers" />
+        <mapping class="org.progress.crm.logic.Settings" />
     </session-factory>
 </hibernate-configuration>
