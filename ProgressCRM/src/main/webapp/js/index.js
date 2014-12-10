@@ -1,5 +1,6 @@
 var type;
 var workersList = "";
+var oktell;
 
 var permissions;
 
@@ -39,10 +40,37 @@ function trueAuth() {
         url: "api/auth/validate",
         async: false
     }).responseText;
-    if (permissions == "3") {
-        $('#adminTabLink').css("display", "block");
-    }
     parseUrl(location.href);
+    $.ajax({
+        type: "GET",
+        url: "api/settings",
+        async: false,
+        success: function (data) {
+            var array = JSON.parse(data);
+            //array[0] - global
+            //array[1] - current user settings
+            if (getParameterValue(array[1], "oktell.enabled")==="true") {//STARTING OKTELL
+                var address = getParameterValue(array[0], "oktell.server.address");
+                var login = getParameterValue(array[1], "oktell.server.login");
+                var password = getParameterValue(array[1], "oktell.server.password");
+                runOktellClient(address, login, password);
+            }
+
+        },
+        error: function (data) {
+            showDanger("Ошибка загрузки настроек с сервера");
+        }
+    });
+}
+
+function getParameterValue(array, paramName) {
+    console.log("getParameterValue", array, paramName);
+    for (var j = 0; j < array.length; ++j) {
+        if (array[j].parameter === paramName) {
+            console.log("getParameterValue", "return", array[j].value);
+            return array[j].value;
+        }
+    }
 }
 
 function getMainPage() {
@@ -96,12 +124,6 @@ function checkStatus() {
             $("#navbarUsername").html(data);
             $("#progresscrm").css("display", "block");
             $("#progresscrm_login").css("display", "none");
-//            $.get("api/auth/validate", function(data3) {
-//                var permissions = data3;
-//                if (permissions == "3") {
-//                    $('#adminTabLink').css("display", "block");
-//                }
-//            });
         },
         error: function (data) {
             $("#progresscrm_login").css("display", "block");
@@ -291,4 +313,45 @@ function timeConverter(UNIX_timestamp, param) {
 
 function getTimeStamp(date) {
     return new Date(date).getTime();
+}
+
+function runOktellClient(url, login, password) {
+    console.log("oktell true");
+    //    Пример подключения к серверу Oktell при помощи oktell.js
+    // дополнительные параметры подключения смотрите в документации oktell.js
+    oktell.connect({
+        url: [url], // ip-адрес вашего сервера Oktell ['']
+        login: login, // необходимо подставить логин текущего пользователя
+        oktellVoice: false, // используем веб-телефон Oktell-voice.js
+        password: password, // необходимо подставить пароль пользователя
+        callback: function (data) {
+            if (data.result) {
+                alert("ok");
+            }
+        }
+    });
+    // Пример инициализации oktell-panel.js
+    $.oktellPanel({
+        oktell: oktell, //window.oktell можно задать ссылку на объект Oktell.js
+        oktellVoice: window.oktellVoice, // можно задать ссылку на объект Oktell-voice.js
+        dynamic: false, // если true, то панель не скрывается для окна шириной больше 1200px;
+        // если false, то панель скрывается для любой ширины окна
+        position: 'right', // положение панели, возможные варианты 'right' и 'left'
+        ringtone: 'media/ring.mp3', // путь до мелодии вызова
+        debug: false, // логирование в консоль
+        lang: 'ru', // язык панели, также поддерживаются английский 'en' и чешский 'cz'
+        showAvatar: false, // показывать аватары пользователей в списке
+        hideOnDisconnect: true, // скрывать панель при разрывае соединения с сервером Oktell
+        useNotifies: true, // показывать webkit уведомления при входящем вызове
+        container: $('#oktellContainer'), //false DOMElement или jQuery элемент, который нужно использовать как контейнер.
+        useSticky: true, // использовать залипающие заголовки;
+        // на мобильных устройствах и при использовании контейнера (параметр container)
+        // не используются.
+        useNativeScroll: true, // использовать нативный скролл для списка.
+        // на мобильных устройствах и при использовании контейнера (параметр container)
+        // всегда используется нативный скролл.
+        withoutPermissionsPopup: false, // не использовать попап для запросов доступа к микрофону
+        withoutCallPopup: false, // не использовать попап для входящих вызовов
+        withoutError: false // не показывать ошибки соединения с сервером Oktell
+    });
 }

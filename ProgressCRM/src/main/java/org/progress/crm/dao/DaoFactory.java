@@ -49,4 +49,8 @@ public class DaoFactory {
     public static StatsDao getStatsDao() {
         return new StatsDao();
     }
+    
+    public static SettingsDao getSettingsDao(){
+        return new SettingsDao();
+    }
 }

@@ -71,4 +71,10 @@ public class DbFields {
 
         public final static String FILESPACESUUID = "filespacesUUID";
     }
+
+    public class SETTINGS {
+
+        public final static String PARAMETERS = "parameters";
+        public final static String VALUE = "value";
+    }
 }
