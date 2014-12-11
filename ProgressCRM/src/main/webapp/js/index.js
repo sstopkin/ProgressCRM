@@ -49,7 +49,7 @@ function trueAuth() {
             var array = JSON.parse(data);
             //array[0] - global
             //array[1] - current user settings
-            if (getParameterValue(array[1], "oktell.enabled")==="true") {//STARTING OKTELL
+            if (getParameterValue(array[1], "oktell.enabled") === "true") {//STARTING OKTELL
                 var address = getParameterValue(array[0], "oktell.server.address");
                 var login = getParameterValue(array[1], "oktell.server.login");
                 var password = getParameterValue(array[1], "oktell.server.password");
@@ -316,7 +316,6 @@ function getTimeStamp(date) {
 }
 
 function runOktellClient(url, login, password) {
-    console.log("oktell true");
     //    Пример подключения к серверу Oktell при помощи oktell.js
     // дополнительные параметры подключения смотрите в документации oktell.js
     oktell.connect({
@@ -326,7 +325,9 @@ function runOktellClient(url, login, password) {
         password: password, // необходимо подставить пароль пользователя
         callback: function (data) {
             if (data.result) {
-                alert("ok");
+                $('#notificationsArea').notify({
+                    message: {text: 'Oktell клиент запущен!'}
+                }).show(); // for the ones that aren't closable and don't fade out there is a .close() function.
             }
         }
     });

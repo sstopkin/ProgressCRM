@@ -4,14 +4,18 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
+import javax.mail.MessagingException;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.News;
+import org.progress.crm.util.JavaMail;
 import org.progress.crm.util.ParamName;
 import org.progress.crm.util.ParamUtil;
 
@@ -35,6 +39,11 @@ public class NewsController {
         UUID uuid = UUID.fromString(token);
         int idWorker = authenticationManager.getUserIdByToken(uuid);
         DaoFactory.getNewsDao().addNews(session, idWorker, text, header);
+        try {
+            JavaMail.sendMail(session, "stopkin.sergey@gmail.com", text, header);
+        } catch (MessagingException ex) {
+            Logger.getLogger(NewsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return true;
     }
 
