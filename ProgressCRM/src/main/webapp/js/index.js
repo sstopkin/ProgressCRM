@@ -47,12 +47,10 @@ function trueAuth() {
         async: false,
         success: function (data) {
             var array = JSON.parse(data);
-            //array[0] - global
-            //array[1] - current user settings
-            if (getParameterValue(array[1], "oktell.enabled") === "true") {//STARTING OKTELL
-                var address = getParameterValue(array[0], "oktell.server.address");
-                var login = getParameterValue(array[1], "oktell.server.login");
-                var password = getParameterValue(array[1], "oktell.server.password");
+            if (getParameterValue(array, "oktell.enabled") === "true") {//STARTING OKTELL
+                var address = getParameterValue(array, "oktell.server.address");
+                var login = getParameterValue(array, "oktell.server.login");
+                var password = getParameterValue(array, "oktell.server.password");
                 runOktellClient(address, login, password);
             }
 

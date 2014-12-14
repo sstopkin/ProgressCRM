@@ -24,23 +24,19 @@ import org.progress.crm.util.TransactionService;
 @Stateless
 @Path("settings")
 public class SettingsApi {
-    
+
     @EJB
     SettingsController settingsController;
-    
+
     @GET
     public Response settings(@CookieParam("token") final String token) throws SQLException, CustomException {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-                    
                     Gson newsList = new GsonBuilder().registerTypeAdapter(Date.class, ser)
                             .create();
-                    List list = new ArrayList();
-                    list.add(settingsController.getParameters(session, token));
-                    list.add(settingsController.getParametersByWorkerId(session, token));
-                    String newsJson = newsList.toJson(list);
+                    String newsJson = newsList.toJson(settingsController.getParametersByWorkerId(session, token));
                     return ApiHelper.getResponse(newsJson);
                 } catch (CustomException ex) {
                     Logger.getLogger(NewsApi.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,5 +45,5 @@ public class SettingsApi {
             }
         });
     }
-    
+
 }
