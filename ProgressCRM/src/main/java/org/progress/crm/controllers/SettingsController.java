@@ -1,6 +1,5 @@
 package org.progress.crm.controllers;
 
-import com.google.common.collect.HashBiMap;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +27,7 @@ public class SettingsController {
 
     static {
         Session session = null;
-        parameters=new HashMap<>();
+        parameters = new HashMap<>();
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             try {
