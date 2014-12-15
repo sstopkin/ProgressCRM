@@ -40,7 +40,7 @@ public class NewsController {
         int idWorker = authenticationManager.getUserIdByToken(uuid);
         DaoFactory.getNewsDao().addNews(session, idWorker, text, header);
         try {
-            JavaMail.sendMail("stopkin.sergey@gmail.com", text, header);
+            JavaMail.sendMail(SettingsController.parameters.get("admin.email"), text, header);
         } catch (MessagingException ex) {
             Logger.getLogger(NewsController.class.getName()).log(Level.SEVERE, null, ex);
         }

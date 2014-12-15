@@ -1,6 +1,5 @@
 package org.progress.crm.util;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -23,6 +22,7 @@ public class JavaMail {
         String SMTP_AUTH_PWD = SettingsController.parameters.get("smtp.server.password");
         String SMTP_HOST = SettingsController.parameters.get("smtp.server.host");
         String SMTP_PORT = SettingsController.parameters.get("smtp.server.port");
+
         Properties props = new Properties();
         props.put("mail.smtp.from", SMTP_AUTH_USER);
         props.put("mail.smtp.host", SMTP_HOST);
@@ -37,7 +37,11 @@ public class JavaMail {
         MimeMessage message = new MimeMessage(session);
         message.setSubject(subject);
         message.setText(text);
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+        if (userEmail.indexOf(',') > 0) {
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+        } else {
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+        }
         message.setSentDate(new Date());
         message.setSender(new InternetAddress(SMTP_AUTH_USER));
         message.setFrom("ProgressCRM");
