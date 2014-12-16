@@ -221,7 +221,7 @@ function initCalendar(eventsList, div) {
 //                $('#fullCalendar').fullCalendar('next');
 //            },
             eventClick: function (calEvent, jsEvent, view) {
-                editPlannerTaskById(calEvent.id);
+                showPlannerTaskById(calEvent.id);
 //                alert('Event: ' + calEvent.id);
 //                alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
 //                alert('View: ' + view.name);
@@ -268,4 +268,51 @@ function  getPlannerPage() {
             }
         });
     });
+}
+
+function showPlannerTaskById(id) {
+    var array;
+    $.get("/templates/modal_viewplannertask.html", function (some_html) {
+        var box = bootbox.dialog({
+            show: false,
+            title: "<h4 class=\"modal-title\">Задача</h4></div>",
+            message: some_html,
+            buttons: {
+                success: {
+                    label: "Редактировать задачу",
+                    className: "btn-warning",
+                    callback: function () {
+                        editPlannerTaskById(array.id);
+                    }
+                },
+                danger: {
+                    label: "Закрыть",
+                    className: "btn-danger",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+        box.on("shown.bs.modal", function () {
+            $.ajax({
+                type: "GET",
+                url: "api/planner/gettask?id=" + id,
+                success: function (data) {
+                    array = JSON.parse(data);
+                    $('#plannerAddTaskModalTaskTitleLabel').text(array.title);
+                    $('#plannerAddTaskModalDescriptionLabel').text(array.description);
+
+                    $('#plannerAddTaskModalStratDateLabel').text(array.start.slice(0, 10) + " " + array.start.slice(11, 16));
+                    $('#plannerAddTaskModalEndDateLabel').text(array.end.slice(0, 10) + " " + array.end.slice(11, 16));
+
+                    $('#plannerAddTaskModalTaskObjectId').text(array.targetOjectUUID);
+                },
+                error: function (data) {
+                    showDanger(data.responseText);
+                    return false;
+                }
+            });
+        });
+        box.modal('show');
+    }, 'html');
 }
