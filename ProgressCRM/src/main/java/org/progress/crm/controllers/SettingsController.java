@@ -29,7 +29,7 @@ public class SettingsController {
         Session session = null;
         parameters = new HashMap<>();
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = HibernateUtil.getSettingsSessionFactory().openSession();
             try {
                 List<Settings> list = DaoFactory.getSettingsDao().getSettingsByWorkerId(session, 1);
                 for (Settings item : list) {
