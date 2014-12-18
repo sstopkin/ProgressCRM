@@ -97,6 +97,14 @@ public class ApartamentsController {
                 apartamentsId));
         apartaments.setIdWorker(idWorker);
         apartaments.setLastModify(new Date());
+        apartaments.setCityName(ParamUtil.getNotEmpty(map, ParamName.CITY_NAME));
+        apartaments.setStreetName(ParamUtil.getNotEmpty(map, ParamName.STREET_NAME));
+        apartaments.setHouseNumber(ParamUtil.getNotEmpty(map, ParamName.HOUSE_NUMBER));
+        apartaments.setBuildingNumber(ParamUtil.getNotNull(map, ParamName.BUILDING_NUMBER));
+        apartaments.setKladrId(ParamUtil.getNotEmpty(map, ParamName.KLADR_ID));
+        apartaments.setShortAddress(ParamUtil.getNotEmpty(map, ParamName.SHORT_ADDRESS));
+        apartaments.setApartamentLan(ParamUtil.getNotEmpty(map, ParamName.APARTAMENT_LAN));
+        apartaments.setApartamentLon(ParamUtil.getNotEmpty(map, ParamName.APARTAMENT_LON));
         apartaments.setTypeOfSales(ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.TYPE_OF_SALES));
         apartaments.setRooms(ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.ROOMS));
         apartaments.setDwellingType(ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.DWELLING_TYPE));

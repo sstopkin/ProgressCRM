@@ -179,6 +179,14 @@ public class ApartamentsAPI {
     public Response editApartament(@CookieParam("token") final String token,
             @FormParam("id") final String id,
             @FormParam("typeofsales") final String typeOfSales,
+            @FormParam("cityName") final String cityName,
+            @FormParam("streetName") final String streetName,
+            @FormParam("houseNumber") final String houseNumber,
+            @FormParam("buildingNumber") final String buildingNumber,
+            @FormParam("kladrId") final String kladrId,
+            @FormParam("shortAddress") final String shortAddress,
+            @FormParam("apartamentLan") final String apartamentLan,
+            @FormParam("apartamentLon") final String apartamentLon,
             @FormParam("rooms") final String rooms,
             @FormParam("dwellingType") final String dwellingType,
             @FormParam("price") final String price,
@@ -209,14 +217,14 @@ public class ApartamentsAPI {
 
                     Map<String, String> map = new HashMap<>();
                     map.put(ParamName.TYPE_OF_SALES, typeOfSales);
-//                    map.put(ParamName.CITY_NAME, cityName);
-//                    map.put(ParamName.STREET_NAME, streetName);
-//                    map.put(ParamName.HOUSE_NUMBER, houseNumber);
-//                    map.put(ParamName.BUILDING_NUMBER, buildingNumber);
-//                    map.put(ParamName.KLADR_ID, kladrId);
-//                    map.put(ParamName.SHORT_ADDRESS, shortAddress);
-//                    map.put(ParamName.APARTAMENT_LAN, apartamentLan);
-//                    map.put(ParamName.APARTAMENT_LON, apartamentLon);
+                    map.put(ParamName.CITY_NAME, cityName);
+                    map.put(ParamName.STREET_NAME, streetName);
+                    map.put(ParamName.HOUSE_NUMBER, houseNumber);
+                    map.put(ParamName.BUILDING_NUMBER, buildingNumber);
+                    map.put(ParamName.KLADR_ID, kladrId);
+                    map.put(ParamName.SHORT_ADDRESS, shortAddress);
+                    map.put(ParamName.APARTAMENT_LAN, apartamentLan);
+                    map.put(ParamName.APARTAMENT_LON, apartamentLon);
                     map.put(ParamName.ROOMS, rooms);
                     map.put(ParamName.DWELLING_TYPE, dwellingType);
                     map.put(ParamName.PRICE, price);

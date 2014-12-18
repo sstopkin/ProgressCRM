@@ -9,24 +9,7 @@ function addApartament() {
         $("#apartamentAddReadyLink").css("display", "inline");
         //price
         $("#apartamentAddReadyLink").click(function () {
-            if ($('#IdCustomer').val() == "") {
-                showWarning("Не выбран клиент");
-                return false;
-            }
-            if ($('#ApartamentsIdWorkerTarget').val() == -1) {
-                showWarning("Не назначен риэлтор");
-                return false;
-            }
-            if (($('#DwellingType').val() == "0") || ($('#Rooms').val() == "0")) {
-                showWarning("Не заполнены поля: \"Тип жилого помещения\" или \"Кол-во комнат\"");
-                return false;
-            }
-            if (
-                    ($('#apartamentCity').val() == "") ||
-                    ($('#apartamentStreet').val() == "") ||
-                    ($('#apartamentBuilding').val() == "")
-                    ) {
-                showWarning("Неправильно заполнен адрес объекта");
+            if (!validateApartamentsAddEditModal()) {
                 return false;
             }
             $.ajax({
@@ -289,8 +272,6 @@ function apartamentsEditById(apartamentId) {
                 $('#apartamentCity').val(array.cityName);
                 $('#apartamentStreet').val(array.streetName);
                 $('#apartamentBuilding').val(array.houseNumber);
-//                $('#apartamentBuildingAdd').text(array.buildingNumber);
-
                 $('#Rooms').val(array.rooms);
                 $('#address').text(array.shortAddress);
                 $("#apartamentLan").text(array.apartamentLan);
@@ -319,6 +300,9 @@ function apartamentsEditById(apartamentId) {
                 $('#RePlanning').prop("checked", array.rePplanning);
                 $("#apartamentEditReadyLink").css("display", "block");
                 $("#apartamentEditReadyLink").click(function () {
+                    if (!validateApartamentsAddEditModal()) {
+                        return false;
+                    }
                     $.ajax({
                         type: "POST",
                         url: "api/apartament/editapartament",
@@ -329,10 +313,14 @@ function apartamentsEditById(apartamentId) {
                             streetName: $('#apartamentStreet').val(),
                             houseNumber: $('#apartamentBuilding').val(),
                             buildingNumber: "",
+                            shortAddress: $('#address').text(),
                             rooms: $('#Rooms').val(),
                             dwellingType: $('#DwellingType').val(),
                             //FIXME!!
+                            kladrId: $('#Price').val(),
                             price: $('#Price').val(),
+                            apartamentLan: $("#apartamentLan").text(),
+                            apartamentLon: $("#apartamentLon").text(),
                             citydistrict: $('#CityDistrict').val(),
                             floor: $('#Floor').val(),
                             floors: $('#Floors').val(),
@@ -366,4 +354,28 @@ function apartamentsEditById(apartamentId) {
             }
         });
     });
+}
+
+function validateApartamentsAddEditModal() {
+    if ($('#IdCustomer').val() == "") {
+        showWarning("Не выбран клиент");
+        return false;
+    }
+    if ($('#ApartamentsIdWorkerTarget').val() == -1) {
+        showWarning("Не назначен риэлтор");
+        return false;
+    }
+    if (($('#DwellingType').val() == "0") || ($('#Rooms').val() == "0")) {
+        showWarning("Не заполнены поля: \"Тип жилого помещения\" или \"Кол-во комнат\"");
+        return false;
+    }
+    if (
+            ($('#apartamentCity').val() == "") ||
+            ($('#apartamentStreet').val() == "") ||
+            ($('#apartamentBuilding').val() == "")
+            ) {
+        showWarning("Неправильно заполнен адрес объекта");
+        return false;
+    }
+    return true;
 }
