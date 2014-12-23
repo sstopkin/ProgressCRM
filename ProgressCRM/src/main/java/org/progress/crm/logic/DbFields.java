@@ -20,6 +20,8 @@ public class DbFields {
 
     public class CUSTOMERS {
 
+        public final static String ID = "id";
+        public final static String STATUS = "status";
         public final static String DELETED = "deleted";
     }
 
