@@ -58,11 +58,10 @@ public class CustomersDao {
         }
     }
 
-    public List<Customers> getAllCustomers(Session session, Integer status) throws SQLException {
+    public List<Customers> getAllCustomers(Session session, int status) throws SQLException {
         Criteria cr = session.createCriteria(Customers.class);
+        cr.add(Restrictions.eq(DbFields.CUSTOMERS.STATUS, status));
         cr.add(Restrictions.eq(DbFields.CUSTOMERS.DELETED, false));
-        //FIXME add status field in db
-//        cr.add(Restrictions.eq(DbFields.CUSTOMERS.STATUS, status));
         return cr.list();
     }
 
