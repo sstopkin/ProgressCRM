@@ -50,6 +50,7 @@ public class CustomersController {
         String customersEmail = map.get(ParamName.CUSTOMERS_EMAIL);
         String customersAddress = map.get(ParamName.CUSTOMERS_ADDRESS);
         String customersExtra = map.get(ParamName.CUSTOMERS_EXTRA);
+        int status = ParamUtil.getInt(map, ParamName.CUSTOMERS_STATUS);
 
         DaoFactory.getCustomersDao().addCustomer(session,
                 fName,
@@ -60,7 +61,8 @@ public class CustomersController {
                 customersPhone,
                 customersEmail,
                 customersAddress,
-                customersExtra
+                customersExtra,
+                status
         );
         return true;
     }

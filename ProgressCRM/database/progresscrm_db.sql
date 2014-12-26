@@ -76,6 +76,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`Customers` (
 `customersEmail` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 `customersAddress` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
 `customersExtra` MEDIUMTEXT CHARACTER SET utf8 NOT NULL ,
+`status` tinyint(1) NOT NULL,
 `CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `Deleted` TINYINT(1) NOT NULL DEFAULT false ,
 PRIMARY KEY (`id`));
