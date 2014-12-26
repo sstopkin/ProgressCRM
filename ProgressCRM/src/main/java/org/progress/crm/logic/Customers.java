@@ -36,12 +36,14 @@ public class Customers implements Serializable {
     private String customersAddress;
     @Expose
     private String customersExtra;
+    @Expose
+    private int status;
     private boolean deleted;
     private Date сreationDate;
 
     public Customers(String customersFname, String customersLname, String customersMname,
             Date customersDateOfBirthday, int customersSex, String customersPhone, String customersEmail, String customersAddress,
-            String customersExtra) {
+            String customersExtra, int status) {
         this.customersFname = customersFname;
         this.customersLname = customersLname;
         this.customersMname = customersMname;
@@ -53,6 +55,16 @@ public class Customers implements Serializable {
         this.customersExtra = customersExtra;
         this.deleted = false;
         this.сreationDate = new Date();
+        this.status = status;
+    }
+
+    @Column(name = "status")
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Column(name = "CreationDate")
