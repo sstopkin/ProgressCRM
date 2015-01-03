@@ -7,32 +7,36 @@ import java.util.concurrent.ExecutionException;
 import org.hibernate.Session;
 import org.progress.crm.exceptions.CustomException;
 
-public interface  Command<T> {
+public interface Command<T> {
+
     T execute(Session session) throws CustomException, SQLException, NoSuchAlgorithmException,
             IOException, InterruptedException, ExecutionException;
 }
 
-//CREATE  TABLE IF NOT EXISTS `progresscrm`.`DataTypes` (
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`Entities` (
 //  `id` INT NOT NULL AUTO_INCREMENT ,
-//  `typeName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+//  `entityName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 //  PRIMARY KEY (`id`));
 //  
-//CREATE  TABLE IF NOT EXISTS `progresscrm`.`DataFields` (
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`AccessTypes` (
 //  `id` INT NOT NULL AUTO_INCREMENT ,
-//  `idDataTypes` INT NOT NULL,
-//  FOREIGN KEY (idDataTypes) REFERENCES DataTypes(id),
+//  `accessTypeName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 //  PRIMARY KEY (`id`));
 //  
-//CREATE  TABLE IF NOT EXISTS `progresscrm`.`Roles` (
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`AccessCategories` (
 //  `id` INT NOT NULL AUTO_INCREMENT ,
-//  `roleName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
+//  `categoryName` VARCHAR(50) CHARACTER SET utf8 NOT NULL ,
 //  PRIMARY KEY (`id`));
 //  
-//CREATE  TABLE IF NOT EXISTS `progresscrm`.`DataFields` (
+//CREATE  TABLE IF NOT EXISTS `progresscrm`.`ACLList` (
 //  `id` INT NOT NULL AUTO_INCREMENT ,
-//  `accessType` INT NOT NULL,
-//  `idRoleName` INT NOT NULL,
-//  `idDataTypes` INT NOT NULL,
-//  FOREIGN KEY (idDataTypes) REFERENCES DataTypes(id),
-//  FOREIGN KEY (idRoleName) REFERENCES Roles(id),
+//  `idEntity` INT NOT NULL,
+//  `idAccessType` INT NOT NULL,
+//  `idWorker` INT NOT NULL,
+//  `idAccessCategory` INT NOT NULL,
+//  FOREIGN KEY (idEntity) REFERENCES Entities(id),
+//  FOREIGN KEY (idAccessType) REFERENCES AccessTypes(id),
+//  FOREIGN KEY (idWorker) REFERENCES Workers(id),
+//  FOREIGN KEY (idAccessCategory) REFERENCES AccessCategories(id),
+//  UNIQUE uc_ACLid (idEntity, idAccessType, idWorker, idAccessCategory),
 //  PRIMARY KEY (`id`));
