@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ACLList")
-public class ACLList implements Serializable {
+@Table(name = "ACLEntry")
+public class ACLEntry implements Serializable {
 
     private int id;
     private int idEntity;
@@ -18,10 +18,10 @@ public class ACLList implements Serializable {
     private int idWorker;
     private int idAccessCategory;
 
-    public ACLList() {
+    public ACLEntry() {
     }
 
-    public ACLList(int idEntity, int idAccessType, int idWorker, int idAccessCategory) {
+    public ACLEntry(int idEntity, int idAccessType, int idWorker, int idAccessCategory) {
         this.idEntity = idEntity;
         this.idAccessType = idAccessType;
         this.idWorker = idWorker;

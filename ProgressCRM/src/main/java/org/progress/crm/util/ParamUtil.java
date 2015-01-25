@@ -327,7 +327,7 @@ public class ParamUtil {
     }
 
     public static String getRGBColor(String color) throws ValidationException {
-        
+
         int colorValue = 0;
         try {
             colorValue = Integer.parseInt(color.substring(1), 16);

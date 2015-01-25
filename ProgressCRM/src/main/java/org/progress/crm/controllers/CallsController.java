@@ -28,16 +28,14 @@ public class CallsController {
     }
 
     public boolean addCallsByObjectUUID(Session session, String token, String objectUUID, String incomingPhoneNumber, String description) throws CustomException, SQLException {
-        if (objectUUID == null || objectUUID.equals("")) {
-            throw new BadRequestException();
-        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
-
-        DaoFactory.getCallsDao().addCustomerCall(session, objectUUID, incomingPhoneNumber, description, idWorker);
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        if (objectUUID == null || objectUUID.equals("")) {
+            throw new BadRequestException();
+        }
+        DaoFactory.getCallsDao().addCustomerCall(session, objectUUID, incomingPhoneNumber, description, workerId);
         return true;
     }
 //
@@ -72,7 +70,7 @@ public class CallsController {
         }
         UUID uuid = UUID.fromString(token);
         int idWorker = authManager.getUserIdByToken(uuid);
-
+//FIXME
         DaoFactory.getCallsDao().getCallsAddStatsList(session);
         return true;
     }

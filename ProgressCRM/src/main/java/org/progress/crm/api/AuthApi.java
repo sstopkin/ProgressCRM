@@ -18,7 +18,6 @@ import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import static org.progress.crm.api.ApiHelper.ser;
 import org.progress.crm.controllers.AuthenticationManager;
-import org.progress.crm.controllers.RoleController;
 import org.progress.crm.controllers.WorkersController;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.util.Command;
@@ -31,8 +30,6 @@ public class AuthApi {
     @EJB
     AuthenticationManager authManager;
     @EJB
-    RoleController roleController;
-    @EJB
     WorkersController workersController;
 
     @GET
@@ -42,29 +39,15 @@ public class AuthApi {
         return TransactionService.runInScope(new Command<Response>() {
             @Override
             public Response execute(Session session) throws SQLException {
-                int success = 0;
                 try {
-                    success = roleController.getPermissions(session, token);
+                    boolean success = authManager.validate(session, token);
+                    return ApiHelper.getResponse(success);
                 } catch (CustomException ex) {
                     Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
-                    ApiHelper.getResponse(ex);
+                    return ApiHelper.getResponse(ex);
                 }
-                return ApiHelper.getResponse(success);
             }
         });
-    }
-
-    @GET
-    @Path("author")
-    public Response validateAuthor(@CookieParam("token") String token) throws SQLException {
-        int succes = 0;
-        try {
-            succes = roleController.getUserIdByToken(token);
-        } catch (CustomException ex) {
-            Logger.getLogger(AuthApi.class.getName()).log(Level.SEVERE, null, ex);
-            ApiHelper.getResponse(ex);
-        }
-        return ApiHelper.getResponse(succes);
     }
 
     @GET

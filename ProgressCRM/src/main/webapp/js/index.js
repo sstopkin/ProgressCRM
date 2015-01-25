@@ -40,6 +40,9 @@ function trueAuth() {
         url: "api/auth/validate",
         async: false
     }).responseText;
+    if (permissions == "true") {
+        $("#adminMenu").css("display", "block");
+    }
     parseUrl(location.href);
     $.ajax({
         type: "GET",
@@ -102,7 +105,7 @@ function trueAuth() {
 }
 
 function getParameterValue(array, paramName) {
-    console.log("getParameterValue", array, paramName);
+    console.log("getParameterValue: ", array, paramName);
     for (var j = 0; j < array.length; ++j) {
         if (array[j].parameter === paramName) {
             console.log("getParameterValue", "return", array[j].value);
@@ -115,6 +118,7 @@ function getMainPage() {
     $.get("main.html", function (data) {
         $("#mainContainer").html(data);
     });
+    getCallsStatsPage();
 }
 
 function getNewsPage() {
@@ -124,16 +128,32 @@ function getNewsPage() {
     getNews();
 }
 
-function getAdminPage() {
+function getAdminPage(page) {
     $.get("api/auth/validate", function (data) {
-        if (data == "3") {
-            $.get("admin.html", function (data) {
-                $("#mainContainer").html(data);
-            });
-            getUsersManagementList();
+        if (data == "true") {
+            switch (page) {
+                case 1:
+                    $.get("/templates/page_userandgroupmanagement.html", function (data) {
+                        $("#mainContainer").html(data);
+                    });
+                    getUsersManagementList();
+                    getUsersGroupsManagementList();
+                    break
+                case 2:
+
+                    break
+                case 3:
+                    $.get("admin.html", function (data) {
+                        $("#mainContainer").html(data);
+                    });
+                    getPermissionManagementList();
+                    break
+                default:
+                    break
+            }
         }
         else {
-            showWarning("У вас недостаточно прав для совершения данного действия");
+            showDanger("У вас недостаточно прав для совершения данного действия");
         }
     });
 }
@@ -149,6 +169,14 @@ function showDanger(message) {
 function showWarning(message) {
     var some_html = '<div class="bs-callout bs-callout-warning">';
     some_html += '<h4>Предупреждение</h4>';
+    some_html += '<p>' + message + '</p>';
+    some_html += '</div>';
+    bootbox.alert(some_html);
+}
+
+function showSuccess(message) {
+    var some_html = '<div class="bs-callout bs-callout-info">';
+    some_html += '<h4>Выполнено успешно</h4>';
     some_html += '<p>' + message + '</p>';
     some_html += '</div>';
     bootbox.alert(some_html);
@@ -337,10 +365,10 @@ function timeConverter(UNIX_timestamp, param) {
         case 'short':
             return year + '-' + month + '-' + date;
         case 'human':
-            var month = months[a.getMonth() - 1];
+            var month = months[a.getMonth()];
             return date + '-' + month + '-' + year + ' ' + hour + ':' + min;
         case 'human-short':
-            var month = months[a.getMonth() - 1];
+            var month = months[a.getMonth()];
             return date + '-' + month + '-' + year;
         case 'full':
             return year + '-' + month + '-' + date + ' ' + hour + ':' + min + ':' + sec;

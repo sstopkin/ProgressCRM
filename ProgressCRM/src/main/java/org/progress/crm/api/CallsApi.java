@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -17,8 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import org.hibernate.Session;
 import static org.progress.crm.api.ApiHelper.ser;
+import org.progress.crm.controllers.AuthenticationManager;
 import org.progress.crm.controllers.CallsController;
 import org.progress.crm.exceptions.CustomException;
+import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.util.Command;
 import org.progress.crm.util.TransactionService;
 

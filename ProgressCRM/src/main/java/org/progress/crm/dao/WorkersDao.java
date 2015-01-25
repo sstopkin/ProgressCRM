@@ -33,7 +33,7 @@ public class WorkersDao {
                 .load();
     }
 
-    public List<Workers> getAllWorkersOrderById(Session session, boolean active) throws SQLException {
+    public List<Workers> getAllWorkersOrderedById(Session session, boolean active) throws SQLException {
         Criteria cr = session.createCriteria(Workers.class);
         if (active) {
             cr.add(Restrictions.eq(DbFields.WORKERS.IS_ACTIVE, true));

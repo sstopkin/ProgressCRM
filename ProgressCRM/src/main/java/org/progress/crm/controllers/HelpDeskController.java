@@ -28,9 +28,8 @@ public class HelpDeskController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
-        DaoFactory.getHelpDeskDao().addHelpDeskRequest(session, idWorker, request, description, Integer.valueOf("1"));
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        DaoFactory.getHelpDeskDao().addHelpDeskRequest(session, workerId, request, description, Integer.valueOf("1"));
         return true;
     }
 
@@ -41,8 +40,7 @@ public class HelpDeskController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
-        return DaoFactory.getHelpDeskDao().deleteHelpDeskRequest(session, idWorker, Integer.valueOf(id));
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        return DaoFactory.getHelpDeskDao().deleteHelpDeskRequest(session, Integer.valueOf(id));
     }
 }

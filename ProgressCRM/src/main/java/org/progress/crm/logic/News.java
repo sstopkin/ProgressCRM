@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "News")
@@ -21,9 +20,7 @@ public class News implements Serializable {
     private String header;
     private String text;
     private Date creationDate;
-    private String creationDateStr;
     private Date lastModify;
-    private String lastModifyStr;
     private boolean deleted;
 
     public News() {
@@ -36,24 +33,6 @@ public class News implements Serializable {
         this.creationDate = new Date();
         this.lastModify = new Date();
         this.deleted = false;
-    }
-
-    @Transient
-    public String getCreationDateStr() {
-        return creationDateStr;
-    }
-
-    public void setCreationDateStr(String creationDateStr) {
-        this.creationDateStr = creationDateStr;
-    }
-
-    @Transient
-    public String getLastModifyStr() {
-        return lastModifyStr;
-    }
-
-    public void setLastModifyStr(String lastModifyStr) {
-        this.lastModifyStr = lastModifyStr;
     }
 
     @Id

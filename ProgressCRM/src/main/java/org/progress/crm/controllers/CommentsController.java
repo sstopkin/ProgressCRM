@@ -34,10 +34,9 @@ public class CommentsController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
 
-        DaoFactory.getCommentsDao().addComment(session, objectUUID, text, idWorker);
+        DaoFactory.getCommentsDao().addComment(session, objectUUID, text, workerId);
         return true;
     }
 }

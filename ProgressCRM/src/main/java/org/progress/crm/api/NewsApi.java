@@ -38,7 +38,6 @@ public class NewsApi {
             @Override
             public Response execute(Session session) throws SQLException {
                 try {
-
                     Gson newsList = new GsonBuilder().registerTypeAdapter(Date.class, ser)
                             .create();
                     String newsJson = newsList.toJson(newsController

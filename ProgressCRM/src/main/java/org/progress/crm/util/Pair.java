@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.progress.crm.util;
 
-/**
- *
- * @author best
- */
 public class Pair<A, B> {
 
     private A first;

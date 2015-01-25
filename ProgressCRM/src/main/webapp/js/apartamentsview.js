@@ -172,10 +172,10 @@ function getApartamentViewPage(apartamentId) {
                 }
                 content += "</p>";
                 content += "<p>";
-                content += "Объект добавлен: " + timeConverter(array.сreationDate,'human');
+                content += "Объект добавлен: " + timeConverter(array.сreationDate, 'human');
                 content += "</p>";
                 content += "<p>";
-                content += "Объект изменен: " + timeConverter(array.lastModify,'human');
+                content += "Объект изменен: " + timeConverter(array.lastModify, 'human');
                 content += "</p>";
                 content += "<p>";
                 content += "Добавлено: " + getWorkersFullNameById(array.idWorker);
@@ -183,7 +183,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "Риэлтор: " + getWorkersFullNameById(array.idWorkerTarget);
                 content += "</p>";
-                console.log(array.kladrId);
+                console.log("FIXME: array KLADRid" + array.kladrId);
                 content += "<p>";
                 content += "Площадь общая: " + array.sizeApartament;
                 content += "</p>";
@@ -237,7 +237,7 @@ function getApartamentViewPage(apartamentId) {
                 str += "<tbody>";
                 for (var j = 0; j < callsData.length; ++j) {
                     str += "<tr><td>";
-                    str += timeConverter(callsData[j].date,'human');
+                    str += timeConverter(callsData[j].date, 'human');
                     str += "</td><td>";
                     str += callsData[j].incomingPhoneNumber;
                     str += "</td><td>";
@@ -267,7 +267,7 @@ function getApartamentViewPage(apartamentId) {
                 str += "<tbody>";
                 for (var j = 0; j < commentsData.length; ++j) {
                     str += "<tr><td>";
-                    str += timeConverter(commentsData[j].сreationDate,'human');
+                    str += timeConverter(commentsData[j].сreationDate, 'human');
                     str += "</td><td>";
                     str += commentsData[j].text;
                 }

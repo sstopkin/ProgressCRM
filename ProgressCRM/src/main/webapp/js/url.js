@@ -75,11 +75,11 @@ function parseUrl(str) {
         getPlannerPage();
         return;
     }
-    
+
     if (arr[0] === pathSettings) {
         getSettingsPage();
         return;
-    }    
+    }
 
     if (arr[0] === pathHelpDesk) {
         getHelpDeskPage();
@@ -206,8 +206,16 @@ function helpParseUrl(uri, arr, type) {
             }
         }
         if (type === "admin") {
-            if (arr[1] === "usermanagement") {
-                getAdminPage();
+            if (arr[1] === "userandgroupmanagement") {
+                getAdminPage(1);
+                return;
+            }
+            if (arr[1] === "groupmanagement") {
+                getAdminPage(2);
+                return;
+            }
+            if (arr[1] === "permissionmanagement") {
+                getAdminPage(3);
                 return;
             }
             if (!arr[1]) {

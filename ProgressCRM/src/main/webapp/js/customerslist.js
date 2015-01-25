@@ -190,7 +190,6 @@ function customersEditById(customersId) {
                 url: "api/customers/getcustomer?id=" + customersId,
                 success: function (data) {
                     array = JSON.parse(data);
-                    console.log(array);
                     $('#customersFname').val(array.customersFname);
                     $('#customersMname').val(array.customersMname);
                     $('#customersLname').val(array.customersLname);
