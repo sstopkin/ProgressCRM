@@ -20,7 +20,7 @@ import org.progress.crm.logic.Settings;
 public class SettingsController {
 
     @EJB
-    AuthenticationManager authenticationManager;
+    AuthenticationManager authManager;
 
     private static final Logger log = Logger.getLogger(SettingsController.class.getName());
     public static Map<String, String> parameters = null;
@@ -49,8 +49,7 @@ public class SettingsController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authenticationManager.getUserIdByToken(uuid);
+        int idWorker = authManager.getUserIdByToken(UUID.fromString(token));
         return DaoFactory.getSettingsDao().getSettingsByWorkerId(session, idWorker);
     }
 

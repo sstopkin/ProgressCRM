@@ -7,16 +7,20 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import org.hibernate.Session;
 import org.progress.crm.dao.DaoFactory;
 import org.progress.crm.exceptions.BadLogInException;
+import org.progress.crm.exceptions.BadLogOutException;
 import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.DisabledUserException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
+import org.progress.crm.logic.Constants;
 import org.progress.crm.logic.Workers;
 import org.progress.crm.util.SHA1;
 
@@ -65,6 +69,7 @@ public class AuthenticationManager {
         Workers pr = DaoFactory.getWorkersDao().getWorkerByEmail(session, email);
         if (pr == null) {
             //first user must be NULL
+            Logger.getLogger(AuthenticationManager.class.getName()).log(Level.SEVERE, null, email + " [" + password + "]" + " Code:" + Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
 
@@ -75,8 +80,10 @@ public class AuthenticationManager {
         if (pr.getPwdhash().equals(SHA1.sha1(password))) {
             UUID token = UUID.randomUUID();
             tokens.put(token, pr.getId());
+            Logger.getLogger(AuthenticationManager.class.getName()).log(Level.SEVERE, null, email + " [" + password + "]" + " Code:" + Constants.LOGSERVICEACTIONSCODE.AUTHOK);
             return token.toString();
         } else {
+            Logger.getLogger(AuthenticationManager.class.getName()).log(Level.SEVERE, null, email + " [" + password + "]" + " Code:" + Constants.LOGSERVICEACTIONSCODE.AUTHFAIL);
             throw new BadLogInException();
         }
     }
@@ -84,9 +91,15 @@ public class AuthenticationManager {
     @Lock(LockType.WRITE)
     public boolean logOut(String token) throws CustomException {
         //FIXME
-        int workerId = getUserIdByToken(UUID.fromString(token));
-        tokens.remove(UUID.fromString(token));
-        return true;
+        try {
+            int workerId = getUserIdByToken(UUID.fromString(token));
+            Logger.getLogger(AuthenticationManager.class.getName()).log(Level.SEVERE, null, "workerId" + workerId + " Code:" + Constants.LOGSERVICEACTIONSCODE.LOGOUTOK);
+            tokens.remove(UUID.fromString(token));
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(AuthenticationManager.class.getName()).log(Level.SEVERE, null, "Code:" + Constants.LOGSERVICEACTIONSCODE.LOGOUTFAIL);
+            throw new BadLogOutException();
+        }
     }
 
     public String getStatus(Session session, String token) throws SQLException, CustomException {
@@ -103,5 +116,25 @@ public class AuthenticationManager {
             return pr.getfName() + ' ' + pr.getlName();
         }
         throw new IsNotAuthenticatedException();
+    }
+
+    public int getUserIdByToken(String token) throws SQLException, CustomException {
+        if (token == null) {
+            return 0;
+        }
+        UUID uuid = UUID.fromString(token);
+        if (isAuthentificated(uuid)) {
+            int userId = getUserIdByToken(uuid);
+            return userId;
+        }
+        return 0;
+    }
+
+    public boolean validate(Session session, String token) throws CustomException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        int workerId = getUserIdByToken(UUID.fromString(token));
+        return DaoFactory.getWorkersInGroupsDao().isUserInGroup(session, workerId, Constants.GROUPS.ADMIN_GROUP);
     }
 }

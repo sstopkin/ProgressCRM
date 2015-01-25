@@ -18,6 +18,30 @@ PRIMARY KEY (`id`) ,
 UNIQUE INDEX `EmailIndex` (`Email` ASC) );
 
 -- -----------------------------------------------------
+-- Table `progresscrm`.`Groups`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`Groups` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`groupName` VARCHAR(45) DEFAULT NULL,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`Deleted` TINYINT(1) NOT NULL DEFAULT false ,
+PRIMARY KEY (`id`));
+
+-- -----------------------------------------------------
+-- Table `progresscrm`.`WorkersInGroups`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`WorkersInGroups` (
+`id` INT NOT NULL AUTO_INCREMENT ,
+`idWorker` INT NOT NULL ,
+`idGroup`  INT NOT NULL ,
+`CreationDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`) ,
+FOREIGN KEY (idWorker) REFERENCES Workers(id),
+FOREIGN KEY (idGroup) REFERENCES Groups(id),
+INDEX `idGroupIndex` (`idGroup` ASC),
+INDEX `idWorkerIndex` (`idWorker` ASC));
+
+-- -----------------------------------------------------
 -- Table `progresscrm`.`Filespaces`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `progresscrm`.`Filespaces` (
@@ -219,9 +243,9 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`AccessCategories` (
   PRIMARY KEY (`id`));
   
 -- -----------------------------------------------------
--- Table `progresscrm`.`ACLList`
+-- Table `progresscrm`.`ACLEntry`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `progresscrm`.`ACLList` (
+CREATE  TABLE IF NOT EXISTS `progresscrm`.`ACLEntry` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `idEntity` INT NOT NULL,
   `idAccessType` INT NOT NULL,
@@ -231,7 +255,7 @@ CREATE  TABLE IF NOT EXISTS `progresscrm`.`ACLList` (
   FOREIGN KEY (idAccessType) REFERENCES AccessTypes(id),
   FOREIGN KEY (idWorker) REFERENCES Workers(id),
   FOREIGN KEY (idAccessCategory) REFERENCES AccessCategories(id),
-  UNIQUE uc_ACLid (idEntity, idAccessType, idWorker, idAccessCategory),
+  UNIQUE uc_ACLid (idEntity, idAccessType, idWorker),
   PRIMARY KEY (`id`));
 
 -- -----------------------------------------------------
@@ -273,16 +297,23 @@ INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Emai
 INSERT INTO progresscrm.Workers (FName, MName, LName, PwdHash, Permissions, Email, Deleted, IsActive) 
 	VALUES ('Екатерина', 'Николаевна','Верхозина', 'f9a7c6df341325822e3ea264cfe39e5ef8c73aa4', 2, '634490@progress55.com', false, true);
 
+-- groups --
+INSERT INTO `progresscrm`.`Groups` (`id`, `groupName`, `CreationDate`, `Deleted`) VALUES ('1', 'Administrarors', '2015-01-21 00:00:00', 'false');
+
+-- workers in groups --
+INSERT INTO `progresscrm`.`WorkersInGroups` (`id`, `idWorker`, `idGroup`, `CreationDate`) VALUES ('1', '2', '1', '2015-01-21 00:00:00');
+
 -- ACL --
-INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('1', 'Apartaments');
-INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('2', 'News');
-INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('3', 'Planner');
-INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('4', 'Workers');
+INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('1', 'Объекты');
+INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('2', 'Новости');
+INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('3', 'Планировщик');
+INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('4', 'Сотрудники');
+INSERT INTO `progresscrm`.`Entities` (`id`, `entityName`) VALUES ('5', 'Клиенты');
 
-INSERT INTO `progresscrm`.`AccessTypes` (`id`, `accessTypeName`) VALUES ('1', 'view');
-INSERT INTO `progresscrm`.`AccessTypes` (`id`, `accessTypeName`) VALUES ('2', 'edit');
-INSERT INTO `progresscrm`.`AccessTypes` (`id`, `accessTypeName`) VALUES ('3', 'delete');
+INSERT INTO `progresscrm`.`AccessTypes` (`id`, `accessTypeName`) VALUES ('1', 'Просмотр');
+INSERT INTO `progresscrm`.`AccessTypes` (`id`, `accessTypeName`) VALUES ('2', 'Создание/Изменение');
+INSERT INTO `progresscrm`.`AccessTypes` (`id`, `accessTypeName`) VALUES ('3', 'Удаление');
 
-INSERT INTO `progresscrm`.`AccessCategories` (`id`, `categoryName`) VALUES ('1', 'owner_only');
-INSERT INTO `progresscrm`.`AccessCategories` (`id`, `categoryName`) VALUES ('2', 'group');
-INSERT INTO `progresscrm`.`AccessCategories` (`id`, `categoryName`) VALUES ('3', 'all');
+INSERT INTO `progresscrm`.`AccessCategories` (`id`, `categoryName`) VALUES ('1', 'Все');
+INSERT INTO `progresscrm`.`AccessCategories` (`id`, `categoryName`) VALUES ('2', 'Группа');
+INSERT INTO `progresscrm`.`AccessCategories` (`id`, `categoryName`) VALUES ('3', 'Только свои');

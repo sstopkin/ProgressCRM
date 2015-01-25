@@ -191,7 +191,6 @@ function setApartamentsAdState(apartamentId, state) {
 }
 
 function apartamentsDeleteById(apartamentsId) {
-    console.log("apartamentsDeleteById " + apartamentsId);
     $.ajax({
         type: "POST",
         url: "api/apartament/remove",

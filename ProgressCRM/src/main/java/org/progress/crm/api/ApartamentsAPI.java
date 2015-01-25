@@ -159,7 +159,7 @@ public class ApartamentsAPI {
                     map.put(ParamName.EXCHANGE, exchange);
                     map.put(ParamName.RENT, rent);
                     map.put(ParamName.RE_PLANNING, rePlanning);
-                    map.put(ParamName.ID_WORKER_TARGET, idWorkerTarget);
+                    map.put(ParamName.WORKER_ID_TARGET, idWorkerTarget);
                     map.put(ParamName.ID_CUSTOMER, idCustomer);
                     map.put(ParamName.STATUS, status);
 
@@ -245,7 +245,7 @@ public class ApartamentsAPI {
                     map.put(ParamName.EXCHANGE, exchange);
                     map.put(ParamName.RENT, rent);
                     map.put(ParamName.RE_PLANNING, rePlanning);
-                    map.put(ParamName.ID_WORKER_TARGET, idWorkerTarget);
+                    map.put(ParamName.WORKER_ID_TARGET, idWorkerTarget);
                     map.put(ParamName.ID_CUSTOMER, idCustomer);
                     map.put(ParamName.STATUS, status);
                     map.put(ParamName.APARTAMENTS_ID, id);

@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.progress.crm.logic.Apartaments;
+import org.progress.crm.logic.Constants;
 import org.progress.crm.logic.DbFields;
 
 public class ApartamentsDao {
@@ -63,19 +64,25 @@ public class ApartamentsDao {
         return list.get(0);
     }
 
-    public List<Apartaments> getAllApartamentsFew(Session session, int status) throws SQLException {
+    public List<Apartaments> getAllApartamentsFew(Session session, int idWorker, int status, int permission) throws SQLException {
         //FIXME
         Criteria cr = session.createCriteria(Apartaments.class);
         cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, status));
         cr.add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
+        if (permission != Constants.ACL.CATEGORIES_ALL) {
+            cr.add(Restrictions.eq(DbFields.APARTAMENTS.IDWORKER, idWorker));
+        }
         cr.addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS));
         return cr.list();
     }
 
-    public List<Apartaments> getAllApartamentsFull(Session session, int status) throws SQLException {
+    public List<Apartaments> getAllApartamentsFull(Session session, int idWorker, int status, int permission) throws SQLException {
         Criteria cr = session.createCriteria(Apartaments.class);
         cr.add(Restrictions.eq(DbFields.APARTAMENTS.STATUS, status));
         cr.add(Restrictions.eq(DbFields.APARTAMENTS.DELETED, false));
+        if (permission != Constants.ACL.CATEGORIES_ALL) {
+            cr.add(Restrictions.eq(DbFields.APARTAMENTS.IDWORKER, idWorker));
+        }
         cr.addOrder(Order.asc(DbFields.APARTAMENTS.ROOMS));
         return cr.list();
     }

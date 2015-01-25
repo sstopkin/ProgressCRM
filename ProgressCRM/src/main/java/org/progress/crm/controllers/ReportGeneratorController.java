@@ -28,8 +28,7 @@ public class ReportGeneratorController {
         if (status == null) {
             throw new BadRequestException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
+        int idWorker = authManager.getUserIdByToken(UUID.fromString(token));
         return DaoFactory.getReportGeneratorDao().priceGen(session, idWorker, status);
     }
 
@@ -48,8 +47,7 @@ public class ReportGeneratorController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
+        int idWorker = authManager.getUserIdByToken(UUID.fromString(token));
         return DaoFactory.getReportGeneratorDao().apartamentsPageGen(session, Integer.valueOf(apartamentId), idWorker);
     }
 }

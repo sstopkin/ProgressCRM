@@ -14,6 +14,8 @@ import org.progress.crm.exceptions.BadRequestException;
 import org.progress.crm.exceptions.CustomException;
 import org.progress.crm.exceptions.IsNotAuthenticatedException;
 import org.progress.crm.logic.Apartaments;
+import org.progress.crm.logic.Constants;
+import org.progress.crm.util.Pair;
 import org.progress.crm.util.ParamName;
 import org.progress.crm.util.ParamUtil;
 
@@ -24,16 +26,24 @@ public class ApartamentsController {
     AuthenticationManager authManager;
 
     public Apartaments getApartamentById(Session session, String token, String apartamentId) throws CustomException, SQLException {
-        if (apartamentId == null) {
-            throw new BadRequestException();
-        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        if (apartamentId == null) {
+            throw new BadRequestException();
+        }
+        Pair<Integer, Integer> permission = AclController.getAclCheckAccess(session, Constants.ENTITIES.APARTAMENTS, workerId, Constants.ACL.ACCESS_VIEW);
         return DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(apartamentId));
     }
 
     public boolean addApartament(Session session, String token, Map<String, String> map) throws CustomException, SQLException {
+        if (token == null) {
+            throw new IsNotAuthenticatedException();
+        }
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        Pair<Integer, Integer> permission = AclController.getAclCheckAccess(session, Constants.ENTITIES.APARTAMENTS, workerId, Constants.ACL.ACCESS_ADD_EIDT);
+
         String cityName = map.get(ParamName.CITY_NAME);
         String streetName = map.get(ParamName.STREET_NAME);
         String houseNumber = map.get(ParamName.HOUSE_NUMBER);
@@ -63,22 +73,16 @@ public class ApartamentsController {
         Boolean exchange = ParamUtil.getNotEmptyBoolean(map, ParamName.EXCHANGE);
         Boolean rent = ParamUtil.getNotEmptyBoolean(map, ParamName.RENT);
         Boolean rePlanning = ParamUtil.getNotEmptyBoolean(map, ParamName.RE_PLANNING);
-        int idWorkerTarget = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.ID_WORKER_TARGET);
+        int idWorkerTarget = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.WORKER_ID_TARGET);
         int idCustomer = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.ID_CUSTOMER);
         int status = ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.STATUS);
-        if (token == null) {
-            throw new IsNotAuthenticatedException();
-        }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
         int isAD = 0;
-
         DaoFactory.getApartamentsDao().addApartament(session, typeOfSales,
                 cityName, streetName, houseNumber, buildingNumber, kladrId, shortAddress,
                 apartamentLan, apartamentLon, rooms, dwellingType, price, cityDistrict, floor,
                 floors, roomNumber, material, sizeApartament, sizeLiving, sizeKitchen, balcony,
                 loggia, yearOfConstruction, description,
-                pureSale, mortgage, exchange, rent, rePlanning, idWorker, idWorkerTarget, idCustomer, status, isAD, false);
+                pureSale, mortgage, exchange, rent, rePlanning, workerId, idWorkerTarget, idCustomer, status, isAD, false);
         return true;
     }
 
@@ -89,13 +93,12 @@ public class ApartamentsController {
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
-
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        Pair<Integer, Integer> permission = AclController.getAclCheckAccess(session, Constants.ENTITIES.APARTAMENTS, workerId, Constants.ACL.ACCESS_ADD_EIDT);
         int apartamentsId = ParamUtil.getNotEmptyInt(map, ParamName.APARTAMENTS_ID);
         Apartaments apartaments = DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(
                 apartamentsId));
-        apartaments.setIdWorker(idWorker);
+        apartaments.setIdWorker(workerId);
         apartaments.setLastModify(new Date());
         apartaments.setCityName(ParamUtil.getNotEmpty(map, ParamName.CITY_NAME));
         apartaments.setStreetName(ParamUtil.getNotEmpty(map, ParamName.STREET_NAME));
@@ -126,7 +129,7 @@ public class ApartamentsController {
         apartaments.setMethodOfPurchase_Exchange(ParamUtil.getNotEmptyBoolean(map, ParamName.EXCHANGE));
         apartaments.setMethodOfPurchase_Rent(ParamUtil.getNotEmptyBoolean(map, ParamName.RENT));
         apartaments.setRePplanning(ParamUtil.getNotEmptyBoolean(map, ParamName.RE_PLANNING));
-        apartaments.setIdWorkerTarget(ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.ID_WORKER_TARGET));
+        apartaments.setIdWorkerTarget(ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.WORKER_ID_TARGET));
         apartaments.setIdCustomer(ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.ID_CUSTOMER));
         apartaments.setStatus(ParamUtil.getNotNegativeIntOrZeroIfEmpty(map, ParamName.STATUS));
 
@@ -135,15 +138,14 @@ public class ApartamentsController {
     }
 
     public boolean removeApartament(Session session, String token, String apartamentsId) throws CustomException, SQLException {
-        if (apartamentsId == null) {
-            throw new BadRequestException();
-        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        UUID uuid = UUID.fromString(token);
-        int idWorker = authManager.getUserIdByToken(uuid);
-
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        if (apartamentsId == null) {
+            throw new BadRequestException();
+        }
+        AclController.getAclCheckAccess(session, Constants.ENTITIES.APARTAMENTS, workerId, Constants.ACL.ACCESS_DELETE);
         Apartaments apartaments = DaoFactory.getApartamentsDao().getApartamentsById(session, Integer.valueOf(
                 apartamentsId));
         apartaments.setDeleted(true);
@@ -152,26 +154,33 @@ public class ApartamentsController {
     }
 
     public List<Apartaments> getAllApartament(Session session, String token, String status) throws CustomException, SQLException {
-        if (status == null) {
-            throw new BadRequestException();
-        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartamentsFew(session, Integer.
-                valueOf(status));
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        if (status == null) {
+            throw new BadRequestException();
+        }
+        if (status == null) {
+            throw new BadRequestException();
+        }
+        Pair<Integer, Integer> permission = AclController.getAclCheckAccess(session, Constants.ENTITIES.APARTAMENTS, workerId, Constants.ACL.ACCESS_VIEW);
+        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartamentsFew(session, workerId, Integer.
+                valueOf(status), permission.getSecond());
         return apartaments;
     }
 
     public List<Apartaments> getAllApartamentFull(Session session, String token, String status) throws CustomException, SQLException {
-        if (status == null) {
-            throw new BadRequestException();
-        }
         if (token == null) {
             throw new IsNotAuthenticatedException();
         }
-        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartamentsFull(session, Integer.
-                valueOf(status));
+        if (status == null) {
+            throw new BadRequestException();
+        }
+        int workerId = authManager.getUserIdByToken(UUID.fromString(token));
+        Pair<Integer, Integer> permission = AclController.getAclCheckAccess(session, Constants.ENTITIES.APARTAMENTS, workerId, Constants.ACL.ACCESS_VIEW);
+        List<Apartaments> apartaments = DaoFactory.getApartamentsDao().getAllApartamentsFull(session, workerId, Integer.
+                valueOf(status), permission.getSecond());
         return apartaments;
     }
 

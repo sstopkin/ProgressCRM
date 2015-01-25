@@ -3,19 +3,24 @@ package org.progress.crm.dao;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.progress.crm.logic.Constants;
 import org.progress.crm.logic.DbFields;
 import org.progress.crm.logic.News;
 
 public class NewsDao {
 
-    public List<News> getNews(Session session) throws SQLException {
-        List<News> list = session.createCriteria(News.class).
-                add(Restrictions.eq(DbFields.NEWS.DELETED, false)).
-                addOrder(Order.desc(DbFields.NEWS.LASTMODIFY)).list();
-        return list;
+    public List<News> getNews(Session session, int permission, int idWorker) throws SQLException {
+        Criteria cr = session.createCriteria(News.class);
+        cr.add(Restrictions.eq(DbFields.NEWS.DELETED, false));
+        cr.addOrder(Order.desc(DbFields.NEWS.LASTMODIFY));
+        if (permission != Constants.ACL.CATEGORIES_ALL) {
+            cr.add(Restrictions.eq(DbFields.APARTAMENTS.IDWORKER, idWorker));
+        }
+        return cr.list();
     }
 
     public void addNews(final Session session, final int idWorker, final String header, final String text) throws SQLException {

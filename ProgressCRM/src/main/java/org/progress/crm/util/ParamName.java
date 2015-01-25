@@ -32,12 +32,10 @@ public class ParamName {
     public final static String EXCHANGE = "exchange";
     public final static String RENT = "rent";
     public final static String RE_PLANNING = "rePlanning";
-    public final static String ID_WORKER_TARGET = "idWorkerTarget";
+    public final static String WORKER_ID_TARGET = "idWorkerTarget";
     public final static String ID_CUSTOMER = "idCustomer";
     public final static String STATUS = "status";
     public final static String AD = "isAd";
-
-    public final static String USER_ID = "userId";
 
     public final static String CUSTOMERS_ID = "customersId";
     public final static String CUSTOMERS_FNAME = "customersFname";
@@ -50,12 +48,15 @@ public class ParamName {
     public final static String CUSTOMERS_ADDRESS = "customersAddress";
     public final static String CUSTOMERS_EXTRA = "customersExtra";
     public final static String CUSTOMERS_STATUS = "customersStatus";
-    
+
+    public final static String WORKER_ID = "userId";
     public final static String WORKER_FIRST_NAME = "workerFName";
     public final static String WORKER_LAST_NAME = "workerLName";
     public final static String WORKER_MIDDLE_NAME = "workerMName";
     public final static String WORKER_EMAIL = "workerEmail";
     public final static String WORKER_PASSWORD = "workerPassword";
+
+    public final static String GROUP_NAME = "groupName";
 
     public final static String NEWS_ID = "newsId";
     public final static String NEWS_HEADER = "newsHeader";

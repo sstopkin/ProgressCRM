@@ -34,7 +34,7 @@ public class HelpDeskDao {
         return cr.list();
     }
 
-    public String deleteHelpDeskRequest(Session session, int idWorker, Integer hdId) throws SQLException {
+    public String deleteHelpDeskRequest(Session session, Integer hdId) throws SQLException {
         HelpDeskRequest hd = getHelpDeskRequestId(session, hdId);
         hd.setLastModify(new Date());
         hd.setDeleted(true);

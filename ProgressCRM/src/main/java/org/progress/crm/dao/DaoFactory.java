@@ -1,5 +1,7 @@
 package org.progress.crm.dao;
 
+import org.progress.crm.logic.WorkersInGroups;
+
 public class DaoFactory {
 
     public static WorkersDao getWorkersDao() {
@@ -56,5 +58,13 @@ public class DaoFactory {
 
     public static AclDao getAclDao() {
         return new AclDao();
+    }
+
+    public static GroupsDao getGroupsDao() {
+        return new GroupsDao();
+    }
+
+    public static WorkersInGroupsDao getWorkersInGroupsDao() {
+        return new WorkersInGroupsDao();
     }
 }
