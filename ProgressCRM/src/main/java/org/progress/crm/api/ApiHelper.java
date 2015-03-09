@@ -29,9 +29,14 @@ public class ApiHelper {
         return Response.ok(text).build();
     }
 
+    public static Response getResponse(Object f) {
+        Response.ResponseBuilder response = Response.ok((Object) f);
+        response.header("Content-Disposition", "attachment; filename=\"" + ((File) f).getName() + "\"");
+        return response.build();
+    }
+
     public static Response getResponse(File f) {
-        Response.ResponseBuilder response = Response.ok((File) f);
-        response.header("Content-Disposition", "attachment; filename=\"" + f.getName() + "\"");
+        Response.ResponseBuilder response = Response.ok((Object) f);
         return response.build();
     }
 
