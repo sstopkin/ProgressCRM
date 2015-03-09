@@ -21,6 +21,9 @@ function getApartamentViewPage(apartamentId) {
                         + array.houseNumber + " "
                         + array.buildingNumber + " - "
                         + array.roomNumber);
+                if (array.filespaceUUID != '') {
+                    initGallery(array.filespaceUUID);
+                }
                 content += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-info pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
                 if (permissions == "3") {
                     content += "<a href=\"#apartaments/edit/" + array.id + "\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pencil\"></span>Редактировать</a>";
@@ -297,6 +300,107 @@ function getApartamentViewPage(apartamentId) {
             addPlannerTaskDialog(array.ApartamentUUID);
         });
     });
+}
+
+function initGallery(filespaceUUID) {
+    var array;
+    $.when($.ajax({
+        type: "POST",
+        url: "api/fm/getfilelist",
+        data: ({
+            path: filespaceUUID + '/gallery'
+        }),
+        success: function (data) {
+            array = JSON.parse(data);
+            console.log(array);
+        },
+        error: function (data) {
+            showDanger(data.responseText);
+        }
+    })).then(function () {
+        var str = "";
+        str += '<div id="apartamentsViewGallery" class="carousel slide">';
+        str += '<div class="carousel-inner">';
+        var active = 'false';
+        array.forEach(function (entry) {
+
+            str += '<div ';
+            if (active == 'false') {
+                str += 'class="active item">';
+                active = true;
+            } else {
+                str += 'class="item">';
+            }
+            str += '<img src="' + window.location.origin + '/api/fm/getimage/' + entry.path + '">';
+            str += '</div>';
+        });
+
+
+
+        str += '</div>';
+        str += '<a class="carousel-control left" href="#apartamentsViewGallery" data-slide="prev">&lsaquo;</a>';
+        str += '<a class="carousel-control right" href="#apartamentsViewGallery" data-slide="next">&rsaquo;</a>';
+
+//        str += '<ol class="carousel-linked-nav pagination" style="margin: 0 auto;">';
+//        var active = 'false';
+//        var pos = 1;
+//        array.forEach(function (entry) {
+//            str += '<li class="';
+//            if (active == 'false') {
+//                str += ' active">';
+//                active = true;
+//            } else {
+//                str += '">';
+//            }
+//            str += '<a href="#' + pos + '">1</a></li>'
+//            pos++;
+//        });
+//        str += '</ol>';
+        $("#apartamentsPhoto").html(str);
+
+
+        $('#apartamentsViewGallery').carousel({
+            interval: 3000
+        });
+
+        /* SLIDE ON CLICK */
+
+        $('.carousel-linked-nav > li > a').click(function () {
+
+            // grab href, remove pound sign, convert to number
+            var item = Number($(this).attr('href').substring(1));
+
+            // slide to number -1 (account for zero indexing)
+            $('#apartamentsViewGallery').carousel(item - 1);
+
+            // remove current active class
+            $('.carousel-linked-nav .active').removeClass('active');
+
+            // add active class to just clicked on item
+            $(this).parent().addClass('active');
+
+            // don't follow the link
+            return false;
+        });
+
+        /* AUTOPLAY NAV HIGHLIGHT */
+
+// bind 'slid' function
+//        $('#apartamentsViewGallery').on('slid', function () {
+//        $('#apartamentsViewGallery').on('slide.bs.carousel', function (e) {
+//
+//            // remove active class
+//            $('.carousel-linked-nav .active').removeClass('active');
+//
+//            // get index of currently active item
+//            var idx = $('#apartamentsViewGallery .item.active').index();
+//            console.log(idx)
+//            // select currently active item and add active class
+//            $('.carousel-linked-nav li:eq(' + idx + ')').addClass('active');
+//
+//        });
+    });
+
 }
 
 function getFileManagerPage(filespaceUUID, ApartamentUUID) {

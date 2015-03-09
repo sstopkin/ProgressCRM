@@ -16,11 +16,28 @@
                 <div class="tab-pane active" id="tab1">
                     <div class="col-md-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Карта</div>
-                            <div id="mapApartamentsToggleButton">
-                                <input class="btn btn-info" type="button" value="Показать карту" id="toggle"/>
+                            <div class="panel-heading">Медиа</div>
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active"><a href="#subtab1" data-toggle="tab">Фото</a></li>
+                                <li class=""><a href="#subtab2" data-toggle="tab">Карта</a></li>
+                            </ul>
+                            <div class="tabbable">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="subtab1">
+                                        <div class="panel panel-default">
+                                            <div id="apartamentsPhoto"></div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="subtab2">
+                                        <div class="panel panel-default">
+                                            <div id="mapApartamentsToggleButton">
+                                                <input class="btn btn-info" type="button" value="Показать карту" id="toggle"/>
+                                            </div>
+                                            <div id="mapApartamentsView" style="width: 450px; height: 450px"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="mapApartamentsView" style="width: 450px; height: 450px"></div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">Звонки</div>

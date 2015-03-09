@@ -53,7 +53,14 @@ public class FileManagerApi {
     @GET
     @Path("getfile/{path:.*}")
     @Produces("application/force-download")
-    public Response getPriceByApartamentsId(@PathParam("path") String path) {
+    public Response getFile(@PathParam("path") String path) {
+        File f = fileManagerController.getFileByPath(path);
+        return ApiHelper.getResponse((Object) f);
+    }
+
+    @GET
+    @Path("getimage/{path:.*}")
+    public Response getImageFile(@PathParam("path") String path) {
         File f = fileManagerController.getFileByPath(path);
         return ApiHelper.getResponse(f);
     }

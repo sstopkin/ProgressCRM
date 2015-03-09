@@ -28,7 +28,9 @@ public class FilespacesController {
             aparts.setFilespaceUUID(fs.getFilespacesUUID());
             session.update(aparts);
             File myPath = new File(Constants.SETTINGS.BASEPATH + aparts.getFilespaceUUID());
-            myPath.mkdir();
+            myPath.mkdirs();
+            myPath = new File(Constants.SETTINGS.BASEPATH + aparts.getFilespaceUUID() + "/gallery");
+            myPath.mkdirs();
             ret = myPath.toString().replace(Constants.SETTINGS.BASEPATH, "");
         }
         return ret;
