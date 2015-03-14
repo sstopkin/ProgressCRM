@@ -1,0 +1,53 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 18.06.2014, 18:08:03
+    Author     : sstopkin
+*/
+
+/* Base styles (regardless of theme) */
+.bs-callout {
+margin: 20px 0;
+padding: 15px 30px 15px 15px;
+border-left: 5px solid #eee;
+}
+.bs-callout h4 {
+margin-top: 0;
+}
+.bs-callout p:last-child {
+margin-bottom: 0;
+}
+.bs-callout code,
+.bs-callout .highlight {
+background-color: #fff;
+}
+
+/* Themes for different contexts */
+.bs-callout-danger {
+background-color: #fcf2f2;
+border-color: #d9534f;
+}
+.bs-callout-warning {
+background-color: #fefbed;
+border-color: #f0ad4e;
+}
+.bs-callout-info {
+background-color: #f0f7fd;
+border-color: #5bc0de;
+}
+
+.bs-callout-danger h4 {
+color: #B94A48;
+}
+
+.bs-callout-warning h4 {
+color: #C09853;
+}
+
+.bs-callout-info h4 {
+color: #3A87AD;
+}
+
