@@ -8,6 +8,9 @@ function getApartamentsListPage(status, statusText) {
         if ((permissions === "3") || (permissions === "2")) {
             $("#addApartamentBtn").css("display", "block");
             $("#genApartamentsPriceBtn").css("display", "block");
+            $("#genApartamentsPriceBtn").click(function () {
+                window.location = '/api/report/getprice?status=' + status;
+            });
         } else {
             $("#addApartamentBtn").css("display", "none");
             $("#genApartamentsPriceBtn").css("display", "none");
@@ -15,9 +18,6 @@ function getApartamentsListPage(status, statusText) {
         $("#mainContainer").html("<div id=\"mainSearchContainer\" class=\"container\"></div>" + data);
 //        initSearchForm('apartaments');
         $("#apartamentsListHeaderText").html(statusText);
-        $("#genApartamentsPriceBtn").click(function () {
-            window.location = '/api/report/getprice?status=' + status;
-        });
         $.ajax({
             type: "GET",
             url: "api/apartament/getallapartament?status=" + status,

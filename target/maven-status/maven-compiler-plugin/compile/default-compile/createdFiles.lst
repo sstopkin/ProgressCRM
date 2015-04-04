@@ -10,6 +10,7 @@ org/progress/crm/dao/ReportGeneratorDao.class
 org/progress/crm/logic/Workers.class
 org/progress/crm/dao/CallsDao.class
 org/progress/crm/api/AuthApi.class
+org/progress/crm/api/ReportGeneratorAPI$3.class
 org/progress/crm/api/AdminApi$2.class
 org/progress/crm/api/AuthApi$2.class
 org/progress/crm/api/CustomersApi$5.class
@@ -36,6 +37,7 @@ org/progress/crm/api/AdminApi$1.class
 org/progress/crm/logic/News.class
 org/progress/crm/logic/Calls.class
 org/progress/crm/api/PlannerApi$2.class
+org/progress/crm/api/ReportGeneratorAPI$1.class
 org/progress/crm/controllers/SearchController.class
 org/progress/crm/controllers/WorkersController.class
 org/progress/crm/api/PlannerApi$1.class
@@ -47,6 +49,7 @@ org/progress/crm/api/ApiHelper$1.class
 org/progress/crm/controllers/AclController$IdComparator.class
 org/progress/crm/logic/Constants$GROUPS.class
 org/progress/crm/logic/DbFields$WORKERS.class
+org/progress/crm/util/TransactionService.class
 org/progress/crm/dao/DaoFactory.class
 org/progress/crm/dao/SettingsDao.class
 org/progress/crm/api/GroupsApi$1.class
@@ -135,6 +138,7 @@ org/progress/crm/api/AclApi$4.class
 org/progress/crm/api/AclApi$2.class
 org/progress/crm/util/HibernateUtil.class
 org/progress/crm/exceptions/BadFileFormatException.class
+org/progress/crm/api/ReportGeneratorAPI.class
 org/progress/crm/api/CustomersApi$3.class
 org/progress/crm/exceptions/CustomException.class
 org/progress/crm/logic/Comments.class
@@ -176,6 +180,7 @@ org/progress/crm/api/CustomersApi$6.class
 org/progress/crm/logic/DbFields$ACCESS_TYPES.class
 org/progress/crm/controllers/CustomersController.class
 org/progress/crm/api/ApartamentsAPI$2.class
+org/progress/crm/api/ReportGeneratorAPI$2.class
 org/progress/crm/api/CallsApi.class
 org/progress/crm/api/FilespacesApi.class
 org/progress/crm/controllers/FileManagerController.class
