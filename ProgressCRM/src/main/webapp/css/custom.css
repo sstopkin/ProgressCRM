@@ -1,0 +1,32 @@
+/* 
+    Created on : Dec 10, 2014, 1:14:56 AM
+    Author     : best
+*/
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td
+{
+    padding: 2px;
+}
+
+.clock {
+    padding: 10px;
+}
+
+.clock #date
+{
+    font-size:12px;
+    text-transform:uppercase;
+    margin:3px 0 0 -1px;
+    text-align:center;
+    color:#428bca;
+}
+
+.clock #time
+{
+    font-size:35px;
+    line-height:110%;
+    color:#428bca;
+    margin:0 0 2px -3px;
+    text-align:center;
+    letter-spacing:-3px
+}

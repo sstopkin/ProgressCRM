@@ -1,0 +1,26 @@
+<div id="mainFileManagerContainer">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <div class="container" id="filemanager">
+                <div class="btn-toolbar" role="toolbar" id="buttons">
+                    <div class="btn-group" id="navigation">
+                        <button type="button" class="btn btn-default" id="home" onclick="getHomeFolder()"><span class="glyphicon glyphicon-home" title="Корневая директория"></span></button>
+                        <button type="button" class="btn btn-default" id="up" onclick="getUpFolder()"><span class="glyphicon glyphicon-arrow-up" title="Вверх"></span></button>
+                        <button type="button" class="btn btn-default" id="reload" onclick="refreshFileList()"><span class="glyphicon glyphicon-refresh" title="Обновить"></span></button>
+                    </div>
+                    <div class="btn-group" id="actions">
+                        <button type="button" class="btn btn-default" id="mkDir" onclick="mkDir()"><span class="glyphicon glyphicon-folder-close" title="Создать директорию"></span></button>
+                        <button type="button" class="btn btn-default" id="uploadFile" onclick="uploadFile()"><span class="glyphicon glyphicon-cloud-upload" title="Загрузить на сервер"></span></button>
+                    </div>
+                    <div class="btn-group" id="actions2">
+                        <button type="button" class="btn btn-default" id="remove"><span class="glyphicon glyphicon-trash" title="Удалить!"></span></button>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mainFileManagerFullPathLabel"></div>
+    <!-- Table -->
+    <div id="mainFileManagerFileList"></div>
+</div>
