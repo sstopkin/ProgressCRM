@@ -27,6 +27,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "<input onclick=\"window.location = '/api/report/getapartamentsreport/" + array.id + "';\" type=\"button\" class=\"btn btn-info pull-right\" id=\"addApartamentBtn\" value=\"Карточка\" />";
                 content += "<a href=\"#apartaments/edit/" + array.id + "\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-pencil\"></span>Редактировать</a>";
                 content += "<button type=\"button\" onclick=\"confirmActionDelete('apartamentsDeleteById(" + array.id + ")');\" class=\"btn btn-danger\"><span class=\"glyphicon glyphicon-remove\"></span>Удалить</button>";
+                content += '<p class="lead">Основная информация</p>';
                 content += "<p>";
                 content += "ID = " + array.id;
                 content += "</p>";
@@ -75,6 +76,7 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "Цена: " + array.price;
                 content += "</p>";
+                content += '<p class="lead">Дополнительная информация</p>';
                 if (array.MethodOfPurchase_Mortgage) {
                     content += "<p>";
                     content += "Ипотека";
@@ -194,8 +196,9 @@ function getApartamentViewPage(apartamentId) {
                 content += "<p>";
                 content += "Площадь жилая: " + array.sizeLiving;
                 content += "</p>";
+                content += '<p class="lead">Описание: </p>';
                 content += "<p>";
-                content += "Описание: " + array.description;
+                content += array.description;
                 content += "</p>";
             },
             error: function (data) {
@@ -211,7 +214,7 @@ function getApartamentViewPage(apartamentId) {
                 success: function (data) {
                     var array = JSON.parse(data);
                     content += "<p>";
-                    content += "<b>Информация о владельце: </b>"; //array.clientDescription
+                    content += '<p class="lead">Информация о владельце: </p>';
                     content += "</p>";
                     content += array.customersFname + " ";
                     content += array.customersLname + " ";

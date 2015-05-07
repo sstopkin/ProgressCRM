@@ -16,7 +16,7 @@ function getNews() {
             for (var it = 0; it < workersList.length; ++it) {
                 var a = workersList[it];
                 if (entry.idWorker == a[0]) {
-                    str += "<p><i>" + a[3] + " " + a[1] + "</i></p>";
+                    str += '<p class="pull-right"><i>' + a[3] + ' ' + a[1] + '</i></p>';
                 }
             }
             str += "</div>";
