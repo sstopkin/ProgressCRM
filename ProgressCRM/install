@@ -1,4 +1,0 @@
-devel
-
-cp resources/tahoma.ttf /var/progresscrm/tahoma.ttf
-chmod 755 -R /var/progresscrm/
