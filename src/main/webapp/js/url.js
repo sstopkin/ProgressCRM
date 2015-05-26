@@ -47,6 +47,7 @@ function parseUrl(str) {
     }
     delete uri.source;
 //    ##################
+    $(document).scrollTop(0, 0);
     var pathCustomers = "customers";
     var pathHelpDesk = "helpdesk";
     var pathProfile = "profile";
